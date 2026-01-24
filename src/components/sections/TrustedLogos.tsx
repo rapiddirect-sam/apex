@@ -3,40 +3,47 @@
 import { Container } from "@/components/ui/Container";
 
 const logos = [
-  { name: "Microsoft", width: 120 },
-  { name: "Emerson", width: 100 },
-  { name: "Nikon", width: 80 },
-  { name: "Toyota", width: 100 },
-  { name: "Festo", width: 80 },
+  { name: "Microsoft" },
+  { name: "Emerson" },
+  { name: "Nikon" },
+  { name: "Toyota" },
+  { name: "Festo" },
+  { name: "Siemens" },
+  { name: "Bosch" },
 ];
 
 export function TrustedLogos() {
   return (
-    <section className="py-12 bg-apex-charcoal border-y border-apex-border/10">
-      <Container>
-        <p className="text-center text-apex-text-secondary text-sm uppercase tracking-widest mb-8">
-          Trusted by Industry Leaders
-        </p>
-        <div className="relative overflow-hidden">
-          {/* Gradient overlays */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-apex-charcoal to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-apex-charcoal to-transparent z-10" />
+    <section className="py-16 bg-apex-deep border-y border-apex-iron/20 relative overflow-hidden">
+      {/* Subtle background gradient */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_100%_at_50%_100%,rgba(212,160,58,0.03),transparent_50%)]" />
 
-          {/* Scrolling logos */}
-          <div className="flex animate-[logo-scroll_30s_linear_infinite]">
-            {[...logos, ...logos, ...logos].map((logo, index) => (
-              <div
-                key={`${logo.name}-${index}`}
-                className="flex-shrink-0 mx-12 flex items-center justify-center h-12 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-              >
-                <span
-                  className="font-display text-2xl text-apex-white tracking-wider"
-                  style={{ minWidth: logo.width }}
+      <Container className="relative">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+          {/* Label */}
+          <p className="text-technical text-gray-600 shrink-0">
+            Trusted by Industry Leaders
+          </p>
+
+          {/* Logos scroll container */}
+          <div className="relative flex-1 overflow-hidden">
+            {/* Gradient overlays */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-apex-deep to-transparent z-10" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-apex-deep to-transparent z-10" />
+
+            {/* Scrolling logos */}
+            <div className="flex animate-[logo-scroll_40s_linear_infinite]">
+              {[...logos, ...logos, ...logos, ...logos].map((logo, index) => (
+                <div
+                  key={`${logo.name}-${index}`}
+                  className="flex-shrink-0 mx-8 flex items-center justify-center h-8"
                 >
-                  {logo.name.toUpperCase()}
-                </span>
-              </div>
-            ))}
+                  <span className="text-display text-lg text-gray-600 hover:text-gold-primary transition-colors duration-300 cursor-default whitespace-nowrap">
+                    {logo.name}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </Container>

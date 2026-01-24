@@ -45,8 +45,8 @@ const services = [
 
 export function Home3Services() {
   return (
-    <section id="services" className="py-20 bg-gradient-to-b from-[#111111] to-[#0A0A0A]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="services" className="py-20 bg-[#2E2C2B]">
+      <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -54,8 +54,8 @@ export function Home3Services() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Our <span className="text-[#D4A03A]" style={{ fontFamily: 'var(--font-playfair)', fontStyle: 'italic' }}>Services</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Our<span className="bg-gradient-to-r from-[#D09947] to-[#EEC569] bg-clip-text text-transparent font-bold"> Services</span>
           </h2>
           <p className="text-white text-lg">
             Everything You Need to Move from Design to Production
@@ -71,7 +71,7 @@ export function Home3Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group bg-[#141414] rounded-xl overflow-hidden border border-transparent hover:border-[#D4A03A]/70 transition-colors duration-300"
+              className="group bg-[#4A4A48] rounded-xl overflow-hidden border border-[#C5C6C9]/20 hover:border-[#D09947] hover:shadow-[0_0_20px_rgba(249,235,188,0.15)] transition-all duration-300"
             >
               {/* Image */}
               <div className="relative h-44 overflow-hidden">
@@ -88,7 +88,7 @@ export function Home3Services() {
                 <h3 className="text-lg font-semibold text-white mb-2">
                   {service.title}
                 </h3>
-                <p className="text-[#888888] text-sm leading-relaxed mb-4">
+                <p className="text-[#C5C6C9] text-sm leading-[1.6] mb-4">
                   {service.description}
                 </p>
 
@@ -97,7 +97,7 @@ export function Home3Services() {
                   {service.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 text-xs text-[#9A9A8A] border border-[#3D3D32] rounded-full bg-transparent"
+                      className="px-3 py-1 text-[12px] text-[#C5C6C9] border border-[#7F4D0F] rounded bg-transparent"
                     >
                       {tag}
                     </span>
@@ -127,7 +127,7 @@ export function Home3Services() {
           <p className="text-[#888888] text-sm mb-4">
             Need a custom solution?
           </p>
-          <button className="bg-gradient-to-r from-[#D4A03A] to-[#C49432] hover:from-[#E4B04A] hover:to-[#D4A442] text-[#0A0A0A] font-semibold py-3.5 px-10 rounded-lg text-base transition-all duration-300">
+          <button className="bg-gradient-to-r from-[#D09947] to-[#EEC569] hover:from-[#EEC569] hover:to-[#D09947] text-[#0A0A0A] font-semibold py-3.5 px-10 rounded-lg text-base transition-all duration-300 shadow-[0_4px_15px_rgba(208,153,71,0.3)]">
             Get Instant Quote
           </button>
         </motion.div>

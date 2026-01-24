@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 const industries = [
   {
@@ -36,32 +36,61 @@ export function Home3Industries() {
   };
 
   return (
-    <section className="py-20 bg-[#0A0A0A]">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+    <section
+      className="relative overflow-hidden"
+      style={{
+        padding: "96px 0 104px",
+        background: `
+          radial-gradient(
+            70% 50% at 50% 0%,
+            rgba(249,235,188,0.08),
+            rgba(0,0,0,0) 65%
+          ),
+          #000000
+        `,
+      }}
+    >
+      <div className="max-w-[1200px] mx-auto px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Industries{" "}
-            <span
-              className="text-[#D4A03A]"
-              style={{ fontFamily: "var(--font-playfair)", fontStyle: "italic" }}
-            >
-              We Serve
-            </span>
+          <h2
+            className="text-white"
+            style={{
+              fontSize: "46px",
+              fontWeight: 700,
+              letterSpacing: "-0.015em",
+            }}
+          >
+            Industries <span style={{ color: "#D09947" }}>We Serve</span>
           </h2>
-          <p className="text-white text-base md:text-lg max-w-3xl mx-auto">
+          <p
+            className="mx-auto"
+            style={{
+              fontSize: "18px",
+              lineHeight: 1.6,
+              color: "#7A7A7C",
+              maxWidth: "820px",
+              marginTop: "20px",
+            }}
+          >
             Supporting medium-to-large batch production across industries with strict
             performance, compliance, and delivery requirements.
           </p>
         </motion.div>
 
         {/* Industries Grid - 2x2 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div
+          className="grid grid-cols-1 md:grid-cols-2"
+          style={{
+            gap: "32px",
+            marginTop: "64px",
+          }}
+        >
           {industries.map((industry, index) => {
             const isExpanded = expandedIndex === index;
             return (
@@ -71,11 +100,18 @@ export function Home3Industries() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="relative group rounded-2xl overflow-hidden border border-white/10 cursor-pointer"
+                className="relative group cursor-pointer transition-transform duration-300 hover:-translate-y-1"
+                style={{
+                  background: "#000000",
+                  borderRadius: "18px",
+                  border: "1px solid rgba(208,153,71,0.18)",
+                  overflow: "hidden",
+                  minHeight: "300px",
+                }}
                 onClick={() => toggleExpand(index)}
               >
                 {/* Background image */}
-                <div className="relative aspect-[16/11]">
+                <div className="relative w-full h-full" style={{ minHeight: "300px" }}>
                   <Image
                     src={industry.image}
                     alt={industry.title}
@@ -83,29 +119,55 @@ export function Home3Industries() {
                     className="object-cover"
                   />
 
-                  {/* Title */}
-                  <div className="absolute top-5 left-5">
-                    <h3 className="text-xl md:text-2xl font-bold text-white">
+                  {/* Gradient overlay */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: "linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.15) 65%)",
+                    }}
+                  />
+
+                  {/* Title - bottom left */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0"
+                    style={{ padding: "24px" }}
+                  >
+                    <h3
+                      className="text-white"
+                      style={{
+                        fontSize: "22px",
+                        fontWeight: 600,
+                      }}
+                    >
                       {industry.title}
                     </h3>
                   </div>
 
-                  {/* Expand/Collapse Button */}
+                  {/* Expand/Collapse Button - engineered style */}
                   <button
-                    className="absolute top-5 right-5 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-colors"
+                    className="absolute top-5 right-5 flex items-center justify-center transition-all duration-300 group-hover:bg-[rgba(208,153,71,0.15)]"
+                    style={{
+                      width: "36px",
+                      height: "36px",
+                      borderRadius: "50%",
+                      background: "rgba(0,0,0,0.6)",
+                      border: "1px solid rgba(208,153,71,0.35)",
+                    }}
                     onClick={(e) => {
                       e.stopPropagation();
                       toggleExpand(index);
                     }}
                   >
-                    {isExpanded ? (
-                      <ChevronUp className="w-5 h-5 text-[#D4A03A]" />
-                    ) : (
-                      <ChevronDown className="w-5 h-5 text-[#D4A03A]" />
-                    )}
+                    <ChevronDown
+                      className="w-5 h-5 transition-transform duration-300"
+                      style={{
+                        color: "#D09947",
+                        transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
+                      }}
+                    />
                   </button>
 
-                  {/* Expanded Description - Frosted Glass Overlay */}
+                  {/* Expanded Description Panel */}
                   <AnimatePresence>
                     {isExpanded && (
                       <motion.div
@@ -113,13 +175,33 @@ export function Home3Industries() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute bottom-4 left-4 right-4"
+                        className="absolute bottom-0 left-0 right-0"
+                        style={{
+                          background: "rgba(0,0,0,0.75)",
+                          backdropFilter: "blur(6px)",
+                          padding: "20px 24px",
+                          borderTop: "1px solid rgba(208,153,71,0.25)",
+                        }}
                       >
-                        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4">
-                          <p className="text-white/90 text-sm leading-relaxed">
-                            {industry.description}
-                          </p>
-                        </div>
+                        <h3
+                          className="text-white mb-3"
+                          style={{
+                            fontSize: "20px",
+                            fontWeight: 600,
+                          }}
+                        >
+                          {industry.title}
+                        </h3>
+                        <p
+                          style={{
+                            fontSize: "15px",
+                            lineHeight: 1.65,
+                            color: "#C5C6C9",
+                            maxWidth: "90%",
+                          }}
+                        >
+                          {industry.description}
+                        </p>
                       </motion.div>
                     )}
                   </AnimatePresence>

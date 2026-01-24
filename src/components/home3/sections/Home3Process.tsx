@@ -14,24 +14,21 @@ const steps = [
   {
     number: "02",
     icon: FileSearch,
-    title: "Engineering",
-    subtitle: "Review & Quotation",
+    title: "Engineering Review & Quotation",
     description: "Within 24 hours, we provide a manufacturability review, process recommendations, pricing, and lead time options.",
     bullets: ["Automated Pricing", "DFM Analysis", "Material Selection"],
   },
   {
     number: "03",
     icon: Settings,
-    title: "Production",
-    subtitle: "& Quality Control",
+    title: "Production & Quality Control",
     description: "Once confirmed, we start production with controlled processes and in-process inspections to ensure every part meets specifications.",
     bullets: ["CNC Machining", "Quality Control", "Progress Updates"],
   },
   {
     number: "04",
     icon: Truck,
-    title: "Delivery",
-    subtitle: "& Ongoing Support",
+    title: "Delivery & Ongoing Support",
     description: "Parts are shipped with tracking and inspection records. Our team remains available for follow-up support and future production needs.",
     bullets: ["CMM Inspection", "Quality Certs", "Fast Shipping"],
   },
@@ -39,36 +36,60 @@ const steps = [
 
 export function Home3Process() {
   return (
-    <section className="py-20 bg-[#0A0A0A]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section
+      className="relative overflow-hidden"
+      style={{
+        padding: "112px 0 120px",
+        background: `
+          radial-gradient(
+            70% 50% at 50% 0%,
+            rgba(249,235,188,0.10),
+            rgba(0,0,0,0) 65%
+          ),
+          #000000
+        `,
+      }}
+    >
+      <div className="max-w-[1200px] mx-auto px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="text-center"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            How to Work{" "}
-            <span
-              className="text-[#D4A03A]"
-              style={{ fontFamily: "var(--font-playfair)", fontStyle: "italic" }}
-            >
-              With Apexbatch
-            </span>
+          <h2
+            className="text-white"
+            style={{
+              fontSize: "46px",
+              fontWeight: 700,
+              letterSpacing: "-0.015em",
+            }}
+          >
+            How to Work <span style={{ color: "#D09947" }}>With ApexBatch</span>
           </h2>
           <p
-            className="text-white/90 text-lg md:text-xl max-w-3xl mx-auto"
-            style={{ fontStyle: "italic" }}
+            className="mx-auto"
+            style={{
+              fontSize: "18px",
+              lineHeight: 1.6,
+              color: "#7A7A7C",
+              maxWidth: "760px",
+              marginTop: "20px",
+            }}
           >
-            A clear, guided process that takes you from design
-            <br />
-            to delivery - without unnecessary complexity.
+            A clear, guided process that takes you from design to delivery — without unnecessary complexity.
           </p>
         </motion.div>
 
         {/* Process Steps - 4 cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
+          style={{
+            gap: "32px",
+            marginTop: "72px",
+          }}
+        >
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
@@ -78,40 +99,104 @@ export function Home3Process() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="relative bg-[#1A1A1A] rounded-xl p-6 pt-8"
+                className="relative group transition-all duration-300 hover:-translate-y-1 hover:border-[#D09947]"
+                style={{
+                  background: "#4A4A48",
+                  borderRadius: "18px",
+                  border: "1px solid rgba(208,153,71,0.18)",
+                  padding: "28px 26px",
+                  paddingTop: "40px",
+                  minHeight: "380px",
+                  boxShadow: "0 12px 32px rgba(0,0,0,0.45)",
+                }}
               >
-                {/* Step Number - positioned top right, overlapping */}
-                <div className="absolute -top-4 right-4 w-12 h-12 bg-[#D4A03A] rounded-full flex items-center justify-center">
-                  <span className="text-[#0A0A0A] font-bold text-lg">{step.number}</span>
+                {/* Step Number - floating above card */}
+                <div
+                  className="absolute flex items-center justify-center"
+                  style={{
+                    top: "-22px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: "44px",
+                    height: "44px",
+                    borderRadius: "50%",
+                    background: "#D09947",
+                    boxShadow: "0 0 15px rgba(238,197,105,0.5)",
+                  }}
+                >
+                  <span
+                    style={{
+                      color: "#000000",
+                      fontWeight: 700,
+                      fontSize: "16px",
+                    }}
+                  >
+                    {step.number}
+                  </span>
                 </div>
 
-                {/* Icon in rounded square */}
-                <div className="w-14 h-14 border-2 border-[#D4A03A] rounded-xl flex items-center justify-center mb-5">
-                  <Icon className="w-6 h-6 text-[#D4A03A]" />
+                {/* Icon container */}
+                <div
+                  className="flex items-center justify-center"
+                  style={{
+                    width: "48px",
+                    height: "48px",
+                    borderRadius: "12px",
+                    background: "rgba(208,153,71,0.12)",
+                    border: "1px solid rgba(208,153,71,0.35)",
+                    marginBottom: "20px",
+                  }}
+                >
+                  <Icon className="w-6 h-6" style={{ color: "#D09947" }} />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-lg font-semibold text-white leading-tight">
+                <h3
+                  style={{
+                    fontSize: "19px",
+                    fontWeight: 600,
+                    color: "#FFFFFF",
+                    marginTop: "16px",
+                    marginBottom: "10px",
+                    lineHeight: 1.3,
+                  }}
+                >
                   {step.title}
                 </h3>
-                {step.subtitle && (
-                  <h3 className="text-lg font-semibold text-white leading-tight mb-4">
-                    {step.subtitle}
-                  </h3>
-                )}
-                {!step.subtitle && <div className="mb-4" />}
 
                 {/* Description */}
-                <p className="text-[#888888] text-sm leading-relaxed mb-5">
+                <p
+                  style={{
+                    fontSize: "15px",
+                    lineHeight: 1.65,
+                    color: "#C5C6C9",
+                    marginBottom: "20px",
+                  }}
+                >
                   {step.description}
                 </p>
 
                 {/* Bullet Points */}
-                <ul className="space-y-2">
+                <ul className="space-y-2.5">
                   {step.bullets.map((bullet) => (
-                    <li key={bullet} className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 bg-[#D4A03A] rounded-full flex-shrink-0" />
-                      <span className="text-[#777777] text-xs">{bullet}</span>
+                    <li key={bullet} className="flex items-center gap-2.5">
+                      <div
+                        className="flex-shrink-0"
+                        style={{
+                          width: "6px",
+                          height: "6px",
+                          borderRadius: "50%",
+                          background: "#D09947",
+                        }}
+                      />
+                      <span
+                        style={{
+                          fontSize: "14.5px",
+                          color: "#7A7A7C",
+                        }}
+                      >
+                        {bullet}
+                      </span>
                     </li>
                   ))}
                 </ul>

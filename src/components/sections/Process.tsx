@@ -2,115 +2,123 @@
 
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
-import { Upload, FileSearch, Settings, Truck } from "lucide-react";
 
 const steps = [
   {
     number: "01",
-    title: "Submit Your Design",
-    description: "Upload CAD files and basic requirements.",
-    icon: Upload,
-    tags: ["STEP", "IGES", "STL", "PDF", "3D Models"],
+    title: "Submit Design",
+    description: "Upload CAD files (STEP, IGES, STL) and specifications. Our system provides instant feedback on manufacturability.",
+    highlight: "30-60 min response",
   },
   {
     number: "02",
-    title: "Engineering Review & Quotation",
-    description:
-      "Within 24 hours, we provide manufacturability review and pricing.",
-    icon: FileSearch,
-    tags: ["Automated Pricing", "DFM Analysis", "Material Selection"],
+    title: "Review & Quote",
+    description: "Our engineers analyze your design, optimize for manufacturing, and provide detailed pricing with DFM recommendations.",
+    highlight: "24hr turnaround",
   },
   {
     number: "03",
-    title: "Production & Quality Control",
-    description:
-      "Once confirmed, we start production with controlled processes.",
-    icon: Settings,
-    tags: ["CNC Machining", "Quality Control", "Progress Updates"],
+    title: "Production",
+    description: "Once approved, production begins with real-time progress updates. In-process quality control every 2 hours.",
+    highlight: "Live tracking",
   },
   {
     number: "04",
-    title: "Delivery & Ongoing Support",
-    description: "Parts are shipped with tracking and inspection reports.",
-    icon: Truck,
-    tags: ["CMM Inspection", "Quality Certs", "Fast Shipping"],
+    title: "Delivery",
+    description: "Parts ship with full documentation including CMM reports, material certs, and certificates of conformance.",
+    highlight: "Global shipping",
   },
 ];
 
 export function Process() {
   return (
-    <section className="py-24 bg-apex-charcoal" id="process">
-      <Container>
+    <section className="py-32 bg-apex-deep relative overflow-hidden" id="process">
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_0%_50%,rgba(212,160,58,0.04),transparent_50%)]" />
+
+      <Container className="relative">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="max-w-2xl mb-20"
         >
-          <p className="text-gold-primary text-sm uppercase tracking-widest mb-3">
-            HOW TO WORK WITH APEXBATCH
+          <p className="text-technical text-gold-primary mb-4">
+            How It Works
           </p>
-          <h2 className="font-display text-4xl md:text-5xl text-apex-white mb-4">
-            A CLEAR, GUIDED PROCESS
+          <h2 className="text-display text-display-xl text-white mb-6">
+            A Clear Path
+            <br />
+            <span className="text-gray-500">from Design to Delivery</span>
           </h2>
-          <p className="text-apex-text-secondary text-lg max-w-2xl mx-auto">
-            That takes you from design to delivery - without unnecessary
-            complexity.
+          <p className="text-gray-400 text-lg">
+            No unnecessary complexity. Just a streamlined process that gets your parts made right, on time.
           </p>
         </motion.div>
 
-        {/* Process Steps */}
+        {/* Process Steps - Horizontal timeline on desktop */}
         <div className="relative">
-          {/* Connection Line - Desktop */}
-          <div className="hidden lg:block absolute top-24 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-gold-primary/20 via-gold-primary to-gold-primary/20" />
+          {/* Connection line - Desktop */}
+          <div className="hidden lg:block absolute top-[60px] left-0 right-0 h-px">
+            <div className="relative w-full h-full">
+              <div className="absolute inset-0 bg-apex-iron/30" />
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 bg-gradient-to-r from-gold-primary via-gold-primary to-gold-dark origin-left"
+              />
+            </div>
+          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step, index) => {
-              const Icon = step.icon;
-              return (
-                <motion.div
-                  key={step.number}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.15 }}
-                  className="relative"
-                >
-                  {/* Step Number Circle */}
-                  <div className="relative z-10 w-16 h-16 mx-auto mb-6 rounded-full bg-apex-gray border-2 border-gold-primary flex items-center justify-center">
-                    <Icon className="w-7 h-7 text-gold-primary" />
-                  </div>
-
-                  {/* Step Number Badge */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 bg-gold-primary text-apex-black text-xs font-bold px-2 py-0.5 rounded">
-                    STEP {step.number}
-                  </div>
-
-                  {/* Content Card */}
-                  <div className="bg-apex-gray/50 rounded-xl p-6 border border-apex-border/10 text-center">
-                    <h3 className="font-display text-xl text-apex-white mb-3">
-                      {step.title.toUpperCase()}
-                    </h3>
-                    <p className="text-apex-text-secondary text-sm mb-4">
-                      {step.description}
-                    </p>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap justify-center gap-2">
-                      {step.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2 py-1 text-xs bg-apex-charcoal text-gold-primary/80 rounded border border-gold-dark/30"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+          <div className="grid lg:grid-cols-4 gap-8 lg:gap-4">
+            {steps.map((step, index) => (
+              <motion.div
+                key={step.number}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.15 }}
+                className="relative"
+              >
+                {/* Step indicator */}
+                <div className="relative z-10 mb-8">
+                  <div className="w-[120px] h-[120px] relative">
+                    {/* Outer ring */}
+                    <div className="absolute inset-0 border border-apex-iron/30 rotate-45" />
+                    {/* Inner content */}
+                    <div className="absolute inset-2 bg-apex-deep flex items-center justify-center rotate-45">
+                      <span className="text-display text-3xl text-gold-primary -rotate-45">
+                        {step.number}
+                      </span>
                     </div>
+                    {/* Highlight dot */}
+                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-signal rounded-full" />
                   </div>
-                </motion.div>
-              );
-            })}
+                </div>
+
+                {/* Content */}
+                <div className="lg:pr-8">
+                  <h3 className="text-display text-xl text-white mb-3">
+                    {step.title}
+                  </h3>
+                  <p className="text-gray-500 text-sm leading-relaxed mb-4">
+                    {step.description}
+                  </p>
+                  {/* Highlight badge */}
+                  <span className="inline-block px-3 py-1 text-xs text-gold-primary border border-gold-dark/30 bg-gold-dark/10">
+                    {step.highlight}
+                  </span>
+                </div>
+
+                {/* Mobile connector line */}
+                {index < steps.length - 1 && (
+                  <div className="lg:hidden absolute left-[60px] top-[120px] bottom-0 w-px bg-gradient-to-b from-gold-primary/50 to-transparent h-8" />
+                )}
+              </motion.div>
+            ))}
           </div>
         </div>
       </Container>

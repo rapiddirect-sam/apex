@@ -38,10 +38,10 @@ function StatBox({ value, label, delay }: { value: string; label: string; delay:
       <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#D4A03A]" />
 
       <div className="text-center">
-        <div className="text-3xl md:text-4xl font-bold text-white mb-1">
+        <div className="text-[32px] md:text-[40px] font-bold text-[#D4A03A] mb-1">
           {value}
         </div>
-        <div className="text-xs text-[#D4A03A]">
+        <div className="text-[14px] text-[#7A7A7C]">
           {label}
         </div>
       </div>
@@ -61,7 +61,7 @@ export function Home3Facilities() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-[#0A0A0A] to-[#111111]">
+    <section className="py-20 bg-[#000000]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -79,8 +79,8 @@ export function Home3Facilities() {
             <div className="w-12 h-px bg-[#D4A03A]/50" />
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
-            Our <span className="text-[#D4A03A]" style={{ fontFamily: 'var(--font-playfair)', fontStyle: 'italic' }}>Facilities</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white">
+            Our<span className="bg-gradient-to-r from-[#D09947] to-[#EEC569] bg-clip-text text-transparent font-bold"> Facilities</span>
           </h2>
         </motion.div>
 
@@ -93,17 +93,17 @@ export function Home3Facilities() {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-[#1A1A1A] rounded-lg p-6 mb-6"
+              className="bg-[#4A4A48] rounded-lg p-6 mb-6"
             >
               <h3 className="text-xl font-semibold text-[#D4A03A] mb-4">
                 Advanced Manufacturing Hub
               </h3>
-              <p className="text-[#999999] text-sm leading-relaxed mb-2">
+              <p className="text-[#C5C6C9] text-sm leading-relaxed mb-2">
                 Located in Shenzhen&apos;s advanced manufacturing district, our 50,000 m²
                 vertically integrated facility operates 8 specialized production shops and is
                 equipped with 300+ advanced machines.
               </p>
-              <p className="text-[#999999] text-sm leading-relaxed">
+              <p className="text-[#C5C6C9] text-sm leading-relaxed">
                 We support end-to-end manufacturing in one location, including CNC
                 machining, precision injection molding, sheet metal fabrication, 3D printing,
                 as well as in-house surface treatment and quality inspection lines.

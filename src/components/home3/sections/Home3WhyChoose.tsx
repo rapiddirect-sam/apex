@@ -44,48 +44,101 @@ export function Home3WhyChoose() {
   };
 
   return (
-    <section id="capabilities" className="py-20 bg-[#0A0A0A]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section
+      id="capabilities"
+      className="relative overflow-hidden"
+      style={{
+        padding: "112px 0 120px",
+        background: `
+          radial-gradient(
+            60% 50% at 50% 0%,
+            rgba(249,235,188,0.08),
+            rgba(0,0,0,0) 65%
+          ),
+          #000000
+        `,
+      }}
+    >
+      <div className="max-w-[1200px] mx-auto px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center"
+          style={{ marginBottom: "64px" }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
-            Why Engineers{" "}
-            <span
-              className="text-[#D4A03A]"
-              style={{ fontFamily: "var(--font-playfair)", fontStyle: "italic" }}
-            >
-              Choose ApexBatch
-            </span>
+          <h2
+            className="text-white"
+            style={{
+              fontSize: "46px",
+              fontWeight: 700,
+              letterSpacing: "-0.015em",
+            }}
+          >
+            Why Engineers <span style={{ color: "#D09947" }}>Choose ApexBatch</span>
           </h2>
         </motion.div>
 
         {/* Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-8 items-start mb-12">
-          {/* Left - Image with corner brackets */}
+        <div className="grid lg:grid-cols-2 gap-10 items-start">
+          {/* Left - Image Carousel with industrial framing */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="relative"
           >
-            {/* Corner brackets container */}
-            <div className="relative p-4">
-              {/* Top-left corner bracket */}
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#D4A03A]" />
-              {/* Top-right corner bracket */}
-              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#D4A03A]" />
-              {/* Bottom-left corner bracket */}
-              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-[#D4A03A]" />
-              {/* Bottom-right corner bracket */}
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#D4A03A]" />
+            {/* Main image container with industrial framing */}
+            <div
+              className="relative"
+              style={{
+                borderRadius: "16px",
+                border: "2px solid #7F4D0F",
+                boxShadow: "inset 0 0 0 1px rgba(208,153,71,0.15), 0 24px 48px rgba(0,0,0,0.6)",
+                overflow: "hidden",
+              }}
+            >
+              {/* Corner brackets - precision tooling indicators */}
+              <div
+                className="absolute top-3 left-3 z-10"
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  borderTop: "2px solid #7F4D0F",
+                  borderLeft: "2px solid #7F4D0F",
+                }}
+              />
+              <div
+                className="absolute top-3 right-3 z-10"
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  borderTop: "2px solid #7F4D0F",
+                  borderRight: "2px solid #7F4D0F",
+                }}
+              />
+              <div
+                className="absolute bottom-3 left-3 z-10"
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  borderBottom: "2px solid #7F4D0F",
+                  borderLeft: "2px solid #7F4D0F",
+                }}
+              />
+              <div
+                className="absolute bottom-3 right-3 z-10"
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  borderBottom: "2px solid #7F4D0F",
+                  borderRight: "2px solid #7F4D0F",
+                }}
+              />
 
               {/* Image */}
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-[4/3]">
                 <Image
                   src={slides[currentSlide].image}
                   alt="Manufacturing facility"
@@ -93,87 +146,134 @@ export function Home3WhyChoose() {
                   className="object-cover transition-opacity duration-500"
                 />
 
-                {/* Navigation Arrows */}
+                {/* Navigation Arrows - Industrial rectangular style */}
                 <button
                   onClick={prevSlide}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 border-2 border-[#D4A03A] bg-black/50 hover:bg-black/70 flex items-center justify-center text-[#D4A03A] transition-colors"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300 hover:bg-[rgba(208,153,71,0.15)]"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "8px",
+                    background: "rgba(0,0,0,0.75)",
+                    border: "1px solid rgba(208,153,71,0.4)",
+                  }}
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeft className="w-5 h-5" style={{ color: "#D09947" }} />
                 </button>
                 <button
                   onClick={nextSlide}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 border-2 border-[#D4A03A] bg-black/50 hover:bg-black/70 flex items-center justify-center text-[#D4A03A] transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300 hover:bg-[rgba(208,153,71,0.15)]"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "8px",
+                    background: "rgba(0,0,0,0.75)",
+                    border: "1px solid rgba(208,153,71,0.4)",
+                  }}
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <ChevronRight className="w-5 h-5" style={{ color: "#D09947" }} />
                 </button>
               </div>
             </div>
 
             {/* Dot Indicators */}
-            <div className="flex justify-center gap-2 mt-4">
+            <div className="flex justify-center gap-2 mt-5">
               {slides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`h-1 rounded-full transition-all ${
-                    index === currentSlide
-                      ? "w-6 bg-white"
-                      : "w-3 bg-[#444444] hover:bg-[#666666]"
-                  }`}
+                  className="h-1 rounded-full transition-all"
+                  style={{
+                    width: index === currentSlide ? "24px" : "12px",
+                    background: index === currentSlide ? "#D09947" : "#444444",
+                  }}
                 />
               ))}
             </div>
           </motion.div>
 
-          {/* Right - Content Card and Thumbnails */}
+          {/* Right - Content Panel (Spec Sheet Style) */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            {/* Content Card with gold top border */}
-            <div className="bg-[#141414] rounded-lg overflow-hidden mb-6">
-              {/* Gold top line */}
-              <div className="h-0.5 bg-gradient-to-r from-[#D4A03A] via-[#D4A03A] to-transparent" />
+            {/* Content Panel with glass effect */}
+            <div
+              className="mb-6"
+              style={{
+                background: "linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
+                borderRadius: "16px",
+                border: "1px solid rgba(208,153,71,0.2)",
+                padding: "32px",
+              }}
+            >
+              {/* Section Number - structural anchor */}
+              <div
+                style={{
+                  fontSize: "48px",
+                  fontWeight: 700,
+                  color: "rgba(208,153,71,0.35)",
+                  lineHeight: 1,
+                  marginBottom: "8px",
+                }}
+              >
+                {slides[currentSlide].number}
+              </div>
 
-              <div className="p-6">
-                {/* Step Number */}
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-4xl font-bold text-[#D4A03A]/30">
-                    {slides[currentSlide].number}
-                  </span>
-                  <div className="flex-1 h-px bg-[#333333]" />
+              {/* Title */}
+              <h3
+                style={{
+                  fontSize: "24px",
+                  fontWeight: 600,
+                  color: "#D09947",
+                  marginBottom: "16px",
+                }}
+              >
+                {slides[currentSlide].title}
+              </h3>
+
+              {/* Checkbox with description */}
+              <div className="flex items-start gap-4">
+                <div
+                  className="flex items-center justify-center flex-shrink-0 mt-1"
+                  style={{
+                    width: "24px",
+                    height: "24px",
+                    border: "2px solid #D09947",
+                    background: "rgba(208,153,71,0.1)",
+                  }}
+                >
+                  <Check className="w-4 h-4" style={{ color: "#D09947" }} />
                 </div>
-
-                {/* Title */}
-                <h3 className="text-xl md:text-2xl font-bold text-[#D4A03A] mb-6">
-                  {slides[currentSlide].title}
-                </h3>
-
-                {/* Checkbox with description */}
-                <div className="flex items-start gap-4">
-                  <div className="w-6 h-6 border-2 border-[#D4A03A] bg-[#D4A03A]/10 flex items-center justify-center flex-shrink-0 mt-1">
-                    <Check className="w-4 h-4 text-[#D4A03A]" />
-                  </div>
-                  <p className="text-[#CCCCCC] text-base leading-relaxed">
-                    {slides[currentSlide].description}
-                  </p>
-                </div>
+                <p
+                  style={{
+                    fontSize: "15.5px",
+                    lineHeight: 1.65,
+                    color: "#C5C6C9",
+                    maxWidth: "90%",
+                  }}
+                >
+                  {slides[currentSlide].description}
+                </p>
               </div>
             </div>
 
-            {/* Thumbnail Images */}
+            {/* Thumbnail Images - Dataset reference style */}
             <div className="grid grid-cols-4 gap-3">
               {slides.map((slide, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`relative aspect-square overflow-hidden transition-all ${
-                    index === currentSlide
-                      ? "ring-2 ring-[#D4A03A]"
-                      : "opacity-70 hover:opacity-100"
-                  }`}
+                  className="relative aspect-square overflow-hidden transition-all duration-300"
+                  style={{
+                    borderRadius: "8px",
+                    border: index === currentSlide
+                      ? "1px solid #D09947"
+                      : "1px solid rgba(208,153,71,0.25)",
+                    opacity: index === currentSlide ? 1 : 0.65,
+                  }}
                 >
                   <Image
                     src={slide.image}
@@ -193,11 +293,30 @@ export function Home3WhyChoose() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center"
+          style={{ marginTop: "48px" }}
         >
-          <p className="text-white text-lg font-medium mb-4">
+          <p
+            className="mb-5"
+            style={{
+              fontSize: "18px",
+              fontWeight: 500,
+              color: "#FFFFFF",
+            }}
+          >
             Get Free engineering review before production.
           </p>
-          <button className="bg-gradient-to-r from-[#D4A03A] to-[#C49432] hover:from-[#E4B04A] hover:to-[#D4A442] text-[#0A0A0A] font-semibold py-3.5 px-10 rounded-lg text-base transition-all duration-300">
+          <button
+            className="transition-all duration-300 hover:brightness-110"
+            style={{
+              background: "#D09947",
+              color: "#000000",
+              fontWeight: 600,
+              fontSize: "16px",
+              padding: "14px 32px",
+              borderRadius: "12px",
+              boxShadow: "0 4px 15px rgba(208,153,71,0.3)",
+            }}
+          >
             Upload Your Design
           </button>
         </motion.div>

@@ -18,7 +18,7 @@ const stats = [
 
 export function Home3Hero() {
   return (
-    <section className="relative min-h-[90vh] bg-[#0A0A0A] pt-16">
+    <section className="relative min-h-[90vh] bg-[#000000] pt-16">
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -38,15 +38,14 @@ export function Home3Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-[40px] md:text-[52px] lg:text-[56px] font-bold text-white leading-[1.1] tracking-tight">
+            <h1 className="text-[56px] md:text-[68px] lg:text-[80px] font-extrabold text-white leading-[1.05] tracking-[-0.02em]">
               Precision
             </h1>
-            <h1 className="text-[40px] md:text-[52px] lg:text-[56px] font-bold text-white leading-[1.1] tracking-tight">
+            <h1 className="text-[56px] md:text-[68px] lg:text-[80px] font-extrabold text-white leading-[1.05] tracking-[-0.02em]">
               Manufacturing,
             </h1>
             <h1
-              className="text-[40px] md:text-[52px] lg:text-[56px] font-normal text-[#D4A03A] leading-[1.1] tracking-tight mb-6"
-              style={{ fontFamily: 'var(--font-playfair)', fontStyle: 'italic' }}
+              className="text-[56px] md:text-[68px] lg:text-[80px] font-extrabold leading-[1.05] tracking-[-0.02em] mb-6 bg-gradient-to-r from-[#D09947] to-[#EEC569] bg-clip-text text-transparent"
             >
               Intelligent Living
             </h1>
@@ -122,7 +121,7 @@ export function Home3Hero() {
               </ul>
 
               {/* CTA Button */}
-              <button className="w-full bg-[#D4A03A] hover:bg-[#C4903A] text-[#0A0A0A] font-semibold py-4 px-6 rounded-full text-base transition-colors mb-6">
+              <button className="w-full bg-gradient-to-r from-[#D09947] to-[#EEC569] hover:from-[#EEC569] hover:to-[#D09947] text-[#0A0A0A] font-semibold py-4 px-6 rounded-full text-base transition-all mb-6 shadow-[0_0_20px_rgba(249,235,188,0.2)]">
                 Get Instant Quote
               </button>
 

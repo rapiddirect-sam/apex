@@ -5,50 +5,82 @@ import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 
 const stats = [
-  { value: "50,000", unit: "m²", label: "Total Factory Area" },
-  { value: "8", unit: "", label: "Specialized Production Shops" },
-  { value: "300+", unit: "", label: "Advanced Equipment" },
-  { value: "98%", unit: "", label: "On-Time Delivery" },
+  { value: "50,000", unit: "m²", label: "Factory Area" },
+  { value: "8", unit: "", label: "Production Shops" },
+  { value: "300", unit: "+", label: "Machines" },
+  { value: "98", unit: "%", label: "On-Time Delivery" },
 ];
 
 export function Facilities() {
   return (
-    <section className="py-24 bg-apex-charcoal" id="capabilities">
-      <Container>
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <p className="text-gold-primary text-sm uppercase tracking-widest mb-3">
-            STATE-OF-THE-ART MANUFACTURING ENVIRONMENT
-          </p>
-          <h2 className="font-display text-4xl md:text-5xl text-apex-white">
-            OUR FACILITIES
-          </h2>
-        </motion.div>
+    <section className="py-32 bg-apex-slate relative overflow-hidden" id="capabilities">
+      {/* Background texture */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{
+        backgroundImage: `repeating-linear-gradient(-45deg, transparent, transparent 1px, rgba(212,160,58,1) 1px, rgba(212,160,58,1) 2px)`,
+        backgroundSize: '8px 8px'
+      }} />
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Left Column - Description & Stats */}
+      <Container className="relative">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          {/* Left Column - Image with overlay */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            className="relative order-2 lg:order-1"
           >
-            <h3 className="font-display text-2xl text-gold-primary mb-6">
-              ADVANCED MANUFACTURING HUB
-            </h3>
-            <p className="text-apex-text-secondary text-lg leading-relaxed mb-10">
-              Located in Shenzhen&apos;s advanced manufacturing district, our
-              50,000 m² vertically integrated facility operates 8 specialized
-              production shops and is equipped with 300+ advanced machines. We
-              support end-to-end manufacturing in one location, including CNC
-              machining, precision injection molding, sheet metal fabrication,
-              3D printing, as well as in-house surface treatment and quality
-              inspection lines.
+            <div className="relative aspect-[4/5] lg:aspect-[3/4]">
+              {/* Main image */}
+              <div className="absolute inset-0 overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&q=80"
+                  alt="Manufacturing facility floor"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-apex-void via-transparent to-transparent" />
+              </div>
+
+              {/* Floating stat card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="absolute -bottom-8 -right-8 lg:right-auto lg:-left-8 bg-apex-void border border-apex-iron/30 p-6 backdrop-blur-sm"
+              >
+                <p className="text-technical text-gray-500 mb-2">Location</p>
+                <p className="text-display text-2xl text-white">Shenzhen, China</p>
+                <p className="text-gray-500 text-sm mt-1">Advanced Manufacturing District</p>
+              </motion.div>
+
+              {/* Decorative frame */}
+              <div className="absolute -top-4 -left-4 w-24 h-24 border-l-2 border-t-2 border-gold-primary/30" />
+              <div className="absolute -bottom-4 -right-4 w-24 h-24 border-r-2 border-b-2 border-gold-primary/30" />
+            </div>
+          </motion.div>
+
+          {/* Right Column - Content */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="order-1 lg:order-2"
+          >
+            <p className="text-technical text-signal mb-4">
+              Our Capabilities
+            </p>
+            <h2 className="text-display text-display-xl text-white mb-8">
+              Vertically Integrated
+              <br />
+              <span className="text-gold-gradient">Manufacturing Hub</span>
+            </h2>
+
+            <p className="text-gray-400 text-lg leading-relaxed mb-12">
+              Our 50,000 m² facility in Shenzhen operates 8 specialized production
+              shops with 300+ advanced machines. End-to-end manufacturing including
+              CNC machining, injection molding, sheet metal, 3D printing, surface
+              treatment, and quality inspection—all under one roof.
             </p>
 
             {/* Stats Grid */}
@@ -59,40 +91,25 @@ export function Facilities() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
-                  className="bg-apex-gray/50 rounded-xl p-6 border border-apex-border/10"
+                  transition={{ delay: 0.2 + index * 0.1 }}
+                  className="group"
                 >
-                  <div className="font-display text-3xl md:text-4xl text-gold-primary">
-                    {stat.value}
-                    <span className="text-xl">{stat.unit}</span>
+                  <div className="flex items-baseline gap-1 mb-2">
+                    <span className="text-display text-4xl lg:text-5xl text-white group-hover:text-gold-primary transition-colors">
+                      {stat.value}
+                    </span>
+                    {stat.unit && (
+                      <span className="text-display text-xl text-gold-primary">
+                        {stat.unit}
+                      </span>
+                    )}
                   </div>
-                  <div className="text-apex-text-secondary text-sm mt-2">
+                  <p className="text-sm text-gray-500 uppercase tracking-wider">
                     {stat.label}
-                  </div>
+                  </p>
                 </motion.div>
               ))}
             </div>
-          </motion.div>
-
-          {/* Right Column - Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="relative"
-          >
-            <div className="relative h-[500px] rounded-2xl overflow-hidden">
-              <Image
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&q=80"
-                alt="Manufacturing facility floor"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-apex-black/50 to-transparent" />
-            </div>
-            {/* Decorative element */}
-            <div className="absolute -bottom-4 -right-4 w-32 h-32 border-2 border-gold-primary/30 rounded-2xl -z-10" />
           </motion.div>
         </div>
       </Container>

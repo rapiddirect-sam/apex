@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home3Button } from "../ui/Home3Button";
-import { ChevronDown, ArrowRight } from "lucide-react";
+import { ChevronDown, Sparkles, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const faqItems = [
@@ -33,8 +32,37 @@ export function Home3FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="contact" className="py-20 bg-[#0A0A0A]">
-      <div className="max-w-3xl mx-auto px-6 lg:px-8">
+    <section
+      id="contact"
+      className="py-24 relative overflow-hidden"
+      style={{
+        background: `
+          radial-gradient(
+            ellipse 80% 50% at 50% 0%,
+            rgba(208,153,71,0.15),
+            transparent 50%
+          ),
+          #1A1A1A
+        `
+      }}
+    >
+      {/* Constrained width container - 960px max */}
+      <div className="max-w-[960px] mx-auto px-6 lg:px-8">
+        {/* Section Label Pill */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex justify-center mb-8"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#2A2A2A] border border-[#3A3A3A] rounded-full">
+            <Sparkles className="w-4 h-4 text-[#D09947]" />
+            <span className="text-[#D09947] text-xs font-medium tracking-[0.1em] uppercase">
+              Expert Solutions
+            </span>
+          </div>
+        </motion.div>
+
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -42,42 +70,29 @@ export function Home3FAQ() {
           viewport={{ once: true }}
           className="text-center mb-6"
         >
-          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-3">
-            Have Any <span className="text-[#D4A03A]" style={{ fontFamily: 'var(--font-playfair)', fontStyle: 'italic' }}>Questions?</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-[-0.02em]">
+            Have Any<span className="text-[#D09947]">Questions?</span>
           </h2>
-          <p className="text-[#777777] text-sm max-w-lg mx-auto">
-            Find answers to common questions about our precision manufacturing services, quality assurance, and production capabilities.
+          <p className="text-[#888888] text-sm max-w-md mx-auto leading-relaxed">
+            Find answers to common questions about our precision manufacturing services, quality standards, and production capabilities
           </p>
         </motion.div>
 
-        {/* CTA Buttons */}
+        {/* FAQ Section Title with underline - 48px margin bottom */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex justify-center gap-3 mb-12"
+          className="text-center mb-12 mt-16"
         >
-          <Home3Button variant="outline" size="sm">
-            View FAQ
-          </Home3Button>
-          <Home3Button variant="primary" size="sm">
-            Get Instant Quote
-          </Home3Button>
-        </motion.div>
-
-        {/* FAQ Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-6"
-        >
-          <h3 className="text-xl font-semibold text-white">
-            Frequently Asked <span className="text-[#D4A03A]">Questions</span>
+          <h3 className="text-2xl font-bold text-white tracking-[-0.01em] mb-3">
+            Frequently Asked <span className="text-[#D09947]">Questions</span>
           </h3>
+          {/* Gold underline */}
+          <div className="w-12 h-1 bg-[#D09947] mx-auto rounded-full" />
         </motion.div>
 
-        {/* FAQ Accordion */}
+        {/* FAQ Accordion - Card Style with proper spacing */}
         <div className="space-y-3 mb-12">
           {faqItems.map((item, index) => (
             <motion.div
@@ -86,29 +101,33 @@ export function Home3FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
-              className={cn(
-                "bg-[#141414] border rounded-lg overflow-hidden transition-colors",
-                openIndex === index
-                  ? "border-[#D4A03A]"
-                  : "border-[#2A2A2A]"
-              )}
+              className="bg-[#2A2A2A] rounded-xl overflow-hidden"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full flex items-center justify-between p-4 text-left"
+                className="w-full flex items-center gap-4 min-h-[72px] py-5 px-6 text-left group"
               >
-                <span className={cn(
-                  "pr-4 text-sm font-medium transition-colors",
-                  openIndex === index ? "text-white" : "text-[#AAAAAA]"
-                )}>
+                {/* Number Badge */}
+                <div className="w-10 h-10 bg-[#3A3A3A] rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-[#D09947] text-sm font-bold">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
+
+                {/* Question Text - max 85% width, larger font */}
+                <span className="flex-1 text-[16.5px] font-semibold text-white/90 max-w-[85%] leading-snug">
                   {item.question}
                 </span>
-                <ChevronDown
-                  className={cn(
-                    "w-4 h-4 flex-shrink-0 transition-transform duration-300",
-                    openIndex === index ? "text-[#D4A03A] rotate-180" : "text-[#666666]"
-                  )}
-                />
+
+                {/* Chevron with animation - larger size */}
+                <div className="pl-4 flex-shrink-0">
+                  <ChevronDown
+                    className={cn(
+                      "w-5 h-5 transition-all duration-[250ms] ease-out text-[#D09947]",
+                      openIndex === index && "rotate-180"
+                    )}
+                  />
+                </div>
               </button>
 
               <AnimatePresence>
@@ -117,11 +136,14 @@ export function Home3FAQ() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
                     className="overflow-hidden"
                   >
-                    <div className="px-4 pb-4 text-[#777777] text-sm leading-relaxed">
-                      {item.answer}
+                    {/* Answer with proper spacing - mt-3, pb-7 */}
+                    <div className="px-6 pb-7 pl-[76px]">
+                      <p className="text-[#888888] text-[15px] leading-[1.7] mt-1">
+                        {item.answer}
+                      </p>
                     </div>
                   </motion.div>
                 )}
@@ -135,27 +157,30 @@ export function Home3FAQ() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-[#141414] border border-[#2A2A2A] rounded-xl p-8 text-center"
+          className="bg-[#2A2A2A] rounded-2xl p-10 text-center border border-[#3A3A3A]"
         >
-          {/* Gold circle icon */}
-          <div className="w-12 h-12 bg-[#D4A03A] rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-[#0A0A0A] text-xl font-bold">?</span>
+          {/* Icon */}
+          <div className="w-12 h-12 bg-[#3A3A3A] rounded-xl flex items-center justify-center mx-auto mb-5">
+            <Sparkles className="w-6 h-6 text-[#D09947]" />
           </div>
 
-          <h3 className="text-xl font-semibold text-white mb-3">
+          <h3 className="text-xl font-bold text-white mb-3">
             Still Have Questions?
           </h3>
-          <p className="text-[#777777] text-sm mb-6 max-w-sm mx-auto">
-            Our engineering team is ready to help with your manufacturing needs.
+          <p className="text-[#888888] text-sm mb-8 max-w-sm mx-auto leading-relaxed">
+            Our engineering team is ready to discuss your specific manufacturing requirements and provide tailored solutions for your project.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            <Home3Button variant="outline" size="sm">
-              Contact Sales
-            </Home3Button>
-            <Home3Button variant="primary" size="sm" className="group">
-              Request Quote
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Home3Button>
+            {/* Primary CTA */}
+            <button className="inline-flex items-center gap-2 px-5 py-3 bg-[#3A3A3A] border border-[#4A4A4A] text-white text-sm font-medium rounded-lg hover:bg-[#4A4A4A] transition-all">
+              Contact Sales Team
+              <Sparkles className="w-4 h-4 text-[#D09947]" />
+            </button>
+            {/* Secondary CTA */}
+            <button className="inline-flex items-center gap-2 px-5 py-3 bg-transparent border border-[#D09947] text-white text-sm font-medium rounded-lg hover:bg-[#D09947]/10 transition-all">
+              Request a Quote
+              <Settings className="w-4 h-4 text-[#D09947]" />
+            </button>
           </div>
         </motion.div>
       </div>

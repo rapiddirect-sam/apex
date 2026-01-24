@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Linkedin, Twitter, Mail, Phone, MapPin } from "lucide-react";
 
 const quickLinks = [
@@ -26,7 +27,7 @@ const socialLinks = [
 
 export function Home3Footer() {
   return (
-    <footer className="bg-gradient-to-b from-[#C49432] to-[#D4A03A]">
+    <footer className="bg-gradient-to-r from-[#F9EBBC] via-[#EEC569] to-[#D09947]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Main Footer */}
         <div className="py-16">
@@ -34,23 +35,16 @@ export function Home3Footer() {
             {/* Company Info */}
             <div>
               {/* Logo */}
-              <Link href="/home3" className="flex items-center gap-2 mb-6">
-                <div className="relative w-12 h-12">
-                  <svg viewBox="0 0 40 40" className="w-full h-full">
-                    <path
-                      d="M5 35 L20 5 L35 35 L20 28 Z"
-                      fill="#0A0A0A"
-                      stroke="#0A0A0A"
-                      strokeWidth="1"
-                    />
-                  </svg>
-                </div>
-                <div className="flex flex-col leading-none">
-                  <span className="text-[#0A0A0A] font-bold text-xl tracking-wide">APEX</span>
-                  <span className="text-[#0A0A0A]/70 text-xs tracking-[0.2em]">BATCH</span>
-                </div>
+              <Link href="/home3" className="flex items-center mb-6">
+                <Image
+                  src="/apexbatch-logo2.png"
+                  alt="Apex Batch"
+                  width={180}
+                  height={60}
+                  className="h-12 w-auto"
+                />
               </Link>
-              <p className="text-[#0A0A0A]/70 text-sm leading-relaxed mb-6">
+              <p className="text-[#000000]/70 text-sm leading-relaxed mb-6">
                 Leading precision manufacturing services with advanced technology and industrial expertise.
               </p>
               <div className="flex gap-3">
@@ -62,7 +56,7 @@ export function Home3Footer() {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-10 h-10 bg-[#0A0A0A]/20 hover:bg-[#0A0A0A]/30 rounded-full flex items-center justify-center text-[#0A0A0A] transition-colors"
+                      className="w-10 h-10 bg-[#7F4D0F]/20 hover:bg-[#7F4D0F]/30 rounded-full flex items-center justify-center text-[#7F4D0F] transition-colors"
                       aria-label={social.label}
                     >
                       <Icon className="w-5 h-5" />
@@ -74,13 +68,13 @@ export function Home3Footer() {
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-[#0A0A0A] font-bold text-base mb-6">Quick Links</h4>
+              <h4 className="text-[#000000] font-bold text-base mb-6">Quick Links</h4>
               <ul className="space-y-3">
                 {quickLinks.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-[#0A0A0A]/70 hover:text-[#0A0A0A] transition-colors text-sm"
+                      className="text-[#000000]/70 hover:text-[#000000] transition-colors text-sm"
                     >
                       {link.label}
                     </Link>
@@ -91,13 +85,13 @@ export function Home3Footer() {
 
             {/* About */}
             <div>
-              <h4 className="text-[#0A0A0A] font-bold text-base mb-6">About</h4>
+              <h4 className="text-[#000000] font-bold text-base mb-6">About</h4>
               <ul className="space-y-3">
                 {aboutLinks.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-[#0A0A0A]/70 hover:text-[#0A0A0A] transition-colors text-sm"
+                      className="text-[#000000]/70 hover:text-[#000000] transition-colors text-sm"
                     >
                       {link.label}
                     </Link>
@@ -108,11 +102,11 @@ export function Home3Footer() {
 
             {/* Contact Us */}
             <div>
-              <h4 className="text-[#0A0A0A] font-bold text-base mb-6">Contact Us</h4>
+              <h4 className="text-[#000000] font-bold text-base mb-6">Contact Us</h4>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-[#0A0A0A]/70 mt-0.5 flex-shrink-0" />
-                  <span className="text-[#0A0A0A]/70 text-sm leading-relaxed">
+                  <MapPin className="w-5 h-5 text-[#7F4D0F] mt-0.5 flex-shrink-0" />
+                  <span className="text-[#000000]/70 text-sm leading-relaxed">
                     123 Industrial Drive
                     <br />
                     Manufacturing District
@@ -121,19 +115,19 @@ export function Home3Footer() {
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-[#0A0A0A]/70 flex-shrink-0" />
+                  <Phone className="w-5 h-5 text-[#7F4D0F] flex-shrink-0" />
                   <a
                     href="tel:+1234567890"
-                    className="text-[#0A0A0A]/70 hover:text-[#0A0A0A] transition-colors text-sm"
+                    className="text-[#000000]/70 hover:text-[#000000] transition-colors text-sm"
                   >
                     +1 (234) 567-890
                   </a>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-[#0A0A0A]/70 flex-shrink-0" />
+                  <Mail className="w-5 h-5 text-[#7F4D0F] flex-shrink-0" />
                   <a
                     href="mailto:info@apexbatch.com"
-                    className="text-[#0A0A0A]/70 hover:text-[#0A0A0A] transition-colors text-sm"
+                    className="text-[#000000]/70 hover:text-[#000000] transition-colors text-sm"
                   >
                     info@apexbatch.com
                   </a>
@@ -144,27 +138,27 @@ export function Home3Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-6 border-t border-[#0A0A0A]/20">
+        <div className="py-6 border-t border-[#7F4D0F]/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-[#0A0A0A]/70 text-sm">
+            <p className="text-[#000000]/70 text-sm">
               &copy; 2026 ApexBatch . All rights reserved.
             </p>
             <div className="flex gap-8 text-sm">
               <Link
                 href="/privacy"
-                className="text-[#0A0A0A]/70 hover:text-[#0A0A0A] transition-colors"
+                className="text-[#000000]/70 hover:text-[#000000] transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link
                 href="/terms"
-                className="text-[#0A0A0A]/70 hover:text-[#0A0A0A] transition-colors"
+                className="text-[#000000]/70 hover:text-[#000000] transition-colors"
               >
                 Terms of Service
               </Link>
               <Link
                 href="/cookies"
-                className="text-[#0A0A0A]/70 hover:text-[#0A0A0A] transition-colors"
+                className="text-[#000000]/70 hover:text-[#000000] transition-colors"
               >
                 Cookie Policy
               </Link>

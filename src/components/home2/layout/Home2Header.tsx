@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 
@@ -36,32 +37,15 @@ export function Home2Header() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/home2" className="flex items-center gap-3">
-            {/* Geometric Logo */}
-            <div className="relative w-10 h-10">
-              <svg viewBox="0 0 40 40" className="w-full h-full">
-                <path
-                  d="M5 35 L20 5 L35 35 L20 28 Z"
-                  fill="#D09947"
-                  stroke="#D09947"
-                  strokeWidth="1"
-                />
-              </svg>
-            </div>
-            <div className="flex flex-col leading-none">
-              <span
-                className="text-white font-bold text-xl tracking-wider"
-                style={{ fontFamily: 'var(--font-archivo)' }}
-              >
-                APEX
-              </span>
-              <span
-                className="text-[#D09947] text-[10px] tracking-[0.3em] font-medium"
-                style={{ fontFamily: 'var(--font-jakarta)' }}
-              >
-                BATCH
-              </span>
-            </div>
+          <Link href="/home2" className="flex items-center">
+            <Image
+              src="/apexbatch-logo2.png"
+              alt="Apex Batch"
+              width={180}
+              height={60}
+              className="h-12 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}

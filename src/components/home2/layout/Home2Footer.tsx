@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Linkedin, Twitter, Mail, Phone, MapPin } from "lucide-react";
 
 const quickLinks = [
@@ -34,31 +35,14 @@ export function Home2Footer() {
             {/* Company Info */}
             <div>
               {/* Logo */}
-              <Link href="/home2" className="flex items-center gap-3 mb-6">
-                <div className="relative w-10 h-10">
-                  <svg viewBox="0 0 40 40" className="w-full h-full">
-                    <path
-                      d="M5 35 L20 5 L35 35 L20 28 Z"
-                      fill="#D09947"
-                      stroke="#D09947"
-                      strokeWidth="1"
-                    />
-                  </svg>
-                </div>
-                <div className="flex flex-col leading-none">
-                  <span
-                    className="text-white font-bold text-xl tracking-wider"
-                    style={{ fontFamily: "var(--font-archivo)" }}
-                  >
-                    APEX
-                  </span>
-                  <span
-                    className="text-[#D09947] text-[10px] tracking-[0.3em] font-medium"
-                    style={{ fontFamily: "var(--font-jakarta)" }}
-                  >
-                    BATCH
-                  </span>
-                </div>
+              <Link href="/home2" className="flex items-center mb-6">
+                <Image
+                  src="/apexbatch-logo2.png"
+                  alt="Apex Batch"
+                  width={180}
+                  height={60}
+                  className="h-12 w-auto"
+                />
               </Link>
               <p
                 className="text-[#7A7A7C] text-sm leading-relaxed mb-6"
