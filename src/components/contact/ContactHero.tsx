@@ -11,22 +11,27 @@ export function ContactHero() {
         background: "#000000",
       }}
     >
-      {/* Background image - stock chart/data visualization - VERY VISIBLE */}
+      {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage:
             "url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1920&q=80')",
-          filter: "brightness(0.95) saturate(1.2)",
+          filter: "brightness(0.85)",
         }}
       />
 
-      {/* Very light overlay - background clearly visible */}
+      {/* Multi-layer cinematic overlay - matching home3 */}
       <div
         className="absolute inset-0"
         style={{
-          background:
-            "linear-gradient(90deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)",
+          background: "linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.85))",
+        }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.3) 100%)",
         }}
       />
 
@@ -92,7 +97,7 @@ export function ContactHero() {
             style={{
               fontSize: "21px",
               lineHeight: 1.6,
-              color: "#888888",
+              color: "#C5C6C9",
               maxWidth: "900px",
             }}
           >

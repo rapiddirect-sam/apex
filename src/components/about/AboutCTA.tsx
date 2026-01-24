@@ -84,8 +84,8 @@ export function AboutCTA() {
             style={{
               background: "linear-gradient(135deg, #D09947 0%, #EEC569 100%)",
               color: "#000000",
-              fontSize: "20px",
-              fontWeight: 700,
+              fontSize: "16px",
+              fontWeight: 600,
               padding: "14px 32px",
               borderRadius: "8px",
               border: "2px solid transparent",

@@ -62,10 +62,10 @@ export function ContactNextSteps() {
             />
             <span
               style={{
-                color: "#7A7A7C",
-                fontSize: "13px",
+                color: "rgba(208,153,71,0.65)",
+                fontSize: "12px",
                 fontWeight: "500",
-                letterSpacing: "2px",
+                letterSpacing: "0.25em",
                 textTransform: "uppercase",
               }}
             >
@@ -92,7 +92,7 @@ export function ContactNextSteps() {
         <p
           style={{
             textAlign: "center",
-            color: "#888888",
+            color: "#C5C6C9",
             fontSize: "21px",
             margin: "0 0 60px 0",
             fontWeight: 400,
@@ -228,7 +228,7 @@ export function ContactNextSteps() {
             {/* Description */}
             <p
               style={{
-                color: "#888888",
+                color: "#C5C6C9",
                 fontSize: "15px",
                 lineHeight: 1.6,
                 margin: "0 0 24px 0",
@@ -398,7 +398,7 @@ export function ContactNextSteps() {
             {/* Description */}
             <p
               style={{
-                color: "#888888",
+                color: "#C5C6C9",
                 fontSize: "15px",
                 lineHeight: 1.6,
                 margin: "0 0 24px 0",
@@ -542,7 +542,7 @@ export function ContactNextSteps() {
             {/* Description */}
             <p
               style={{
-                color: "#888888",
+                color: "#C5C6C9",
                 fontSize: "15px",
                 lineHeight: 1.6,
                 margin: "0 0 24px 0",
@@ -637,7 +637,7 @@ export function ContactNextSteps() {
           </p>
           <p
             style={{
-              color: "#888888",
+              color: "#C5C6C9",
               fontSize: "15px",
               margin: "0",
               fontWeight: 400,

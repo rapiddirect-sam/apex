@@ -232,13 +232,13 @@ export function AboutJourney() {
                 </div>
                 <div
                   style={{
-                    color: "#E8E8E8",
-                    fontSize: "18px",
-                    lineHeight: 1.5,
+                    color: "#C5C6C9",
+                    fontSize: "15.5px",
+                    lineHeight: 1.7,
                   }}
                 >
                   Global expansion. Officially launched international trade
-                  business,supporting engineers worldwide.
+                  business, supporting engineers worldwide.
                 </div>
               </div>
             </div>
@@ -344,12 +344,12 @@ export function AboutJourney() {
                 </div>
                 <div
                   style={{
-                    color: "#E8E8E8",
-                    fontSize: "18px",
-                    lineHeight: 1.5,
+                    color: "#C5C6C9",
+                    fontSize: "15.5px",
+                    lineHeight: 1.7,
                   }}
                 >
-                  Achieved ISO 9001:2015 and ISO 13485:2016 certifications.The
+                  Achieved ISO 9001:2015 and ISO 13485:2016 certifications. The
                   manufacturing network expanded to include exclusive surface
                   treatment lines and medical-grade inspection labs.
                 </div>

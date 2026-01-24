@@ -104,12 +104,12 @@ export function ContactForm() {
                   display: "inline-block",
                   background: "transparent",
                   border: "1px solid rgba(208,153,71,0.3)",
-                  color: "#D09947",
-                  fontSize: "10px",
+                  color: "rgba(208,153,71,0.65)",
+                  fontSize: "12px",
                   fontWeight: 600,
                   padding: "6px 12px",
                   borderRadius: "4px",
-                  letterSpacing: "0.05em",
+                  letterSpacing: "0.25em",
                   textTransform: "uppercase",
                   marginBottom: "20px",
                 }}
@@ -130,8 +130,9 @@ export function ContactForm() {
               </h2>
               <p
                 style={{
-                  fontSize: "14px",
-                  color: "#888888",
+                  fontSize: "18px",
+                  color: "#7A7A7C",
+                  lineHeight: 1.6,
                 }}
               >
                 Fill out the form below and our team will get back to you within
@@ -387,8 +388,8 @@ export function ContactForm() {
                   background: "linear-gradient(135deg, #D09947 0%, #EEC569 100%)",
                   border: "2px solid transparent",
                   color: "#000000",
-                  fontWeight: 700,
-                  fontSize: "20px",
+                  fontWeight: 600,
+                  fontSize: "16px",
                   padding: "14px 24px",
                   borderRadius: "8px",
                   display: "flex",
@@ -520,10 +521,10 @@ export function ContactForm() {
                     >
                       Call Us
                     </p>
-                    <p style={{ fontSize: "12px", color: "#888888", lineHeight: 1.6 }}>
+                    <p style={{ fontSize: "12px", color: "#C5C6C9", lineHeight: 1.6 }}>
                       Phone: <span style={{ color: "#D09947" }}>+1 (555) 123-4567</span>
                     </p>
-                    <p style={{ fontSize: "12px", color: "#888888", lineHeight: 1.6 }}>
+                    <p style={{ fontSize: "12px", color: "#C5C6C9", lineHeight: 1.6 }}>
                       WhatsApp: <span style={{ color: "#D09947" }}>+1 (555) 987-6543</span>
                     </p>
                   </div>
@@ -572,13 +573,13 @@ export function ContactForm() {
                     >
                       Email Us
                     </p>
-                    <p style={{ fontSize: "12px", color: "#888888", lineHeight: 1.6 }}>
+                    <p style={{ fontSize: "12px", color: "#C5C6C9", lineHeight: 1.6 }}>
                       General Inquiries: <span style={{ color: "#D09947" }}>info@apexbatch.com</span>
                     </p>
-                    <p style={{ fontSize: "12px", color: "#888888", lineHeight: 1.6 }}>
+                    <p style={{ fontSize: "12px", color: "#C5C6C9", lineHeight: 1.6 }}>
                       Quick Quote: <span style={{ color: "#D09947" }}>quotes@apexbatch.com</span>
                     </p>
-                    <p style={{ fontSize: "12px", color: "#888888", lineHeight: 1.6 }}>
+                    <p style={{ fontSize: "12px", color: "#C5C6C9", lineHeight: 1.6 }}>
                       Support: <span style={{ color: "#D09947" }}>support@apexbatch.com</span>
                     </p>
                   </div>
@@ -701,7 +702,7 @@ export function ContactForm() {
                   background: "linear-gradient(135deg, #D09947 0%, #EEC569 100%)",
                   border: "2px solid transparent",
                   color: "#000000",
-                  fontWeight: 700,
+                  fontWeight: 600,
                   fontSize: "16px",
                   padding: "14px 16px",
                   borderRadius: "8px",
