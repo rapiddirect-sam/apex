@@ -27,8 +27,16 @@ const socialLinks = [
 
 export function Home3Footer() {
   return (
-    <footer className="bg-gradient-to-r from-[#F9EBBC] via-[#EEC569] to-[#D09947]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <footer className="relative bg-gradient-to-r from-[#F9EBBC] via-[#EEC569] to-[#D09947]">
+      {/* Noise texture overlay - monotone noise, size 0.5, density 100% */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.4 }}>
+        <filter id="footerNoise">
+          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#footerNoise)" style={{ mixBlendMode: "overlay" }} />
+      </svg>
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Main Footer */}
         <div className="py-16">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">

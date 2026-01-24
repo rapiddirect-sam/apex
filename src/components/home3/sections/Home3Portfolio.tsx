@@ -151,7 +151,7 @@ export function Home3Portfolio() {
               fontSize: "42px",
               fontWeight: 700,
               lineHeight: 1.15,
-              color: "#D09947",
+              color: "#EEC569",
             }}
           >
             Built for Real Applications
@@ -233,8 +233,12 @@ export function Home3Portfolio() {
               borderRadius: "28px",
               border: "2px solid #7F4D0F",
               background: `
-                radial-gradient(60% 80% at 50% 50%, rgba(249,235,188,0.12), rgba(0,0,0,0) 65%),
-                #000000
+                radial-gradient(
+                  60% 50% at 50% 0%,
+                  rgba(249,235,188,0.08),
+                  rgba(0,0,0,0) 65%
+                ),
+                #0D0D0D
               `,
               boxShadow: "inset 0 0 0 1px rgba(208,153,71,0.15), 0 24px 60px rgba(0,0,0,0.6)",
             }}

@@ -66,16 +66,17 @@ export function Home3Industries() {
               letterSpacing: "-0.015em",
             }}
           >
-            Industries <span style={{ color: "#D09947" }}>We Serve</span>
+            Industries <span style={{ color: "#EEC569" }}>We Serve</span>
           </h2>
           <p
             className="mx-auto"
             style={{
-              fontSize: "18px",
-              lineHeight: 1.6,
-              color: "#7A7A7C",
+              fontSize: "28px",
+              lineHeight: 1.5,
+              color: "#FFFFFF",
               maxWidth: "820px",
               marginTop: "20px",
+              fontWeight: 500,
             }}
           >
             Supporting medium-to-large batch production across industries with strict
@@ -145,13 +146,13 @@ export function Home3Industries() {
 
                   {/* Expand/Collapse Button - engineered style */}
                   <button
-                    className="absolute top-5 right-5 flex items-center justify-center transition-all duration-300 group-hover:bg-[rgba(208,153,71,0.15)]"
+                    className="absolute top-5 right-5 flex items-center justify-center transition-all duration-300 hover:brightness-95"
                     style={{
-                      width: "36px",
-                      height: "36px",
+                      width: "43px",
+                      height: "43px",
                       borderRadius: "50%",
-                      background: "rgba(0,0,0,0.6)",
-                      border: "1px solid rgba(208,153,71,0.35)",
+                      background: "#FFFFFF",
+                      border: "none",
                     }}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -159,7 +160,7 @@ export function Home3Industries() {
                     }}
                   >
                     <ChevronDown
-                      className="w-5 h-5 transition-transform duration-300"
+                      className="w-6 h-6 transition-transform duration-300"
                       style={{
                         color: "#D09947",
                         transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",

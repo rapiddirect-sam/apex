@@ -76,7 +76,7 @@ export function Home3WhyChoose() {
               letterSpacing: "-0.015em",
             }}
           >
-            Why Engineers <span style={{ color: "#D09947" }}>Choose ApexBatch</span>
+            Why Engineers <span style={{ color: "#EEC569" }}>Choose ApexBatch</span>
           </h2>
         </motion.div>
 
@@ -298,8 +298,8 @@ export function Home3WhyChoose() {
           <p
             className="mb-5"
             style={{
-              fontSize: "18px",
-              fontWeight: 500,
+              fontSize: "25px",
+              fontWeight: 700,
               color: "#FFFFFF",
             }}
           >

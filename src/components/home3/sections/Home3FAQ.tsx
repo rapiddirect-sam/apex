@@ -70,10 +70,10 @@ export function Home3FAQ() {
           viewport={{ once: true }}
           className="text-center mb-6"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-[-0.02em]">
-            Have Any<span className="text-[#D09947]">Questions?</span>
+          <h2 className="text-white mb-4 tracking-[-0.02em]" style={{ fontSize: "68px", fontWeight: 800 }}>
+            Have Any <span className="text-[#EEC569]">Questions?</span>
           </h2>
-          <p className="text-[#888888] text-sm max-w-md mx-auto leading-relaxed">
+          <p className="max-w-xl mx-auto leading-relaxed" style={{ color: "#888888", fontSize: "21px" }}>
             Find answers to common questions about our precision manufacturing services, quality standards, and production capabilities
           </p>
         </motion.div>
@@ -85,8 +85,8 @@ export function Home3FAQ() {
           viewport={{ once: true }}
           className="text-center mb-12 mt-16"
         >
-          <h3 className="text-2xl font-bold text-white tracking-[-0.01em] mb-3">
-            Frequently Asked <span className="text-[#D09947]">Questions</span>
+          <h3 className="text-white tracking-[-0.01em] mb-3" style={{ fontSize: "41px", fontWeight: 800 }}>
+            Frequently Asked <span className="text-[#EEC569]">Questions</span>
           </h3>
           {/* Gold underline */}
           <div className="w-12 h-1 bg-[#D09947] mx-auto rounded-full" />
@@ -108,14 +108,21 @@ export function Home3FAQ() {
                 className="w-full flex items-center gap-4 min-h-[72px] py-5 px-6 text-left group"
               >
                 {/* Number Badge */}
-                <div className="w-10 h-10 bg-[#3A3A3A] rounded-lg flex items-center justify-center flex-shrink-0">
-                  <span className="text-[#D09947] text-sm font-bold">
+                <div
+                  className="rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{
+                    width: "68px",
+                    height: "68px",
+                    background: "#EEC569",
+                  }}
+                >
+                  <span className="font-bold" style={{ color: "#000000", fontSize: "28px" }}>
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
 
                 {/* Question Text - max 85% width, larger font */}
-                <span className="flex-1 text-[16.5px] font-semibold text-white/90 max-w-[85%] leading-snug">
+                <span className="flex-1 font-semibold max-w-[85%] leading-snug" style={{ fontSize: "21px", color: "#FFFFFF" }}>
                   {item.question}
                 </span>
 
@@ -164,22 +171,66 @@ export function Home3FAQ() {
             <Sparkles className="w-6 h-6 text-[#D09947]" />
           </div>
 
-          <h3 className="text-xl font-bold text-white mb-3">
+          <h3 style={{ fontSize: "30px", fontWeight: 800, color: "#FFFFFF", marginBottom: "12px" }}>
             Still Have Questions?
           </h3>
-          <p className="text-[#888888] text-sm mb-8 max-w-sm mx-auto leading-relaxed">
+          <p style={{ fontSize: "21px", color: "#F9EBBC", maxWidth: "480px", marginLeft: "auto", marginRight: "auto", lineHeight: 1.5, marginBottom: "32px" }}>
             Our engineering team is ready to discuss your specific manufacturing requirements and provide tailored solutions for your project.
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-4">
             {/* Primary CTA */}
-            <button className="inline-flex items-center gap-2 px-5 py-3 bg-[#3A3A3A] border border-[#4A4A4A] text-white text-sm font-medium rounded-lg hover:bg-[#4A4A4A] transition-all">
+            <button
+              className="inline-flex items-center gap-2 transition-all duration-300 hover:-translate-y-0.5"
+              style={{
+                background: "linear-gradient(135deg, #D09947 0%, #EEC569 100%)",
+                color: "#000000",
+                fontWeight: 700,
+                fontSize: "16px",
+                padding: "14px 24px",
+                borderRadius: "8px",
+                boxShadow: "0 0 50px rgba(208,153,71,0.7)",
+                border: "2px solid transparent",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 0 60px rgba(238,197,105,0.8)";
+                e.currentTarget.style.color = "#FFFFFF";
+                e.currentTarget.style.border = "2px solid #F9EBBC";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "0 0 50px rgba(208,153,71,0.7)";
+                e.currentTarget.style.color = "#000000";
+                e.currentTarget.style.border = "2px solid transparent";
+              }}
+            >
               Contact Sales Team
-              <Sparkles className="w-4 h-4 text-[#D09947]" />
+              <Sparkles className="w-4 h-4" />
             </button>
             {/* Secondary CTA */}
-            <button className="inline-flex items-center gap-2 px-5 py-3 bg-transparent border border-[#D09947] text-white text-sm font-medium rounded-lg hover:bg-[#D09947]/10 transition-all">
+            <button
+              className="inline-flex items-center gap-2 transition-all duration-300 hover:-translate-y-0.5"
+              style={{
+                background: "linear-gradient(135deg, #D09947 0%, #EEC569 100%)",
+                color: "#000000",
+                fontWeight: 700,
+                fontSize: "16px",
+                padding: "14px 24px",
+                borderRadius: "8px",
+                boxShadow: "0 0 50px rgba(208,153,71,0.7)",
+                border: "2px solid transparent",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 0 60px rgba(238,197,105,0.8)";
+                e.currentTarget.style.color = "#FFFFFF";
+                e.currentTarget.style.border = "2px solid #F9EBBC";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "0 0 50px rgba(208,153,71,0.7)";
+                e.currentTarget.style.color = "#000000";
+                e.currentTarget.style.border = "2px solid transparent";
+              }}
+            >
               Request a Quote
-              <Settings className="w-4 h-4 text-[#D09947]" />
+              <Settings className="w-4 h-4" />
             </button>
           </div>
         </motion.div>

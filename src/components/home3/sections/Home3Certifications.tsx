@@ -73,10 +73,10 @@ export function Home3Certifications() {
               </span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 tracking-[-0.02em]">
+            <h2 className="text-4xl md:text-5xl text-white mb-2 tracking-[-0.02em]" style={{ fontWeight: 800 }}>
               Your Trust,
             </h2>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#D09947] mb-6 tracking-[-0.02em]">
+            <h2 className="text-4xl md:text-5xl text-[#EEC569] mb-6 tracking-[-0.02em]" style={{ fontWeight: 800 }}>
               Verified by Data.
             </h2>
             <p className="text-[#888888] text-base max-w-lg leading-relaxed">
@@ -157,11 +157,26 @@ export function Home3Certifications() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className={`bg-[#2A2A2A] rounded-2xl p-6 transition-all duration-300 ${
-                  metric.featured
-                    ? "border-2 border-[#D09947]"
-                    : "border border-[#3A3A3A]"
-                }`}
+                className="rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1"
+                style={{
+                  background: `
+                    radial-gradient(
+                      60% 50% at 50% 0%,
+                      rgba(249,235,188,0.08),
+                      rgba(0,0,0,0) 65%
+                    ),
+                    #0D0D0D
+                  `,
+                  border: "1px solid rgba(208,153,71,0.25)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.border = "2px solid #D09947";
+                  e.currentTarget.style.boxShadow = "0 0 30px rgba(208,153,71,0.5)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.border = "1px solid rgba(208,153,71,0.25)";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
               >
                 {/* Icon and Value Row */}
                 <div className="flex items-center gap-3 mb-4">
@@ -174,12 +189,12 @@ export function Home3Certifications() {
                 </div>
 
                 {/* Label */}
-                <h4 className="text-white font-semibold text-sm mb-2">
+                <h4 style={{ color: "#EEC569", fontWeight: 700, fontSize: "18px", marginBottom: "8px" }}>
                   {metric.label}
                 </h4>
 
                 {/* Description */}
-                <p className="text-[#888888] text-xs leading-relaxed">
+                <p style={{ color: "#C5C6C9", fontSize: "14px", lineHeight: 1.5 }}>
                   {metric.description}
                 </p>
               </motion.div>

@@ -45,25 +45,61 @@ const services = [
 
 export function Home3Services() {
   return (
-    <section id="services" className="py-20 bg-[#2E2C2B]">
-      <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
+    <section
+      id="services"
+      className="relative overflow-hidden"
+      style={{
+        padding: "104px 0 112px",
+        background: `
+          radial-gradient(
+            65% 45% at 50% 0%,
+            rgba(249,235,188,0.10),
+            rgba(0,0,0,0) 65%
+          ),
+          #000000
+        `,
+      }}
+    >
+      <div className="max-w-[1200px] mx-auto px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Our<span className="bg-gradient-to-r from-[#D09947] to-[#EEC569] bg-clip-text text-transparent font-bold"> Services</span>
+          <h2
+            className="text-white"
+            style={{
+              fontSize: "46px",
+              fontWeight: 700,
+              letterSpacing: "-0.015em",
+            }}
+          >
+            Our <span style={{ color: "#EEC569" }}>Services</span>
           </h2>
-          <p className="text-white text-lg">
+          <p
+            className="mx-auto"
+            style={{
+              fontSize: "18px",
+              lineHeight: 1.6,
+              color: "#7A7A7C",
+              maxWidth: "760px",
+              marginTop: "18px",
+            }}
+          >
             Everything You Need to Move from Design to Production
           </p>
         </motion.div>
 
         {/* Services Grid - 3x2 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          style={{
+            gap: "32px",
+            marginTop: "72px",
+          }}
+        >
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -71,46 +107,107 @@ export function Home3Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group bg-[#4A4A48] rounded-xl overflow-hidden border border-[#C5C6C9]/20 hover:border-[#D09947] hover:shadow-[0_0_20px_rgba(249,235,188,0.15)] transition-all duration-300"
+              className="group transition-all duration-300 hover:-translate-y-1"
+              style={{
+                background: `
+                  radial-gradient(
+                    60% 50% at 50% 0%,
+                    rgba(249,235,188,0.08),
+                    rgba(0,0,0,0) 65%
+                  ),
+                  #0D0D0D
+                `,
+                borderRadius: "18px",
+                border: "2px solid rgba(208,153,71,0.35)",
+                boxShadow: "0 14px 36px rgba(0,0,0,0.45)",
+                overflow: "hidden",
+                minHeight: "440px",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.border = "3px solid #D09947";
+                e.currentTarget.style.boxShadow = "0 0 50px rgba(208,153,71,0.7), 0 14px 36px rgba(0,0,0,0.45)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.border = "2px solid rgba(208,153,71,0.35)";
+                e.currentTarget.style.boxShadow = "0 14px 36px rgba(0,0,0,0.45)";
+              }}
             >
-              {/* Image */}
-              <div className="relative h-44 overflow-hidden">
+              {/* Image with fade overlay */}
+              <div className="relative overflow-hidden" style={{ height: "190px" }}>
                 <Image
                   src={service.image}
                   alt={service.title}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
+                {/* Bottom fade overlay */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: "linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.6))",
+                  }}
+                />
               </div>
 
               {/* Content */}
-              <div className="p-5">
-                <h3 className="text-lg font-semibold text-white mb-2">
+              <div style={{ padding: "24px" }}>
+                {/* Title */}
+                <h3
+                  style={{
+                    fontSize: "21px",
+                    fontWeight: 600,
+                    color: "#FFFFFF",
+                    marginTop: "4px",
+                  }}
+                >
                   {service.title}
                 </h3>
-                <p className="text-[#C5C6C9] text-sm leading-[1.6] mb-4">
+
+                {/* Description */}
+                <p
+                  style={{
+                    fontSize: "15px",
+                    lineHeight: 1.65,
+                    color: "#C5C6C9",
+                    marginTop: "8px",
+                    marginBottom: "16px",
+                  }}
+                >
                   {service.description}
                 </p>
 
-                {/* Tags - muted gold/brown border */}
-                <div className="flex flex-wrap gap-2 mb-4">
+                {/* Capability Pills - outline style */}
+                <div className="flex flex-wrap gap-2" style={{ marginBottom: "20px" }}>
                   {service.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 text-[12px] text-[#C5C6C9] border border-[#7F4D0F] rounded bg-transparent"
+                      style={{
+                        border: "1px solid rgba(238,197,105,0.5)",
+                        color: "#F5D89A",
+                        background: "transparent",
+                        fontSize: "13px",
+                        padding: "6px 10px",
+                        borderRadius: "999px",
+                      }}
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                {/* Learn More Link */}
+                {/* Learn More Link - subtle */}
                 <a
                   href="#"
-                  className="inline-flex items-center gap-1 text-[#D4A03A] text-sm font-medium hover:text-[#E4B04A] transition-colors group/link"
+                  className="inline-flex items-center gap-1.5 transition-colors hover:text-[#F5D89A]"
+                  style={{
+                    marginTop: "4px",
+                    fontWeight: 500,
+                    color: "#EEC569",
+                    fontSize: "14px",
+                  }}
                 >
                   Learn More
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
+                  <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
             </motion.div>
@@ -123,11 +220,29 @@ export function Home3Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center"
+          style={{ marginTop: "64px" }}
         >
-          <p className="text-[#888888] text-sm mb-4">
+          <p
+            style={{
+              color: "#7A7A7C",
+              fontSize: "15px",
+              marginBottom: "16px",
+            }}
+          >
             Need a custom solution?
           </p>
-          <button className="bg-gradient-to-r from-[#D09947] to-[#EEC569] hover:from-[#EEC569] hover:to-[#D09947] text-[#0A0A0A] font-semibold py-3.5 px-10 rounded-lg text-base transition-all duration-300 shadow-[0_4px_15px_rgba(208,153,71,0.3)]">
+          <button
+            className="transition-all duration-300 hover:brightness-110"
+            style={{
+              background: "#D09947",
+              color: "#000000",
+              fontWeight: 600,
+              fontSize: "16px",
+              padding: "14px 32px",
+              borderRadius: "12px",
+              boxShadow: "0 4px 15px rgba(208,153,71,0.3)",
+            }}
+          >
             Get Instant Quote
           </button>
         </motion.div>

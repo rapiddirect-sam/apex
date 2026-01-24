@@ -66,16 +66,17 @@ export function Home3Process() {
               letterSpacing: "-0.015em",
             }}
           >
-            How to Work <span style={{ color: "#D09947" }}>With ApexBatch</span>
+            How to Work <span style={{ color: "#EEC569" }}>With ApexBatch</span>
           </h2>
           <p
             className="mx-auto"
             style={{
-              fontSize: "18px",
-              lineHeight: 1.6,
-              color: "#7A7A7C",
+              fontSize: "28px",
+              lineHeight: 1.5,
+              color: "#FFFFFF",
               maxWidth: "760px",
               marginTop: "20px",
+              fontWeight: 500,
             }}
           >
             A clear, guided process that takes you from design to delivery — without unnecessary complexity.
@@ -110,15 +111,14 @@ export function Home3Process() {
                   boxShadow: "0 12px 32px rgba(0,0,0,0.45)",
                 }}
               >
-                {/* Step Number - floating above card */}
+                {/* Step Number - floating at top-right corner */}
                 <div
                   className="absolute flex items-center justify-center"
                   style={{
-                    top: "-22px",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "44px",
-                    height: "44px",
+                    top: "-26px",
+                    right: "-26px",
+                    width: "53px",
+                    height: "53px",
                     borderRadius: "50%",
                     background: "#D09947",
                     boxShadow: "0 0 15px rgba(238,197,105,0.5)",
@@ -128,7 +128,7 @@ export function Home3Process() {
                     style={{
                       color: "#000000",
                       fontWeight: 700,
-                      fontSize: "16px",
+                      fontSize: "19px",
                     }}
                   >
                     {step.number}
@@ -154,7 +154,7 @@ export function Home3Process() {
                 <h3
                   style={{
                     fontSize: "19px",
-                    fontWeight: 600,
+                    fontWeight: 700,
                     color: "#FFFFFF",
                     marginTop: "16px",
                     marginBottom: "10px",
@@ -167,17 +167,17 @@ export function Home3Process() {
                 {/* Description */}
                 <p
                   style={{
-                    fontSize: "15px",
-                    lineHeight: 1.65,
+                    fontSize: "14px",
+                    lineHeight: 1.6,
                     color: "#C5C6C9",
-                    marginBottom: "20px",
+                    marginBottom: "16px",
                   }}
                 >
                   {step.description}
                 </p>
 
                 {/* Bullet Points */}
-                <ul className="space-y-2.5">
+                <ul className="space-y-1.5">
                   {step.bullets.map((bullet) => (
                     <li key={bullet} className="flex items-center gap-2.5">
                       <div
@@ -186,13 +186,13 @@ export function Home3Process() {
                           width: "6px",
                           height: "6px",
                           borderRadius: "50%",
-                          background: "#D09947",
+                          background: "#EEC569",
                         }}
                       />
                       <span
                         style={{
                           fontSize: "14.5px",
-                          color: "#7A7A7C",
+                          color: "#C5C6C9",
                         }}
                       >
                         {bullet}
