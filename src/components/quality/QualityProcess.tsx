@@ -1,47 +1,62 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle, Package, Settings, ClipboardCheck } from "lucide-react";
+import { Check } from "lucide-react";
 
 const stages = [
   {
     number: "01",
     title: "Incoming Material Inspection",
-    subtitle: "Verifying raw material quality",
-    icon: Package,
-    items: [
-      { text: "Material certification verification", highlight: "certification verification" },
-      { text: "Spectrometer analysis for alloy composition", highlight: "Spectrometer analysis" },
-      { text: "Dimensional inspection of raw stock", highlight: "Dimensional inspection" },
-      { text: "Visual inspection for surface defects", highlight: "Visual inspection" },
+    subtitle: "Preventing non-conforming materials from entering production flow",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+    keyProcedures: [
+      "Supplier certification verification",
+      "Material test reports review",
+      "Incoming quality inspection",
+      "Non-conforming material quarantine",
     ],
-    footer: "Only verified materials enter production",
+    coreParameters: [
+      "Material composition analysis",
+      "Hardness testing",
+      "Dimensional verification",
+      "Surface quality check",
+    ],
   },
   {
     number: "02",
     title: "In-Process Quality Control",
-    subtitle: "Monitoring during manufacturing",
-    icon: Settings,
-    items: [
-      { text: "First Article Inspection (FAI) before batch production", highlight: "First Article Inspection" },
-      { text: "Statistical Process Control (SPC) monitoring", highlight: "Statistical Process Control" },
-      { text: "Critical dimension checks at key process stages", highlight: "Critical dimension checks" },
-      { text: "Real-time process parameter documentation", highlight: "Real-time process parameter" },
+    subtitle: "Monitoring during manufacturing to catch issues early",
+    image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80",
+    keyProcedures: [
+      "First Article Inspection (FAI)",
+      "Statistical Process Control (SPC)",
+      "In-process dimension checks",
+      "Process parameter monitoring",
     ],
-    footer: "Problems caught early, quality maintained throughout",
+    coreParameters: [
+      "Critical dimensions tracking",
+      "Surface roughness measurement",
+      "Geometric tolerances (GD&T)",
+      "Tool wear monitoring",
+    ],
   },
   {
     number: "03",
     title: "Final Inspection & Delivery",
-    subtitle: "Comprehensive outgoing verification",
-    icon: ClipboardCheck,
-    items: [
-      { text: "100% dimensional verification against specifications", highlight: "100% dimensional verification" },
-      { text: "Surface finish measurement and validation", highlight: "Surface finish measurement" },
-      { text: "Complete inspection report with each shipment", highlight: "Complete inspection report" },
-      { text: "Traceable packaging and identification", highlight: "Traceable packaging" },
+    subtitle: "Comprehensive outgoing verification before shipment",
+    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80",
+    keyProcedures: [
+      "100% final inspection",
+      "Inspection report generation",
+      "Certificate of Conformance",
+      "Traceable packaging & labeling",
     ],
-    footer: "Every part shipped meets your exact requirements",
+    coreParameters: [
+      "Full dimensional verification",
+      "Surface finish validation",
+      "Functional testing",
+      "Visual inspection standards",
+    ],
   },
 ];
 
@@ -104,142 +119,241 @@ export function QualityProcess() {
           </p>
         </motion.div>
 
-        {/* Process Timeline */}
-        <div className="relative">
-          {/* Connecting line */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-[#D09947]/20 via-[#D09947] to-[#D09947]/20 -translate-y-1/2" />
-
-          <div className="grid lg:grid-cols-3 gap-8">
-            {stages.map((stage, index) => {
-              const Icon = stage.icon;
-              return (
-                <motion.div
-                  key={stage.number}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="relative transition-all duration-300 hover:-translate-y-1"
+        {/* Process Cards - Vertical Stack */}
+        <div className="space-y-12">
+          {stages.map((stage, index) => (
+            <motion.div
+              key={stage.number}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="relative"
+              style={{
+                background: "#0D0D0D",
+                border: "1px solid #EEC569",
+                overflow: "hidden",
+              }}
+            >
+              {/* Large Image at Top */}
+              <div
+                style={{
+                  width: "100%",
+                  height: "280px",
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+              >
+                <div
                   style={{
-                    background: "#4A4A48",
-                    borderRadius: "18px",
-                    border: "1px solid rgba(208,153,71,0.18)",
-                    padding: "32px 28px",
-                    boxShadow: "0 12px 32px rgba(0,0,0,0.45)",
+                    position: "absolute",
+                    inset: 0,
+                    backgroundImage: `url('${stage.image}')`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                />
+                {/* Dark overlay on image */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%)",
+                  }}
+                />
+              </div>
+
+              {/* Content Area */}
+              <div style={{ padding: "32px 40px 40px 40px" }}>
+                {/* Number Badge + Title Row */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "20px",
+                    marginBottom: "12px",
                   }}
                 >
-                  {/* Stage number badge */}
+                  {/* Circular Number Badge */}
                   <div
                     style={{
-                      position: "absolute",
-                      top: "-14px",
-                      left: "28px",
-                      background: "#D09947",
-                      color: "#000000",
-                      fontWeight: 700,
-                      padding: "6px 16px",
-                      borderRadius: "20px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    Stage {stage.number}
-                  </div>
-
-                  {/* Icon */}
-                  <div
-                    style={{
-                      width: "48px",
-                      height: "48px",
-                      borderRadius: "12px",
-                      background: "rgba(208,153,71,0.12)",
-                      border: "1px solid rgba(208,153,71,0.35)",
+                      width: "56px",
+                      height: "56px",
+                      borderRadius: "50%",
+                      backgroundColor: "#D09947",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      marginBottom: "20px",
-                      marginTop: "8px",
+                      flexShrink: 0,
                     }}
                   >
-                    <Icon style={{ width: "24px", height: "24px", color: "#D09947" }} />
+                    <span
+                      style={{
+                        color: "#000000",
+                        fontSize: "22px",
+                        fontWeight: 700,
+                      }}
+                    >
+                      {stage.number}
+                    </span>
                   </div>
 
-                  {/* Content */}
+                  {/* Title */}
                   <h3
                     style={{
-                      fontSize: "19px",
+                      fontSize: "28px",
                       fontWeight: 700,
                       color: "#FFFFFF",
-                      marginBottom: "8px",
+                      margin: 0,
                     }}
                   >
                     {stage.title}
                   </h3>
-                  <p
-                    style={{
-                      color: "#EEC569",
-                      fontSize: "14px",
-                      marginBottom: "20px",
-                    }}
-                  >
-                    {stage.subtitle}
-                  </p>
+                </div>
 
-                  {/* Items */}
-                  <ul className="space-y-3 mb-6">
-                    {stage.items.map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-3">
-                        <CheckCircle style={{ width: "18px", height: "18px", color: "#D09947", flexShrink: 0, marginTop: "2px" }} />
-                        <span style={{ color: "#C5C6C9", fontSize: "14px", lineHeight: 1.5 }}>
-                          {item.text.split(item.highlight).map((part, i, arr) => (
-                            <span key={i}>
-                              {part}
-                              {i < arr.length - 1 && (
-                                <span style={{ color: "#D09947", fontWeight: 500 }}>{item.highlight}</span>
-                              )}
-                            </span>
-                          ))}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                {/* Subtitle */}
+                <p
+                  style={{
+                    color: "#EEC569",
+                    fontSize: "16px",
+                    marginBottom: "32px",
+                    marginLeft: "76px",
+                  }}
+                >
+                  {stage.subtitle}
+                </p>
 
-                  {/* Footer */}
-                  <div
-                    style={{
-                      paddingTop: "16px",
-                      borderTop: "1px solid rgba(208,153,71,0.2)",
-                    }}
-                  >
-                    <p style={{ color: "#7A7A7C", fontSize: "13px", fontStyle: "italic" }}>{stage.footer}</p>
-                  </div>
-
-                  {/* Arrow connector for desktop */}
-                  {index < stages.length - 1 && (
-                    <div
-                      className="hidden lg:flex"
+                {/* Two Column Layout */}
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: "40px",
+                  }}
+                >
+                  {/* Left Column - Key Procedures */}
+                  <div>
+                    <h4
                       style={{
-                        position: "absolute",
-                        right: "-16px",
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        zIndex: 10,
-                        width: "32px",
-                        height: "32px",
-                        background: "#D09947",
-                        borderRadius: "50%",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        color: "#FFFFFF",
+                        fontSize: "16px",
+                        fontWeight: 600,
+                        marginBottom: "16px",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.05em",
                       }}
                     >
-                      <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                  )}
-                </motion.div>
-              );
-            })}
-          </div>
+                      Key Procedures
+                    </h4>
+                    <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                      {stage.keyProcedures.map((item, idx) => (
+                        <li
+                          key={idx}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "12px",
+                            marginBottom: "12px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "20px",
+                              height: "20px",
+                              borderRadius: "50%",
+                              backgroundColor: "rgba(208,153,71,0.15)",
+                              border: "1px solid #D09947",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              flexShrink: 0,
+                            }}
+                          >
+                            <Check
+                              style={{
+                                width: "12px",
+                                height: "12px",
+                                color: "#D09947",
+                              }}
+                            />
+                          </div>
+                          <span
+                            style={{
+                              color: "#C5C6C9",
+                              fontSize: "15px",
+                              lineHeight: 1.4,
+                            }}
+                          >
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Right Column - Core Inspection Parameters */}
+                  <div>
+                    <h4
+                      style={{
+                        color: "#FFFFFF",
+                        fontSize: "16px",
+                        fontWeight: 600,
+                        marginBottom: "16px",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.05em",
+                      }}
+                    >
+                      Core Inspection Parameters
+                    </h4>
+                    <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                      {stage.coreParameters.map((item, idx) => (
+                        <li
+                          key={idx}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "12px",
+                            marginBottom: "12px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "20px",
+                              height: "20px",
+                              borderRadius: "50%",
+                              backgroundColor: "rgba(208,153,71,0.15)",
+                              border: "1px solid #D09947",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              flexShrink: 0,
+                            }}
+                          >
+                            <Check
+                              style={{
+                                width: "12px",
+                                height: "12px",
+                                color: "#D09947",
+                              }}
+                            />
+                          </div>
+                          <span
+                            style={{
+                              color: "#C5C6C9",
+                              fontSize: "15px",
+                              lineHeight: 1.4,
+                            }}
+                          >
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

@@ -45,7 +45,7 @@ export function ContactForm() {
     display: "block",
     fontSize: "13px",
     fontWeight: 500,
-    color: "#FFFFFF",
+    color: "#EEC569",
     marginBottom: "8px",
   };
 
@@ -58,7 +58,7 @@ export function ContactForm() {
   const inputStyles: React.CSSProperties = {
     width: "100%",
     background: "#1A1A1A",
-    border: "1px solid rgba(255,255,255,0.1)",
+    border: "1px solid #D09947",
     borderRadius: "8px",
     padding: "14px 16px 14px 48px",
     fontSize: "14px",
@@ -99,23 +99,36 @@ export function ContactForm() {
           >
             {/* Form Header */}
             <div style={{ marginBottom: "28px" }}>
-              <span
+              <div
                 style={{
-                  display: "inline-block",
-                  background: "transparent",
-                  border: "1px solid rgba(208,153,71,0.3)",
-                  color: "rgba(208,153,71,0.65)",
-                  fontSize: "12px",
-                  fontWeight: 600,
-                  padding: "6px 12px",
-                  borderRadius: "4px",
-                  letterSpacing: "0.25em",
-                  textTransform: "uppercase",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "10px 24px",
+                  border: "1px solid #7F4D0F",
+                  backgroundColor: "transparent",
                   marginBottom: "20px",
                 }}
               >
-                ■ Contact Form
-              </span>
+                <span
+                  style={{
+                    width: "8px",
+                    height: "8px",
+                    backgroundColor: "#D09947",
+                  }}
+                />
+                <span
+                  style={{
+                    color: "#EEC569",
+                    fontSize: "12px",
+                    fontWeight: "500",
+                    letterSpacing: "0.25em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  CONTACT FORM
+                </span>
+              </div>
 
               <h2
                 className="text-white"
@@ -131,7 +144,7 @@ export function ContactForm() {
               <p
                 style={{
                   fontSize: "18px",
-                  color: "#7A7A7C",
+                  color: "#EEC569",
                   lineHeight: 1.6,
                 }}
               >
@@ -221,7 +234,7 @@ export function ContactForm() {
                     style={{
                       width: "100%",
                       background: "#1A1A1A",
-                      border: "1px solid rgba(255,255,255,0.1)",
+                      border: "1px solid #D09947",
                       borderRadius: "8px",
                       padding: "14px 48px 14px 16px",
                       fontSize: "14px",
@@ -295,7 +308,7 @@ export function ContactForm() {
                     style={{
                       width: "100%",
                       background: "#1A1A1A",
-                      border: "1px solid rgba(255,255,255,0.1)",
+                      border: "1px solid #D09947",
                       borderRadius: "8px",
                       padding: "14px 16px 14px 48px",
                       fontSize: "14px",
@@ -448,23 +461,37 @@ export function ContactForm() {
           >
             {/* Reach Us Directly Section */}
             <div>
-              {/* Header - SOLID GOLD pill */}
-              <span
+              {/* Header */}
+              <div
                 style={{
-                  display: "inline-block",
-                  background: "#D09947",
-                  color: "#000000",
-                  fontSize: "10px",
-                  fontWeight: 600,
-                  padding: "6px 14px",
-                  borderRadius: "4px",
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "10px 24px",
+                  border: "1px solid #7F4D0F",
+                  backgroundColor: "transparent",
                   marginBottom: "16px",
                 }}
               >
-                ■ Direct Contact
-              </span>
+                <span
+                  style={{
+                    width: "8px",
+                    height: "8px",
+                    backgroundColor: "#D09947",
+                  }}
+                />
+                <span
+                  style={{
+                    color: "#EEC569",
+                    fontSize: "12px",
+                    fontWeight: "500",
+                    letterSpacing: "0.25em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  DIRECT CONTACT
+                </span>
+              </div>
 
               <h3
                 style={{
@@ -481,7 +508,7 @@ export function ContactForm() {
                 {/* Call Us Box */}
                 <div
                   style={{
-                    background: "#141414",
+                    background: "#34312F",
                     borderRadius: "10px",
                     border: "1px solid rgba(208,153,71,0.15)",
                     padding: "16px 20px",
@@ -521,11 +548,11 @@ export function ContactForm() {
                     >
                       Call Us
                     </p>
-                    <p style={{ fontSize: "12px", color: "#C5C6C9", lineHeight: 1.6 }}>
-                      Phone: <span style={{ color: "#D09947" }}>+1 (555) 123-4567</span>
+                    <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
+                      Phone: <span style={{ color: "#EEC569" }}>+1 (555) 123-4567</span>
                     </p>
-                    <p style={{ fontSize: "12px", color: "#C5C6C9", lineHeight: 1.6 }}>
-                      WhatsApp: <span style={{ color: "#D09947" }}>+1 (555) 987-6543</span>
+                    <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
+                      WhatsApp: <span style={{ color: "#EEC569" }}>+1 (555) 987-6543</span>
                     </p>
                   </div>
                 </div>
@@ -533,7 +560,7 @@ export function ContactForm() {
                 {/* Email Us Box */}
                 <div
                   style={{
-                    background: "#141414",
+                    background: "#34312F",
                     borderRadius: "10px",
                     border: "1px solid rgba(208,153,71,0.15)",
                     padding: "16px 20px",
@@ -573,14 +600,14 @@ export function ContactForm() {
                     >
                       Email Us
                     </p>
-                    <p style={{ fontSize: "12px", color: "#C5C6C9", lineHeight: 1.6 }}>
-                      General Inquiries: <span style={{ color: "#D09947" }}>info@apexbatch.com</span>
+                    <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
+                      General Inquiries: <span style={{ color: "#EEC569" }}>info@apexbatch.com</span>
                     </p>
-                    <p style={{ fontSize: "12px", color: "#C5C6C9", lineHeight: 1.6 }}>
-                      Quick Quote: <span style={{ color: "#D09947" }}>quotes@apexbatch.com</span>
+                    <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
+                      Quick Quote: <span style={{ color: "#EEC569" }}>quotes@apexbatch.com</span>
                     </p>
-                    <p style={{ fontSize: "12px", color: "#C5C6C9", lineHeight: 1.6 }}>
-                      Support: <span style={{ color: "#D09947" }}>support@apexbatch.com</span>
+                    <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
+                      Support: <span style={{ color: "#EEC569" }}>support@apexbatch.com</span>
                     </p>
                   </div>
                 </div>
@@ -608,23 +635,36 @@ export function ContactForm() {
             {/* Our Headquarters Section */}
             <div>
               {/* Header */}
-              <span
+              <div
                 style={{
-                  display: "inline-block",
-                  background: "transparent",
-                  border: "1px solid rgba(208,153,71,0.3)",
-                  color: "#D09947",
-                  fontSize: "10px",
-                  fontWeight: 600,
-                  padding: "6px 12px",
-                  borderRadius: "4px",
-                  letterSpacing: "0.05em",
-                  textTransform: "uppercase",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "10px 24px",
+                  border: "1px solid #7F4D0F",
+                  backgroundColor: "transparent",
                   marginBottom: "16px",
                 }}
               >
-                ◎ Location
-              </span>
+                <span
+                  style={{
+                    width: "8px",
+                    height: "8px",
+                    backgroundColor: "#D09947",
+                  }}
+                />
+                <span
+                  style={{
+                    color: "#EEC569",
+                    fontSize: "12px",
+                    fontWeight: "500",
+                    letterSpacing: "0.25em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  LOCATION
+                </span>
+              </div>
 
               <h3
                 style={{
@@ -663,50 +703,61 @@ export function ContactForm() {
                 />
               </div>
 
-              {/* Address Row */}
-              <div className="grid grid-cols-2" style={{ gap: "16px", marginBottom: "16px" }}>
-                <div>
-                  <p
-                    style={{
-                      fontSize: "11px",
-                      color: "#666666",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    Address
-                  </p>
-                  <p style={{ fontSize: "13px", fontWeight: 500, color: "#FFFFFF" }}>
-                    123 Business Street
-                  </p>
-                </div>
-                <div>
-                  <p
-                    style={{
-                      fontSize: "11px",
-                      color: "#666666",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    City, State
-                  </p>
-                  <p style={{ fontSize: "13px", fontWeight: 500, color: "#FFFFFF" }}>
-                    New York, NY 10001
-                  </p>
-                </div>
-              </div>
-
-              {/* Get Directions Button - SOLID GOLD with gradient */}
-              <button
-                className="w-full transition-all duration-300 hover:-translate-y-0.5"
+              {/* Address Container */}
+              <div
                 style={{
-                  background: "linear-gradient(135deg, #D09947 0%, #EEC569 100%)",
-                  border: "2px solid transparent",
-                  color: "#000000",
-                  fontWeight: 600,
-                  fontSize: "16px",
-                  padding: "14px 16px",
-                  borderRadius: "8px",
-                  display: "flex",
+                  background: "#34312F",
+                  borderRadius: "10px",
+                  border: "1px solid rgba(208,153,71,0.15)",
+                  padding: "16px 20px",
+                }}
+              >
+                {/* Address Row */}
+                <div className="grid grid-cols-2" style={{ gap: "16px", marginBottom: "16px" }}>
+                  <div>
+                    <p
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        color: "#FFFFFF",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      Address
+                    </p>
+                    <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
+                      123 Business Street
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        color: "#FFFFFF",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      City, State
+                    </p>
+                    <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
+                      New York, NY 10001
+                    </p>
+                  </div>
+                </div>
+
+                {/* Get Directions Button - SOLID GOLD with gradient */}
+                <button
+                  className="w-full transition-all duration-300 hover:-translate-y-0.5"
+                  style={{
+                    background: "linear-gradient(135deg, #D09947 0%, #EEC569 100%)",
+                    border: "2px solid transparent",
+                    color: "#000000",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                    padding: "14px 16px",
+                    borderRadius: "8px",
+                    display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   gap: "8px",
@@ -727,6 +778,7 @@ export function ContactForm() {
                 <Navigation style={{ width: "16px", height: "16px" }} />
                 Get Directions
               </button>
+              </div>
             </div>
           </motion.div>
         </div>

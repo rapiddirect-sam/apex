@@ -16,18 +16,6 @@ export function ContactNextSteps() {
         position: "relative",
       }}
     >
-      {/* Top gold line */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "2px",
-          backgroundColor: "#D09947",
-        }}
-      />
-
       <div
         style={{
           maxWidth: "1200px",
@@ -62,7 +50,7 @@ export function ContactNextSteps() {
             />
             <span
               style={{
-                color: "rgba(208,153,71,0.65)",
+                color: "#EEC569",
                 fontSize: "12px",
                 fontWeight: "500",
                 letterSpacing: "0.25em",
@@ -92,8 +80,8 @@ export function ContactNextSteps() {
         <p
           style={{
             textAlign: "center",
-            color: "#C5C6C9",
-            fontSize: "21px",
+            color: "#EEC569",
+            fontSize: "18px",
             margin: "0 0 60px 0",
             fontWeight: 400,
           }}
@@ -123,8 +111,8 @@ export function ContactNextSteps() {
                 ),
                 #0D0D0D
               `,
-              border: "1px solid rgba(208,153,71,0.25)",
-              borderRadius: "18px",
+              border: "1px solid #EEC569",
+              borderRadius: "0",
               padding: "32px 28px 28px 28px",
               position: "relative",
             }}
@@ -133,7 +121,7 @@ export function ContactNextSteps() {
               e.currentTarget.style.boxShadow = "0 0 30px rgba(208,153,71,0.5)";
             }}
             onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
-              e.currentTarget.style.border = "1px solid rgba(208,153,71,0.25)";
+              e.currentTarget.style.border = "1px solid #EEC569";
               e.currentTarget.style.boxShadow = "none";
             }}
           >
@@ -216,7 +204,7 @@ export function ContactNextSteps() {
             {/* Title */}
             <h3
               style={{
-                color: "#EEC569",
+                color: "#FFFFFF",
                 fontSize: "22px",
                 fontWeight: 700,
                 margin: "0 0 16px 0",
@@ -291,8 +279,8 @@ export function ContactNextSteps() {
                 ),
                 #0D0D0D
               `,
-              border: "1px solid rgba(208,153,71,0.25)",
-              borderRadius: "18px",
+              border: "1px solid #EEC569",
+              borderRadius: "0",
               padding: "32px 28px 28px 28px",
               position: "relative",
             }}
@@ -301,7 +289,7 @@ export function ContactNextSteps() {
               e.currentTarget.style.boxShadow = "0 0 30px rgba(208,153,71,0.5)";
             }}
             onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
-              e.currentTarget.style.border = "1px solid rgba(208,153,71,0.25)";
+              e.currentTarget.style.border = "1px solid #EEC569";
               e.currentTarget.style.boxShadow = "none";
             }}
           >
@@ -386,7 +374,7 @@ export function ContactNextSteps() {
             {/* Title */}
             <h3
               style={{
-                color: "#EEC569",
+                color: "#FFFFFF",
                 fontSize: "22px",
                 fontWeight: 700,
                 margin: "0 0 16px 0",
@@ -461,8 +449,8 @@ export function ContactNextSteps() {
                 ),
                 #0D0D0D
               `,
-              border: "1px solid rgba(208,153,71,0.25)",
-              borderRadius: "18px",
+              border: "1px solid #EEC569",
+              borderRadius: "0",
               padding: "32px 28px 28px 28px",
               position: "relative",
             }}
@@ -471,7 +459,7 @@ export function ContactNextSteps() {
               e.currentTarget.style.boxShadow = "0 0 30px rgba(208,153,71,0.5)";
             }}
             onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
-              e.currentTarget.style.border = "1px solid rgba(208,153,71,0.25)";
+              e.currentTarget.style.border = "1px solid #EEC569";
               e.currentTarget.style.boxShadow = "none";
             }}
           >
@@ -530,7 +518,7 @@ export function ContactNextSteps() {
             {/* Title */}
             <h3
               style={{
-                color: "#EEC569",
+                color: "#FFFFFF",
                 fontSize: "22px",
                 fontWeight: 700,
                 margin: "0 0 16px 0",
@@ -606,8 +594,8 @@ export function ContactNextSteps() {
               ),
               #0D0D0D
             `,
-            border: "1px solid rgba(208,153,71,0.25)",
-            borderRadius: "18px",
+            border: "1px solid #EEC569",
+            borderRadius: "0",
             padding: "40px",
             textAlign: "center",
             maxWidth: "600px",
@@ -619,7 +607,7 @@ export function ContactNextSteps() {
             e.currentTarget.style.boxShadow = "0 0 30px rgba(208,153,71,0.5)";
           }}
           onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
-            e.currentTarget.style.border = "1px solid rgba(208,153,71,0.25)";
+            e.currentTarget.style.border = "1px solid #EEC569";
             e.currentTarget.style.boxShadow = "none";
           }}
         >

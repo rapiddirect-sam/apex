@@ -16,8 +16,7 @@ export function ContactHero() {
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1920&q=80')",
-          filter: "brightness(0.85)",
+            "url('https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1920&q=80')",
         }}
       />
 
@@ -25,13 +24,13 @@ export function ContactHero() {
       <div
         className="absolute inset-0"
         style={{
-          background: "linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.85))",
+          background: "linear-gradient(180deg, rgba(0,0,0,0.5), rgba(0,0,0,0.7))",
         }}
       />
       <div
         className="absolute inset-0"
         style={{
-          background: "linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.3) 100%)",
+          background: "linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.2) 100%)",
         }}
       />
 
@@ -43,32 +42,45 @@ export function ContactHero() {
           transition={{ duration: 0.5 }}
           style={{ maxWidth: "900px" }}
         >
-          {/* Pill Label - SOLID GOLD BACKGROUND, WHITE TEXT */}
+          {/* Pill Label */}
           <div className="mb-6">
-            <span
+            <div
               style={{
-                display: "inline-block",
-                background: "#D09947",
-                color: "#FFFFFF",
-                fontSize: "11px",
-                fontWeight: 600,
-                padding: "10px 20px",
-                borderRadius: "4px",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                border: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "10px 24px",
+                border: "1px solid #7F4D0F",
+                backgroundColor: "transparent",
               }}
             >
-              Get In Touch
-            </span>
+              <span
+                style={{
+                  width: "8px",
+                  height: "8px",
+                  backgroundColor: "#D09947",
+                }}
+              />
+              <span
+                style={{
+                  color: "#EEC569",
+                  fontSize: "12px",
+                  fontWeight: "500",
+                  letterSpacing: "0.25em",
+                  textTransform: "uppercase",
+                }}
+              >
+                GET IN TOUCH
+              </span>
+            </div>
           </div>
 
           {/* Eyebrow - GOLD COLOR */}
           <p
             style={{
-              fontSize: "15px",
-              fontWeight: 600,
-              color: "#D09947",
+              fontSize: "20px",
+              fontWeight: 700,
+              color: "#EEC569",
               marginBottom: "16px",
             }}
           >
@@ -84,12 +96,11 @@ export function ContactHero() {
               letterSpacing: "-0.02em",
               color: "#FFFFFF",
               marginBottom: "24px",
+              whiteSpace: "nowrap",
             }}
           >
             Get in Touch with{" "}
-            <span style={{ color: "#EEC569" }}>
-              ApexBatch
-            </span>
+            <span style={{ color: "#EEC569" }}>ApexBatch</span>
           </h1>
 
           {/* Subheadline */}
@@ -98,12 +109,10 @@ export function ContactHero() {
               fontSize: "21px",
               lineHeight: 1.6,
               color: "#C5C6C9",
-              maxWidth: "900px",
+              maxWidth: "100%",
             }}
           >
-            Let&apos;s Bring Your Project To Life. Whether you&apos;re moving from
-            prototype to batch production or need a high-precision manufacturing
-            partner, our engineering team is ready.
+            Let&apos;s Bring Your Project To Life. Whether you&apos;re moving from prototype to batch production or need a high-precision manufacturing partner, our engineering team is ready.
           </p>
         </motion.div>
       </div>
