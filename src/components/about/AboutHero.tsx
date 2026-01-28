@@ -6,38 +6,44 @@ export function AboutHero() {
   return (
     <section
       style={{
-        background: `
-          radial-gradient(
-            ellipse 80% 50% at 50% 0%,
-            rgba(208,153,71,0.15),
-            transparent 50%
-          ),
-          #000000
-        `,
+        background: "linear-gradient(135deg, #1a1512 0%, #2d1f15 25%, #3d2a1a 50%, #4a3520 75%, #1a1512 100%)",
         padding: "60px 40px",
-        paddingTop: "140px",
+        paddingTop: "120px",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      {/* Section Label Pill */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+      {/* Animated GIF background */}
+      <div
         style={{
-          position: "relative",
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "28px",
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
         }}
       >
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#2A2A2A] border border-[#3A3A3A] rounded-full">
-          <span className="text-[#D09947] text-xs font-medium tracking-[0.1em] uppercase">
-            About Us
-          </span>
-        </div>
-      </motion.div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/about/AboutApexBatch.gif"
+          alt=""
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            opacity: 0.4,
+          }}
+          loading="eager"
+        />
+      </div>
+
+      {/* Dark overlay for readability */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%)",
+          pointerEvents: "none",
+        }}
+      />
 
       {/* Main card container */}
       <motion.div
@@ -46,9 +52,10 @@ export function AboutHero() {
         transition={{ duration: 0.6, delay: 0.1 }}
         style={{
           position: "relative",
+          zIndex: 1,
           maxWidth: "1100px",
           margin: "0 auto",
-          background: "rgba(13,13,13,0.4)",
+          background: "rgba(13,13,13,0.25)",
           backdropFilter: "blur(8px)",
           border: "1px solid rgba(208,153,71,0.15)",
           borderRadius: "18px",
