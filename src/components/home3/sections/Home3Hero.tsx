@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, Star } from "lucide-react";
+import { Check, Star, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const features = [
   { highlight: "30-60", text: "Minute quote response" },
@@ -18,263 +19,143 @@ const stats = [
 
 export function Home3Hero() {
   return (
-    <section
-      className="relative min-h-[90vh] pt-16"
-      style={{ background: "#000000" }}
-    >
-      {/* Background image */}
+    <section className="relative min-h-screen bg-[#000000] pt-20 overflow-hidden">
+      {/* Grid pattern overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 opacity-30"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1920&q=80')",
-          filter: "brightness(0.85)",
+          backgroundImage:
+            "linear-gradient(rgba(208, 153, 71, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(208, 153, 71, 0.05) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
         }}
       />
 
-      {/* Multi-layer cinematic overlay */}
+      {/* Background image - right side only */}
       <div
-        className="absolute inset-0"
+        className="absolute right-0 top-0 bottom-0 w-1/2 bg-cover bg-center hidden lg:block"
         style={{
-          background: "linear-gradient(180deg, rgba(0,0,0,0.65), rgba(0,0,0,0.85))",
+          backgroundImage: "url('https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1920&q=80')",
         }}
       />
+      {/* Diagonal gradient overlay on image */}
+      <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-gradient-to-r from-[#000000] via-[#000000]/80 to-transparent hidden lg:block" />
+
+      {/* Diagonal gold accent line */}
       <div
-        className="absolute inset-0"
-        style={{
-          background: "linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.3) 100%)",
-        }}
+        className="absolute top-40 left-0 w-[200px] h-[2px] bg-gradient-to-r from-[#D09947] to-transparent hidden lg:block"
+        style={{ transform: "rotate(-45deg) translateX(-50px)" }}
       />
 
       {/* Content */}
-      <div className="relative max-w-[1200px] mx-auto px-6 min-h-[calc(90vh-64px)] flex items-center">
-        <div className="grid lg:grid-cols-2 gap-16 w-full py-16 lg:py-20">
-          {/* Left Column - Headlines and Social Proof */}
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 min-h-[calc(100vh-80px)] flex items-center">
+        <div className="grid grid-cols-12 gap-8 w-full py-20">
+          {/* Left Column - Headlines (spans 7 cols) */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
+            className="col-span-12 lg:col-span-7"
           >
-            {/* Headline - Two tiers */}
-            <h1
-              className="text-white"
-              style={{
-                fontSize: "clamp(48px, 6vw, 72px)",
-                fontWeight: 700,
-                lineHeight: 1.1,
-                letterSpacing: "-0.01em",
-              }}
-            >
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 border border-[#D09947]/30 rounded mb-8">
+              <div className="w-2 h-2 bg-[#D09947] rounded-full animate-pulse" />
+              <span className="text-[#D09947] text-xs font-medium uppercase tracking-[0.2em]">
+                Precision Engineering
+              </span>
+            </div>
+
+            <h1 className="text-[48px] md:text-[64px] lg:text-[80px] font-bold text-white leading-[0.95] tracking-tight uppercase mb-2">
               Precision
             </h1>
-            <h1
-              className="text-white"
-              style={{
-                fontSize: "clamp(48px, 6vw, 72px)",
-                fontWeight: 700,
-                lineHeight: 1.1,
-                letterSpacing: "-0.01em",
-              }}
-            >
+            <h1 className="text-[48px] md:text-[64px] lg:text-[80px] font-bold text-white leading-[0.95] tracking-tight uppercase mb-2">
               Manufacturing,
             </h1>
-            <h1
-              style={{
-                fontSize: "clamp(48px, 6vw, 72px)",
-                fontWeight: 800,
-                lineHeight: 1.1,
-                letterSpacing: "-0.01em",
-                color: "#EEC569",
-                marginBottom: "24px",
-              }}
-            >
-              Intelligent Living
+            <h1 className="text-[48px] md:text-[64px] lg:text-[80px] font-bold text-[#D09947] leading-[0.95] tracking-tight uppercase mb-8">
+              Built to Last
             </h1>
 
-            {/* Subheadline */}
-            <p
-              style={{
-                fontSize: "18px",
-                fontWeight: 500,
-                color: "#7A7A7C",
-                marginBottom: "40px",
-              }}
-            >
-              Your Partner for High-Precision Batch Manufacturing
+            <p className="text-[#7A7A7C] text-lg max-w-xl mb-10 leading-relaxed">
+              Your Partner for High-Precision Batch Manufacturing. Industrial-grade
+              quality with rapid turnaround times.
             </p>
 
-            {/* Social Proof Boxes */}
-            <div className="flex flex-wrap gap-4 items-center">
-              {/* Box 1 - Dark with avatars */}
-              <div
-                className="flex items-center gap-3"
-                style={{
-                  background: "rgba(26,26,26,0.8)",
-                  backdropFilter: "blur(8px)",
-                  borderRadius: "12px",
-                  padding: "12px 16px",
-                }}
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap gap-4 mb-12">
+              <Link
+                href="/contact"
+                className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider flex items-center gap-2 group"
               >
-                <div className="flex -space-x-2">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div
-                      key={i}
-                      className="rounded-full"
-                      style={{
-                        width: "32px",
-                        height: "32px",
-                        background: `linear-gradient(135deg, #D4A03A, #8B6914)`,
-                        border: "2px solid #1A1A1A",
-                      }}
-                    />
-                  ))}
-                </div>
-                <div>
-                  <p style={{ color: "#FFFFFF", fontSize: "12px" }}>
-                    <span style={{ fontWeight: 700 }}>20M+</span> Ads Created For{" "}
-                    <span style={{ fontWeight: 700 }}>23,560+</span> Happy Customers
-                  </p>
-                  <div className="flex items-center gap-1 mt-1">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star
-                        key={i}
-                        className="fill-[#D09947] text-[#D09947]"
-                        style={{ width: "12px", height: "12px" }}
-                      />
-                    ))}
-                    <span style={{ color: "#FFFFFF", fontSize: "12px", marginLeft: "4px" }}>5.0</span>
-                  </div>
-                </div>
-              </div>
+                Get Instant Quote
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link
+                href="#capabilities"
+                className="border border-[#4A4A48] hover:border-[#D09947] text-white font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider"
+              >
+                View Capabilities
+              </Link>
+            </div>
 
-              {/* Box 2 - Transparent text only */}
-              <div style={{ padding: "12px 16px", opacity: 0.9 }}>
-                <p style={{ color: "#C5C6C9", fontSize: "12px" }}>
-                  <span style={{ fontWeight: 700 }}>20M+</span> Ads Created
+            {/* Social Proof */}
+            <div className="flex items-center gap-6">
+              <div className="flex -space-x-3">
+                {[1, 2, 3, 4].map((i) => (
+                  <div
+                    key={i}
+                    className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D09947] to-[#7F4D0F] border-2 border-[#000000]"
+                  />
+                ))}
+              </div>
+              <div>
+                <p className="text-white text-sm">
+                  <span className="font-bold text-[#D09947]">25M+</span> Parts Created
                 </p>
-                <p style={{ color: "#C5C6C9", fontSize: "12px" }}>
-                  For <span style={{ fontWeight: 700 }}>23,560+</span> Happy Customers
-                </p>
-                <div className="flex items-center gap-1 mt-1">
+                <div className="flex items-center gap-1">
                   {[1, 2, 3, 4, 5].map((i) => (
-                    <Star
-                      key={i}
-                      className="fill-[#D09947] text-[#D09947]"
-                      style={{ width: "12px", height: "12px" }}
-                    />
+                    <Star key={i} className="w-3 h-3 fill-[#D09947] text-[#D09947]" />
                   ))}
-                  <span style={{ color: "#C5C6C9", fontSize: "12px", marginLeft: "4px" }}>5.0</span>
+                  <span className="text-[#7A7A7C] text-xs ml-2">22,500+ Happy Customers</span>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Right Column - Hero Panel */}
+          {/* Right Column - Feature Card (spans 4 cols, offset) */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="flex items-center lg:justify-end"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="col-span-12 lg:col-span-4 lg:col-start-9 flex items-center"
           >
-            <div
-              style={{
-                background: "rgba(46,44,43,0.25)",
-                backdropFilter: "blur(8px)",
-                borderRadius: "20px",
-                border: "1px solid rgba(197,198,201,0.08)",
-                boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
-                padding: "28px 32px",
-                width: "100%",
-                maxWidth: "420px",
-              }}
-            >
-              {/* Feature List - Verified checklist style */}
-              <ul style={{ marginBottom: "24px" }}>
+            <div className="bg-[#4A4A48]/40 backdrop-blur-md rounded-lg p-8 w-full border border-[#D09947]/20 relative overflow-hidden">
+              {/* Gold glow effect */}
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#D09947]/20 rounded-full blur-3xl" />
+
+              {/* Feature List */}
+              <ul className="space-y-5 mb-8 relative">
                 {features.map((feature, index) => (
-                  <li
-                    key={index}
-                    className="flex items-center gap-3"
-                    style={{
-                      padding: "14px 0",
-                      borderBottom: index < features.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
-                    }}
-                  >
-                    <div
-                      className="flex items-center justify-center flex-shrink-0"
-                      style={{
-                        width: "24px",
-                        height: "24px",
-                        borderRadius: "50%",
-                        background: "rgba(208,153,71,0.2)",
-                        boxShadow: "0 0 6px rgba(208,153,71,0.4)",
-                      }}
-                    >
-                      <Check style={{ width: "14px", height: "14px", color: "#D09947" }} />
+                  <li key={index} className="flex items-center gap-4">
+                    <div className="w-8 h-8 bg-[#D09947]/10 border border-[#D09947]/30 rounded flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-[#D09947]" />
                     </div>
-                    <span style={{ color: "#FFFFFF", fontSize: "15px" }}>
-                      <span style={{ color: "#D09947", fontWeight: 600 }}>{feature.highlight}</span>{" "}
+                    <span className="text-white text-sm">
+                      <span className="text-[#D09947] font-semibold">
+                        {feature.highlight}
+                      </span>{" "}
                       {feature.text}
                     </span>
                   </li>
                 ))}
               </ul>
 
-              {/* CTA Button - Premium pressable with gradient */}
-              <button
-                className="w-full transition-all duration-300 hover:-translate-y-0.5"
-                style={{
-                  background: "linear-gradient(135deg, #D09947 0%, #EEC569 100%)",
-                  color: "#000000",
-                  fontWeight: 700,
-                  fontSize: "20px",
-                  padding: "14px 24px",
-                  borderRadius: "8px",
-                  boxShadow: "0 0 50px rgba(208,153,71,0.7)",
-                  marginBottom: "24px",
-                  border: "2px solid transparent",
-                  position: "relative",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = "0 0 60px rgba(238,197,105,0.8)";
-                  e.currentTarget.style.color = "#FFFFFF";
-                  e.currentTarget.style.border = "2px solid #F9EBBC";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "0 0 50px rgba(208,153,71,0.7)";
-                  e.currentTarget.style.color = "#000000";
-                  e.currentTarget.style.border = "2px solid transparent";
-                }}
-              >
-                Get Instant Quote
-              </button>
-
-              {/* Trust Metrics Row */}
-              <div
-                className="grid grid-cols-3"
-                style={{
-                  paddingTop: "20px",
-                  borderTop: "1px solid rgba(255,255,255,0.1)",
-                  gap: "16px",
-                }}
-              >
+              {/* Stats Row */}
+              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-[#D09947]/20">
                 {stats.map((stat, index) => (
                   <div key={index} className="text-center">
-                    <div
-                      style={{
-                        color: "#D09947",
-                        fontSize: "24px",
-                        fontWeight: 700,
-                        lineHeight: 1.2,
-                      }}
-                    >
+                    <div className="text-[#D09947] text-2xl font-bold">
                       {stat.value}
                     </div>
-                    <div
-                      style={{
-                        color: "#7A7A7C",
-                        fontSize: "11px",
-                        marginTop: "4px",
-                      }}
-                    >
+                    <div className="text-[#7A7A7C] text-[10px] uppercase tracking-wider">
                       {stat.label}
                     </div>
                   </div>
@@ -284,6 +165,9 @@ export function Home3Hero() {
           </motion.div>
         </div>
       </div>
+
+      {/* Bottom diagonal accent */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D09947]/50 to-transparent" />
     </section>
   );
 }

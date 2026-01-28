@@ -50,14 +50,7 @@ export function Home3Services() {
       className="relative overflow-hidden"
       style={{
         padding: "104px 0 112px",
-        background: `
-          radial-gradient(
-            65% 45% at 50% 0%,
-            rgba(249,235,188,0.10),
-            rgba(0,0,0,0) 65%
-          ),
-          #000000
-        `,
+        background: "#34312F",
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">

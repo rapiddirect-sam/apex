@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Sparkles } from "lucide-react";
 
 const portfolioItems = [
   {
@@ -82,18 +81,15 @@ function PortfolioCard({
 
         {/* Label and Title */}
         <div className="absolute bottom-5 left-5 right-5">
-          <div className="flex items-center gap-1.5 mb-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-[#D09947]" />
-            <span
-              className="text-[#D09947] font-medium uppercase"
-              style={{
-                fontSize: "12px",
-                letterSpacing: "0.08em",
-              }}
-            >
-              {item.label}
-            </span>
-          </div>
+          <span
+            className="text-[#D09947] font-medium uppercase"
+            style={{
+              fontSize: "12px",
+              letterSpacing: "0.08em",
+            }}
+          >
+            {item.label}
+          </span>
           <h3
             className="text-white"
             style={{
@@ -232,14 +228,7 @@ export function Home3Portfolio() {
               padding: "64px 48px",
               borderRadius: "28px",
               border: "2px solid #7F4D0F",
-              background: `
-                radial-gradient(
-                  60% 50% at 50% 0%,
-                  rgba(249,235,188,0.08),
-                  rgba(0,0,0,0) 65%
-                ),
-                #0D0D0D
-              `,
+              background: "#34312F",
               boxShadow: "inset 0 0 0 1px rgba(208,153,71,0.15), 0 24px 60px rgba(0,0,0,0.6)",
             }}
           >

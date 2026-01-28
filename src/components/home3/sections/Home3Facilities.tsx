@@ -28,7 +28,7 @@ function Metric({ value, label, delay }: { value: string; label: string; delay: 
       transition={{ delay }}
       className="relative text-center"
       style={{
-        padding: "24px 16px",
+        padding: "18px 14px",
         background: `
           radial-gradient(
             60% 50% at 50% 0%,
@@ -68,7 +68,7 @@ function Metric({ value, label, delay }: { value: string; label: string; delay: 
       {/* Value */}
       <div
         style={{
-          fontSize: "36px",
+          fontSize: "28px",
           fontWeight: 700,
           color: "#EEC569",
           lineHeight: 1.1,
@@ -80,9 +80,9 @@ function Metric({ value, label, delay }: { value: string; label: string; delay: 
       {/* Label */}
       <div
         style={{
-          fontSize: "15px",
+          fontSize: "13px",
           color: "#EEC569",
-          marginTop: "6px",
+          marginTop: "4px",
         }}
       >
         {label}
@@ -107,14 +107,7 @@ export function Home3Facilities() {
       className="relative overflow-hidden"
       style={{
         padding: "120px 0 130px",
-        background: `
-          radial-gradient(
-            70% 55% at 50% 0%,
-            rgba(249,235,188,0.10),
-            rgba(0,0,0,0) 65%
-          ),
-          #000000
-        `,
+        background: "#34312F",
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
@@ -169,7 +162,7 @@ export function Home3Facilities() {
 
         {/* Content Grid */}
         <div
-          className="grid lg:grid-cols-2 items-start"
+          className="grid lg:grid-cols-2 items-center"
           style={{ gap: "64px" }}
         >
           {/* Left - Narrative Panel and Metrics */}
@@ -245,8 +238,8 @@ export function Home3Facilities() {
             <div
               className="grid grid-cols-2"
               style={{
-                marginTop: "56px",
-                gap: "40px 48px",
+                marginTop: "32px",
+                gap: "24px 32px",
               }}
             >
               {stats.map((stat, index) => (

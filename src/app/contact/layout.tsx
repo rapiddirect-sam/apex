@@ -1,5 +1,5 @@
 import { Inter, Playfair_Display } from "next/font/google";
-import "../home3/home3.css";
+import "../home3.css";
 
 const inter = Inter({
   subsets: ["latin"],

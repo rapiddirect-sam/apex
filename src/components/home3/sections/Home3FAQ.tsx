@@ -48,21 +48,6 @@ export function Home3FAQ() {
     >
       {/* Constrained width container - 960px max */}
       <div className="max-w-[960px] mx-auto px-6 lg:px-8">
-        {/* Section Label Pill */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex justify-center mb-8"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#2A2A2A] border border-[#3A3A3A] rounded-full">
-            <Sparkles className="w-4 h-4 text-[#D09947]" />
-            <span className="text-[#D09947] text-xs font-medium tracking-[0.1em] uppercase">
-              Expert Solutions
-            </span>
-          </div>
-        </motion.div>
-
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -78,22 +63,8 @@ export function Home3FAQ() {
           </p>
         </motion.div>
 
-        {/* FAQ Section Title with underline - 48px margin bottom */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12 mt-16"
-        >
-          <h3 className="text-white tracking-[-0.01em] mb-3" style={{ fontSize: "41px", fontWeight: 800 }}>
-            Frequently Asked <span className="text-[#EEC569]">Questions</span>
-          </h3>
-          {/* Gold underline */}
-          <div className="w-12 h-1 bg-[#D09947] mx-auto rounded-full" />
-        </motion.div>
-
         {/* FAQ Accordion - Card Style with proper spacing */}
-        <div className="space-y-3 mb-12">
+        <div className="space-y-3 mb-12 mt-12">
           {faqItems.map((item, index) => (
             <motion.div
               key={index}
@@ -203,7 +174,6 @@ export function Home3FAQ() {
               }}
             >
               Contact Sales Team
-              <Sparkles className="w-4 h-4" />
             </button>
             {/* Secondary CTA */}
             <button
@@ -230,7 +200,6 @@ export function Home3FAQ() {
               }}
             >
               Request a Quote
-              <Settings className="w-4 h-4" />
             </button>
           </div>
         </motion.div>

@@ -1,33 +1,33 @@
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { Hero } from "@/components/sections/Hero";
-import { TrustedLogos } from "@/components/sections/TrustedLogos";
-import { Facilities } from "@/components/sections/Facilities";
-import { Services } from "@/components/sections/Services";
-import { Process } from "@/components/sections/Process";
-import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
-import { Industries } from "@/components/sections/Industries";
-import { Portfolio } from "@/components/sections/Portfolio";
-import { Certifications } from "@/components/sections/Certifications";
-import { FAQ } from "@/components/sections/FAQ";
+import { Home3Header } from "@/components/home3/layout/Home3Header";
+import { Home3Footer } from "@/components/home3/layout/Home3Footer";
+import { Home3Hero } from "@/components/home3/sections/Home3Hero";
+import { Home3TrustedLogos } from "@/components/home3/sections/Home3TrustedLogos";
+import { Home3Facilities } from "@/components/home3/sections/Home3Facilities";
+import { Home3Services } from "@/components/home3/sections/Home3Services";
+import { Home3Process } from "@/components/home3/sections/Home3Process";
+import { Home3WhyChoose } from "@/components/home3/sections/Home3WhyChoose";
+import { Home3Industries } from "@/components/home3/sections/Home3Industries";
+import { Home3Portfolio } from "@/components/home3/sections/Home3Portfolio";
+import { Home3Certifications } from "@/components/home3/sections/Home3Certifications";
+import { Home3FAQ } from "@/components/home3/sections/Home3FAQ";
 
 export default function Home() {
   return (
     <>
-      <Header />
+      <Home3Header />
       <main>
-        <Hero />
-        <TrustedLogos />
-        <Facilities />
-        <Services />
-        <Process />
-        <WhyChooseUs />
-        <Industries />
-        <Portfolio />
-        <Certifications />
-        <FAQ />
+        <Home3Hero />
+        <Home3TrustedLogos />
+        <Home3Facilities />
+        <Home3Services />
+        <Home3Process />
+        <Home3WhyChoose />
+        <Home3Industries />
+        <Home3Portfolio />
+        <Home3Certifications />
+        <Home3FAQ />
       </main>
-      <Footer />
+      <Home3Footer />
     </>
   );
 }

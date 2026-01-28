@@ -20,90 +20,15 @@ export function AboutJourney() {
     <section
       style={{
         backgroundColor: "#000000",
-        padding: "35px 20% 80px 20%",
+        backgroundImage: "url('/about/timelinebg.jpeg')",
+        backgroundSize: "40% auto",
+        backgroundPosition: "center bottom",
+        backgroundRepeat: "no-repeat",
+        padding: "80px 20% 80px 20%",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      {/* Starfield particles effect - concentrated top-left */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "40%",
-          height: "50%",
-          background:
-            "radial-gradient(ellipse at 30% 30%, rgba(238,197,105,0.12) 0%, transparent 60%)",
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* Decorative particles */}
-      {particles.map((particle, i) => (
-        <div
-          key={i}
-          style={{
-            position: "absolute",
-            width: particle.width + "px",
-            height: particle.height + "px",
-            backgroundColor: particle.color,
-            borderRadius: "50%",
-            top: particle.top + "%",
-            left: particle.left + "%",
-            opacity: particle.opacity,
-            pointerEvents: "none",
-          }}
-        />
-      ))}
-
-      {/* Bottom orbital rings decoration */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "-50px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "250%",
-          height: "300px",
-          pointerEvents: "none",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            border: "1px solid rgba(208,153,71,0.25)",
-            borderRadius: "50%",
-            transform: "rotateX(85deg)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            width: "80%",
-            height: "80%",
-            left: "10%",
-            top: "10%",
-            border: "1px solid rgba(208,153,71,0.15)",
-            borderRadius: "50%",
-            transform: "rotateX(85deg)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            width: "60%",
-            height: "60%",
-            left: "20%",
-            top: "20%",
-            border: "1px solid rgba(208,153,71,0.1)",
-            borderRadius: "50%",
-            transform: "rotateX(85deg)",
-          }}
-        />
-      </div>
 
       <div
         style={{
@@ -138,7 +63,7 @@ export function AboutJourney() {
           <div
             style={{
               position: "absolute",
-              left: "57%",
+              left: "50%",
               top: "5px",
               bottom: "80px",
               width: "1px",
@@ -158,19 +83,20 @@ export function AboutJourney() {
             }}
           >
             {/* Left spacer */}
-            <div style={{ width: "57%" }} />
+            <div style={{ width: "50%" }} />
 
             {/* Dot */}
             <div
               style={{
                 position: "absolute",
-                left: "57%",
+                left: "50%",
                 top: "5px",
                 width: "9px",
                 height: "9px",
                 backgroundColor: "#EEC569",
                 borderRadius: "50%",
                 transform: "translateX(-50%)",
+                boxShadow: "0 0 12px rgba(238,197,105,0.8), 0 0 24px rgba(238,197,105,0.4)",
               }}
             />
 
@@ -213,7 +139,7 @@ export function AboutJourney() {
             {/* Content - left side */}
             <div
               style={{
-                width: "57%",
+                width: "50%",
                 paddingRight: "30px",
                 display: "flex",
                 justifyContent: "flex-end",
@@ -247,13 +173,14 @@ export function AboutJourney() {
             <div
               style={{
                 position: "absolute",
-                left: "57%",
+                left: "50%",
                 top: "5px",
                 width: "9px",
                 height: "9px",
                 backgroundColor: "#EEC569",
                 borderRadius: "50%",
                 transform: "translateX(-50%)",
+                boxShadow: "0 0 12px rgba(238,197,105,0.8), 0 0 24px rgba(238,197,105,0.4)",
               }}
             />
           </motion.div>
@@ -270,19 +197,20 @@ export function AboutJourney() {
             }}
           >
             {/* Left spacer */}
-            <div style={{ width: "57%" }} />
+            <div style={{ width: "50%" }} />
 
             {/* Dot */}
             <div
               style={{
                 position: "absolute",
-                left: "57%",
+                left: "50%",
                 top: "5px",
                 width: "9px",
                 height: "9px",
                 backgroundColor: "#EEC569",
                 borderRadius: "50%",
                 transform: "translateX(-50%)",
+                boxShadow: "0 0 12px rgba(238,197,105,0.8), 0 0 24px rgba(238,197,105,0.4)",
               }}
             />
 
@@ -325,7 +253,7 @@ export function AboutJourney() {
             {/* Content - left side */}
             <div
               style={{
-                width: "57%",
+                width: "50%",
                 paddingRight: "30px",
                 display: "flex",
                 justifyContent: "flex-end",
@@ -360,13 +288,14 @@ export function AboutJourney() {
             <div
               style={{
                 position: "absolute",
-                left: "57%",
+                left: "50%",
                 top: "5px",
                 width: "9px",
                 height: "9px",
                 backgroundColor: "#EEC569",
                 borderRadius: "50%",
                 transform: "translateX(-50%)",
+                boxShadow: "0 0 12px rgba(238,197,105,0.8), 0 0 24px rgba(238,197,105,0.4)",
               }}
             />
           </motion.div>
@@ -385,13 +314,14 @@ export function AboutJourney() {
             <div
               style={{
                 position: "absolute",
-                left: "57%",
+                left: "50%",
                 top: "0",
                 width: "11px",
                 height: "11px",
                 backgroundColor: "#EEC569",
                 borderRadius: "50%",
                 transform: "translateX(-50%)",
+                boxShadow: "0 0 15px rgba(238,197,105,0.8), 0 0 30px rgba(238,197,105,0.4)",
               }}
             />
 
@@ -401,7 +331,7 @@ export function AboutJourney() {
                 fontSize: "52px",
                 fontWeight: 700,
                 marginTop: "25px",
-                marginLeft: "57%",
+                marginLeft: "50%",
                 transform: "translateX(-50%)",
                 display: "inline-block",
               }}
@@ -416,7 +346,6 @@ export function AboutJourney() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="transition-all duration-300 hover:-translate-y-1"
           style={{
             position: "relative",
             background: `
@@ -425,29 +354,22 @@ export function AboutJourney() {
                 rgba(249,235,188,0.08),
                 rgba(0,0,0,0) 65%
               ),
-              #0D0D0D
+              rgba(13, 13, 13, 0.5)
             `,
-            border: "1px solid rgba(208,153,71,0.25)",
+            border: "2px solid #D09947",
             borderRadius: "18px",
             padding: "26px 32px",
             textAlign: "center",
             marginTop: "25px",
-            marginLeft: "10%",
-            marginRight: "10%",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.border = "2px solid #D09947";
-            e.currentTarget.style.boxShadow = "0 0 30px rgba(208,153,71,0.5)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.border = "1px solid rgba(208,153,71,0.25)";
-            e.currentTarget.style.boxShadow = "none";
+            marginLeft: "20%",
+            marginRight: "20%",
+            boxShadow: "0 0 50px rgba(208,153,71,0.6), 0 0 100px rgba(208,153,71,0.3)",
           }}
         >
           <p
             style={{
-              color: "#FFFFFF",
-              fontSize: "28px",
+              color: "#F9EBBC",
+              fontSize: "22px",
               lineHeight: 1.5,
               margin: 0,
               fontWeight: 500,

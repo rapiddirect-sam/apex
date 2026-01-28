@@ -40,14 +40,7 @@ export function Home3Process() {
       className="relative overflow-hidden"
       style={{
         padding: "112px 0 120px",
-        background: `
-          radial-gradient(
-            70% 50% at 50% 0%,
-            rgba(249,235,188,0.10),
-            rgba(0,0,0,0) 65%
-          ),
-          #000000
-        `,
+        background: "#34312F",
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
@@ -106,35 +99,10 @@ export function Home3Process() {
                   borderRadius: "18px",
                   border: "1px solid rgba(208,153,71,0.18)",
                   padding: "28px 26px",
-                  paddingTop: "40px",
-                  minHeight: "380px",
+                  minHeight: "340px",
                   boxShadow: "0 12px 32px rgba(0,0,0,0.45)",
                 }}
               >
-                {/* Step Number - floating at top-right corner */}
-                <div
-                  className="absolute flex items-center justify-center"
-                  style={{
-                    top: "-26px",
-                    right: "-26px",
-                    width: "53px",
-                    height: "53px",
-                    borderRadius: "50%",
-                    background: "#D09947",
-                    boxShadow: "0 0 15px rgba(238,197,105,0.5)",
-                  }}
-                >
-                  <span
-                    style={{
-                      color: "#000000",
-                      fontWeight: 700,
-                      fontSize: "19px",
-                    }}
-                  >
-                    {step.number}
-                  </span>
-                </div>
-
                 {/* Icon container */}
                 <div
                   className="flex items-center justify-center"

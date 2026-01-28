@@ -14,7 +14,7 @@ const playfair = Playfair_Display({
   style: ["normal", "italic"],
 });
 
-export default function AboutLayout({
+export default function QualityLayout({
   children,
 }: {
   children: React.ReactNode;

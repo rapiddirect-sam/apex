@@ -123,9 +123,10 @@ export function AboutManufacturingHub() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "45% 50%",
-            gap: "5%",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "40px",
             marginBottom: "80px",
+            alignItems: "start",
           }}
         >
           {/* Left Column - Text Content */}
@@ -155,6 +156,7 @@ export function AboutManufacturingHub() {
               style={{
                 margin: "0 0 30px 0",
                 letterSpacing: "-0.015em",
+                lineHeight: 1.05,
               }}
             >
               <span
@@ -175,17 +177,7 @@ export function AboutManufacturingHub() {
                   fontWeight: 700,
                 }}
               >
-                Manufacturing
-              </span>
-              <span
-                className="text-white"
-                style={{
-                  display: "block",
-                  fontSize: "48px",
-                  fontWeight: 700,
-                }}
-              >
-                Hub
+                Manufacturing Hub
               </span>
             </h2>
 

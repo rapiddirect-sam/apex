@@ -14,7 +14,7 @@ export function AboutCapabilities() {
           ),
           #000000
         `,
-        padding: "80px 40px 0 40px",
+        padding: "80px 40px 80px 40px",
         position: "relative",
       }}
     >
@@ -563,14 +563,6 @@ export function AboutCapabilities() {
         </div>
       </div>
 
-      {/* Bottom gold line */}
-      <div
-        style={{
-          marginTop: "60px",
-          height: "2px",
-          backgroundColor: "#D09947",
-        }}
-      />
     </section>
   );
 }

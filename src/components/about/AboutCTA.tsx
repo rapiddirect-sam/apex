@@ -12,7 +12,6 @@ export function AboutCTA() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        borderTop: "3px solid #4A9B9B",
       }}
     >
       {/* Background Image */}
