@@ -81,7 +81,8 @@ export function QualityHero() {
                   background: "linear-gradient(to right, rgba(208,153,71,0.4) 0%, #EEC569 100%)",
                   borderRadius: "16px",
                   padding: "24px 32px",
-                  minWidth: "180px",
+                  flex: 1,
+                  minWidth: "200px",
                 }}
               >
                 <div
