@@ -59,11 +59,10 @@ export function AboutLeadership() {
           </h2>
           <p
             style={{
-              color: "#FFFFFF",
-              fontSize: "28px",
-              lineHeight: 1.5,
+              color: "#7A7A7C",
+              fontSize: "18px",
+              lineHeight: 1.6,
               margin: 0,
-              fontWeight: 500,
             }}
           >
             Visionary leadership driving manufacturing innovation

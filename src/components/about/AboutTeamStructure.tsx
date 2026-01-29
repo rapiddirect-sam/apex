@@ -98,14 +98,13 @@ export function AboutTeamStructure() {
           </h2>
           <p
             style={{
-              color: "#FFFFFF",
-              fontSize: "28px",
-              lineHeight: 1.5,
+              color: "#7A7A7C",
+              fontSize: "18px",
+              lineHeight: 1.6,
               margin: 0,
               maxWidth: "800px",
               marginLeft: "auto",
               marginRight: "auto",
-              fontWeight: 500,
             }}
           >
             Professional departmental ensures every production phase meets the

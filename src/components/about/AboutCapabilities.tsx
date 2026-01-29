@@ -48,12 +48,11 @@ export function AboutCapabilities() {
           viewport={{ once: true }}
           style={{
             textAlign: "center",
-            color: "#FFFFFF",
-            fontSize: "28px",
-            lineHeight: 1.5,
+            color: "#7A7A7C",
+            fontSize: "18px",
+            lineHeight: 1.6,
             margin: "0 auto 50px auto",
             maxWidth: "800px",
-            fontWeight: 500,
           }}
         >
           ApexBatch is a specialized manufacturing subsidiary of Rapid Direct,

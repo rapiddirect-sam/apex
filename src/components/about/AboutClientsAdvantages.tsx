@@ -145,11 +145,10 @@ export function AboutClientsAdvantages() {
             </h2>
             <p
               style={{
-                color: "#FFFFFF",
-                fontSize: "28px",
-                lineHeight: 1.5,
+                color: "#7A7A7C",
+                fontSize: "18px",
+                lineHeight: 1.6,
                 margin: 0,
-                fontWeight: 500,
               }}
             >
               Trusted by global industry leaders
@@ -440,11 +439,10 @@ export function AboutClientsAdvantages() {
             </h2>
             <p
               style={{
-                color: "#FFFFFF",
-                fontSize: "28px",
-                lineHeight: 1.5,
+                color: "#7A7A7C",
+                fontSize: "18px",
+                lineHeight: 1.6,
                 margin: 0,
-                fontWeight: 500,
               }}
             >
               Why leading global companies choose ApexBatch for their manufacturing needs

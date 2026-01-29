@@ -71,12 +71,11 @@ export function Home3Industries() {
           <p
             className="mx-auto"
             style={{
-              fontSize: "28px",
-              lineHeight: 1.5,
-              color: "#FFFFFF",
+              fontSize: "18px",
+              lineHeight: 1.6,
+              color: "#7A7A7C",
               maxWidth: "820px",
-              marginTop: "20px",
-              fontWeight: 500,
+              marginTop: "18px",
             }}
           >
             Supporting medium-to-large batch production across industries with strict
