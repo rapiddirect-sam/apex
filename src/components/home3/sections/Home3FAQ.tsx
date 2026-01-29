@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Sparkles, Settings } from "lucide-react";
+import { ChevronDown, Sparkles, Settings, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const faqItems = [
@@ -72,7 +73,12 @@ export function Home3FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
-              className="bg-[#2A2A2A] rounded-xl overflow-hidden"
+              className={cn(
+                "rounded-xl overflow-hidden transition-colors duration-200",
+                openIndex === index
+                  ? "bg-[#D09947]/30"
+                  : "bg-[#2A2A2A] hover:bg-[#D09947]/30"
+              )}
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
@@ -119,7 +125,7 @@ export function Home3FAQ() {
                   >
                     {/* Answer with proper spacing - mt-3, pb-7 */}
                     <div className="px-6 pb-7 pl-[76px]">
-                      <p className="text-[#888888] text-[15px] leading-[1.7] mt-1">
+                      <p className="text-white text-[15px] leading-[1.7] mt-1">
                         {item.answer}
                       </p>
                     </div>
@@ -149,58 +155,20 @@ export function Home3FAQ() {
             Our engineering team is ready to discuss your specific manufacturing requirements and provide tailored solutions for your project.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            {/* Primary CTA */}
-            <button
-              className="inline-flex items-center gap-2 transition-all duration-300 hover:-translate-y-0.5"
-              style={{
-                background: "linear-gradient(135deg, #D09947 0%, #EEC569 100%)",
-                color: "#000000",
-                fontWeight: 700,
-                fontSize: "16px",
-                padding: "14px 24px",
-                borderRadius: "8px",
-                boxShadow: "0 0 50px rgba(208,153,71,0.7)",
-                border: "2px solid transparent",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = "0 0 60px rgba(238,197,105,0.8)";
-                e.currentTarget.style.color = "#FFFFFF";
-                e.currentTarget.style.border = "2px solid #F9EBBC";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = "0 0 50px rgba(208,153,71,0.7)";
-                e.currentTarget.style.color = "#000000";
-                e.currentTarget.style.border = "2px solid transparent";
-              }}
+            <Link
+              href="/contact"
+              className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
             >
               Contact Sales Team
-            </button>
-            {/* Secondary CTA */}
-            <button
-              className="inline-flex items-center gap-2 transition-all duration-300 hover:-translate-y-0.5"
-              style={{
-                background: "linear-gradient(135deg, #D09947 0%, #EEC569 100%)",
-                color: "#000000",
-                fontWeight: 700,
-                fontSize: "16px",
-                padding: "14px 24px",
-                borderRadius: "8px",
-                boxShadow: "0 0 50px rgba(208,153,71,0.7)",
-                border: "2px solid transparent",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = "0 0 60px rgba(238,197,105,0.8)";
-                e.currentTarget.style.color = "#FFFFFF";
-                e.currentTarget.style.border = "2px solid #F9EBBC";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = "0 0 50px rgba(208,153,71,0.7)";
-                e.currentTarget.style.color = "#000000";
-                e.currentTarget.style.border = "2px solid transparent";
-              }}
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link
+              href="/contact"
+              className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
             >
               Request a Quote
-            </button>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
         </motion.div>
       </div>

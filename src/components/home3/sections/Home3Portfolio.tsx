@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const portfolioItems = [
   {
@@ -228,7 +230,7 @@ export function Home3Portfolio() {
               padding: "64px 48px",
               borderRadius: "28px",
               border: "2px solid #7F4D0F",
-              background: "#34312F",
+              background: "linear-gradient(to bottom, #000000, #34312F)",
               boxShadow: "inset 0 0 0 1px rgba(208,153,71,0.15), 0 24px 60px rgba(0,0,0,0.6)",
             }}
           >
@@ -242,17 +244,13 @@ export function Home3Portfolio() {
             >
               Ready to experience precision engineering?
             </p>
-            <button
-              className="text-[#0A0A0A] font-semibold text-base transition-all hover:brightness-110"
-              style={{
-                background: "#D09947",
-                borderRadius: "11px",
-                padding: "16px 32px",
-                boxShadow: "0 4px 15px rgba(208,153,71,0.3)",
-              }}
+            <Link
+              href="/contact"
+              className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
             >
               Get a Free Quote
-            </button>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
         </motion.div>
       </div>

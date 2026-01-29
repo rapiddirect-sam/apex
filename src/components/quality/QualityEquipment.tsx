@@ -2,13 +2,13 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const equipment = [
   {
     name: "ZEISS CMM",
     description: "Measures complex surfaces and geometric profiles to ensure precise component fit and assembly accuracy.",
     image: "/quality/qc-equipment-1.png",
-    featured: true,
   },
   {
     name: "2.5D Image Measuring",
@@ -28,6 +28,8 @@ const equipment = [
 ];
 
 export function QualityEquipment() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   return (
     <section
       className="relative overflow-hidden"
@@ -84,12 +86,17 @@ export function QualityEquipment() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               className="group transition-all duration-300 hover:-translate-y-1"
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
               style={{
                 background: "#4A4A48",
                 borderRadius: "18px",
                 overflow: "hidden",
-                border: item.featured ? "2px solid #D09947" : "1px solid rgba(208,153,71,0.18)",
-                boxShadow: "0 12px 32px rgba(0,0,0,0.45)",
+                border: hoveredIndex === index ? "2px solid #D09947" : "1px solid rgba(208,153,71,0.18)",
+                boxShadow: hoveredIndex === index ? "0 0 30px rgba(208,153,71,0.5)" : "0 12px 32px rgba(0,0,0,0.45)",
+                transition: "border 0.3s ease, box-shadow 0.3s ease",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               {/* Image */}
@@ -100,11 +107,11 @@ export function QualityEquipment() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#4A4A48] to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#34312F] to-transparent opacity-60" />
               </div>
 
               {/* Content */}
-              <div style={{ padding: "20px" }}>
+              <div style={{ padding: "20px", background: "#34312F", flex: 1 }}>
                 <h3
                   style={{
                     fontSize: "17px",

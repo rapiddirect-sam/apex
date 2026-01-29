@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export function AboutCTA() {
   return (
@@ -78,32 +80,13 @@ export function AboutCTA() {
           </p>
 
           {/* CTA Button */}
-          <button
-            className="transition-all duration-300 hover:-translate-y-0.5"
-            style={{
-              background: "linear-gradient(135deg, #D09947 0%, #EEC569 100%)",
-              color: "#000000",
-              fontSize: "16px",
-              fontWeight: 600,
-              padding: "14px 32px",
-              borderRadius: "8px",
-              border: "2px solid transparent",
-              cursor: "pointer",
-              boxShadow: "0 0 50px rgba(208,153,71,0.7)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = "0 0 60px rgba(238,197,105,0.8)";
-              e.currentTarget.style.color = "#FFFFFF";
-              e.currentTarget.style.border = "2px solid #F9EBBC";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = "0 0 50px rgba(208,153,71,0.7)";
-              e.currentTarget.style.color = "#000000";
-              e.currentTarget.style.border = "2px solid transparent";
-            }}
+          <Link
+            href="/contact"
+            className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
           >
             Request A Free Quote
-          </button>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </motion.div>
       </div>
     </section>

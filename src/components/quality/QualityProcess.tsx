@@ -66,14 +66,7 @@ export function QualityProcess() {
       className="relative overflow-hidden"
       style={{
         padding: "80px 0",
-        background: `
-          radial-gradient(
-            70% 50% at 50% 0%,
-            rgba(249,235,188,0.08),
-            rgba(0,0,0,0) 65%
-          ),
-          #000000
-        `,
+        background: "#34312F",
       }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -84,24 +77,12 @@ export function QualityProcess() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span
-            style={{
-              color: "#D09947",
-              fontSize: "12px",
-              fontWeight: 600,
-              textTransform: "uppercase",
-              letterSpacing: "0.2em",
-            }}
-          >
-            Our Process
-          </span>
-          <h2
+<h2
             style={{
               fontSize: "46px",
               fontWeight: 700,
               color: "#FFFFFF",
               letterSpacing: "-0.015em",
-              marginTop: "12px",
             }}
           >
             Quality Control <span style={{ color: "#EEC569" }}>System</span>
@@ -229,6 +210,9 @@ export function QualityProcess() {
                     display: "grid",
                     gridTemplateColumns: "1fr 1fr",
                     gap: "40px",
+                    background: "#34312F",
+                    padding: "24px 40px 40px 40px",
+                    margin: "0 -40px -40px -40px",
                   }}
                 >
                   {/* Left Column - Key Procedures */}
@@ -355,6 +339,35 @@ export function QualityProcess() {
             </motion.div>
           ))}
         </div>
+
+        {/* CTA Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "60px",
+          }}
+        >
+          <button
+            className="transition-all duration-300 hover:-translate-y-1"
+            style={{
+              background: "linear-gradient(135deg, #D09947 0%, #EEC569 100%)",
+              border: "none",
+              color: "#000000",
+              fontWeight: 700,
+              fontSize: "24px",
+              padding: "28px 80px",
+              borderRadius: "12px",
+              cursor: "pointer",
+              boxShadow: "0 0 50px rgba(208,153,71,0.7)",
+            }}
+          >
+            Request Quality Package
+          </button>
+        </motion.div>
       </div>
     </section>
   );

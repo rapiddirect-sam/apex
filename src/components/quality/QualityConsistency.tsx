@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { CheckCircle, GraduationCap, TrendingUp, Users } from "lucide-react";
+import { useState } from "react";
+import { Check, GraduationCap, TrendingUp, Users } from "lucide-react";
 
 const consistencyItems = [
   {
@@ -47,19 +48,16 @@ const consistencyItems = [
 ];
 
 export function QualityConsistency() {
+  const [activeTab, setActiveTab] = useState(0);
+  const activeItem = consistencyItems[activeTab];
+  const Icon = activeItem.icon;
+
   return (
     <section
       className="relative overflow-hidden"
       style={{
         padding: "80px 0",
-        background: `
-          radial-gradient(
-            70% 50% at 50% 100%,
-            rgba(249,235,188,0.06),
-            rgba(0,0,0,0) 65%
-          ),
-          #000000
-        `,
+        background: "#000000",
       }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -68,7 +66,7 @@ export function QualityConsistency() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <h2
             style={{
@@ -80,123 +78,198 @@ export function QualityConsistency() {
           >
             How We Ensure <span style={{ color: "#EEC569" }}>Consistent Quality</span>
           </h2>
-          <p
-            style={{
-              color: "#C5C6C9",
-              fontSize: "18px",
-              lineHeight: 1.6,
-              maxWidth: "720px",
-              margin: "16px auto 0",
-            }}
-          >
-            When orders scale up and production cycles extend, our quality system remains effective through trained people, robust mechanisms, and continuous improvement
-          </p>
         </motion.div>
 
-        {/* Quality Pillars */}
-        <div className="grid lg:grid-cols-3 gap-8">
-          {consistencyItems.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group transition-all duration-300 hover:-translate-y-1"
+        {/* Tab Navigation */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "0",
+            marginBottom: "48px",
+          }}
+        >
+          {consistencyItems.map((item, index) => (
+            <div key={item.title} style={{ display: "flex", alignItems: "center" }}>
+              <button
+                onClick={() => setActiveTab(index)}
                 style={{
-                  background: "#4A4A48",
-                  borderRadius: "18px",
-                  overflow: "hidden",
-                  border: "1px solid rgba(208,153,71,0.18)",
-                  boxShadow: "0 12px 32px rgba(0,0,0,0.45)",
+                  padding: "12px 24px",
+                  background: activeTab === index ? "#D09947" : "transparent",
+                  border: activeTab === index ? "1px solid #D09947" : "1px solid #7F4D0F",
+                  color: activeTab === index ? "#000000" : "#EEC569",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  transition: "all 0.3s ease",
                 }}
               >
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#4A4A48] to-transparent" />
-                </div>
+                {item.title}
+              </button>
+              {/* Connector line between tabs */}
+              {index < consistencyItems.length - 1 && (
+                <div
+                  style={{
+                    width: "40px",
+                    height: "2px",
+                    backgroundColor: "#7F4D0F",
+                  }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
 
-                {/* Content */}
-                <div className="p-6 -mt-8 relative">
-                  {/* Icon badge */}
+        {/* Content Area - Two Column Layout */}
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "24px",
+          }}
+        >
+          {/* Left - Image */}
+          <div
+            style={{
+              position: "relative",
+              height: "480px",
+              overflow: "hidden",
+              border: "1px solid #EEC569",
+            }}
+          >
+            <Image
+              src={activeItem.image}
+              alt={activeItem.title}
+              fill
+              className="object-cover"
+            />
+          </div>
+
+          {/* Right - Content Panel */}
+          <div
+            style={{
+              background: "#34312F",
+              border: "1px solid #EEC569",
+              padding: "32px",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            {/* Icon + Title Row */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: "16px",
+                marginBottom: "8px",
+              }}
+            >
+              {/* Icon badge */}
+              <div
+                style={{
+                  width: "48px",
+                  height: "48px",
+                  background: "rgba(208,153,71,0.15)",
+                  border: "1px solid #D09947",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                }}
+              >
+                <Icon style={{ width: "24px", height: "24px", color: "#D09947" }} />
+              </div>
+
+              <div>
+                <h3
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: 700,
+                    color: "#FFFFFF",
+                    margin: 0,
+                  }}
+                >
+                  {activeItem.title}
+                </h3>
+                <p
+                  style={{
+                    color: "#C5C6C9",
+                    fontSize: "15px",
+                    margin: "4px 0 0 0",
+                  }}
+                >
+                  {activeItem.subtitle}
+                </p>
+              </div>
+            </div>
+
+            {/* Checklist Items */}
+            <ul style={{ listStyle: "none", padding: 0, margin: "24px 0", flex: 1 }}>
+              {activeItem.items.map((listItem, idx) => (
+                <li
+                  key={idx}
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "12px",
+                    marginBottom: "16px",
+                  }}
+                >
                   <div
                     style={{
-                      width: "48px",
-                      height: "48px",
-                      borderRadius: "12px",
-                      background: "rgba(208,153,71,0.12)",
-                      border: "1px solid rgba(208,153,71,0.35)",
+                      width: "22px",
+                      height: "22px",
+                      borderRadius: "50%",
+                      backgroundColor: "rgba(208,153,71,0.15)",
+                      border: "1px solid #D09947",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      marginBottom: "16px",
+                      flexShrink: 0,
+                      marginTop: "2px",
                     }}
                   >
-                    <Icon style={{ width: "24px", height: "24px", color: "#D09947" }} />
+                    <Check
+                      style={{
+                        width: "12px",
+                        height: "12px",
+                        color: "#D09947",
+                      }}
+                    />
                   </div>
+                  <span style={{ color: "#C5C6C9", fontSize: "15px", lineHeight: 1.6 }}>
+                    {listItem.highlight ? (
+                      <>
+                        {listItem.text.split(listItem.highlight)[0]}
+                        <span style={{ color: "#FFFFFF", fontWeight: 600 }}>{listItem.highlight}</span>
+                        {listItem.text.split(listItem.highlight)[1]}
+                      </>
+                    ) : (
+                      listItem.text
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
 
-                  <h3
-                    style={{
-                      fontSize: "19px",
-                      fontWeight: 700,
-                      color: "#FFFFFF",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-                  <p
-                    style={{
-                      color: "#EEC569",
-                      fontSize: "14px",
-                      marginBottom: "20px",
-                    }}
-                  >
-                    {item.subtitle}
-                  </p>
-
-                  {/* Items */}
-                  <ul className="space-y-3 mb-5">
-                    {item.items.map((listItem, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <CheckCircle style={{ width: "16px", height: "16px", color: "#D09947", flexShrink: 0, marginTop: "2px" }} />
-                        <span style={{ color: "#C5C6C9", fontSize: "14px", lineHeight: 1.5 }}>
-                          {listItem.highlight ? (
-                            <>
-                              {listItem.text.split(listItem.highlight)[0]}
-                              <span style={{ color: "#D09947", fontWeight: 500 }}>{listItem.highlight}</span>
-                              {listItem.text.split(listItem.highlight)[1]}
-                            </>
-                          ) : (
-                            listItem.text
-                          )}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Footer */}
-                  <div
-                    style={{
-                      paddingTop: "16px",
-                      borderTop: "1px solid rgba(208,153,71,0.2)",
-                    }}
-                  >
-                    <p style={{ color: "#7A7A7C", fontSize: "13px", fontStyle: "italic" }}>{item.footer}</p>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+            {/* Footer */}
+            <div
+              style={{
+                paddingTop: "20px",
+                borderTop: "1px solid rgba(208,153,71,0.3)",
+              }}
+            >
+              <p style={{ color: "#EEC569", fontSize: "14px", fontStyle: "italic", margin: 0 }}>
+                {activeItem.footer}
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -20,8 +20,8 @@ export function AboutJourney() {
     <section
       style={{
         backgroundColor: "#000000",
-        backgroundImage: "url('/about/timelinebg.jpeg')",
-        backgroundSize: "40% auto",
+        backgroundImage: "url('/about/journey-bg.png')",
+        backgroundSize: "100% auto",
         backgroundPosition: "center bottom",
         backgroundRepeat: "no-repeat",
         padding: "80px 20% 80px 20%",
@@ -351,10 +351,10 @@ export function AboutJourney() {
             background: `
               radial-gradient(
                 60% 50% at 50% 0%,
-                rgba(249,235,188,0.08),
+                rgba(249,235,188,0.05),
                 rgba(0,0,0,0) 65%
               ),
-              rgba(13, 13, 13, 0.5)
+              rgba(13, 13, 13, 0.3)
             `,
             border: "2px solid #D09947",
             borderRadius: "18px",

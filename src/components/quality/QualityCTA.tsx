@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FileText, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function QualityCTA() {
   return (
@@ -38,22 +38,6 @@ export function QualityCTA() {
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#D09947]/10 rounded-full blur-3xl" />
 
           <div className="relative">
-            <div
-              style={{
-                width: "64px",
-                height: "64px",
-                borderRadius: "16px",
-                background: "rgba(208,153,71,0.12)",
-                border: "1px solid rgba(208,153,71,0.35)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                margin: "0 auto 24px",
-              }}
-            >
-              <FileText style={{ width: "32px", height: "32px", color: "#D09947" }} />
-            </div>
-
             <h2
               style={{
                 fontSize: "40px",

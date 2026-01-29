@@ -20,7 +20,7 @@ export function QualityHero() {
       {/* Background image with overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center opacity-30"
-        style={{ backgroundImage: "url('/quality/qc-hero.png')" }}
+        style={{ backgroundImage: "url('/servicebg.png')" }}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-[#000000] via-[#000000]/80 to-transparent" />
 

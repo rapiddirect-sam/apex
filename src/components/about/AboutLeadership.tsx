@@ -88,17 +88,6 @@ export function AboutLeadership() {
               position: "relative",
             }}
           >
-            {/* Gold border on left edge */}
-            <div
-              style={{
-                position: "absolute",
-                left: "-3px",
-                top: "20px",
-                bottom: "20px",
-                width: "3px",
-                backgroundColor: "#D09947",
-              }}
-            />
             {/* Image container with subtle slant clip */}
             <div
               style={{
