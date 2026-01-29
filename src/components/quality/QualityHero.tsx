@@ -20,7 +20,7 @@ export function QualityHero() {
       {/* Background image with overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center opacity-30"
-        style={{ backgroundImage: "url('/servicebg.png')" }}
+        style={{ backgroundImage: "url('/quality/servicebg.png')" }}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-[#000000] via-[#000000]/80 to-transparent" />
 
@@ -39,16 +39,8 @@ export function QualityHero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-3xl"
+          className=""
         >
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 border border-[#D09947]/30 rounded mb-8">
-            <div className="w-2 h-2 bg-[#D09947] rounded-full animate-pulse" />
-            <span className="text-[#D09947] text-xs font-medium uppercase tracking-[0.2em]">
-              Quality Assurance
-            </span>
-          </div>
-
           <h1
             style={{
               fontSize: "clamp(36px, 5vw, 56px)",
@@ -77,73 +69,41 @@ export function QualityHero() {
           </p>
 
           {/* Stats */}
-          <div className="flex flex-wrap gap-12 md:gap-16">
-            <div>
+          <div className="flex flex-nowrap gap-4">
+            {[
+              { value: "±0.01-0.05mm", label: "Tolerance Control" },
+              { value: "100%", label: "Traceability" },
+              { value: "ISO Certified", label: "Quality Management" },
+            ].map((stat, index) => (
               <div
+                key={index}
                 style={{
-                  fontSize: "clamp(24px, 3vw, 36px)",
-                  fontWeight: 700,
-                  color: "#D09947",
+                  background: "linear-gradient(to right, rgba(208,153,71,0.4) 0%, #EEC569 100%)",
+                  borderRadius: "16px",
+                  padding: "24px 32px",
+                  minWidth: "180px",
                 }}
               >
-                ±0.01-0.05mm
+                <div
+                  style={{
+                    fontSize: "clamp(24px, 3vw, 36px)",
+                    fontWeight: 700,
+                    color: "#FFFFFF",
+                  }}
+                >
+                  {stat.value}
+                </div>
+                <div
+                  style={{
+                    color: "rgba(255,255,255,0.8)",
+                    fontSize: "14px",
+                    marginTop: "4px",
+                  }}
+                >
+                  {stat.label}
+                </div>
               </div>
-              <div
-                style={{
-                  color: "#7A7A7C",
-                  fontSize: "12px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  marginTop: "4px",
-                }}
-              >
-                Tolerance Control
-              </div>
-            </div>
-            <div>
-              <div
-                style={{
-                  fontSize: "clamp(24px, 3vw, 36px)",
-                  fontWeight: 700,
-                  color: "#FFFFFF",
-                }}
-              >
-                100%
-              </div>
-              <div
-                style={{
-                  color: "#7A7A7C",
-                  fontSize: "12px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  marginTop: "4px",
-                }}
-              >
-                Traceability
-              </div>
-            </div>
-            <div>
-              <div
-                style={{
-                  fontSize: "clamp(24px, 3vw, 36px)",
-                  fontWeight: 700,
-                  color: "#FFFFFF",
-                }}
-              >
-                ISO Certified
-              </div>
-              <div
-                style={{
-                  color: "#7A7A7C",
-                  fontSize: "12px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  marginTop: "4px",
-                }}
-              >
-                Quality Management
-              </div>
-            </div>
+            ))}
           </div>
         </motion.div>
       </div>

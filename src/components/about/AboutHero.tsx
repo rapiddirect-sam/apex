@@ -53,47 +53,32 @@ export function AboutHero() {
         style={{
           position: "relative",
           zIndex: 1,
-          maxWidth: "1100px",
+          maxWidth: "1400px",
           margin: "0 auto",
           background: "rgba(13,13,13,0.25)",
           backdropFilter: "blur(8px)",
           border: "1px solid rgba(208,153,71,0.15)",
           borderRadius: "18px",
-          padding: "50px 50px 40px 50px",
+          padding: "60px 60px 50px 60px",
         }}
       >
         {/* Main heading */}
         <h1
-          style={{
-            textAlign: "center",
-            fontSize: "clamp(48px, 6vw, 72px)",
-            fontWeight: 700,
-            margin: "0 0 24px 0",
-            lineHeight: 1.1,
-            letterSpacing: "-0.01em",
-          }}
+          className="text-center text-[48px] md:text-[64px] lg:text-[80px] font-bold leading-[0.95] tracking-tight uppercase mb-6"
         >
-          <span style={{ color: "#FFFFFF" }}>Welcome to </span>
-          <span style={{ color: "#EEC569", fontWeight: 800 }}>Apexbatch</span>
+          <span className="text-white">Welcome to </span>
+          <span className="text-[#D09947]">Apexbatch</span>
         </h1>
 
         {/* Subheading */}
         <p
-          style={{
-            textAlign: "center",
-            fontSize: "28px",
-            lineHeight: 1.5,
-            margin: "0 auto 40px auto",
-            maxWidth: "850px",
-            fontWeight: 500,
-          }}
+          className="text-center text-xl md:text-2xl mx-auto mb-10 leading-relaxed"
         >
-          <span style={{ color: "#EEC569" }}>
-            Inherited Expertise. Focused on Your Scale.{" "}
+          <span className="text-[#D09947] font-semibold block">
+            Inherited Expertise. Focused on Your Scale.
           </span>
-          <span style={{ color: "#FFFFFF" }}>
-            From the world&apos;s pioneer in digital manufacturing comes a dedicated
-            team focused on high-precision, medium-to-large batch production.
+          <span className="text-[#7A7A7C]">
+            From the world&apos;s pioneer in digital manufacturing comes a dedicated team focused on high-precision, medium-to-large batch production.
           </span>
         </p>
 
