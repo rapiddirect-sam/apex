@@ -153,15 +153,14 @@ export function ContactForm() {
   return (
     <section
       style={{
-        padding: "80px 0 60px",
+        padding: "clamp(40px, 8vw, 80px) 0 clamp(40px, 6vw, 60px)",
         background: "#000000",
       }}
     >
       <div className="max-w-[1280px] mx-auto px-5">
         <div
-          className="grid"
+          className="grid grid-cols-1 lg:grid-cols-[1fr_400px]"
           style={{
-            gridTemplateColumns: "1fr 400px",
             gap: "48px",
           }}
         >
@@ -207,7 +206,7 @@ export function ContactForm() {
               <h2
                 className="text-white"
                 style={{
-                  fontSize: "48px",
+                  fontSize: "clamp(32px, 5vw, 48px)",
                   fontWeight: 700,
                   marginBottom: "12px",
                   letterSpacing: "-0.015em",
@@ -230,7 +229,7 @@ export function ContactForm() {
             {/* Form */}
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               {/* First Name & Company Name Row */}
-              <div className="grid grid-cols-2" style={{ gap: "20px" }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "20px" }}>
                 <div>
                   <label style={labelStyles}>First Name *</label>
                   <div style={inputWrapperStyles}>
@@ -264,7 +263,7 @@ export function ContactForm() {
               </div>
 
               {/* Email & Phone Row */}
-              <div className="grid grid-cols-2" style={{ gap: "20px" }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "20px" }}>
                 <div>
                   <label style={labelStyles}>Email Address *</label>
                   <div style={inputWrapperStyles}>
@@ -844,7 +843,7 @@ export function ContactForm() {
                 }}
               >
                 {/* Address Row */}
-                <div className="grid grid-cols-2" style={{ gap: "16px", marginBottom: "16px" }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "16px", marginBottom: "16px" }}>
                   <div>
                     <p
                       style={{

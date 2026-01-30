@@ -8,8 +8,8 @@ export function AboutHero() {
     <section
       style={{
         background: "linear-gradient(135deg, #1a1512 0%, #2d1f15 25%, #3d2a1a 50%, #4a3520 75%, #1a1512 100%)",
-        padding: "60px 40px",
-        paddingTop: "120px",
+        padding: "clamp(40px, 6vw, 60px) clamp(16px, 4vw, 40px)",
+        paddingTop: "clamp(80px, 12vw, 120px)",
         position: "relative",
         overflow: "hidden",
       }}
@@ -60,7 +60,7 @@ export function AboutHero() {
           backdropFilter: "blur(8px)",
           border: "1px solid rgba(208,153,71,0.15)",
           borderRadius: "18px",
-          padding: "60px 60px 50px 60px",
+          padding: "clamp(24px, 5vw, 60px) clamp(16px, 5vw, 60px) clamp(24px, 4vw, 50px)",
         }}
       >
         {/* Main heading */}
@@ -85,16 +85,16 @@ export function AboutHero() {
 
         {/* Three images */}
         <div
+          className="flex flex-col sm:flex-row"
           style={{
-            display: "flex",
-            gap: "20px",
+            gap: "clamp(12px, 2vw, 20px)",
           }}
         >
           {/* Image 1 */}
           <div
             style={{
               flex: 1,
-              height: "200px",
+              height: "clamp(150px, 20vw, 200px)",
               borderRadius: "12px",
               overflow: "hidden",
               backgroundColor: "#1a1a1a",
@@ -116,7 +116,7 @@ export function AboutHero() {
           <div
             style={{
               flex: 1,
-              height: "200px",
+              height: "clamp(150px, 20vw, 200px)",
               borderRadius: "12px",
               overflow: "hidden",
               backgroundColor: "#1a1a1a",
@@ -136,9 +136,10 @@ export function AboutHero() {
 
           {/* Image 3 */}
           <div
+            className="hidden sm:block"
             style={{
               flex: 1,
-              height: "200px",
+              height: "clamp(150px, 20vw, 200px)",
               borderRadius: "12px",
               overflow: "hidden",
               backgroundColor: "#1a1a1a",

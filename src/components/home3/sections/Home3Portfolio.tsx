@@ -136,7 +136,7 @@ export function Home3Portfolio() {
           <h2
             className="text-white"
             style={{
-              fontSize: "42px",
+              fontSize: "clamp(28px, 5vw, 42px)",
               fontWeight: 700,
               lineHeight: 1.15,
               marginBottom: "4px",
@@ -146,7 +146,7 @@ export function Home3Portfolio() {
           </h2>
           <h2
             style={{
-              fontSize: "42px",
+              fontSize: "clamp(28px, 5vw, 42px)",
               fontWeight: 700,
               lineHeight: 1.15,
               color: "#EEC569",
@@ -156,10 +156,16 @@ export function Home3Portfolio() {
           </h2>
         </motion.div>
 
-        {/* Portfolio Grid - Asymmetric editorial layout */}
-        {/* Desktop: Hero card (2fr) + 2 small cards (1fr each) on top row, then 3 small cards on bottom */}
+        {/* Portfolio Grid - Mobile: single column, Tablet: 2 columns, Desktop: asymmetric */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-6 mb-16">
+          {portfolioItems.map((item, index) => (
+            <PortfolioCard key={index} item={item} index={index} />
+          ))}
+        </div>
+
+        {/* Desktop Grid - Asymmetric editorial layout */}
         <div
-          className="grid gap-6 mb-16"
+          className="hidden lg:grid gap-6 mb-16"
           style={{
             gridTemplateColumns: "2fr 1fr 1fr",
             gridTemplateRows: "240px 240px",
@@ -189,13 +195,8 @@ export function Home3Portfolio() {
           </div>
         </div>
 
-        {/* Bottom row - 3 equal cards */}
-        <div
-          className="grid gap-6 mb-16"
-          style={{
-            gridTemplateColumns: "repeat(3, 1fr)",
-          }}
-        >
+        {/* Bottom row - 3 equal cards on desktop, stacked on mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           <PortfolioCard item={portfolioItems[5]} index={5} />
           <PortfolioCard
             item={{
@@ -225,9 +226,9 @@ export function Home3Portfolio() {
           className="flex justify-center"
         >
           <div
-            className="text-center min-h-[280px] flex flex-col items-center justify-center"
+            className="text-center min-h-[280px] flex flex-col items-center justify-center w-full max-w-3xl"
             style={{
-              padding: "64px 48px",
+              padding: "clamp(32px, 6vw, 64px) clamp(24px, 5vw, 48px)",
               borderRadius: "28px",
               border: "2px solid #7F4D0F",
               background: "linear-gradient(to bottom, #000000, #34312F)",
@@ -238,7 +239,7 @@ export function Home3Portfolio() {
               className="mb-9"
               style={{
                 color: "#D09947",
-                fontSize: "30px",
+                fontSize: "clamp(20px, 3.5vw, 30px)",
                 fontWeight: 500,
               }}
             >

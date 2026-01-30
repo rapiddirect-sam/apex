@@ -32,19 +32,18 @@ export function ReviewsHero() {
           <div
             style={{
               background: "#303030",
-              padding: "48px",
+              padding: "clamp(24px, 5vw, 48px)",
               borderRadius: "0",
             }}
           >
             <h1
               style={{
-                fontSize: "clamp(24px, 3.5vw, 36px)",
+                fontSize: "clamp(22px, 3.5vw, 36px)",
                 fontWeight: 700,
                 color: "#F9EBBC",
                 letterSpacing: "-0.015em",
                 lineHeight: 1.2,
                 marginBottom: "8px",
-                whiteSpace: "nowrap",
               }}
             >
               Trusted by Global Manufacturing Clients
@@ -76,13 +75,12 @@ export function ReviewsHero() {
 
             {/* Stats row - in separate rectangular container */}
             <div
+              className="flex flex-col sm:flex-row flex-wrap"
               style={{
                 background: "#252525",
-                padding: "16px 24px",
-                display: "flex",
-                flexWrap: "wrap",
-                alignItems: "center",
-                gap: "24px",
+                padding: "clamp(12px, 2vw, 16px) clamp(16px, 3vw, 24px)",
+                alignItems: "flex-start",
+                gap: "clamp(12px, 2vw, 24px)",
               }}
             >
               <div className="flex items-center gap-2">

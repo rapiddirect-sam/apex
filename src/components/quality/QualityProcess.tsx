@@ -66,7 +66,7 @@ export function QualityProcess() {
     <section
       className="relative overflow-hidden"
       style={{
-        padding: "80px 0",
+        padding: "clamp(40px, 8vw, 80px) 0",
         background: "#34312F",
       }}
     >
@@ -80,7 +80,7 @@ export function QualityProcess() {
         >
 <h2
             style={{
-              fontSize: "46px",
+              fontSize: "clamp(32px, 5vw, 46px)",
               fontWeight: 700,
               color: "#FFFFFF",
               letterSpacing: "-0.015em",
@@ -121,7 +121,7 @@ export function QualityProcess() {
               <div
                 style={{
                   width: "100%",
-                  height: "280px",
+                  height: "clamp(180px, 25vw, 280px)",
                   position: "relative",
                   overflow: "hidden",
                 }}
@@ -146,7 +146,7 @@ export function QualityProcess() {
               </div>
 
               {/* Content Area */}
-              <div style={{ padding: "32px 40px 40px 40px" }}>
+              <div style={{ padding: "clamp(20px, 4vw, 32px) clamp(16px, 4vw, 40px) clamp(24px, 4vw, 40px)" }}>
                 {/* Number Badge + Title Row */}
                 <div
                   style={{
@@ -183,7 +183,7 @@ export function QualityProcess() {
                   {/* Title */}
                   <h3
                     style={{
-                      fontSize: "28px",
+                      fontSize: "clamp(20px, 3vw, 28px)",
                       fontWeight: 700,
                       color: "#FFFFFF",
                       margin: 0,
@@ -195,11 +195,11 @@ export function QualityProcess() {
 
                 {/* Subtitle */}
                 <p
+                  className="ml-0 sm:ml-[76px]"
                   style={{
                     color: "#EEC569",
-                    fontSize: "16px",
-                    marginBottom: "32px",
-                    marginLeft: "76px",
+                    fontSize: "clamp(14px, 2vw, 16px)",
+                    marginBottom: "clamp(20px, 4vw, 32px)",
                   }}
                 >
                   {stage.subtitle}
@@ -207,13 +207,12 @@ export function QualityProcess() {
 
                 {/* Two Column Layout */}
                 <div
+                  className="grid grid-cols-1 md:grid-cols-2"
                   style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "40px",
+                    gap: "clamp(20px, 4vw, 40px)",
                     background: "#34312F",
-                    padding: "24px 40px 40px 40px",
-                    margin: "0 -40px -40px -40px",
+                    padding: "clamp(16px, 3vw, 24px) clamp(16px, 4vw, 40px) clamp(24px, 4vw, 40px)",
+                    margin: "0 clamp(-16px, -4vw, -40px) clamp(-24px, -4vw, -40px)",
                   }}
                 >
                   {/* Left Column - Key Procedures */}

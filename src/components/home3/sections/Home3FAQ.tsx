@@ -56,10 +56,10 @@ export function Home3FAQ() {
           viewport={{ once: true }}
           className="text-center mb-6"
         >
-          <h2 className="text-white mb-4 tracking-[-0.02em]" style={{ fontSize: "68px", fontWeight: 800 }}>
+          <h2 className="text-white mb-4 tracking-[-0.02em]" style={{ fontSize: "clamp(36px, 7vw, 68px)", fontWeight: 800 }}>
             Have Any <span className="text-[#EEC569]">Questions?</span>
           </h2>
-          <p className="max-w-xl mx-auto leading-relaxed" style={{ color: "#888888", fontSize: "21px" }}>
+          <p className="max-w-xl mx-auto leading-relaxed" style={{ color: "#888888", fontSize: "clamp(16px, 2.5vw, 21px)" }}>
             Find answers to common questions about our precision manufacturing services, quality standards, and production capabilities
           </p>
         </motion.div>
@@ -86,20 +86,18 @@ export function Home3FAQ() {
               >
                 {/* Number Badge */}
                 <div
-                  className="rounded-lg flex items-center justify-center flex-shrink-0"
+                  className="rounded-lg flex items-center justify-center flex-shrink-0 w-12 h-12 sm:w-[68px] sm:h-[68px]"
                   style={{
-                    width: "68px",
-                    height: "68px",
                     background: "#EEC569",
                   }}
                 >
-                  <span className="font-bold" style={{ color: "#000000", fontSize: "28px" }}>
+                  <span className="font-bold text-xl sm:text-[28px]" style={{ color: "#000000" }}>
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
 
                 {/* Question Text - max 85% width, larger font */}
-                <span className="flex-1 font-semibold max-w-[85%] leading-snug" style={{ fontSize: "21px", color: "#FFFFFF" }}>
+                <span className="flex-1 font-semibold max-w-[85%] leading-snug text-base sm:text-lg md:text-[21px]" style={{ color: "#FFFFFF" }}>
                   {item.question}
                 </span>
 
@@ -124,7 +122,7 @@ export function Home3FAQ() {
                     className="overflow-hidden"
                   >
                     {/* Answer with proper spacing - mt-3, pb-7 */}
-                    <div className="px-6 pb-7 pl-[76px]">
+                    <div className="px-6 pb-7 pl-6 sm:pl-[76px]">
                       <p className="text-white text-[15px] leading-[1.7] mt-1">
                         {item.answer}
                       </p>
@@ -148,10 +146,10 @@ export function Home3FAQ() {
             <Sparkles className="w-6 h-6 text-[#D09947]" />
           </div>
 
-          <h3 style={{ fontSize: "30px", fontWeight: 800, color: "#FFFFFF", marginBottom: "12px" }}>
+          <h3 style={{ fontSize: "clamp(24px, 4vw, 30px)", fontWeight: 800, color: "#FFFFFF", marginBottom: "12px" }}>
             Still Have Questions?
           </h3>
-          <p style={{ fontSize: "21px", color: "#F9EBBC", maxWidth: "480px", marginLeft: "auto", marginRight: "auto", lineHeight: 1.5, marginBottom: "32px" }}>
+          <p style={{ fontSize: "clamp(16px, 2.5vw, 21px)", color: "#F9EBBC", maxWidth: "480px", marginLeft: "auto", marginRight: "auto", lineHeight: 1.5, marginBottom: "32px" }}>
             Our engineering team is ready to discuss your specific manufacturing requirements and provide tailored solutions for your project.
           </p>
           <div className="flex flex-wrap justify-center gap-4">

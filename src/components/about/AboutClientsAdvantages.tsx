@@ -110,7 +110,7 @@ export function AboutClientsAdvantages() {
             ),
             #000000
           `,
-          padding: "80px 40px 60px",
+          padding: "clamp(40px, 8vw, 80px) clamp(16px, 4vw, 40px) clamp(40px, 6vw, 60px)",
           position: "relative",
         }}
       >
@@ -135,7 +135,7 @@ export function AboutClientsAdvantages() {
             <h2
               className="text-white"
               style={{
-                fontSize: "48px",
+                fontSize: "clamp(32px, 5vw, 48px)",
                 fontWeight: 700,
                 margin: "0 0 16px 0",
                 letterSpacing: "-0.015em",
@@ -155,12 +155,11 @@ export function AboutClientsAdvantages() {
             </p>
           </motion.div>
 
-          {/* Logo Grid - 4x2 */}
+          {/* Logo Grid - responsive */}
           <div
+            className="grid grid-cols-2 md:grid-cols-4"
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: "22px",
+              gap: "clamp(12px, 2vw, 22px)",
             }}
           >
             {clients.map((client, index) => (
@@ -406,7 +405,7 @@ export function AboutClientsAdvantages() {
             ),
             #000000
           `,
-          padding: "80px 40px",
+          padding: "clamp(40px, 8vw, 80px) clamp(16px, 4vw, 40px)",
           position: "relative",
         }}
       >
@@ -429,7 +428,7 @@ export function AboutClientsAdvantages() {
             <h2
               className="text-white"
               style={{
-                fontSize: "48px",
+                fontSize: "clamp(32px, 5vw, 48px)",
                 fontWeight: 700,
                 margin: "0 0 16px 0",
                 letterSpacing: "-0.015em",
@@ -449,12 +448,11 @@ export function AboutClientsAdvantages() {
             </p>
           </motion.div>
 
-          {/* Advantages Grid - 4 columns */}
+          {/* Advantages Grid - responsive */}
           <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: "22px",
+              gap: "clamp(16px, 2vw, 22px)",
             }}
           >
             {advantages.map((advantage, index) => {

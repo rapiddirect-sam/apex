@@ -35,7 +35,7 @@ export function ContactHero() {
       />
 
       {/* Content */}
-      <div className="relative max-w-[1400px] mx-auto px-10 py-16">
+      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -90,13 +90,12 @@ export function ContactHero() {
           {/* Main Heading - LARGER, ApexBatch ITALIC */}
           <h1
             style={{
-              fontSize: "clamp(46px, 5vw, 68px)",
+              fontSize: "clamp(32px, 5vw, 68px)",
               fontWeight: 800,
               lineHeight: 1.15,
               letterSpacing: "-0.02em",
               color: "#FFFFFF",
               marginBottom: "24px",
-              whiteSpace: "nowrap",
             }}
           >
             Get in Touch with{" "}
@@ -106,7 +105,7 @@ export function ContactHero() {
           {/* Subheadline */}
           <p
             style={{
-              fontSize: "21px",
+              fontSize: "clamp(16px, 2.5vw, 21px)",
               lineHeight: 1.6,
               color: "#C5C6C9",
               maxWidth: "100%",

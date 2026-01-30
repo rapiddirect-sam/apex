@@ -14,7 +14,7 @@ export function AboutCapabilities() {
           ),
           #000000
         `,
-        padding: "80px 40px 80px 40px",
+        padding: "clamp(40px, 8vw, 80px) clamp(16px, 4vw, 40px)",
         position: "relative",
       }}
     >
@@ -32,7 +32,7 @@ export function AboutCapabilities() {
           className="text-white"
           style={{
             textAlign: "center",
-            fontSize: "48px",
+            fontSize: "clamp(32px, 5vw, 48px)",
             fontWeight: 700,
             margin: "0 0 24px 0",
             letterSpacing: "-0.015em",
@@ -62,10 +62,10 @@ export function AboutCapabilities() {
 
         {/* Two image cards */}
         <div
+          className="flex flex-col md:flex-row"
           style={{
-            display: "flex",
-            gap: "24px",
-            marginBottom: "24px",
+            gap: "clamp(16px, 2vw, 24px)",
+            marginBottom: "clamp(16px, 2vw, 24px)",
           }}
         >
           {/* Left image */}
@@ -168,9 +168,9 @@ export function AboutCapabilities() {
 
         {/* Two content cards */}
         <div
+          className="flex flex-col lg:flex-row"
           style={{
-            display: "flex",
-            gap: "24px",
+            gap: "clamp(16px, 2vw, 24px)",
           }}
         >
           {/* Left card - Who We Are */}
