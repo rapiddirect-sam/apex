@@ -4,13 +4,14 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Check, GraduationCap, TrendingUp, Users } from "lucide-react";
+import { getImageUrl } from "@/lib/utils";
 
 const consistencyItems = [
   {
     icon: GraduationCap,
     title: "Operator Quality Training",
     subtitle: "Ensuring skilled and empowered personnel",
-    image: "/quality/qc-training.png",
+    image: getImageUrl("quality/qc-training.png"),
     items: [
       { text: "All operators must pass pre-job quality training and assessment before assignment", highlight: "pre-job quality training and assessment" },
       { text: "Key process operators undergo periodic retraining to maintain competency", highlight: "periodic retraining" },
@@ -23,7 +24,7 @@ const consistencyItems = [
     icon: TrendingUp,
     title: "Continuous Improvement",
     subtitle: "Systematic approach to quality enhancement",
-    image: "/quality/qc-improvement.png",
+    image: getImageUrl("quality/qc-improvement.png"),
     items: [
       { text: "Non-conformances are addressed through the PDCA (Plan-Do-Check-Act) cycle", highlight: "PDCA (Plan-Do-Check-Act) cycle" },
       { text: "Each quality deviation triggers documentation, root cause analysis, and corrective actions", highlight: "documentation, root cause analysis, and corrective actions" },
@@ -36,7 +37,7 @@ const consistencyItems = [
     icon: Users,
     title: "Customer Quality Collaboration",
     subtitle: "Partnership-driven quality assurance",
-    image: "/quality/qc-team.png",
+    image: getImageUrl("quality/qc-team.png"),
     items: [
       { text: "Dedicated quality engineers assigned to key accounts for personalized support", highlight: "Dedicated quality engineers" },
       { text: "Customer-specific quality requirements documented and tracked in our system", highlight: "Customer-specific quality requirements" },

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Instrument_Serif, Geist_Mono, Space_Mono, Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import "./home3.css";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 const instrumentSerif = Instrument_Serif({
   weight: "400",
@@ -58,7 +59,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${instrumentSerif.variable} ${geistMono.variable} ${spaceMono.variable} ${inter.variable} ${playfair.variable}`}>
-      <body className="antialiased home3-root">{children}</body>
+      <body className="antialiased home3-root">
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

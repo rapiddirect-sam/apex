@@ -50,7 +50,7 @@ export function Home3Services() {
       id="services"
       className="relative overflow-hidden"
       style={{
-        padding: "104px 0 112px",
+        padding: "76px 0 112px",
         background: "#34312F",
       }}
     >

@@ -63,19 +63,10 @@ export function QualityCTA() {
 
             <Link
               href="/contact"
-              className="inline-flex items-center gap-3 group"
-              style={{
-                background: "#D09947",
-                color: "#000000",
-                fontWeight: 700,
-                padding: "16px 32px",
-                borderRadius: "8px",
-                fontSize: "16px",
-                transition: "all 0.3s ease",
-              }}
+              className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
             >
-              <span>Request Quality Package</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              Request Quality Package
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
 
             <p style={{ color: "#7A7A7C", fontSize: "14px", marginTop: "24px" }}>

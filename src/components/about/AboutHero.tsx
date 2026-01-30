@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { getImageUrl } from "@/lib/utils";
 
 export function AboutHero() {
   return (
@@ -23,7 +24,7 @@ export function AboutHero() {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/about/AboutApexBatch.gif"
+          src={getImageUrl("about/AboutApexBatch.gif")}
           alt=""
           style={{
             width: "100%",

@@ -1,5 +1,13 @@
+import { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "../home3.css";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 const inter = Inter({
   subsets: ["latin"],

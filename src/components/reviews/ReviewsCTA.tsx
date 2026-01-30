@@ -19,23 +19,14 @@ export function ReviewsCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           style={{
-            fontSize: "clamp(2rem, 5vw, 3.5rem)",
-            fontWeight: 600,
+            fontSize: "46px",
+            fontWeight: 700,
             color: "#FFFFFF",
+            letterSpacing: "-0.015em",
             marginBottom: "32px",
-            lineHeight: 1.2,
-            whiteSpace: "nowrap",
           }}
         >
-          <span
-            style={{
-              borderBottom: "3px solid #EEC569",
-              paddingBottom: "4px",
-            }}
-          >
-            Join
-          </span>{" "}
-          Industry Leaders Who Build with Precision
+          Join Industry Leaders Who <span style={{ color: "#EEC569" }}>Build with Precision</span>
         </motion.h2>
 
         {/* Description */}

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { getImageUrl } from "@/lib/utils";
 
 export function QualityCertifications() {
   return (
@@ -53,9 +54,9 @@ export function QualityCertifications() {
         {/* Certifications Images */}
         <div className="grid md:grid-cols-3 gap-6">
           {[
-            { src: "/quality/cert1.png", alt: "ISO 9001:2015 Certification" },
-            { src: "/quality/cert2.png", alt: "ISO 13485:2016 Certification" },
-            { src: "/quality/cert3.png", alt: "ISO 14001:2015 Certification" },
+            { src: getImageUrl("quality/cert1.png"), alt: "ISO 9001:2015 Certification" },
+            { src: getImageUrl("quality/cert2.png"), alt: "ISO 13485:2016 Certification" },
+            { src: getImageUrl("quality/cert3.png"), alt: "ISO 14001:2015 Certification" },
           ].map((cert, index) => (
             <motion.div
               key={cert.src}

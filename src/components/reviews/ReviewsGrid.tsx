@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { getImageUrl } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ReviewCard } from "./ReviewCard";
 
@@ -127,22 +128,16 @@ export function ReviewsGrid() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-12"
+          className="text-center"
           style={{
-            fontSize: "clamp(2rem, 4vw, 3rem)",
-            fontWeight: 600,
+            fontSize: "46px",
+            fontWeight: 700,
             color: "#FFFFFF",
+            letterSpacing: "-0.015em",
+            marginBottom: "48px",
           }}
         >
-          <span
-            style={{
-              borderBottom: "3px solid #EEC569",
-              paddingBottom: "4px",
-            }}
-          >
-            Client
-          </span>{" "}
-          Feedback & Project Reviews
+          Client <span style={{ color: "#EEC569" }}>Feedback</span> & Project Reviews
         </motion.h2>
 
         {/* Reviews Grid */}
@@ -177,7 +172,7 @@ export function ReviewsGrid() {
               }}
             >
               <Image
-                src="/reviews/lsicon_move-down-filled.png"
+                src={getImageUrl("reviews/lsicon_move-down-filled.png")}
                 alt=""
                 width={24}
                 height={24}

@@ -39,7 +39,7 @@ export function Home3Industries() {
     <section
       className="relative overflow-hidden"
       style={{
-        padding: "96px 0 104px",
+        padding: "76px 0 104px",
         background: `
           radial-gradient(
             70% 50% at 50% 0%,

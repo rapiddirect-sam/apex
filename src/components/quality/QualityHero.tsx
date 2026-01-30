@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { getImageUrl } from "@/lib/utils";
 
 export function QualityHero() {
   return (
@@ -20,7 +21,7 @@ export function QualityHero() {
       {/* Background image with overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center opacity-30"
-        style={{ backgroundImage: "url('/quality/servicebg.png')" }}
+        style={{ backgroundImage: `url('${getImageUrl("quality/servicebg.png")}')` }}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-[#000000] via-[#000000]/80 to-transparent" />
 

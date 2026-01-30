@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 
 const leader = {
-  name: "Leon Huang",
+  name: "Luke Deng",
   title: "Founder & CEO",
-  bio1: "With over 15 years of experience in precision manufacturing and digital fabrication, Leon Huang founded Rapid Direct in 2015 with a vision to revolutionize the prototyping industry.",
-  bio2: "Recognizing the growing need for specialized batch production services, he established ApexBatch in 2025 to focus exclusively on high-precision, medium-to-large batch manufacturing for discerning global clients.",
+  bio1: "With over 15 years of experience in precision manufacturing and digital fabrication, Luke Deng has played a key role at RapidDirect, contributing to the company's growth and manufacturing capabilities across a wide range of projects.",
+  bio2: "Building on his long-term experience at RapidDirect, Luke took on the leadership of ApexBatch in 2025, leading the subsidiary to focus exclusively on high-precision, medium-to-large batch manufacturing for global customers.",
   quote:
     "Our mission is to bridge the gap between prototype and production, providing our clients with manufacturing confidence and technical excellence at every stage of their product journey.",
   image:

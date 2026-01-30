@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { getImageUrl } from "@/lib/utils";
 import { Linkedin, Twitter, Mail, Phone, MapPin } from "lucide-react";
 
 const quickLinks = [
@@ -45,7 +46,7 @@ export function Home3Footer() {
               {/* Logo */}
               <Link href="/home3" className="flex items-center mb-6">
                 <Image
-                  src="/apexbatch-logo2.png"
+                  src={getImageUrl("apexbatch-logo2.png")}
                   alt="Apex Batch"
                   width={180}
                   height={60}
@@ -115,20 +116,20 @@ export function Home3Footer() {
                 <li className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-[#7F4D0F] mt-0.5 flex-shrink-0" />
                   <span className="text-[#000000]/70 text-sm leading-relaxed">
-                    123 Industrial Drive
+                    2nd Floor, Building F, 52 Huangpu Road,
                     <br />
-                    Manufacturing District
+                    Shangliao Community, Xinqiao Street,
                     <br />
-                    Tech City, TC 12345
+                    Baoan District, Shenzhen, China
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-[#7F4D0F] flex-shrink-0" />
                   <a
-                    href="tel:+1234567890"
+                    href="tel:+8613302480516"
                     className="text-[#000000]/70 hover:text-[#000000] transition-colors text-sm"
                   >
-                    +1 (234) 567-890
+                    +86 13302480516
                   </a>
                 </li>
                 <li className="flex items-center gap-3">

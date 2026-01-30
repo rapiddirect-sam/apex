@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const stages = [
   {
@@ -345,28 +346,16 @@ export function QualityProcess() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "60px",
-          }}
+          className="text-center"
+          style={{ marginTop: "60px" }}
         >
-          <button
-            className="transition-all duration-300 hover:-translate-y-1"
-            style={{
-              background: "linear-gradient(135deg, #D09947 0%, #EEC569 100%)",
-              border: "none",
-              color: "#000000",
-              fontWeight: 700,
-              fontSize: "24px",
-              padding: "28px 80px",
-              borderRadius: "12px",
-              cursor: "pointer",
-              boxShadow: "0 0 50px rgba(208,153,71,0.7)",
-            }}
+          <Link
+            href="/contact"
+            className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
           >
             Request Quality Package
-          </button>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </motion.div>
       </div>
     </section>

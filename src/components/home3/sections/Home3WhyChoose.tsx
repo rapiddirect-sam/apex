@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Check } from "lucide-react";
+import Link from "next/link";
+import { ChevronLeft, ChevronRight, Check, ArrowRight } from "lucide-react";
 
 const slides = [
   {
@@ -305,20 +306,13 @@ export function Home3WhyChoose() {
           >
             Get Free engineering review before production.
           </p>
-          <button
-            className="transition-all duration-300 hover:brightness-110"
-            style={{
-              background: "#D09947",
-              color: "#000000",
-              fontWeight: 600,
-              fontSize: "16px",
-              padding: "14px 32px",
-              borderRadius: "12px",
-              boxShadow: "0 4px 15px rgba(208,153,71,0.3)",
-            }}
+          <Link
+            href="/contact"
+            className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
           >
             Upload Your Design
-          </button>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </motion.div>
       </div>
     </section>

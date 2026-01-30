@@ -39,7 +39,7 @@ export function Home3Process() {
     <section
       className="relative overflow-hidden"
       style={{
-        padding: "112px 0 120px",
+        padding: "76px 0 120px",
         background: "#34312F",
       }}
     >

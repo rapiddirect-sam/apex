@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useMemo } from "react";
+import { getImageUrl } from "@/lib/utils";
 
 export function AboutJourney() {
   // Generate particles once on mount
@@ -20,7 +21,7 @@ export function AboutJourney() {
     <section
       style={{
         backgroundColor: "#000000",
-        backgroundImage: "url('/about/journey-bg.png')",
+        backgroundImage: `url('${getImageUrl("about/journey-bg.png")}')`,
         backgroundSize: "100% auto",
         backgroundPosition: "center bottom",
         backgroundRepeat: "no-repeat",

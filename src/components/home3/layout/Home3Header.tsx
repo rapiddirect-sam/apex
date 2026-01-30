@@ -3,13 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn, getImageUrl } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { href: "/about", label: "About" },
   { href: "/quality", label: "Quality" },
-  { href: "/reviews", label: "Reviews" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -39,7 +38,7 @@ export function Home3Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0">
             <Image
-              src="/apexbatch-logo2.png"
+              src={getImageUrl("apexbatch-logo2.png")}
               alt="Apex Batch"
               width={180}
               height={60}

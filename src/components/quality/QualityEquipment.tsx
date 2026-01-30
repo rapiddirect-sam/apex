@@ -3,27 +3,28 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { getImageUrl } from "@/lib/utils";
 
 const equipment = [
   {
     name: "ZEISS CMM",
     description: "Measures complex surfaces and geometric profiles to ensure precise component fit and assembly accuracy.",
-    image: "/quality/qc-equipment-1.png",
+    image: getImageUrl("quality/qc-equipment-1.png"),
   },
   {
     name: "2.5D Image Measuring",
     description: "Performs non-contact optical inspection, ideal for delicate or reflective components requiring accurate measurement without surface contact.",
-    image: "/quality/qc-equipment-2.png",
+    image: getImageUrl("quality/qc-equipment-2.png"),
   },
   {
     name: "Spectrometer",
     description: "Identifies material alloy composition within seconds, preventing material mix-up and ensuring correct material specifications.",
-    image: "/quality/qc-equipment-2.png",
+    image: getImageUrl("quality/qc-equipment-2.png"),
   },
   {
     name: "Roughness Tester",
     description: "Quantifies surface finish characteristics critical for friction, wear resistance, and sealing performance in moving components.",
-    image: "/quality/qc-equipment-2.png",
+    image: getImageUrl("quality/qc-equipment-2.png"),
   },
 ];
 
