@@ -56,9 +56,9 @@ export default function AdminLoginPage() {
     try {
       await signIn(email, password);
       router.push("/admin/blog");
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Invalid email or password";
-      setError(message);
+    } catch {
+      // Always show generic error to prevent user enumeration
+      setError("Invalid email or password");
     } finally {
       setLoading(false);
     }
@@ -71,9 +71,9 @@ export default function AdminLoginPage() {
     try {
       await signInWithGoogle();
       router.push("/admin/blog");
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Google sign-in failed";
-      setError(message);
+    } catch {
+      // Generic error message
+      setError("Sign-in failed. Please try again.");
     } finally {
       setLoading(false);
     }

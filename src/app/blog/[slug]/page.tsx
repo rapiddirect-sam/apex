@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
+import { SanitizedHTML } from "@/components/blog/SanitizedHTML";
 import { getPostBySlug, getPublishedPosts } from "@/lib/blog";
 import { Calendar, ArrowLeft, User } from "lucide-react";
 
@@ -151,10 +152,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         }}
       >
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <article
-            className="blog-content"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+          <SanitizedHTML html={post.content} className="blog-content" />
 
           <style>{`
             .blog-content {

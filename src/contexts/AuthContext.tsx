@@ -25,9 +25,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
       setLoading(false);
+
+      // Set/clear auth session cookie for middleware
+      if (user) {
+        const token = await user.getIdToken();
+        document.cookie = `auth-session=${token}; path=/; max-age=3600; SameSite=Strict; Secure`;
+      } else {
+        document.cookie = "auth-session=; path=/; max-age=0";
+      }
     });
 
     return () => unsubscribe();
@@ -46,6 +54,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = async () => {
     if (!auth) throw new Error("Firebase not configured");
+    // Clear auth cookie
+    document.cookie = "auth-session=; path=/; max-age=0";
     await firebaseSignOut(auth);
   };
 
