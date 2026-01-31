@@ -73,13 +73,13 @@ export function Home3Hero() {
               </span>
             </div>
 
-            <h1 className="text-[34px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-bold text-white leading-[0.95] tracking-tight uppercase mb-2">
+            <h1 className="text-[42px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-extrabold text-white leading-[0.95] tracking-tight uppercase mb-2">
               Precision
             </h1>
-            <h1 className="text-[34px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-bold text-white leading-[0.95] tracking-tight uppercase mb-2">
+            <h1 className="text-[42px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-extrabold text-white leading-[0.95] tracking-tight uppercase mb-2">
               Manufacturing,
             </h1>
-            <h1 className="text-[34px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-bold text-[#D09947] leading-[0.95] tracking-tight uppercase mb-8">
+            <h1 className="text-[42px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-extrabold text-[#D09947] leading-[0.95] tracking-tight uppercase mb-8">
               Built to Last
             </h1>
 
