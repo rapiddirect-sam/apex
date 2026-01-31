@@ -3,7 +3,15 @@
 import { motion } from "framer-motion";
 import { Check, Star, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { getImageUrl } from "@/lib/utils";
+
+const testimonialFaces = [
+  "https://randomuser.me/api/portraits/men/32.jpg",
+  "https://randomuser.me/api/portraits/women/44.jpg",
+  "https://randomuser.me/api/portraits/men/67.jpg",
+  "https://randomuser.me/api/portraits/women/28.jpg",
+];
 
 const features = [
   { highlight: "30-60", text: "Minute quote response" },
@@ -100,11 +108,18 @@ export function Home3Hero() {
             {/* Social Proof */}
             <div className="flex items-center gap-6">
               <div className="flex -space-x-3">
-                {[1, 2, 3, 4].map((i) => (
+                {testimonialFaces.map((face, i) => (
                   <div
                     key={i}
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D09947] to-[#7F4D0F] border-2 border-[#000000]"
-                  />
+                    className="w-10 h-10 rounded-full border-2 border-[#000000] overflow-hidden relative"
+                  >
+                    <Image
+                      src={face}
+                      alt={`Customer ${i + 1}`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 ))}
               </div>
               <div>
