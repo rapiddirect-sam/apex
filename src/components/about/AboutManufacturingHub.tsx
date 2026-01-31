@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Building2, Settings, BarChart3, Users } from "lucide-react";
+import { getImageUrl } from "@/lib/utils";
 
 const stats = [
   {
@@ -32,49 +33,49 @@ const equipment = [
     number: "1",
     title: "CNC Machining Centers",
     description: "High-precision multi-axis CNC machining centers for complex parts",
-    image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=600&q=80",
+    image: getImageUrl("about/6-CNC-Machining-Centers.webp"),
   },
   {
     number: "2",
     title: "Injection Molding Machines",
     description: "Advanced injection molding systems for plastic component production",
-    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80",
+    image: getImageUrl("about/6-Injection-Molding-Machines.webp"),
   },
   {
     number: "3",
     title: "Laser Cutting Systems",
     description: "State-of-the-art laser cutting technology for precise material processing",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80",
+    image: getImageUrl("about/6-Laser-Cutting-Systems.webp"),
   },
   {
     number: "4",
     title: "Material Testing Laboratory",
     description: "Comprehensive material analysis and quality testing facilities",
-    image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&q=80",
+    image: getImageUrl("about/6-Material-Testing-Laboratory.webp"),
   },
   {
     number: "5",
     title: "Surface Treatment Line",
     description: "Complete anodizing, plating, and powder coating capabilities",
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80",
+    image: getImageUrl("about/6-Surface-Treatment-Line.webp"),
   },
   {
     number: "6",
     title: "Sheet Metal Fabrication",
     description: "Precision bending, welding, and forming equipment",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    image: getImageUrl("about/6-Sheet-Metal-Fabrication.webp"),
   },
   {
     number: "7",
     title: "Quality Control Lab",
     description: "CMM machines and optical inspection systems",
-    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80",
+    image: getImageUrl("about/6-Quality-Control-Lab.webp"),
   },
   {
     number: "8",
     title: "Assembly Workshop",
     description: "Clean room assembly and packaging facilities",
-    image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=600&q=80",
+    image: getImageUrl("about/6-Assembly-Workshop.webp"),
   },
 ];
 
@@ -100,6 +101,7 @@ export function AboutManufacturingHub() {
 
   return (
     <section
+      className="px-4 sm:px-6 md:px-10"
       style={{
         background: `
           radial-gradient(
@@ -109,7 +111,8 @@ export function AboutManufacturingHub() {
           ),
           #000000
         `,
-        padding: "80px 40px",
+        paddingTop: "clamp(40px, 8vw, 80px)",
+        paddingBottom: "clamp(40px, 8vw, 80px)",
         position: "relative",
       }}
     >
@@ -121,11 +124,10 @@ export function AboutManufacturingHub() {
       >
         {/* SECTION 1: Hero Area */}
         <div
+          className="grid grid-cols-1 lg:grid-cols-2"
           style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "40px",
-            marginBottom: "80px",
+            gap: "clamp(24px, 4vw, 40px)",
+            marginBottom: "clamp(40px, 8vw, 80px)",
             alignItems: "start",
           }}
         >
@@ -154,7 +156,7 @@ export function AboutManufacturingHub() {
             {/* Heading */}
             <h2
               style={{
-                margin: "0 0 30px 0",
+                margin: "0 0 clamp(20px, 3vw, 30px) 0",
                 letterSpacing: "-0.015em",
                 lineHeight: 1.05,
               }}
@@ -163,7 +165,7 @@ export function AboutManufacturingHub() {
                 style={{
                   display: "block",
                   color: "#EEC569",
-                  fontSize: "48px",
+                  fontSize: "clamp(32px, 5vw, 48px)",
                   fontWeight: 700,
                 }}
               >
@@ -173,7 +175,7 @@ export function AboutManufacturingHub() {
                 className="text-white"
                 style={{
                   display: "block",
-                  fontSize: "48px",
+                  fontSize: "clamp(32px, 5vw, 48px)",
                   fontWeight: 700,
                 }}
               >
@@ -276,7 +278,7 @@ export function AboutManufacturingHub() {
               }}
             >
               <img
-                src="https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80"
+                src={getImageUrl("about/5-Advanced-Manufacturing-Hub-1.webp")}
                 alt="Manufacturing facility"
                 style={{
                   width: "100%",
@@ -297,7 +299,7 @@ export function AboutManufacturingHub() {
                 }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&q=80"
+                  src={getImageUrl("about/5-Advanced-Manufacturing-Hub-2.webp")}
                   alt="Industrial equipment"
                   style={{
                     width: "100%",
@@ -315,7 +317,7 @@ export function AboutManufacturingHub() {
                 }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80"
+                  src={getImageUrl("about/5-Advanced-Manufacturing-Hub-3.webp")}
                   alt="Precision machinery"
                   style={{
                     width: "100%",
@@ -330,7 +332,7 @@ export function AboutManufacturingHub() {
         </div>
 
         {/* SECTION 2: Facility Overview */}
-        <div style={{ marginBottom: "80px" }}>
+        <div style={{ marginBottom: "clamp(40px, 8vw, 80px)" }}>
           {/* Section Header with lines */}
           <div
             style={{
@@ -369,10 +371,9 @@ export function AboutManufacturingHub() {
 
           {/* Stats Grid */}
           <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: "20px",
+              gap: "clamp(12px, 2vw, 20px)",
             }}
           >
             {stats.map((stat, index) => (
@@ -430,12 +431,11 @@ export function AboutManufacturingHub() {
                 {/* Value */}
                 <div
                   style={{
-                    fontSize: "48px",
+                    fontSize: "clamp(32px, 5vw, 48px)",
                     fontWeight: 700,
                     lineHeight: 1,
                     marginBottom: "8px",
                     color: "#D09947",
-                    whiteSpace: "nowrap",
                   }}
                 >
                   {stat.value}
@@ -497,9 +497,10 @@ export function AboutManufacturingHub() {
 
           {/* Gallery with navigation */}
           <div style={{ position: "relative" }}>
-            {/* Left Arrow */}
+            {/* Left Arrow - hidden on mobile */}
             <button
               onClick={prevSlide}
+              className="hidden md:flex"
               style={{
                 position: "absolute",
                 left: "-24px",
@@ -510,7 +511,6 @@ export function AboutManufacturingHub() {
                 borderRadius: "50%",
                 background: "#1A1A1A",
                 border: "1px solid rgba(208,153,71,0.4)",
-                display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: "pointer",
@@ -520,9 +520,10 @@ export function AboutManufacturingHub() {
               <ChevronLeft style={{ width: "24px", height: "24px", color: "#D09947" }} />
             </button>
 
-            {/* Right Arrow */}
+            {/* Right Arrow - hidden on mobile */}
             <button
               onClick={nextSlide}
+              className="hidden md:flex"
               style={{
                 position: "absolute",
                 right: "-24px",
@@ -533,7 +534,6 @@ export function AboutManufacturingHub() {
                 borderRadius: "50%",
                 background: "#1A1A1A",
                 border: "1px solid rgba(208,153,71,0.4)",
-                display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 cursor: "pointer",
@@ -555,9 +555,8 @@ export function AboutManufacturingHub() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.3 }}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(4, 1fr)",
                   gap: "16px",
                 }}
               >

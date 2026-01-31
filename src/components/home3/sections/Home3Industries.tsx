@@ -4,17 +4,18 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
+import { getImageUrl } from "@/lib/utils";
 
 const industries = [
   {
     title: "Medical Devices",
     description: "ISO 13485 compliant precision components for life-critical applications. Full traceability and documentation for regulatory compliance.",
-    image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600&q=80",
+    image: getImageUrl("home/5-industries-medical.webp"),
   },
   {
     title: "Aerospace",
     description: "AS9100 certified high-performance parts with full traceability. Meeting the strictest quality and safety standards for aviation.",
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80",
+    image: getImageUrl("home/5-industries-aerospace.webp"),
   },
   {
     title: "Automotive",
@@ -24,7 +25,7 @@ const industries = [
   {
     title: "Consumer Electronics",
     description: "Production of precision metal and plastic components for enclosures, internal frames, and functional assemblies in consumer electronics.",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
+    image: getImageUrl("home/5-industries-consumer-electronics.webp"),
   },
 ];
 

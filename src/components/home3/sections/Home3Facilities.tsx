@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { getImageUrl } from "@/lib/utils";
 
 const stats = [
   { value: "50,000 m²", label: "Total Factory Area" },
@@ -13,9 +14,9 @@ const stats = [
 ];
 
 const facilityImages = [
-  "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
-  "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80",
-  "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80",
+  getImageUrl("home/2-our-facilities-cnc.webp"),
+  getImageUrl("home/2-our-facilities-injection-molding.webp"),
+  getImageUrl("home/2-our-facilities-sheet-metal.webp"),
 ];
 
 // Metric component with corner brackets (top-left and bottom-right only)

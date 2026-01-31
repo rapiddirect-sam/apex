@@ -5,28 +5,29 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Check, ArrowRight } from "lucide-react";
+import { getImageUrl } from "@/lib/utils";
 
 const slides = [
   {
-    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80",
+    image: getImageUrl("home/4-why-choose-us-1.webp"),
     number: "01",
     title: "Comprehensive Free Services",
     description: "Full-spectrum support including DFM analysis, process optimization, design validation, and quality inspection. Reduce trial costs with free engineering verification.",
   },
   {
-    image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80",
+    image: getImageUrl("home/4-why-choose-us-2.webp"),
     number: "02",
     title: "Expert Engineering Team",
     description: "Our team of experienced engineers provides technical consultation and design optimization to ensure manufacturability and cost-effectiveness.",
   },
   {
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80",
+    image: getImageUrl("home/4-why-choose-us-3.webp"),
     number: "03",
     title: "Quality Guaranteed",
     description: "ISO-certified processes with rigorous quality control at every stage. Full documentation and traceability for all production runs.",
   },
   {
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+    image: getImageUrl("home/4-why-choose-us-4.webp"),
     number: "04",
     title: "Fast Turnaround",
     description: "Rapid prototyping and efficient production scheduling. Get your parts delivered on time, every time with our streamlined processes.",

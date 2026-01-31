@@ -4,42 +4,43 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { getImageUrl } from "@/lib/utils";
 
 const portfolioItems = [
   {
-    title: "CNC Machined Components",
-    label: "±0.001MM TOLERANCE",
-    image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80",
+    title: "CNC Machining",
+    label: "",
+    image: getImageUrl("home/5-Parts-display-CNC-Machined-Components.webp"),
     gridArea: "hero", // Hero card - spans 2 rows, 2 columns
   },
   {
-    title: "Precision Metal Parts",
-    label: "ISO CERTIFIED QUALITY",
-    image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80",
+    title: "Die Casting",
+    label: "",
+    image: getImageUrl("home/5-Parts-display-die-casting-materials-copper-parts.webp"),
     gridArea: "small1",
   },
   {
-    title: "Industrial Components",
-    label: "HEAVY-DUTY APPLICATIONS",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+    title: "Extrusion",
+    label: "",
+    image: getImageUrl("home/5-Parts-display-extrusion-parts-2.webp"),
     gridArea: "small2",
   },
   {
-    title: "Aluminum Machining",
-    label: "LIGHTWEIGHT PRECISION",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    title: "Sheet Metal",
+    label: "",
+    image: getImageUrl("home/5-Parts-display-sheet-metal.webp"),
     gridArea: "small3",
   },
   {
-    title: "Precision Gears",
-    label: "COMPLEX GEOMETRIES",
-    image: "https://images.unsplash.com/photo-1485083269755-a7b559a4fe5e?w=800&q=80",
+    title: "Injection Molding",
+    label: "",
+    image: getImageUrl("home/5-Parts-display-Injection-Molding.webp"),
     gridArea: "small4",
   },
   {
-    title: "Custom Machining",
-    label: "TAILORED SOLUTIONS",
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80",
+    title: "",
+    label: "",
+    image: getImageUrl("home/5-Parts-display-CNC06-1.webp"),
     gridArea: "small5",
   },
 ];
@@ -81,23 +82,13 @@ function PortfolioCard({
           }}
         />
 
-        {/* Label and Title */}
+        {/* Title */}
         <div className="absolute bottom-5 left-5 right-5">
-          <span
-            className="text-[#D09947] font-medium uppercase"
-            style={{
-              fontSize: "12px",
-              letterSpacing: "0.08em",
-            }}
-          >
-            {item.label}
-          </span>
           <h3
             className="text-white"
             style={{
               fontSize: isHero ? "22px" : "18px",
               fontWeight: 600,
-              marginTop: "6px",
             }}
           >
             {item.title}
@@ -200,18 +191,18 @@ export function Home3Portfolio() {
           <PortfolioCard item={portfolioItems[5]} index={5} />
           <PortfolioCard
             item={{
-              title: "Metal Components",
-              label: "HIGH STRENGTH ALLOYS",
-              image: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=800&q=80",
+              title: "",
+              label: "",
+              image: getImageUrl("home/5-Parts-display-CNC10-3.webp"),
               gridArea: "small6",
             }}
             index={6}
           />
           <PortfolioCard
             item={{
-              title: "Engineering Parts",
-              label: "ADVANCED MATERIALS",
-              image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80",
+              title: "",
+              label: "",
+              image: getImageUrl("home/5-Parts-display-CNC21-1.webp"),
               gridArea: "small7",
             }}
             index={7}

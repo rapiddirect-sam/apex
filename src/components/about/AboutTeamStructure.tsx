@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { getImageUrl } from "@/lib/utils";
 
 const departments = [
   {
@@ -8,48 +9,42 @@ const departments = [
     title: "Surface Treatment Department",
     description:
       "Dedicated surface finishing team providing anodizing, bead blasting, plating, powder coating and various surface treatment processes to meet aesthetic and functional requirements.",
-    image:
-      "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=600&q=80",
+    image: getImageUrl("about/4-team-structure-Surface-Treatment-Department.webp"),
   },
   {
     number: "02",
     title: "Quality Inspection Department",
     description:
       "Independent QC team equipped with advanced inspection equipment, implementing full-process quality control from raw materials to finished products.",
-    image:
-      "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80",
+    image: getImageUrl("about/4-team-structure-Quality-Inspection-Department.webp"),
   },
   {
     number: "03",
     title: "Manual & Assembly Department",
     description:
       "Experienced manual team handling precision part deburring, finishing, assembly, and packaging to ensure perfect product delivery.",
-    image:
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80",
+    image: getImageUrl("about/4-team-structure-Manual-&-Assembly-Department.webp"),
   },
   {
     number: "04",
     title: "CNC Machining Department",
     description:
       "50+ multi-axis CNC machines ranging from 3-axis to 5-axis capabilities, handling complex geometries with high precision.",
-    image:
-      "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=600&q=80",
+    image: getImageUrl("about/4-team-structure-CNC-Machining-Department.webp"),
   },
   {
     number: "05",
     title: "Injection Molding Department",
     description:
       "Specializing in medium-to-large batch injection molding with machines ranging from 50 to 450 tons for various volume and material requirements.",
-    image:
-      "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80",
+    image: getImageUrl("about/4-team-structure-Injection-Molding-Department.webp"),
   },
   {
     number: "06",
     title: "Project Management\n& Engineering",
     description:
       "Dedicated project management and engineering support team providing professional guidance from design optimization to volume production.",
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    image: getImageUrl("about/4-team-structure-Project-Management-&-Engineering.webp"),
   },
 ];
 
@@ -65,7 +60,7 @@ export function AboutTeamStructure() {
           ),
           #000000
         `,
-        padding: "80px 40px",
+        padding: "clamp(40px, 8vw, 80px) clamp(16px, 4vw, 40px)",
         position: "relative",
       }}
     >
@@ -88,7 +83,7 @@ export function AboutTeamStructure() {
           <h2
             className="text-white"
             style={{
-              fontSize: "48px",
+              fontSize: "clamp(28px, 5vw, 48px)",
               fontWeight: 700,
               margin: "0 0 20px 0",
               letterSpacing: "-0.015em",
@@ -114,11 +109,10 @@ export function AboutTeamStructure() {
 
         {/* Cards Grid - 3 columns x 2 rows */}
         <div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "28px 28px",
-            rowGap: "45px",
+            gap: "clamp(16px, 3vw, 28px)",
+            rowGap: "clamp(24px, 4vw, 45px)",
           }}
         >
           {departments.map((dept, index) => (

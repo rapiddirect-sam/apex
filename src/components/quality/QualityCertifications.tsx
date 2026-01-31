@@ -54,9 +54,9 @@ export function QualityCertifications() {
         {/* Certifications Images */}
         <div className="grid md:grid-cols-3 gap-6">
           {[
-            { src: getImageUrl("quality/cert1.png"), alt: "ISO 9001:2015 Certification" },
-            { src: getImageUrl("quality/cert2.png"), alt: "ISO 13485:2016 Certification" },
-            { src: getImageUrl("quality/cert3.png"), alt: "ISO 14001:2015 Certification" },
+            { src: getImageUrl("home/6-quality-ISO9001.webp"), alt: "ISO 9001:2015 Certification" },
+            { src: getImageUrl("home/6-quality-ISO13485.webp"), alt: "ISO 13485:2016 Certification" },
+            { src: getImageUrl("home/6-quality-ISO14001.webp"), alt: "ISO 14001:2015 Certification" },
           ].map((cert, index) => (
             <motion.div
               key={cert.src}

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { getImageUrl } from "@/lib/utils";
 
 const leader = {
   name: "Luke Deng",
@@ -9,14 +10,14 @@ const leader = {
   bio2: "Building on his long-term experience at RapidDirect, Luke took on the leadership of ApexBatch in 2025, leading the subsidiary to focus exclusively on high-precision, medium-to-large batch manufacturing for global customers.",
   quote:
     "Our mission is to bridge the gap between prototype and production, providing our clients with manufacturing confidence and technical excellence at every stage of their product journey.",
-  image:
-    "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80",
+  image: getImageUrl("about/3-leadership-luke-deng.webp"),
 };
 
 export function AboutLeadership() {
 
   return (
     <section
+      className="px-4 sm:px-6 md:px-10"
       style={{
         background: `
           radial-gradient(
@@ -26,7 +27,8 @@ export function AboutLeadership() {
           ),
           #000000
         `,
-        padding: "80px 40px 60px 40px",
+        paddingTop: "clamp(40px, 8vw, 80px)",
+        paddingBottom: "clamp(40px, 6vw, 60px)",
         position: "relative",
       }}
     >
@@ -49,7 +51,7 @@ export function AboutLeadership() {
           <h2
             className="text-white"
             style={{
-              fontSize: "48px",
+              fontSize: "clamp(32px, 5vw, 48px)",
               fontWeight: 700,
               margin: "0 0 16px 0",
               letterSpacing: "-0.015em",
@@ -71,9 +73,9 @@ export function AboutLeadership() {
 
         {/* Two-Column Layout */}
         <div
+          className="flex flex-col md:flex-row"
           style={{
-            display: "flex",
-            gap: "60px",
+            gap: "clamp(30px, 5vw, 60px)",
             alignItems: "flex-start",
           }}
         >
@@ -82,8 +84,9 @@ export function AboutLeadership() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            className="w-full md:w-auto md:flex-shrink-0 mx-auto md:mx-0"
             style={{
-              flex: "0 0 340px",
+              maxWidth: "340px",
               position: "relative",
             }}
           >
@@ -111,6 +114,7 @@ export function AboutLeadership() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            className="text-center md:text-left"
             style={{
               flex: 1,
               paddingTop: "20px",
@@ -120,7 +124,7 @@ export function AboutLeadership() {
             <h3
               style={{
                 color: "#FFFFFF",
-                fontSize: "36px",
+                fontSize: "clamp(28px, 4vw, 36px)",
                 fontWeight: 600,
                 margin: "0 0 8px 0",
                 letterSpacing: "-0.01em",

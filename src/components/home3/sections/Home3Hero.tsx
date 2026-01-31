@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Check, Star, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { getImageUrl } from "@/lib/utils";
 
 const features = [
   { highlight: "30-60", text: "Minute quote response" },
@@ -34,7 +35,7 @@ export function Home3Hero() {
       <div
         className="absolute right-0 top-0 bottom-0 w-1/2 bg-cover bg-center hidden lg:block"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1920&q=80')",
+          backgroundImage: `url('${getImageUrl("home/1-homepage-banner.webp")}')`,
         }}
       />
       {/* Diagonal gradient overlay on image */}

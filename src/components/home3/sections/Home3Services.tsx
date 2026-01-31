@@ -4,42 +4,43 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { getImageUrl } from "@/lib/utils";
 
 const services = [
   {
     title: "CNC Machining",
     description: "Precision machining for complex geometries and tight tolerances.",
-    image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=400&q=80",
+    image: getImageUrl("home/3-our-services-cnc-machining.webp"),
     tags: ["3/4/5-Axis Machining", "Tight Tolerances", "Material Variety"],
   },
   {
     title: "Sheet Metal",
     description: "Custom sheet metal fabrication for enclosures and structures.",
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&q=80",
+    image: getImageUrl("home/3-our-services-sheet-metal.webp"),
     tags: ["Laser Cutting", "CNC Bending", "Welding & Assembly"],
   },
   {
     title: "Injection Molding",
     description: "Optimized for low to medium volume plastic parts production.",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
+    image: getImageUrl("home/3-our-services-injection-molding.webp"),
     tags: ["Rapid Prototyping", "High Volume", "Multi-Cavity Molds"],
   },
   {
     title: "Extrusion",
     description: "Custom profile extrusion in plastic and metal.",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80",
+    image: getImageUrl("home/3-our-services-extrusion.webp"),
     tags: ["Custom Profiles", "Aluminum & Plastic", "Long Lengths"],
   },
   {
     title: "Die Casting",
     description: "High-quality aluminum and zinc die casting.",
-    image: "https://images.unsplash.com/photo-1485083269755-a7b559a4fe5e?w=400&q=80",
+    image: getImageUrl("home/3-our-services-die-casting.webp"),
     tags: ["Aluminum & Zinc", "High Productivity", "Thin Walls"],
   },
   {
     title: "Surface Finishing",
     description: "Professional surface treatment for enhanced durability.",
-    image: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=400&q=80",
+    image: getImageUrl("home/3-our-services-surface-finishing.webp"),
     tags: ["Anodizing", "Powder Coating", "Electroplating"],
   },
 ];
