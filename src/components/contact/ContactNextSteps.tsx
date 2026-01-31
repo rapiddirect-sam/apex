@@ -12,15 +12,17 @@ export function ContactNextSteps() {
           ),
           #000000
         `,
-        padding: "80px 0 100px 0",
+        padding: "clamp(40px, 8vw, 80px) 0 clamp(60px, 10vw, 100px) 0",
         position: "relative",
+        overflowX: "hidden",
       }}
     >
       <div
         style={{
           maxWidth: "1200px",
           margin: "0 auto",
-          padding: "0 40px",
+          padding: "0 clamp(16px, 4vw, 40px)",
+          overflowX: "hidden",
         }}
       >
         {/* Badge */}
@@ -67,7 +69,7 @@ export function ContactNextSteps() {
           className="text-white"
           style={{
             textAlign: "center",
-            fontSize: "48px",
+            fontSize: "clamp(32px, 5vw, 48px)",
             fontWeight: 700,
             margin: "0 0 16px 0",
             letterSpacing: "-0.015em",
@@ -81,8 +83,8 @@ export function ContactNextSteps() {
           style={{
             textAlign: "center",
             color: "#EEC569",
-            fontSize: "18px",
-            margin: "0 0 60px 0",
+            fontSize: "clamp(16px, 2.5vw, 18px)",
+            margin: "0 0 clamp(40px, 6vw, 60px) 0",
             fontWeight: 400,
           }}
         >
@@ -92,9 +94,9 @@ export function ContactNextSteps() {
 
         {/* Cards container */}
         <div
+          className="grid grid-cols-1 md:grid-cols-3"
           style={{
-            display: "flex",
-            gap: "24px",
+            gap: "clamp(16px, 3vw, 24px)",
             position: "relative",
           }}
         >
@@ -102,7 +104,6 @@ export function ContactNextSteps() {
           <div
             className="transition-all duration-300 hover:-translate-y-1"
             style={{
-              flex: 1,
               background: `
                 radial-gradient(
                   60% 50% at 50% 0%,
@@ -150,8 +151,9 @@ export function ContactNextSteps() {
               </span>
             </div>
 
-            {/* Connector line from card */}
+            {/* Connector line from card - hidden on mobile */}
             <div
+              className="hidden md:block"
               style={{
                 position: "absolute",
                 top: "50%",
@@ -270,7 +272,6 @@ export function ContactNextSteps() {
           <div
             className="transition-all duration-300 hover:-translate-y-1"
             style={{
-              flex: 1,
               background: `
                 radial-gradient(
                   60% 50% at 50% 0%,
@@ -318,8 +319,9 @@ export function ContactNextSteps() {
               </span>
             </div>
 
-            {/* Connector line from card */}
+            {/* Connector line from card - hidden on mobile */}
             <div
+              className="hidden md:block"
               style={{
                 position: "absolute",
                 top: "50%",
@@ -440,7 +442,6 @@ export function ContactNextSteps() {
           <div
             className="transition-all duration-300 hover:-translate-y-1"
             style={{
-              flex: 1,
               background: `
                 radial-gradient(
                   60% 50% at 50% 0%,
@@ -596,7 +597,7 @@ export function ContactNextSteps() {
             `,
             border: "1px solid #EEC569",
             borderRadius: "0",
-            padding: "40px",
+            padding: "clamp(24px, 4vw, 40px)",
             textAlign: "center",
             maxWidth: "600px",
             marginLeft: "auto",
