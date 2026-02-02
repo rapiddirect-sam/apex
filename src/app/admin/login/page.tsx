@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function AdminLoginPage() {
@@ -12,8 +12,51 @@ export default function AdminLoginPage() {
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
-  const { signIn, signUp, signInWithGoogle, isConfigured } = useAuth();
+  const { user, isAdmin, loading: authLoading, signIn, signUp, signInWithGoogle, isConfigured } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/admin/blog";
+
+  // Redirect if already logged in and is admin
+  useEffect(() => {
+    if (!authLoading && user && isAdmin) {
+      router.push(redirectTo);
+    }
+  }, [user, isAdmin, authLoading, router, redirectTo]);
+
+  // Show loading while checking auth state
+  if (authLoading) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "linear-gradient(135deg, #1a1512 0%, #2d1f15 50%, #1a1512 100%)",
+        }}
+      >
+        <div style={{ color: "#D09947", fontSize: "18px" }}>Loading...</div>
+      </div>
+    );
+  }
+
+  // Don't show login form if already logged in (waiting for redirect)
+  if (user && isAdmin) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "linear-gradient(135deg, #1a1512 0%, #2d1f15 50%, #1a1512 100%)",
+        }}
+      >
+        <div style={{ color: "#D09947", fontSize: "18px" }}>Redirecting...</div>
+      </div>
+    );
+  }
 
   if (!isConfigured) {
     return (
@@ -77,7 +120,9 @@ export default function AdminLoginPage() {
         setConfirmPassword("");
       } else {
         await signIn(email, password);
-        router.push("/admin/blog");
+        // Small delay to allow auth state and cookie to update
+        await new Promise(resolve => setTimeout(resolve, 500));
+        router.push(redirectTo);
       }
     } catch {
       setError(isRegister ? "Registration failed. Email may already be in use." : "Invalid email or password");
@@ -92,7 +137,9 @@ export default function AdminLoginPage() {
 
     try {
       await signInWithGoogle();
-      router.push("/admin/blog");
+      // Small delay to allow auth state and cookie to update
+      await new Promise(resolve => setTimeout(resolve, 500));
+      router.push(redirectTo);
     } catch {
       setError("Sign-in failed. Please try again.");
     } finally {
