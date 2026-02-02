@@ -52,7 +52,7 @@ export async function getAllAdmins(): Promise<string[]> {
 
   try {
     const { data, error } = await supabase
-      .from(TABLE_NAME)
+      .from(LEGACY_TABLE)
       .select("email")
       .order("created_at", { ascending: true });
 
@@ -75,7 +75,7 @@ export async function addAdmin(email: string): Promise<boolean> {
 
   try {
     const { error } = await supabase
-      .from(TABLE_NAME)
+      .from(LEGACY_TABLE)
       .insert({ email: email.toLowerCase() });
 
     if (error) {
@@ -97,7 +97,7 @@ export async function removeAdmin(email: string): Promise<boolean> {
 
   try {
     const { error } = await supabase
-      .from(TABLE_NAME)
+      .from(LEGACY_TABLE)
       .delete()
       .eq("email", email.toLowerCase());
 
