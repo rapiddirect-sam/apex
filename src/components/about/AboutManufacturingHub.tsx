@@ -4,86 +4,107 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Building2, Settings, BarChart3, Users } from "lucide-react";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const stats = [
-  {
-    icon: Building2,
-    value: "50,000 m²",
-    label: "Total Factory Area",
+const DEFAULTS = {
+  hero: {
+    headingHighlight: "Advanced",
+    headingText: "Manufacturing Hub",
+    paragraph1:
+      "Our Shenzhen facility achieves vertical integration from raw material processing to final product delivery, including CNC machining, precision injection molding, sheet metal fabrication, and dedicated surface treatment and quality inspection lines.",
+    paragraph2:
+      "This integrated approach enables better quality control, shorter lead times, and reduced costs - particularly advantageous for medium-to-large batch production requirements.",
+    paragraph3:
+      "Each production shop is equipped with industry-leading machinery operated by experienced technicians, ensuring every production phase meets the highest standards. Our facilities comply with international quality management systems and are certified to ISO 9001:2015 and ISO 13485:2016.",
+    certifications: ["ISO 9001:2015", "ISO 13485:2016"],
+    images: {
+      main: getImageUrl("about/5-Advanced-Manufacturing-Hub-1.webp"),
+      small1: getImageUrl("about/5-Advanced-Manufacturing-Hub-2.webp"),
+      small2: getImageUrl("about/5-Advanced-Manufacturing-Hub-3.webp"),
+    },
   },
-  {
-    icon: Settings,
-    value: "8",
-    label: "Specialized Production Shops",
+  facilityOverview: {
+    label: "FACILITY OVERVIEW",
+    stats: [
+      {
+        value: "50,000 m²",
+        label: "Total Factory Area",
+      },
+      {
+        value: "8",
+        label: "Specialized Production Shops",
+      },
+      {
+        value: "300+",
+        label: "Advanced Equipment",
+      },
+      {
+        value: "98%",
+        label: "On-Time Delivery",
+      },
+    ],
   },
-  {
-    icon: BarChart3,
-    value: "300+",
-    label: "Advanced Equipment",
+  equipmentGallery: {
+    label: "ADVANCED EQUIPMENT GALLERY",
+    items: [
+      {
+        number: "1",
+        title: "CNC Machining Centers",
+        description: "High-precision multi-axis CNC machining centers for complex parts",
+        image: getImageUrl("about/6-CNC-Machining-Centers.webp"),
+      },
+      {
+        number: "2",
+        title: "Injection Molding Machines",
+        description: "Advanced injection molding systems for plastic component production",
+        image: getImageUrl("about/6-Injection-Molding-Machines.webp"),
+      },
+      {
+        number: "3",
+        title: "Laser Cutting Systems",
+        description: "State-of-the-art laser cutting technology for precise material processing",
+        image: getImageUrl("about/6-Laser-Cutting-Systems.webp"),
+      },
+      {
+        number: "4",
+        title: "Material Testing Laboratory",
+        description: "Comprehensive material analysis and quality testing facilities",
+        image: getImageUrl("about/6-Material-Testing-Laboratory.webp"),
+      },
+      {
+        number: "5",
+        title: "Surface Treatment Line",
+        description: "Complete anodizing, plating, and powder coating capabilities",
+        image: getImageUrl("about/6-Surface-Treatment-Line.webp"),
+      },
+      {
+        number: "6",
+        title: "Sheet Metal Fabrication",
+        description: "Precision bending, welding, and forming equipment",
+        image: getImageUrl("about/6-Sheet-Metal-Fabrication.webp"),
+      },
+      {
+        number: "7",
+        title: "Quality Control Lab",
+        description: "CMM machines and optical inspection systems",
+        image: getImageUrl("about/6-Quality-Control-Lab.webp"),
+      },
+      {
+        number: "8",
+        title: "Assembly Workshop",
+        description: "Clean room assembly and packaging facilities",
+        image: getImageUrl("about/6-Assembly-Workshop.webp"),
+      },
+    ],
   },
-  {
-    icon: Users,
-    value: "98%",
-    label: "On-Time Delivery",
-  },
-];
+};
 
-const equipment = [
-  {
-    number: "1",
-    title: "CNC Machining Centers",
-    description: "High-precision multi-axis CNC machining centers for complex parts",
-    image: getImageUrl("about/6-CNC-Machining-Centers.webp"),
-  },
-  {
-    number: "2",
-    title: "Injection Molding Machines",
-    description: "Advanced injection molding systems for plastic component production",
-    image: getImageUrl("about/6-Injection-Molding-Machines.webp"),
-  },
-  {
-    number: "3",
-    title: "Laser Cutting Systems",
-    description: "State-of-the-art laser cutting technology for precise material processing",
-    image: getImageUrl("about/6-Laser-Cutting-Systems.webp"),
-  },
-  {
-    number: "4",
-    title: "Material Testing Laboratory",
-    description: "Comprehensive material analysis and quality testing facilities",
-    image: getImageUrl("about/6-Material-Testing-Laboratory.webp"),
-  },
-  {
-    number: "5",
-    title: "Surface Treatment Line",
-    description: "Complete anodizing, plating, and powder coating capabilities",
-    image: getImageUrl("about/6-Surface-Treatment-Line.webp"),
-  },
-  {
-    number: "6",
-    title: "Sheet Metal Fabrication",
-    description: "Precision bending, welding, and forming equipment",
-    image: getImageUrl("about/6-Sheet-Metal-Fabrication.webp"),
-  },
-  {
-    number: "7",
-    title: "Quality Control Lab",
-    description: "CMM machines and optical inspection systems",
-    image: getImageUrl("about/6-Quality-Control-Lab.webp"),
-  },
-  {
-    number: "8",
-    title: "Assembly Workshop",
-    description: "Clean room assembly and packaging facilities",
-    image: getImageUrl("about/6-Assembly-Workshop.webp"),
-  },
-];
-
+const STAT_ICONS = [Building2, Settings, BarChart3, Users];
 const ITEMS_PER_PAGE = 4;
 
 export function AboutManufacturingHub() {
   const [currentPage, setCurrentPage] = useState(0);
-  const totalPages = Math.ceil(equipment.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(DEFAULTS.equipmentGallery.items.length / ITEMS_PER_PAGE);
 
   const nextSlide = () => {
     setCurrentPage((prev) => (prev + 1) % totalPages);
@@ -94,7 +115,7 @@ export function AboutManufacturingHub() {
   };
 
   // Get visible items for current page
-  const visibleItems = equipment.slice(
+  const visibleItems = DEFAULTS.equipmentGallery.items.slice(
     currentPage * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE + ITEMS_PER_PAGE
   );
@@ -169,7 +190,7 @@ export function AboutManufacturingHub() {
                   fontWeight: 700,
                 }}
               >
-                Advanced
+                <EditableText path="manufacturingHub.hero.headingHighlight" defaultValue={DEFAULTS.hero.headingHighlight} />
               </span>
               <span
                 className="text-white"
@@ -179,7 +200,7 @@ export function AboutManufacturingHub() {
                   fontWeight: 700,
                 }}
               >
-                Manufacturing Hub
+                <EditableText path="manufacturingHub.hero.headingText" defaultValue={DEFAULTS.hero.headingText} />
               </span>
             </h2>
 
@@ -192,11 +213,7 @@ export function AboutManufacturingHub() {
                 margin: "0 0 16px 0",
               }}
             >
-              Our Shenzhen facility achieves{" "}
-              <span style={{ color: "#D09947" }}>vertical integration</span> from
-              raw material processing to final product delivery, including CNC
-              machining, precision injection molding, sheet metal fabrication, and
-              dedicated surface treatment and quality inspection lines.
+              <EditableText path="manufacturingHub.hero.paragraph1" defaultValue={DEFAULTS.hero.paragraph1} multiline />
             </p>
 
             {/* Paragraph 2 */}
@@ -208,9 +225,7 @@ export function AboutManufacturingHub() {
                 margin: "0 0 16px 0",
               }}
             >
-              This integrated approach enables better quality control, shorter lead
-              times, and reduced costs - particularly advantageous for medium-to-large
-              batch production requirements.
+              <EditableText path="manufacturingHub.hero.paragraph2" defaultValue={DEFAULTS.hero.paragraph2} multiline />
             </p>
 
             {/* Paragraph 3 */}
@@ -222,44 +237,28 @@ export function AboutManufacturingHub() {
                 margin: "0 0 24px 0",
               }}
             >
-              Each production shop is equipped with industry-leading machinery
-              operated by experienced technicians, ensuring every production phase
-              meets the highest standards. Our facilities comply with international
-              quality management systems and are certified to{" "}
-              <span style={{ color: "#D09947" }}>ISO 9001:2015</span> and{" "}
-              <span style={{ color: "#D09947" }}>ISO 13485:2016</span>.
+              <EditableText path="manufacturingHub.hero.paragraph3" defaultValue={DEFAULTS.hero.paragraph3} multiline />
             </p>
 
             {/* ISO Certification Buttons */}
             <div style={{ display: "flex", gap: "12px" }}>
-              <button
-                style={{
-                  background: "transparent",
-                  border: "1px solid rgba(208,153,71,0.4)",
-                  borderRadius: "4px",
-                  padding: "8px 16px",
-                  color: "#D09947",
-                  fontSize: "12px",
-                  fontWeight: 500,
-                  cursor: "pointer",
-                }}
-              >
-                ISO 9001:2015
-              </button>
-              <button
-                style={{
-                  background: "transparent",
-                  border: "1px solid rgba(208,153,71,0.4)",
-                  borderRadius: "4px",
-                  padding: "8px 16px",
-                  color: "#D09947",
-                  fontSize: "12px",
-                  fontWeight: 500,
-                  cursor: "pointer",
-                }}
-              >
-                ISO 13485:2016
-              </button>
+              {DEFAULTS.hero.certifications.map((cert, index) => (
+                <button
+                  key={index}
+                  style={{
+                    background: "transparent",
+                    border: "1px solid rgba(208,153,71,0.4)",
+                    borderRadius: "4px",
+                    padding: "8px 16px",
+                    color: "#D09947",
+                    fontSize: "12px",
+                    fontWeight: 500,
+                    cursor: "pointer",
+                  }}
+                >
+                  <EditableText path={`manufacturingHub.hero.certifications.${index}`} defaultValue={cert} />
+                </button>
+              ))}
             </div>
           </motion.div>
 
@@ -277,8 +276,9 @@ export function AboutManufacturingHub() {
                 marginBottom: "16px",
               }}
             >
-              <img
-                src={getImageUrl("about/5-Advanced-Manufacturing-Hub-1.webp")}
+              <EditableImage
+                path="manufacturingHub.hero.images.main"
+                defaultSrc={DEFAULTS.hero.images.main}
                 alt="Manufacturing facility"
                 style={{
                   width: "100%",
@@ -298,8 +298,9 @@ export function AboutManufacturingHub() {
                   overflow: "hidden",
                 }}
               >
-                <img
-                  src={getImageUrl("about/5-Advanced-Manufacturing-Hub-2.webp")}
+                <EditableImage
+                  path="manufacturingHub.hero.images.small1"
+                  defaultSrc={DEFAULTS.hero.images.small1}
                   alt="Industrial equipment"
                   style={{
                     width: "100%",
@@ -316,8 +317,9 @@ export function AboutManufacturingHub() {
                   overflow: "hidden",
                 }}
               >
-                <img
-                  src={getImageUrl("about/5-Advanced-Manufacturing-Hub-3.webp")}
+                <EditableImage
+                  path="manufacturingHub.hero.images.small2"
+                  defaultSrc={DEFAULTS.hero.images.small2}
                   alt="Precision machinery"
                   style={{
                     width: "100%",
@@ -358,7 +360,7 @@ export function AboutManufacturingHub() {
                 textTransform: "uppercase",
               }}
             >
-              FACILITY OVERVIEW
+              <EditableText path="manufacturingHub.facilityOverview.label" defaultValue={DEFAULTS.facilityOverview.label} />
             </span>
             <div
               style={{
@@ -376,84 +378,87 @@ export function AboutManufacturingHub() {
               gap: "clamp(12px, 2vw, 20px)",
             }}
           >
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="transition-all duration-300 hover:-translate-y-1"
-                style={{
-                  background: `
-                    radial-gradient(
-                      60% 50% at 50% 0%,
-                      rgba(249,235,188,0.08),
-                      rgba(0,0,0,0) 65%
-                    ),
-                    #0D0D0D
-                  `,
-                  border: "1px solid rgba(208,153,71,0.25)",
-                  borderRadius: "18px",
-                  padding: "24px",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.border = "2px solid #D09947";
-                  e.currentTarget.style.boxShadow = "0 0 30px rgba(208,153,71,0.5)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.border = "1px solid rgba(208,153,71,0.25)";
-                  e.currentTarget.style.boxShadow = "none";
-                }}
-              >
-                {/* Icon */}
-                <div
+            {DEFAULTS.facilityOverview.stats.map((stat, index) => {
+              const Icon = STAT_ICONS[index];
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="transition-all duration-300 hover:-translate-y-1"
                   style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
-                    border: "1px solid rgba(208,153,71,0.4)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginBottom: "16px",
+                    background: `
+                      radial-gradient(
+                        60% 50% at 50% 0%,
+                        rgba(249,235,188,0.08),
+                        rgba(0,0,0,0) 65%
+                      ),
+                      #0D0D0D
+                    `,
+                    border: "1px solid rgba(208,153,71,0.25)",
+                    borderRadius: "18px",
+                    padding: "24px",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.border = "2px solid #D09947";
+                    e.currentTarget.style.boxShadow = "0 0 30px rgba(208,153,71,0.5)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.border = "1px solid rgba(208,153,71,0.25)";
+                    e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  <stat.icon
+                  {/* Icon */}
+                  <div
                     style={{
-                      width: "20px",
-                      height: "20px",
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                      border: "1px solid rgba(208,153,71,0.4)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginBottom: "16px",
+                    }}
+                  >
+                    <Icon
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        color: "#D09947",
+                      }}
+                    />
+                  </div>
+
+                  {/* Value */}
+                  <div
+                    style={{
+                      fontSize: "clamp(32px, 5vw, 48px)",
+                      fontWeight: 700,
+                      lineHeight: 1,
+                      marginBottom: "8px",
                       color: "#D09947",
                     }}
-                  />
-                </div>
+                  >
+                    <EditableText path={`manufacturingHub.facilityOverview.stats.${index}.value`} defaultValue={stat.value} />
+                  </div>
 
-                {/* Value */}
-                <div
-                  style={{
-                    fontSize: "clamp(32px, 5vw, 48px)",
-                    fontWeight: 700,
-                    lineHeight: 1,
-                    marginBottom: "8px",
-                    color: "#D09947",
-                  }}
-                >
-                  {stat.value}
-                </div>
-
-                {/* Label */}
-                <p
-                  style={{
-                    color: "#C5C6C9",
-                    fontSize: "15.5px",
-                    lineHeight: 1.7,
-                    margin: 0,
-                  }}
-                >
-                  {stat.label}
-                </p>
-              </motion.div>
-            ))}
+                  {/* Label */}
+                  <p
+                    style={{
+                      color: "#C5C6C9",
+                      fontSize: "15.5px",
+                      lineHeight: 1.7,
+                      margin: 0,
+                    }}
+                  >
+                    <EditableText path={`manufacturingHub.facilityOverview.stats.${index}.label`} defaultValue={stat.label} />
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 
@@ -484,7 +489,7 @@ export function AboutManufacturingHub() {
                 textTransform: "uppercase",
               }}
             >
-              ADVANCED EQUIPMENT GALLERY
+              <EditableText path="manufacturingHub.equipmentGallery.label" defaultValue={DEFAULTS.equipmentGallery.label} />
             </span>
             <div
               style={{
@@ -560,95 +565,99 @@ export function AboutManufacturingHub() {
                   gap: "16px",
                 }}
               >
-                {visibleItems.map((item, index) => (
-                  <div
-                    key={item.number}
-                    className="transition-all duration-300 hover:-translate-y-1"
-                    style={{
-                      background: `
-                        radial-gradient(
-                          60% 50% at 50% 0%,
-                          rgba(249,235,188,0.08),
-                          rgba(0,0,0,0) 65%
-                        ),
-                        #0D0D0D
-                      `,
-                      border: "1px solid rgba(208,153,71,0.25)",
-                      borderRadius: "18px",
-                      overflow: "hidden",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.border = "2px solid #D09947";
-                      e.currentTarget.style.boxShadow = "0 0 30px rgba(208,153,71,0.5)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.border = "1px solid rgba(208,153,71,0.25)";
-                      e.currentTarget.style.boxShadow = "none";
-                    }}
-                  >
-                    {/* Image with number badge */}
-                    <div style={{ position: "relative" }}>
-                      <img
-                        src={item.image}
-                        alt={item.title}
+                {visibleItems.map((item, index) => {
+                  const actualIndex = currentPage * ITEMS_PER_PAGE + index;
+                  return (
+                    <div
+                      key={item.number}
+                      className="transition-all duration-300 hover:-translate-y-1"
+                      style={{
+                        background: `
+                          radial-gradient(
+                            60% 50% at 50% 0%,
+                            rgba(249,235,188,0.08),
+                            rgba(0,0,0,0) 65%
+                          ),
+                          #0D0D0D
+                        `,
+                        border: "1px solid rgba(208,153,71,0.25)",
+                        borderRadius: "18px",
+                        overflow: "hidden",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.border = "2px solid #D09947";
+                        e.currentTarget.style.boxShadow = "0 0 30px rgba(208,153,71,0.5)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.border = "1px solid rgba(208,153,71,0.25)";
+                        e.currentTarget.style.boxShadow = "none";
+                      }}
+                    >
+                      {/* Image with number badge */}
+                      <div style={{ position: "relative" }}>
+                        <EditableImage
+                          path={`manufacturingHub.equipmentGallery.items.${actualIndex}.image`}
+                          defaultSrc={item.image}
+                          alt={item.title}
+                          style={{
+                            width: "100%",
+                            height: "200px",
+                            objectFit: "cover",
+                            display: "block",
+                          }}
+                        />
+                        {/* Number badge */}
+                        <span
+                          style={{
+                            position: "absolute",
+                            top: "12px",
+                            left: "12px",
+                            background: "rgba(208,153,71,0.8)",
+                            borderRadius: "4px",
+                            padding: "4px 10px",
+                            color: "#FFFFFF",
+                            fontSize: "12px",
+                            fontWeight: 600,
+                          }}
+                        >
+                          <EditableText path={`manufacturingHub.equipmentGallery.items.${actualIndex}.number`} defaultValue={item.number} />
+                        </span>
+                      </div>
+
+                      {/* Divider */}
+                      <div
                         style={{
-                          width: "100%",
-                          height: "200px",
-                          objectFit: "cover",
-                          display: "block",
+                          height: "1px",
+                          backgroundColor: "rgba(208,153,71,0.3)",
                         }}
                       />
-                      {/* Number badge */}
-                      <span
-                        style={{
-                          position: "absolute",
-                          top: "12px",
-                          left: "12px",
-                          background: "rgba(208,153,71,0.8)",
-                          borderRadius: "4px",
-                          padding: "4px 10px",
-                          color: "#FFFFFF",
-                          fontSize: "12px",
-                          fontWeight: 600,
-                        }}
-                      >
-                        {item.number}
-                      </span>
-                    </div>
 
-                    {/* Divider */}
-                    <div
-                      style={{
-                        height: "1px",
-                        backgroundColor: "rgba(208,153,71,0.3)",
-                      }}
-                    />
-
-                    {/* Text content */}
-                    <div style={{ padding: "16px" }}>
-                      <h4
-                        style={{
-                          color: "#EEC569",
-                          fontSize: "16px",
-                          fontWeight: 700,
-                          margin: "0 0 8px 0",
-                        }}
-                      >
-                        {item.title}
-                      </h4>
-                      <p
-                        style={{
-                          color: "#C5C6C9",
-                          fontSize: "15.5px",
-                          lineHeight: 1.7,
-                          margin: 0,
-                        }}
-                      >
-                        {item.description}
-                      </p>
+                      {/* Text content */}
+                      <div style={{ padding: "16px" }}>
+                        <h4
+                          style={{
+                            color: "#EEC569",
+                            fontSize: "16px",
+                            fontWeight: 700,
+                            margin: "0 0 8px 0",
+                          }}
+                        >
+                          <EditableText path={`manufacturingHub.equipmentGallery.items.${actualIndex}.title`} defaultValue={item.title} />
+                        </h4>
+                        <p
+                          style={{
+                            color: "#C5C6C9",
+                            fontSize: "15.5px",
+                            lineHeight: 1.7,
+                            margin: 0,
+                          }}
+                        >
+                          <EditableText path={`manufacturingHub.equipmentGallery.items.${actualIndex}.description`} defaultValue={item.description} multiline />
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </motion.div>
             </div>
           </div>

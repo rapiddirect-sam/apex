@@ -2,44 +2,58 @@
 
 import { motion } from "framer-motion";
 import { Settings, TrendingUp, Zap, Users } from "lucide-react";
+import { EditableText } from "@/components/cms";
 
-const clients = [
-  { name: "EMERSON", logo: "EMERSON", color: "#4A90D9", textColor: "#FFFFFF" },
-  { name: "Stryker", logo: "stryker", color: "transparent", textColor: "#CCCCCC" },
-  { name: "Tesla", logo: "TESLA", color: "transparent", textColor: "#CCCCCC", hasIcon: true },
-  { name: "Ford", logo: "Ford", color: "transparent", textColor: "#FFFFFF", hasFordLogo: true },
-  { name: "Toyota", logo: "TOYOTA", color: "transparent", textColor: "#EB0A1E", hasToyotaLogo: true },
-  { name: "Canon", logo: "Canon", color: "transparent", textColor: "#BC0024" },
-  { name: "Nikon", logo: "Nikon", color: "transparent", textColor: "#FFD700" },
-  { name: "ABB", logo: "ABB", color: "transparent", textColor: "#FF000D" },
-];
+const DEFAULTS = {
+  clients: {
+    heading: {
+      prefix: "Our ",
+      highlight: "Clients",
+    },
+    subheading: "Trusted by global industry leaders",
+    logos: [
+      { name: "EMERSON", logo: "EMERSON", color: "#4A90D9", textColor: "#FFFFFF" },
+      { name: "Stryker", logo: "stryker", color: "transparent", textColor: "#CCCCCC" },
+      { name: "Tesla", logo: "TESLA", color: "transparent", textColor: "#CCCCCC", hasIcon: true },
+      { name: "Ford", logo: "Ford", color: "transparent", textColor: "#FFFFFF", hasFordLogo: true },
+      { name: "Toyota", logo: "TOYOTA", color: "transparent", textColor: "#EB0A1E", hasToyotaLogo: true },
+      { name: "Canon", logo: "Canon", color: "transparent", textColor: "#BC0024" },
+      { name: "Nikon", logo: "Nikon", color: "transparent", textColor: "#FFD700" },
+      { name: "ABB", logo: "ABB", color: "transparent", textColor: "#FF000D" },
+    ],
+  },
+  advantages: {
+    heading: {
+      prefix: "Our ",
+      highlight: "Advantages",
+    },
+    subheading: "Why leading global companies choose ApexBatch for their manufacturing needs",
+    items: [
+      {
+        number: "01",
+        title: "Free Technical\nServices",
+        description: "DFM analysis, process selection, material testing, design optimization, and VR remote review at no additional cost.",
+      },
+      {
+        number: "02",
+        title: "End-to-End Service",
+        description: "From design to batch production with visual quotation and order management systems for real-time progress tracking.",
+      },
+      {
+        number: "03",
+        title: "Fast Response\n& Delivery",
+        description: "30-60 min response time, 1-2 hour quotations, and 1-3 day lead times with uncompromised precision.",
+      },
+      {
+        number: "04",
+        title: "Expert Team Support",
+        description: "Dedicated sales and engineering teams providing customized risk analysis and optimization recommendations.",
+      },
+    ],
+  },
+};
 
-const advantages = [
-  {
-    number: "01",
-    Icon: Settings,
-    title: "Free Technical\nServices",
-    description: "DFM analysis, process selection, material testing, design optimization, and VR remote review at no additional cost.",
-  },
-  {
-    number: "02",
-    Icon: TrendingUp,
-    title: "End-to-End Service",
-    description: "From design to batch production with visual quotation and order management systems for real-time progress tracking.",
-  },
-  {
-    number: "03",
-    Icon: Zap,
-    title: "Fast Response\n& Delivery",
-    description: "30-60 min response time, 1-2 hour quotations, and 1-3 day lead times with uncompromised precision.",
-  },
-  {
-    number: "04",
-    Icon: Users,
-    title: "Expert Team Support",
-    description: "Dedicated sales and engineering teams providing customized risk analysis and optimization recommendations.",
-  },
-];
+const ADVANTAGE_ICONS = [Settings, TrendingUp, Zap, Users];
 
 function CornerBrackets({ color = "rgba(255,255,255,0.15)" }: { color?: string }) {
   return (
@@ -141,7 +155,10 @@ export function AboutClientsAdvantages() {
                 letterSpacing: "-0.015em",
               }}
             >
-              Our <span style={{ color: "#EEC569" }}>Clients</span>
+              <EditableText path="clientsAdvantages.clients.heading.prefix" defaultValue={DEFAULTS.clients.heading.prefix} />
+              <span style={{ color: "#EEC569" }}>
+                <EditableText path="clientsAdvantages.clients.heading.highlight" defaultValue={DEFAULTS.clients.heading.highlight} />
+              </span>
             </h2>
             <p
               style={{
@@ -151,7 +168,7 @@ export function AboutClientsAdvantages() {
                 margin: 0,
               }}
             >
-              Trusted by global industry leaders
+              <EditableText path="clientsAdvantages.clients.subheading" defaultValue={DEFAULTS.clients.subheading} />
             </p>
           </motion.div>
 
@@ -162,7 +179,7 @@ export function AboutClientsAdvantages() {
               gap: "clamp(12px, 2vw, 22px)",
             }}
           >
-            {clients.map((client, index) => (
+            {DEFAULTS.clients.logos.map((client, index) => (
               <motion.div
                 key={client.name}
                 initial={{ opacity: 0, y: 20 }}
@@ -434,7 +451,10 @@ export function AboutClientsAdvantages() {
                 letterSpacing: "-0.015em",
               }}
             >
-              Our <span style={{ color: "#EEC569" }}>Advantages</span>
+              <EditableText path="clientsAdvantages.advantages.heading.prefix" defaultValue={DEFAULTS.advantages.heading.prefix} />
+              <span style={{ color: "#EEC569" }}>
+                <EditableText path="clientsAdvantages.advantages.heading.highlight" defaultValue={DEFAULTS.advantages.heading.highlight} />
+              </span>
             </h2>
             <p
               style={{
@@ -444,7 +464,7 @@ export function AboutClientsAdvantages() {
                 margin: 0,
               }}
             >
-              Why leading global companies choose ApexBatch for their manufacturing needs
+              <EditableText path="clientsAdvantages.advantages.subheading" defaultValue={DEFAULTS.advantages.subheading} multiline />
             </p>
           </motion.div>
 
@@ -455,8 +475,8 @@ export function AboutClientsAdvantages() {
               gap: "clamp(16px, 2vw, 22px)",
             }}
           >
-            {advantages.map((advantage, index) => {
-              const { Icon } = advantage;
+            {DEFAULTS.advantages.items.map((advantage, index) => {
+              const Icon = ADVANTAGE_ICONS[index];
               return (
                 <motion.div
                   key={advantage.number}
@@ -543,7 +563,7 @@ export function AboutClientsAdvantages() {
                       pointerEvents: "none",
                     }}
                   >
-                    {advantage.number}
+                    <EditableText path={`clientsAdvantages.advantages.items.${index}.number`} defaultValue={advantage.number} />
                   </span>
 
                   {/* Content */}
@@ -582,7 +602,7 @@ export function AboutClientsAdvantages() {
                         whiteSpace: "pre-line",
                       }}
                     >
-                      {advantage.title}
+                      <EditableText path={`clientsAdvantages.advantages.items.${index}.title`} defaultValue={advantage.title} multiline />
                     </h3>
 
                     {/* Description */}
@@ -594,7 +614,7 @@ export function AboutClientsAdvantages() {
                         margin: 0,
                       }}
                     >
-                      {advantage.description}
+                      <EditableText path={`clientsAdvantages.advantages.items.${index}.description`} defaultValue={advantage.description} multiline />
                     </p>
                   </div>
                 </motion.div>

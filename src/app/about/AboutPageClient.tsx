@@ -10,10 +10,21 @@ import { AboutTeamStructure } from "@/components/about/AboutTeamStructure";
 import { AboutManufacturingHub } from "@/components/about/AboutManufacturingHub";
 import { AboutClientsAdvantages } from "@/components/about/AboutClientsAdvantages";
 import { AboutCTA } from "@/components/about/AboutCTA";
+import { CMSProvider } from "@/contexts/CMSContext";
+import { CMSToolbar } from "@/components/cms";
 
-export function AboutPageClient() {
+interface AboutPageClientProps {
+  initialContent: Record<string, unknown> | null;
+  initialVersion: number;
+}
+
+export function AboutPageClient({ initialContent, initialVersion }: AboutPageClientProps) {
   return (
-    <>
+    <CMSProvider
+      pageSlug="/about"
+      initialContent={initialContent}
+      initialVersion={initialVersion}
+    >
       <Home3Header />
       <main>
         <AboutHero />
@@ -26,6 +37,7 @@ export function AboutPageClient() {
         <AboutCTA />
       </main>
       <Home3Footer />
-    </>
+      <CMSToolbar />
+    </CMSProvider>
   );
 }

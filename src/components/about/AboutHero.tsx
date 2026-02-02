@@ -2,12 +2,29 @@
 
 import { motion } from "framer-motion";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
+
+// Default content - used when no DB content exists
+const DEFAULTS = {
+  headingPrefix: "Welcome to ",
+  headingHighlight: "Apexbatch",
+  tagline: "Inherited Expertise. Focused on Your Scale.",
+  description:
+    "From the world's pioneer in digital manufacturing comes a dedicated team focused on high-precision, medium-to-large batch production.",
+  backgroundImage: getImageUrl("about/AboutApexBatch.gif"),
+  images: [
+    { src: getImageUrl("about/1-about-banner-1.webp"), alt: "CNC machining" },
+    { src: getImageUrl("about/1-about-banner-2.webp"), alt: "Manufacturing" },
+    { src: getImageUrl("about/1-about-banner-3.webp"), alt: "Precision parts" },
+  ],
+};
 
 export function AboutHero() {
   return (
     <section
       style={{
-        background: "linear-gradient(135deg, #1a1512 0%, #2d1f15 25%, #3d2a1a 50%, #4a3520 75%, #1a1512 100%)",
+        background:
+          "linear-gradient(135deg, #1a1512 0%, #2d1f15 25%, #3d2a1a 50%, #4a3520 75%, #1a1512 100%)",
         padding: "clamp(40px, 6vw, 60px) clamp(16px, 4vw, 40px)",
         paddingTop: "clamp(80px, 12vw, 120px)",
         position: "relative",
@@ -22,9 +39,9 @@ export function AboutHero() {
           pointerEvents: "none",
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={getImageUrl("about/AboutApexBatch.gif")}
+        <EditableImage
+          path="hero.backgroundImage"
+          defaultSrc={DEFAULTS.backgroundImage}
           alt=""
           style={{
             width: "100%",
@@ -32,7 +49,6 @@ export function AboutHero() {
             objectFit: "cover",
             opacity: 0.4,
           }}
-          loading="eager"
         />
       </div>
 
@@ -41,7 +57,8 @@ export function AboutHero() {
         style={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%)",
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%)",
           pointerEvents: "none",
         }}
       />
@@ -60,26 +77,40 @@ export function AboutHero() {
           backdropFilter: "blur(8px)",
           border: "1px solid rgba(208,153,71,0.15)",
           borderRadius: "18px",
-          padding: "clamp(24px, 5vw, 60px) clamp(16px, 5vw, 60px) clamp(24px, 4vw, 50px)",
+          padding:
+            "clamp(24px, 5vw, 60px) clamp(16px, 5vw, 60px) clamp(24px, 4vw, 50px)",
         }}
       >
         {/* Main heading */}
-        <h1
-          className="text-center text-[48px] md:text-[64px] lg:text-[80px] font-bold leading-[0.95] tracking-tight uppercase mb-6"
-        >
-          <span className="text-white">Welcome to </span>
-          <span className="text-[#D09947]">Apexbatch</span>
+        <h1 className="text-center text-[48px] md:text-[64px] lg:text-[80px] font-bold leading-[0.95] tracking-tight uppercase mb-6">
+          <span className="text-white">
+            <EditableText
+              path="hero.headingPrefix"
+              defaultValue={DEFAULTS.headingPrefix}
+            />
+          </span>
+          <span className="text-[#D09947]">
+            <EditableText
+              path="hero.headingHighlight"
+              defaultValue={DEFAULTS.headingHighlight}
+            />
+          </span>
         </h1>
 
         {/* Subheading */}
-        <p
-          className="text-center text-xl md:text-2xl mx-auto mb-10 leading-relaxed"
-        >
+        <p className="text-center text-xl md:text-2xl mx-auto mb-10 leading-relaxed">
           <span className="text-[#D09947] font-semibold block">
-            Inherited Expertise. Focused on Your Scale.
+            <EditableText
+              path="hero.tagline"
+              defaultValue={DEFAULTS.tagline}
+            />
           </span>
           <span className="text-[#7A7A7C]">
-            From the world&apos;s pioneer in digital manufacturing comes a dedicated team focused on high-precision, medium-to-large batch production.
+            <EditableText
+              path="hero.description"
+              defaultValue={DEFAULTS.description}
+              multiline
+            />
           </span>
         </p>
 
@@ -99,14 +130,15 @@ export function AboutHero() {
               overflow: "hidden",
               backgroundColor: "#1a1a1a",
               border: "1px solid rgba(208,153,71,0.2)",
+              position: "relative",
             }}
           >
-            <img
-              src={getImageUrl("about/1-about-banner-1.webp")}
-              alt="CNC machining"
+            <EditableImage
+              path="hero.image1"
+              defaultSrc={DEFAULTS.images[0].src}
+              alt={DEFAULTS.images[0].alt}
+              fill
               style={{
-                width: "100%",
-                height: "100%",
                 objectFit: "cover",
               }}
             />
@@ -121,14 +153,15 @@ export function AboutHero() {
               overflow: "hidden",
               backgroundColor: "#1a1a1a",
               border: "1px solid rgba(208,153,71,0.2)",
+              position: "relative",
             }}
           >
-            <img
-              src={getImageUrl("about/1-about-banner-2.webp")}
-              alt="Manufacturing"
+            <EditableImage
+              path="hero.image2"
+              defaultSrc={DEFAULTS.images[1].src}
+              alt={DEFAULTS.images[1].alt}
+              fill
               style={{
-                width: "100%",
-                height: "100%",
                 objectFit: "cover",
               }}
             />
@@ -144,14 +177,15 @@ export function AboutHero() {
               overflow: "hidden",
               backgroundColor: "#1a1a1a",
               border: "1px solid rgba(208,153,71,0.2)",
+              position: "relative",
             }}
           >
-            <img
-              src={getImageUrl("about/1-about-banner-3.webp")}
-              alt="Precision parts"
+            <EditableImage
+              path="hero.image3"
+              defaultSrc={DEFAULTS.images[2].src}
+              alt={DEFAULTS.images[2].alt}
+              fill
               style={{
-                width: "100%",
-                height: "100%",
                 objectFit: "cover",
               }}
             />

@@ -2,51 +2,60 @@
 
 import { motion } from "framer-motion";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const departments = [
-  {
-    number: "01",
-    title: "Surface Treatment Department",
-    description:
-      "Dedicated surface finishing team providing anodizing, bead blasting, plating, powder coating and various surface treatment processes to meet aesthetic and functional requirements.",
-    image: getImageUrl("about/4-team-structure-Surface-Treatment-Department.webp"),
+const DEFAULTS = {
+  heading: {
+    prefix: "Specialized Team ",
+    highlight: "Structure",
   },
-  {
-    number: "02",
-    title: "Quality Inspection Department",
-    description:
-      "Independent QC team equipped with advanced inspection equipment, implementing full-process quality control from raw materials to finished products.",
-    image: getImageUrl("about/4-team-structure-Quality-Inspection-Department.webp"),
-  },
-  {
-    number: "03",
-    title: "Manual & Assembly Department",
-    description:
-      "Experienced manual team handling precision part deburring, finishing, assembly, and packaging to ensure perfect product delivery.",
-    image: getImageUrl("about/4-team-structure-Manual-&-Assembly-Department.webp"),
-  },
-  {
-    number: "04",
-    title: "CNC Machining Department",
-    description:
-      "50+ multi-axis CNC machines ranging from 3-axis to 5-axis capabilities, handling complex geometries with high precision.",
-    image: getImageUrl("about/4-team-structure-CNC-Machining-Department.webp"),
-  },
-  {
-    number: "05",
-    title: "Injection Molding Department",
-    description:
-      "Specializing in medium-to-large batch injection molding with machines ranging from 50 to 450 tons for various volume and material requirements.",
-    image: getImageUrl("about/4-team-structure-Injection-Molding-Department.webp"),
-  },
-  {
-    number: "06",
-    title: "Project Management\n& Engineering",
-    description:
-      "Dedicated project management and engineering support team providing professional guidance from design optimization to volume production.",
-    image: getImageUrl("about/4-team-structure-Project-Management-&-Engineering.webp"),
-  },
-];
+  subheading:
+    "Professional departmental ensures every production phase meets the highest standards, with cross-department collaboration delivering one-stop manufacturing solutions",
+  departments: [
+    {
+      number: "01",
+      title: "Surface Treatment Department",
+      description:
+        "Dedicated surface finishing team providing anodizing, bead blasting, plating, powder coating and various surface treatment processes to meet aesthetic and functional requirements.",
+      image: getImageUrl("about/4-team-structure-Surface-Treatment-Department.webp"),
+    },
+    {
+      number: "02",
+      title: "Quality Inspection Department",
+      description:
+        "Independent QC team equipped with advanced inspection equipment, implementing full-process quality control from raw materials to finished products.",
+      image: getImageUrl("about/4-team-structure-Quality-Inspection-Department.webp"),
+    },
+    {
+      number: "03",
+      title: "Manual & Assembly Department",
+      description:
+        "Experienced manual team handling precision part deburring, finishing, assembly, and packaging to ensure perfect product delivery.",
+      image: getImageUrl("about/4-team-structure-Manual-&-Assembly-Department.webp"),
+    },
+    {
+      number: "04",
+      title: "CNC Machining Department",
+      description:
+        "50+ multi-axis CNC machines ranging from 3-axis to 5-axis capabilities, handling complex geometries with high precision.",
+      image: getImageUrl("about/4-team-structure-CNC-Machining-Department.webp"),
+    },
+    {
+      number: "05",
+      title: "Injection Molding Department",
+      description:
+        "Specializing in medium-to-large batch injection molding with machines ranging from 50 to 450 tons for various volume and material requirements.",
+      image: getImageUrl("about/4-team-structure-Injection-Molding-Department.webp"),
+    },
+    {
+      number: "06",
+      title: "Project Management\n& Engineering",
+      description:
+        "Dedicated project management and engineering support team providing professional guidance from design optimization to volume production.",
+      image: getImageUrl("about/4-team-structure-Project-Management-&-Engineering.webp"),
+    },
+  ],
+};
 
 export function AboutTeamStructure() {
   return (
@@ -89,7 +98,10 @@ export function AboutTeamStructure() {
               letterSpacing: "-0.015em",
             }}
           >
-            Specialized Team <span style={{ color: "#EEC569" }}>Structure</span>
+            <EditableText path="teamStructure.heading.prefix" defaultValue={DEFAULTS.heading.prefix} />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText path="teamStructure.heading.highlight" defaultValue={DEFAULTS.heading.highlight} />
+            </span>
           </h2>
           <p
             style={{
@@ -102,8 +114,7 @@ export function AboutTeamStructure() {
               marginRight: "auto",
             }}
           >
-            Professional departmental ensures every production phase meets the
-            highest standards, with cross-department collaboration delivering one-stop manufacturing solutions
+            <EditableText path="teamStructure.subheading" defaultValue={DEFAULTS.subheading} multiline />
           </p>
         </motion.div>
 
@@ -115,7 +126,7 @@ export function AboutTeamStructure() {
             rowGap: "clamp(24px, 4vw, 45px)",
           }}
         >
-          {departments.map((dept, index) => (
+          {DEFAULTS.departments.map((dept, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -154,8 +165,9 @@ export function AboutTeamStructure() {
                   overflow: "hidden",
                 }}
               >
-                <img
-                  src={dept.image}
+                <EditableImage
+                  path={`teamStructure.departments.${index}.image`}
+                  defaultSrc={dept.image}
                   alt={dept.title}
                   style={{
                     width: "100%",
@@ -177,7 +189,7 @@ export function AboutTeamStructure() {
                     pointerEvents: "none",
                   }}
                 >
-                  {dept.number}
+                  <EditableText path={`teamStructure.departments.${index}.number`} defaultValue={dept.number} />
                 </span>
               </div>
 
@@ -205,7 +217,7 @@ export function AboutTeamStructure() {
                     whiteSpace: "pre-line",
                   }}
                 >
-                  {dept.title}
+                  <EditableText path={`teamStructure.departments.${index}.title`} defaultValue={dept.title} multiline />
                 </h3>
                 <p
                   style={{
@@ -215,7 +227,7 @@ export function AboutTeamStructure() {
                     margin: 0,
                   }}
                 >
-                  {dept.description}
+                  <EditableText path={`teamStructure.departments.${index}.description`} defaultValue={dept.description} multiline />
                 </p>
               </div>
             </motion.div>

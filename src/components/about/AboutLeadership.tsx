@@ -2,15 +2,23 @@
 
 import { motion } from "framer-motion";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const leader = {
-  name: "Luke Deng",
-  title: "Founder & CEO",
-  bio1: "With over 15 years of experience in precision manufacturing and digital fabrication, Luke Deng has played a key role at RapidDirect, contributing to the company's growth and manufacturing capabilities across a wide range of projects.",
-  bio2: "Building on his long-term experience at RapidDirect, Luke took on the leadership of ApexBatch in 2025, leading the subsidiary to focus exclusively on high-precision, medium-to-large batch manufacturing for global customers.",
-  quote:
-    "Our mission is to bridge the gap between prototype and production, providing our clients with manufacturing confidence and technical excellence at every stage of their product journey.",
-  image: getImageUrl("about/3-leadership-luke-deng.webp"),
+const DEFAULTS = {
+  heading: {
+    prefix: "Our ",
+    highlight: "Leadership",
+  },
+  subheading: "Visionary leadership driving manufacturing innovation",
+  leader: {
+    name: "Luke Deng",
+    title: "Founder & CEO",
+    bio1: "With over 15 years of experience in precision manufacturing and digital fabrication, Luke Deng has played a key role at RapidDirect, contributing to the company's growth and manufacturing capabilities across a wide range of projects.",
+    bio2: "Building on his long-term experience at RapidDirect, Luke took on the leadership of ApexBatch in 2025, leading the subsidiary to focus exclusively on high-precision, medium-to-large batch manufacturing for global customers.",
+    quote:
+      "Our mission is to bridge the gap between prototype and production, providing our clients with manufacturing confidence and technical excellence at every stage of their product journey.",
+    image: getImageUrl("about/3-leadership-luke-deng.webp"),
+  },
 };
 
 export function AboutLeadership() {
@@ -57,7 +65,10 @@ export function AboutLeadership() {
               letterSpacing: "-0.015em",
             }}
           >
-            Our <span style={{ color: "#EEC569" }}>Leadership</span>
+            <EditableText path="leadership.heading.prefix" defaultValue={DEFAULTS.heading.prefix} />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText path="leadership.heading.highlight" defaultValue={DEFAULTS.heading.highlight} />
+            </span>
           </h2>
           <p
             style={{
@@ -67,7 +78,7 @@ export function AboutLeadership() {
               margin: 0,
             }}
           >
-            Visionary leadership driving manufacturing innovation
+            <EditableText path="leadership.subheading" defaultValue={DEFAULTS.subheading} />
           </p>
         </motion.div>
 
@@ -97,9 +108,10 @@ export function AboutLeadership() {
                 overflow: "hidden",
               }}
             >
-              <img
-                src={leader.image}
-                alt={`${leader.name} - ${leader.title}`}
+              <EditableImage
+                path="leadership.leader.image"
+                defaultSrc={DEFAULTS.leader.image}
+                alt="Luke Deng - Founder & CEO"
                 style={{
                   width: "100%",
                   height: "auto",
@@ -130,7 +142,7 @@ export function AboutLeadership() {
                 letterSpacing: "-0.01em",
               }}
             >
-              {leader.name}
+              <EditableText path="leadership.leader.name" defaultValue={DEFAULTS.leader.name} />
             </h3>
 
             {/* Title */}
@@ -142,7 +154,7 @@ export function AboutLeadership() {
                 margin: "0 0 24px 0",
               }}
             >
-              {leader.title}
+              <EditableText path="leadership.leader.title" defaultValue={DEFAULTS.leader.title} />
             </p>
 
             {/* Bio Paragraph 1 */}
@@ -154,7 +166,7 @@ export function AboutLeadership() {
                 margin: "0 0 16px 0",
               }}
             >
-              {leader.bio1}
+              <EditableText path="leadership.leader.bio1" defaultValue={DEFAULTS.leader.bio1} multiline />
             </p>
 
             {/* Bio Paragraph 2 */}
@@ -166,7 +178,7 @@ export function AboutLeadership() {
                 margin: "0 0 28px 0",
               }}
             >
-              {leader.bio2}
+              <EditableText path="leadership.leader.bio2" defaultValue={DEFAULTS.leader.bio2} multiline />
             </p>
 
             {/* Quote Box */}
@@ -214,7 +226,7 @@ export function AboutLeadership() {
                   paddingRight: "40px",
                 }}
               >
-                "{leader.quote}"
+                "<EditableText path="leadership.leader.quote" defaultValue={DEFAULTS.leader.quote} multiline />"
               </p>
             </div>
           </motion.div>

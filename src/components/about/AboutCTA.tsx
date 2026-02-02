@@ -3,6 +3,15 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { EditableText, EditableImage } from "@/components/cms";
+
+const DEFAULTS = {
+  backgroundImage: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1920&q=80",
+  heading: "Ready to Scale Your Production?",
+  subheading: "Join 500+ global innovators who rely on ApexBatch for high-precision manufacturing solutions.",
+  buttonText: "Request A Free Quote",
+  buttonLink: "/contact",
+};
 
 export function AboutCTA() {
   return (
@@ -21,12 +30,18 @@ export function AboutCTA() {
         style={{
           position: "absolute",
           inset: 0,
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1920&q=80')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
         }}
-      />
+      >
+        <EditableImage
+          path="cta.backgroundImage"
+          defaultSrc={DEFAULTS.backgroundImage}
+          alt="Manufacturing background"
+          fill
+          style={{
+            objectFit: "cover",
+          }}
+        />
+      </div>
 
       {/* Dark Overlay */}
       <div
@@ -63,7 +78,7 @@ export function AboutCTA() {
               letterSpacing: "-0.015em",
             }}
           >
-            Ready to Scale Your Production?
+            <EditableText path="cta.heading" defaultValue={DEFAULTS.heading} />
           </h2>
 
           {/* Subheading */}
@@ -76,15 +91,15 @@ export function AboutCTA() {
               fontWeight: 500,
             }}
           >
-            Join 500+ global innovators who rely on ApexBatch for high-precision manufacturing solutions.
+            <EditableText path="cta.subheading" defaultValue={DEFAULTS.subheading} multiline />
           </p>
 
           {/* CTA Button */}
           <Link
-            href="/contact"
+            href={DEFAULTS.buttonLink}
             className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
           >
-            Request A Free Quote
+            <EditableText path="cta.buttonText" defaultValue={DEFAULTS.buttonText} />
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>

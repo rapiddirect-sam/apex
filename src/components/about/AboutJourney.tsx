@@ -2,33 +2,43 @@
 
 import { motion } from "framer-motion";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText } from "@/components/cms";
 
-const timelineItems = [
-  {
-    year: "2009",
-    description:
-      "Established the first self-owned factory in Shenzhen, building the bedrock of our manufacturing capabilities",
-    side: "right" as const,
+const DEFAULTS = {
+  heading: {
+    prefix: "A Journey of ",
+    highlight: "Continuous Excellence",
   },
-  {
-    year: "2014",
-    description:
-      "Global expansion. Officially launched international trade business, supporting engineers worldwide.",
-    side: "left" as const,
-  },
-  {
-    year: "2019",
-    description:
-      "Launched the RapidDirect online quoting platform, integrating AI into the manufacturing workflow.",
-    side: "right" as const,
-  },
-  {
-    year: "2020-2022",
-    description:
-      "Achieved ISO 9001:2015 and ISO 13485:2016 certifications. The manufacturing network expanded to include exclusive surface treatment lines and medical-grade inspection labs.",
-    side: "left" as const,
-  },
-];
+  timelineItems: [
+    {
+      year: "2009",
+      description:
+        "Established the first self-owned factory in Shenzhen, building the bedrock of our manufacturing capabilities",
+      side: "right" as const,
+    },
+    {
+      year: "2014",
+      description:
+        "Global expansion. Officially launched international trade business, supporting engineers worldwide.",
+      side: "left" as const,
+    },
+    {
+      year: "2019",
+      description:
+        "Launched the RapidDirect online quoting platform, integrating AI into the manufacturing workflow.",
+      side: "right" as const,
+    },
+    {
+      year: "2020-2022",
+      description:
+        "Achieved ISO 9001:2015 and ISO 13485:2016 certifications. The manufacturing network expanded to include exclusive surface treatment lines and medical-grade inspection labs.",
+      side: "left" as const,
+    },
+  ],
+  finalYear: "2025",
+  bottomCard:
+    "ApexBatch Brand Established A dedicated division is born. ApexBatch focuses on high-precision parts and turnkey solutions for mid-to-large volume production, offering a higher level of specialization for elite global industries.",
+};
 
 export function AboutJourney() {
   return (
@@ -66,8 +76,10 @@ export function AboutJourney() {
             letterSpacing: "-0.015em",
           }}
         >
-          A Journey of{" "}
-          <span style={{ color: "#EEC569" }}>Continuous Excellence</span>
+          <EditableText path="journey.heading.prefix" defaultValue={DEFAULTS.heading.prefix} />
+          <span style={{ color: "#EEC569" }}>
+            <EditableText path="journey.heading.highlight" defaultValue={DEFAULTS.heading.highlight} />
+          </span>
         </motion.h2>
 
         {/* Timeline container */}
@@ -89,9 +101,9 @@ export function AboutJourney() {
           />
 
           {/* Timeline items */}
-          {timelineItems.map((item, index) => (
+          {DEFAULTS.timelineItems.map((item, index) => (
             <motion.div
-              key={item.year}
+              key={index}
               initial={{ opacity: 0, x: item.side === "right" ? 20 : -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -124,7 +136,7 @@ export function AboutJourney() {
                       marginBottom: "5px",
                     }}
                   >
-                    {item.year}
+                    <EditableText path={`journey.timelineItems.${index}.year`} defaultValue={item.year} />
                   </div>
                   <div
                     style={{
@@ -133,7 +145,7 @@ export function AboutJourney() {
                       lineHeight: 1.7,
                     }}
                   >
-                    {item.description}
+                    <EditableText path={`journey.timelineItems.${index}.description`} defaultValue={item.description} multiline />
                   </div>
                 </div>
               </div>
@@ -179,7 +191,7 @@ export function AboutJourney() {
                       marginBottom: "5px",
                     }}
                   >
-                    {item.year}
+                    <EditableText path={`journey.timelineItems.${index}.year`} defaultValue={item.year} />
                   </div>
                   <div
                     style={{
@@ -188,7 +200,7 @@ export function AboutJourney() {
                       lineHeight: 1.7,
                     }}
                   >
-                    {item.description}
+                    <EditableText path={`journey.timelineItems.${index}.description`} defaultValue={item.description} multiline />
                   </div>
                 </div>
               </div>
@@ -231,7 +243,7 @@ export function AboutJourney() {
                 marginTop: "25px",
               }}
             >
-              2025
+              <EditableText path="journey.finalYear" defaultValue={DEFAULTS.finalYear} />
             </div>
           </motion.div>
         </div>
@@ -269,10 +281,7 @@ export function AboutJourney() {
               fontWeight: 500,
             }}
           >
-            ApexBatch Brand Established A dedicated division is born. ApexBatch
-            focuses on high-precision parts and turnkey solutions for
-            mid-to-large volume production, offering a higher level of
-            specialization for elite global industries.
+            <EditableText path="journey.bottomCard" defaultValue={DEFAULTS.bottomCard} multiline />
           </p>
         </motion.div>
       </div>

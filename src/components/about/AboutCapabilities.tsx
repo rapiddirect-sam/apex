@@ -2,6 +2,63 @@
 
 import { motion } from "framer-motion";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
+
+const DEFAULTS = {
+  heading: {
+    prefix: "Professional ",
+    highlight: "Capabilities",
+  },
+  subheading:
+    "ApexBatch is a specialized manufacturing subsidiary of Rapid Direct, focusing on medium-to-large batch production for global clients requiring high-precision components and assemblies.",
+  images: {
+    left: {
+      src: "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&q=80",
+      label: "PRECISION TECHNOLOGY",
+    },
+    right: {
+      src: getImageUrl("about/2-Core-Manufacturing Capabilities.webp"),
+      label: "ADVANCED MANUFACTURING",
+    },
+  },
+  whoWeAre: {
+    title: "Who We Are",
+    paragraph1:
+      "Building upon Rapid Direct's 11-year foundation in rapid prototyping, ApexBatch specializes in batch production and high-precision manufacturing solutions, ensuring reliable transition from prototype to volume production.",
+    paragraph2:
+      "Our advanced facilities in Shenzhen combine localized manufacturing excellence with international standards to serve demanding industries worldwide.",
+    items: [
+      {
+        label: "SPECIALIZED INDUSTRIES",
+        value: "Aerospace, Medical Devices, Automotive, Premium Consumer Electronics",
+      },
+      {
+        label: "BATCH RANGE",
+        value: "100-10,000 units medium-to-large batch production",
+      },
+      {
+        label: "PRECISION STANDARDS",
+        value: "Tolerance control up to +/-0.005mm",
+      },
+      {
+        label: "MATERIAL PORTFOLIO",
+        value: "300+ material options including metals, engineering plastics, and special alloys",
+      },
+    ],
+  },
+  coreCapabilities: {
+    title: "Core Manufacturing Capabilities",
+    description:
+      "As a dedicated division, we elevate manufacturing partnerships through enhanced engineering support, dedicated project management, and tailored solutions.",
+    items: [
+      { label: "5-AXIS CNC MACHINING", value: "Complex geometry with high precision" },
+      { label: "PRECISION INJECTION MOLDING", value: "Medium-to-large batch solutions" },
+      { label: "SHEET METAL FABRICATION", value: "Prototype to production" },
+      { label: "SURFACE TREATMENT", value: "Anodizing, powder coating, plating, etc." },
+      { label: "QUALITY ASSURANCE", value: "Comprehensive quality control systems" },
+    ],
+  },
+};
 
 export function AboutCapabilities() {
   return (
@@ -39,7 +96,10 @@ export function AboutCapabilities() {
             letterSpacing: "-0.015em",
           }}
         >
-          Professional <span style={{ color: "#EEC569" }}>Capabilities</span>
+          <EditableText path="capabilities.heading.prefix" defaultValue={DEFAULTS.heading.prefix} />
+          <span style={{ color: "#EEC569" }}>
+            <EditableText path="capabilities.heading.highlight" defaultValue={DEFAULTS.heading.highlight} />
+          </span>
         </motion.h2>
 
         {/* Subheading */}
@@ -56,9 +116,7 @@ export function AboutCapabilities() {
             maxWidth: "800px",
           }}
         >
-          ApexBatch is a specialized manufacturing subsidiary of Rapid Direct,
-          focusing on medium-to-large batch production for global clients
-          requiring high-precision components and assemblies.
+          <EditableText path="capabilities.subheading" defaultValue={DEFAULTS.subheading} multiline />
         </motion.p>
 
         {/* Two image cards */}
@@ -84,14 +142,12 @@ export function AboutCapabilities() {
               border: "1px solid rgba(208,153,71,0.25)",
             }}
           >
-            <img
-              src="https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&q=80"
+            <EditableImage
+              path="capabilities.images.left.src"
+              defaultSrc={DEFAULTS.images.left.src}
               alt="Precision Technology"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
+              fill
+              style={{ objectFit: "cover" }}
             />
             <div
               style={{
@@ -112,7 +168,7 @@ export function AboutCapabilities() {
                   textTransform: "uppercase",
                 }}
               >
-                PRECISION TECHNOLOGY
+                <EditableText path="capabilities.images.left.label" defaultValue={DEFAULTS.images.left.label} />
               </span>
             </div>
           </motion.div>
@@ -133,14 +189,12 @@ export function AboutCapabilities() {
               border: "1px solid rgba(208,153,71,0.25)",
             }}
           >
-            <img
-              src={getImageUrl("about/2-Core-Manufacturing Capabilities.webp")}
+            <EditableImage
+              path="capabilities.images.right.src"
+              defaultSrc={DEFAULTS.images.right.src}
               alt="Advanced Manufacturing"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
+              fill
+              style={{ objectFit: "cover" }}
             />
             <div
               style={{
@@ -161,7 +215,7 @@ export function AboutCapabilities() {
                   textTransform: "uppercase",
                 }}
               >
-                ADVANCED MANUFACTURING
+                <EditableText path="capabilities.images.right.label" defaultValue={DEFAULTS.images.right.label} />
               </span>
             </div>
           </motion.div>
@@ -203,161 +257,33 @@ export function AboutCapabilities() {
               e.currentTarget.style.boxShadow = "none";
             }}
           >
-            <h3
-              style={{
-                color: "#EEC569",
-                fontSize: "28px",
-                fontWeight: 700,
-                margin: "0 0 20px 0",
-              }}
-            >
-              Who We Are
+            <h3 style={{ color: "#EEC569", fontSize: "28px", fontWeight: 700, margin: "0 0 20px 0" }}>
+              <EditableText path="capabilities.whoWeAre.title" defaultValue={DEFAULTS.whoWeAre.title} />
             </h3>
 
-            <p
-              style={{
-                color: "#C5C6C9",
-                fontSize: "15.5px",
-                lineHeight: 1.7,
-                margin: "0 0 16px 0",
-              }}
-            >
-              Building upon Rapid Direct&apos;s 11-year foundation in rapid
-              prototyping, ApexBatch specializes in batch production and
-              high-precision manufacturing solutions, ensuring reliable
-              transition from prototype to volume production.
+            <p style={{ color: "#C5C6C9", fontSize: "15.5px", lineHeight: 1.7, margin: "0 0 16px 0" }}>
+              <EditableText path="capabilities.whoWeAre.paragraph1" defaultValue={DEFAULTS.whoWeAre.paragraph1} multiline />
             </p>
 
-            <p
-              style={{
-                color: "#C5C6C9",
-                fontSize: "15.5px",
-                lineHeight: 1.7,
-                margin: "0 0 24px 0",
-              }}
-            >
-              Our advanced facilities in Shenzhen combine localized
-              manufacturing excellence with international standards to serve
-              demanding industries worldwide.
+            <p style={{ color: "#C5C6C9", fontSize: "15.5px", lineHeight: 1.7, margin: "0 0 24px 0" }}>
+              <EditableText path="capabilities.whoWeAre.paragraph2" defaultValue={DEFAULTS.whoWeAre.paragraph2} multiline />
             </p>
 
             {/* List items */}
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "20px" }}
-            >
-              <div style={{ display: "flex", gap: "12px" }}>
-                <div
-                  style={{
-                    width: "3px",
-                    backgroundColor: "#D09947",
-                    flexShrink: 0,
-                  }}
-                />
-                <div>
-                  <div
-                    style={{
-                      color: "#EEC569",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                      letterSpacing: "1px",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    SPECIALIZED INDUSTRIES
-                  </div>
-                  <div
-                    style={{ color: "#FFFFFF", fontSize: "14px", lineHeight: 1.5 }}
-                  >
-                    Aerospace, Medical Devices, Automotive, Premium Consumer
-                    Electronics
+            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              {DEFAULTS.whoWeAre.items.map((item, index) => (
+                <div key={index} style={{ display: "flex", gap: "12px" }}>
+                  <div style={{ width: "3px", backgroundColor: "#D09947", flexShrink: 0 }} />
+                  <div>
+                    <div style={{ color: "#EEC569", fontSize: "12px", fontWeight: 600, letterSpacing: "1px", marginBottom: "4px" }}>
+                      <EditableText path={`capabilities.whoWeAre.items.${index}.label`} defaultValue={item.label} />
+                    </div>
+                    <div style={{ color: "#FFFFFF", fontSize: "14px", lineHeight: 1.5 }}>
+                      <EditableText path={`capabilities.whoWeAre.items.${index}.value`} defaultValue={item.value} />
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div style={{ display: "flex", gap: "12px" }}>
-                <div
-                  style={{
-                    width: "3px",
-                    backgroundColor: "#D09947",
-                    flexShrink: 0,
-                  }}
-                />
-                <div>
-                  <div
-                    style={{
-                      color: "#EEC569",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                      letterSpacing: "1px",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    BATCH RANGE
-                  </div>
-                  <div
-                    style={{ color: "#FFFFFF", fontSize: "14px", lineHeight: 1.5 }}
-                  >
-                    100-10,000 units medium-to-large batch production
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ display: "flex", gap: "12px" }}>
-                <div
-                  style={{
-                    width: "3px",
-                    backgroundColor: "#D09947",
-                    flexShrink: 0,
-                  }}
-                />
-                <div>
-                  <div
-                    style={{
-                      color: "#EEC569",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                      letterSpacing: "1px",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    PRECISION STANDARDS
-                  </div>
-                  <div
-                    style={{ color: "#FFFFFF", fontSize: "14px", lineHeight: 1.5 }}
-                  >
-                    Tolerance control up to +/-0.005mm
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ display: "flex", gap: "12px" }}>
-                <div
-                  style={{
-                    width: "3px",
-                    backgroundColor: "#D09947",
-                    flexShrink: 0,
-                  }}
-                />
-                <div>
-                  <div
-                    style={{
-                      color: "#EEC569",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                      letterSpacing: "1px",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    MATERIAL PORTFOLIO
-                  </div>
-                  <div
-                    style={{ color: "#FFFFFF", fontSize: "14px", lineHeight: 1.5 }}
-                  >
-                    300+ material options including metals, engineering plastics,
-                    and special alloys
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </motion.div>
 
@@ -391,178 +317,33 @@ export function AboutCapabilities() {
               e.currentTarget.style.boxShadow = "none";
             }}
           >
-            <h3
-              style={{
-                color: "#EEC569",
-                fontSize: "28px",
-                fontWeight: 700,
-                margin: "0 0 20px 0",
-              }}
-            >
-              Core Manufacturing Capabilities
+            <h3 style={{ color: "#EEC569", fontSize: "28px", fontWeight: 700, margin: "0 0 20px 0" }}>
+              <EditableText path="capabilities.coreCapabilities.title" defaultValue={DEFAULTS.coreCapabilities.title} />
             </h3>
 
-            <p
-              style={{
-                color: "#C5C6C9",
-                fontSize: "15.5px",
-                lineHeight: 1.7,
-                margin: "0 0 24px 0",
-              }}
-            >
-              As a dedicated division, we elevate manufacturing partnerships
-              through enhanced engineering support, dedicated project
-              management, and tailored solutions.
+            <p style={{ color: "#C5C6C9", fontSize: "15.5px", lineHeight: 1.7, margin: "0 0 24px 0" }}>
+              <EditableText path="capabilities.coreCapabilities.description" defaultValue={DEFAULTS.coreCapabilities.description} multiline />
             </p>
 
             {/* List items */}
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "20px" }}
-            >
-              <div style={{ display: "flex", gap: "12px" }}>
-                <div
-                  style={{
-                    width: "3px",
-                    backgroundColor: "#D09947",
-                    flexShrink: 0,
-                  }}
-                />
-                <div>
-                  <div
-                    style={{
-                      color: "#EEC569",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                      letterSpacing: "1px",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    5-AXIS CNC MACHINING
-                  </div>
-                  <div
-                    style={{ color: "#FFFFFF", fontSize: "14px", lineHeight: 1.5 }}
-                  >
-                    Complex geometry with high precision
+            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              {DEFAULTS.coreCapabilities.items.map((item, index) => (
+                <div key={index} style={{ display: "flex", gap: "12px" }}>
+                  <div style={{ width: "3px", backgroundColor: "#D09947", flexShrink: 0 }} />
+                  <div>
+                    <div style={{ color: "#EEC569", fontSize: "12px", fontWeight: 600, letterSpacing: "1px", marginBottom: "4px" }}>
+                      <EditableText path={`capabilities.coreCapabilities.items.${index}.label`} defaultValue={item.label} />
+                    </div>
+                    <div style={{ color: "#FFFFFF", fontSize: "14px", lineHeight: 1.5 }}>
+                      <EditableText path={`capabilities.coreCapabilities.items.${index}.value`} defaultValue={item.value} />
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div style={{ display: "flex", gap: "12px" }}>
-                <div
-                  style={{
-                    width: "3px",
-                    backgroundColor: "#D09947",
-                    flexShrink: 0,
-                  }}
-                />
-                <div>
-                  <div
-                    style={{
-                      color: "#EEC569",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                      letterSpacing: "1px",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    PRECISION INJECTION MOLDING
-                  </div>
-                  <div
-                    style={{ color: "#FFFFFF", fontSize: "14px", lineHeight: 1.5 }}
-                  >
-                    Medium-to-large batch solutions
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ display: "flex", gap: "12px" }}>
-                <div
-                  style={{
-                    width: "3px",
-                    backgroundColor: "#D09947",
-                    flexShrink: 0,
-                  }}
-                />
-                <div>
-                  <div
-                    style={{
-                      color: "#EEC569",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                      letterSpacing: "1px",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    SHEET METAL FABRICATION
-                  </div>
-                  <div
-                    style={{ color: "#FFFFFF", fontSize: "14px", lineHeight: 1.5 }}
-                  >
-                    Prototype to production
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ display: "flex", gap: "12px" }}>
-                <div
-                  style={{
-                    width: "3px",
-                    backgroundColor: "#D09947",
-                    flexShrink: 0,
-                  }}
-                />
-                <div>
-                  <div
-                    style={{
-                      color: "#EEC569",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                      letterSpacing: "1px",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    SURFACE TREATMENT
-                  </div>
-                  <div
-                    style={{ color: "#FFFFFF", fontSize: "14px", lineHeight: 1.5 }}
-                  >
-                    Anodizing, powder coating, plating, etc.
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ display: "flex", gap: "12px" }}>
-                <div
-                  style={{
-                    width: "3px",
-                    backgroundColor: "#D09947",
-                    flexShrink: 0,
-                  }}
-                />
-                <div>
-                  <div
-                    style={{
-                      color: "#EEC569",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                      letterSpacing: "1px",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    QUALITY ASSURANCE
-                  </div>
-                  <div
-                    style={{ color: "#FFFFFF", fontSize: "14px", lineHeight: 1.5 }}
-                  >
-                    Comprehensive quality control systems
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </motion.div>
         </div>
       </div>
-
     </section>
   );
 }
