@@ -13,9 +13,10 @@ export const BUCKET_NAME = process.env.AWS_S3_BUCKET || "apex-batch-images";
 export async function uploadToS3(
   file: Buffer,
   fileName: string,
-  contentType: string
+  contentType: string,
+  folder: string = "blog"
 ): Promise<string> {
-  const key = `blog/${Date.now()}-${fileName}`;
+  const key = `${folder}/${Date.now()}-${fileName}`;
 
   const command = new PutObjectCommand({
     Bucket: BUCKET_NAME,

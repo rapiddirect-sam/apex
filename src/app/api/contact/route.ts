@@ -5,11 +5,24 @@ import { z } from "zod";
 // Input validation schema
 const contactSchema = z.object({
   firstName: z.string().min(1).max(100).trim(),
-  companyName: z.string().min(1).max(200).trim(),
+  companyName: z.string().max(200).trim().optional().default(""),
   email: z.string().email().max(254).toLowerCase(),
   phone: z.string().max(50).optional().default(""),
   businessNeeds: z.string().min(1).max(200).trim(),
   projectDescription: z.string().min(10).max(5000).trim(),
+  attachments: z.array(z.object({
+    url: z.string().url(),
+    filename: z.string().max(255),
+  })).optional().default([]),
+  tracking: z.object({
+    landingPage: z.string(),
+    landingTime: z.string(),
+    referrer: z.string(),
+    visitPath: z.array(z.object({
+      page: z.string(),
+      timestamp: z.string(),
+    })),
+  }).nullable().optional(),
 });
 
 // Sanitize string for HTML email (prevent injection)
@@ -43,11 +56,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { firstName, companyName, email, phone, businessNeeds, projectDescription } = parseResult.data;
+    const { firstName, companyName, email, phone, businessNeeds, projectDescription, attachments, tracking } = parseResult.data;
 
     // Sanitize all user input for HTML email
     const safeFirstName = sanitizeForHTML(firstName);
-    const safeCompanyName = sanitizeForHTML(companyName);
+    const safeCompanyName = sanitizeForHTML(companyName || "Not provided");
     const safeEmail = sanitizeForHTML(email);
     const safePhone = sanitizeForHTML(phone || "Not provided");
     const safeBusinessNeeds = sanitizeForHTML(businessNeeds);
@@ -58,7 +71,11 @@ export async function POST(request: NextRequest) {
       from: "ApexBatch Quotes <quotes@apexbatch.com>",
       to: ["info@apexbatch.com"], // Your receiving email
       replyTo: email,
-      subject: `New Quote Request: ${businessNeeds} - ${companyName}`,
+      subject: `New Quote Request: ${businessNeeds}${companyName ? ` - ${companyName}` : ` from ${firstName}`}`,
+      attachments: attachments.length > 0 ? attachments.map(att => ({
+        path: att.url,
+        filename: att.filename,
+      })) : undefined,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #D09947 0%, #EEC569 100%); padding: 24px; text-align: center;">
@@ -95,6 +112,37 @@ export async function POST(request: NextRequest) {
             <div style="background: #2a2a2a; padding: 16px; border-radius: 8px; border-left: 4px solid #D09947;">
               <p style="margin: 0; color: #C5C6C9; line-height: 1.6; white-space: pre-wrap;">${safeProjectDescription}</p>
             </div>
+            ${attachments.length > 0 ? `
+            <h2 style="color: #EEC569; margin-top: 32px; font-size: 18px;">Attachments (${attachments.length})</h2>
+            <div style="background: #2a2a2a; padding: 16px; border-radius: 8px; border-left: 4px solid #D09947;">
+              <ul style="margin: 0; padding-left: 20px; color: #C5C6C9;">
+                ${attachments.map(att => `<li><a href="${sanitizeForHTML(att.url)}" style="color: #D09947;">${sanitizeForHTML(att.filename)}</a></li>`).join('')}
+              </ul>
+            </div>
+            ` : ''}
+            ${tracking ? `
+            <h2 style="color: #EEC569; margin-top: 32px; font-size: 18px;">Visitor Journey</h2>
+            <div style="background: #2a2a2a; padding: 16px; border-radius: 8px; border-left: 4px solid #D09947;">
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 6px 0; color: #888; width: 120px;">Referrer:</td>
+                  <td style="padding: 6px 0; color: #C5C6C9;">${sanitizeForHTML(tracking.referrer)}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; color: #888;">Landing Page:</td>
+                  <td style="padding: 6px 0; color: #D09947;">${sanitizeForHTML(tracking.landingPage)}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; color: #888;">Landing Time:</td>
+                  <td style="padding: 6px 0; color: #C5C6C9;">${new Date(tracking.landingTime).toLocaleString()}</td>
+                </tr>
+              </table>
+              <p style="color: #888; margin: 16px 0 8px 0; font-size: 13px;">Pages Visited (${tracking.visitPath.length}):</p>
+              <ol style="margin: 0; padding-left: 20px; color: #C5C6C9; font-size: 13px;">
+                ${tracking.visitPath.map(v => `<li style="margin-bottom: 4px;"><span style="color: #D09947;">${sanitizeForHTML(v.page)}</span></li>`).join('')}
+              </ol>
+            </div>
+            ` : ''}
           </div>
 
           <div style="background: #0d0d0d; padding: 16px; text-align: center;">

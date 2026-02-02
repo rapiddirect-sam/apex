@@ -2,12 +2,12 @@
 
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
+import { getVisitData } from "@/hooks/useVisitTracking";
 import {
   Phone,
   Mail,
   Upload,
   ChevronDown,
-  Navigation,
   User,
   Building2,
   MessageSquare,
@@ -36,21 +36,65 @@ export function ContactForm() {
   const [files, setFiles] = useState<File[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Client-side validation
+    if (!formData.firstName.trim() ||
+        !formData.email.trim() || !formData.businessNeeds ||
+        formData.projectDescription.trim().length < 10) {
+      setSubmitStatus("error");
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
     try {
+      // Upload files to S3 first
+      const uploadedAttachments: { url: string; filename: string }[] = [];
+
+      if (files.length > 0) {
+        setIsUploading(true);
+        for (const file of files) {
+          const uploadFormData = new FormData();
+          uploadFormData.append("file", file);
+
+          const uploadRes = await fetch("/api/contact/upload", {
+            method: "POST",
+            body: uploadFormData,
+          });
+
+          if (uploadRes.ok) {
+            const { url, filename } = await uploadRes.json();
+            uploadedAttachments.push({ url, filename });
+          }
+        }
+        setIsUploading(false);
+      }
+
+      // Get visit tracking data
+      const visitData = getVisitData();
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          attachments: uploadedAttachments,
+          tracking: visitData ? {
+            landingPage: visitData.landingPage,
+            landingTime: visitData.landingTime,
+            referrer: visitData.referrer,
+            visitPath: visitData.visitPath,
+          } : null,
+        }),
       });
 
       if (response.ok) {
@@ -242,17 +286,18 @@ export function ContactForm() {
                       onChange={handleInputChange}
                       style={inputStyles}
                       className="placeholder-gold"
+                      required
                     />
                   </div>
                 </div>
                 <div>
-                  <label style={labelStyles}>Company Name *</label>
+                  <label style={labelStyles}>Company Name</label>
                   <div style={inputWrapperStyles}>
                     <Building2 style={iconStyles as React.CSSProperties} />
                     <input
                       type="text"
                       name="companyName"
-                      placeholder="Your Company"
+                      placeholder="Your Company (optional)"
                       value={formData.companyName}
                       onChange={handleInputChange}
                       style={inputStyles}
@@ -276,6 +321,7 @@ export function ContactForm() {
                       onChange={handleInputChange}
                       style={inputStyles}
                       className="placeholder-gold"
+                      required
                     />
                   </div>
                 </div>
@@ -304,6 +350,7 @@ export function ContactForm() {
                     name="businessNeeds"
                     value={formData.businessNeeds}
                     onChange={handleInputChange}
+                    required
                     style={{
                       width: "100%",
                       background: "#1A1A1A",
@@ -378,6 +425,8 @@ export function ContactForm() {
                     value={formData.projectDescription}
                     onChange={handleInputChange}
                     rows={4}
+                    required
+                    minLength={10}
                     style={{
                       width: "100%",
                       background: "#1A1A1A",
@@ -551,22 +600,22 @@ export function ContactForm() {
                     fontSize: "14px",
                   }}
                 >
-                  Something went wrong. Please try again or contact us directly at info@apexbatch.com
+                  Please fill in all required fields. Project description must be at least 10 characters.
                 </div>
               )}
 
               {/* Submit Button */}
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isUploading}
                 className={`w-full font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center justify-center gap-2 group ${
-                  isSubmitting
+                  isSubmitting || isUploading
                     ? "bg-[#666] text-[#999] cursor-not-allowed"
                     : "bg-[#D09947] hover:bg-[#EEC569] text-[#000000]"
                 }`}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
-                {!isSubmitting && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
+                {isUploading ? "Uploading files..." : isSubmitting ? "Sending..." : "Send Message"}
+                {!isSubmitting && !isUploading && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
               </button>
             </form>
           </motion.div>

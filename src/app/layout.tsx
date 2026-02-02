@@ -3,6 +3,7 @@ import { Instrument_Serif, Geist_Mono, Space_Mono, Inter, Playfair_Display } fro
 import "./globals.css";
 import "./home3.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { VisitTracker } from "@/components/VisitTracker";
 
 const instrumentSerif = Instrument_Serif({
   weight: "400",
@@ -60,6 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${instrumentSerif.variable} ${geistMono.variable} ${spaceMono.variable} ${inter.variable} ${playfair.variable}`}>
       <body className="antialiased home3-root">
+        <VisitTracker />
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
