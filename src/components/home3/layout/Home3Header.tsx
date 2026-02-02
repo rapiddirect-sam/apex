@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { cn, getImageUrl } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronRight } from "lucide-react";
 
 const navLinks = [
   { href: "/about", label: "About" },
@@ -71,36 +71,70 @@ export function Home3Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-[#000000]"
+            className="lg:hidden p-2 text-[#000000] hover:bg-black/10 rounded-lg transition-colors"
+            aria-label="Toggle menu"
           >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
           </button>
         </div>
+      </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden py-6 border-t border-[#7F4D0F]/20 bg-gradient-to-r from-[#F9EBBC] via-[#EEC569] to-[#D09947]">
-            <nav className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="text-[#000000] hover:text-[#7F4D0F] transition-colors text-base font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center bg-[#1A1A1A] hover:bg-[#000000] text-white font-semibold px-5 py-2.5 rounded-full transition-all text-base mt-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Get Quote
-              </Link>
-            </nav>
-          </div>
+      {/* Mobile Menu - Full Screen Overlay */}
+      <div
+        className={cn(
+          "lg:hidden fixed inset-0 top-16 z-40 transition-all duration-300",
+          isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
         )}
+      >
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-black/50"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+
+        {/* Menu Panel */}
+        <div
+          className={cn(
+            "absolute top-0 right-0 w-full max-w-sm h-full bg-gradient-to-br from-[#1A1A1A] to-[#2A2A2A] shadow-2xl transition-transform duration-300",
+            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          )}
+        >
+          <nav className="flex flex-col p-6 pt-8">
+            {navLinks.map((link, index) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="flex items-center justify-between text-white hover:text-[#EEC569] transition-colors text-lg font-medium py-4 border-b border-white/10"
+                onClick={() => setIsMobileMenuOpen(false)}
+                style={{
+                  animationDelay: `${index * 50}ms`,
+                }}
+              >
+                {link.label}
+                <ChevronRight className="w-5 h-5 opacity-50" />
+              </Link>
+            ))}
+
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center bg-gradient-to-r from-[#D09947] to-[#EEC569] hover:from-[#EEC569] hover:to-[#D09947] text-black font-semibold px-6 py-4 rounded-xl transition-all text-lg mt-8"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Get Quote
+            </Link>
+
+            {/* Contact Info */}
+            <div className="mt-auto pt-8 border-t border-white/10 mt-8">
+              <p className="text-white/60 text-sm mb-2">Need help?</p>
+              <a
+                href="mailto:info@apexbatch.com"
+                className="text-[#EEC569] text-base font-medium"
+              >
+                info@apexbatch.com
+              </a>
+            </div>
+          </nav>
+        </div>
       </div>
     </header>
   );

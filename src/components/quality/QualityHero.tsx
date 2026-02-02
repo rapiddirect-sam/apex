@@ -70,7 +70,7 @@ export function QualityHero() {
           </p>
 
           {/* Stats */}
-          <div className="flex flex-nowrap gap-4">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
             {[
               { value: "±0.01-0.05mm", label: "Tolerance Control" },
               { value: "100%", label: "Traceability" },
@@ -78,29 +78,20 @@ export function QualityHero() {
             ].map((stat, index) => (
               <div
                 key={index}
+                className="flex sm:flex-col items-center sm:items-start gap-2 sm:gap-1 flex-1"
                 style={{
                   background: "linear-gradient(to right, rgba(208,153,71,0.4) 0%, #EEC569 100%)",
-                  borderRadius: "16px",
-                  padding: "24px 32px",
-                  flex: 1,
-                  minWidth: "200px",
+                  borderRadius: "12px",
+                  padding: "12px 16px",
                 }}
               >
                 <div
-                  style={{
-                    fontSize: "clamp(24px, 3vw, 36px)",
-                    fontWeight: 700,
-                    color: "#FFFFFF",
-                  }}
+                  className="text-lg sm:text-2xl lg:text-3xl font-bold text-white whitespace-nowrap"
                 >
                   {stat.value}
                 </div>
                 <div
-                  style={{
-                    color: "rgba(255,255,255,0.8)",
-                    fontSize: "14px",
-                    marginTop: "4px",
-                  }}
+                  className="text-white/80 text-xs sm:text-sm"
                 >
                   {stat.label}
                 </div>

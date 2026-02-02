@@ -31,12 +31,15 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     };
   }
 
+  const title = post.metaTitle || `${post.title} | ApexBatch Blog`;
+  const description = post.metaDescription || post.excerpt || post.title;
+
   return {
-    title: `${post.title} | ApexBatch Blog`,
-    description: post.excerpt || post.title,
+    title,
+    description,
     openGraph: {
-      title: post.title,
-      description: post.excerpt || post.title,
+      title: post.metaTitle || post.title,
+      description,
       type: "article",
       publishedTime: post.publishedAt?.toISOString(),
       images: post.featuredImage ? [post.featuredImage] : [],

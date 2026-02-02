@@ -4,12 +4,16 @@ import Image from "next/image";
 import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { getPublishedPosts } from "@/lib/blog";
+import { getPageMetaWithDefaults } from "@/lib/pageMeta";
 import { Calendar, ArrowRight, FileText } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Blog | ApexBatch - Precision Manufacturing Insights",
-  description: "Insights, updates, and expertise from the world of precision manufacturing. Learn about CNC machining, injection molding, and more.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const meta = await getPageMetaWithDefaults("/blog");
+  return {
+    title: meta.title,
+    description: meta.description,
+  };
+}
 
 export default async function BlogPage() {
   const posts = await getPublishedPosts();

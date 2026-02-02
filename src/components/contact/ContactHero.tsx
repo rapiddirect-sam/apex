@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { getImageUrl } from "@/lib/utils";
 
 export function ContactHero() {
   return (
@@ -15,8 +16,7 @@ export function ContactHero() {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1920&q=80')",
+          backgroundImage: `url('${getImageUrl("contact/1-contact-banner.webp")}')`,
         }}
       />
 

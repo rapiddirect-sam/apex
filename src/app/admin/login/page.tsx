@@ -7,9 +7,11 @@ import { useAuth } from "@/contexts/AuthContext";
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { signIn, signInWithGoogle, isConfigured } = useAuth();
+  const [isRegister, setIsRegister] = useState(false);
+  const { signIn, signUp, signInWithGoogle, isConfigured } = useAuth();
   const router = useRouter();
 
   if (!isConfigured) {
@@ -51,14 +53,28 @@ export default function AdminLoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (isRegister && password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    if (isRegister && password.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await signIn(email, password);
+      if (isRegister) {
+        await signUp(email, password);
+      } else {
+        await signIn(email, password);
+      }
       router.push("/admin/blog");
     } catch {
-      // Always show generic error to prevent user enumeration
-      setError("Invalid email or password");
+      setError(isRegister ? "Registration failed. Email may already be in use." : "Invalid email or password");
     } finally {
       setLoading(false);
     }
@@ -72,11 +88,16 @@ export default function AdminLoginPage() {
       await signInWithGoogle();
       router.push("/admin/blog");
     } catch {
-      // Generic error message
       setError("Sign-in failed. Please try again.");
     } finally {
       setLoading(false);
     }
+  };
+
+  const toggleMode = () => {
+    setIsRegister(!isRegister);
+    setError("");
+    setConfirmPassword("");
   };
 
   return (
@@ -108,7 +129,7 @@ export default function AdminLoginPage() {
             textAlign: "center",
           }}
         >
-          Admin Login
+          {isRegister ? "Create Account" : "Admin Login"}
         </h1>
         <p
           style={{
@@ -118,7 +139,7 @@ export default function AdminLoginPage() {
             marginBottom: "32px",
           }}
         >
-          Sign in to access the admin panel
+          {isRegister ? "Register for admin access" : "Sign in to access the admin panel"}
         </p>
 
         {error && (
@@ -223,7 +244,7 @@ export default function AdminLoginPage() {
             />
           </div>
 
-          <div style={{ marginBottom: "28px" }}>
+          <div style={{ marginBottom: isRegister ? "20px" : "28px" }}>
             <label
               style={{
                 display: "block",
@@ -239,6 +260,7 @@ export default function AdminLoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              minLength={isRegister ? 6 : undefined}
               style={{
                 width: "100%",
                 padding: "12px 16px",
@@ -251,6 +273,37 @@ export default function AdminLoginPage() {
               }}
             />
           </div>
+
+          {isRegister && (
+            <div style={{ marginBottom: "28px" }}>
+              <label
+                style={{
+                  display: "block",
+                  color: "#C5C6C9",
+                  fontSize: "14px",
+                  marginBottom: "8px",
+                }}
+              >
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                style={{
+                  width: "100%",
+                  padding: "12px 16px",
+                  background: "#1a1a1a",
+                  border: "1px solid #444",
+                  borderRadius: "8px",
+                  color: "#FFFFFF",
+                  fontSize: "16px",
+                  outline: "none",
+                }}
+              />
+            </div>
+          )}
 
           <button
             type="submit"
@@ -268,9 +321,31 @@ export default function AdminLoginPage() {
               transition: "background 0.2s",
             }}
           >
-            {loading ? "Signing in..." : "Sign In"}
+            {loading ? (isRegister ? "Creating account..." : "Signing in...") : (isRegister ? "Create Account" : "Sign In")}
           </button>
         </form>
+
+        {/* Toggle between login and register */}
+        <div style={{ marginTop: "24px", textAlign: "center" }}>
+          <span style={{ color: "#888", fontSize: "14px" }}>
+            {isRegister ? "Already have an account? " : "Don't have an account? "}
+          </span>
+          <button
+            type="button"
+            onClick={toggleMode}
+            style={{
+              background: "none",
+              border: "none",
+              color: "#D09947",
+              fontSize: "14px",
+              fontWeight: 500,
+              cursor: "pointer",
+              textDecoration: "underline",
+            }}
+          >
+            {isRegister ? "Sign in" : "Register"}
+          </button>
+        </div>
       </div>
     </div>
   );

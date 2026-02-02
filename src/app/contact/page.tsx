@@ -1,21 +1,15 @@
-"use client";
+import { Metadata } from "next";
+import { getPageMetaWithDefaults } from "@/lib/pageMeta";
+import { ContactPageClient } from "./ContactPageClient";
 
-import { Home3Header } from "@/components/home3/layout/Home3Header";
-import { Home3Footer } from "@/components/home3/layout/Home3Footer";
-import { ContactHero } from "@/components/contact/ContactHero";
-import { ContactForm } from "@/components/contact/ContactForm";
-import { ContactNextSteps } from "@/components/contact/ContactNextSteps";
+export async function generateMetadata(): Promise<Metadata> {
+  const meta = await getPageMetaWithDefaults("/contact");
+  return {
+    title: meta.title,
+    description: meta.description,
+  };
+}
 
 export default function ContactPage() {
-  return (
-    <>
-      <Home3Header />
-      <main>
-        <ContactHero />
-        <ContactForm />
-        <ContactNextSteps />
-      </main>
-      <Home3Footer />
-    </>
-  );
+  return <ContactPageClient />;
 }

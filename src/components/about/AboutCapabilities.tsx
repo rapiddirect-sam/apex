@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { getImageUrl } from "@/lib/utils";
 
 export function AboutCapabilities() {
   return (
@@ -133,7 +134,7 @@ export function AboutCapabilities() {
             }}
           >
             <img
-              src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80"
+              src={getImageUrl("about/2-Core-Manufacturing Capabilities.webp")}
               alt="Advanced Manufacturing"
               style={{
                 width: "100%",

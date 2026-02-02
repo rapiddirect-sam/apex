@@ -1,23 +1,37 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { User, onAuthStateChanged, signInWithEmailAndPassword, signOut as firebaseSignOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { User, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut as firebaseSignOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, isFirebaseConfigured } from "@/lib/firebase";
+import { isUserAdmin } from "@/lib/admin";
 
 interface AuthContextType {
   user: User | null;
+  isAdmin: boolean;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
   isConfigured: boolean;
+  checkAdminStatus: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const checkAdminStatus = async () => {
+    if (user?.email) {
+      const adminStatus = await isUserAdmin(user.email);
+      setIsAdmin(adminStatus);
+    } else {
+      setIsAdmin(false);
+    }
+  };
 
   useEffect(() => {
     if (!isFirebaseConfigured || !auth) {
@@ -27,6 +41,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
+
+      // Check admin status
+      if (user?.email) {
+        const adminStatus = await isUserAdmin(user.email);
+        setIsAdmin(adminStatus);
+      } else {
+        setIsAdmin(false);
+      }
+
       setLoading(false);
 
       // Set/clear auth session cookie for middleware
@@ -46,6 +69,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await signInWithEmailAndPassword(auth, email, password);
   };
 
+  const signUp = async (email: string, password: string) => {
+    if (!auth) throw new Error("Firebase not configured");
+    await createUserWithEmailAndPassword(auth, email, password);
+  };
+
   const signInWithGoogle = async () => {
     if (!auth) throw new Error("Firebase not configured");
     const provider = new GoogleAuthProvider();
@@ -56,12 +84,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!auth) throw new Error("Firebase not configured");
     // Clear auth cookie
     document.cookie = "auth-session=; path=/; max-age=0";
+    setIsAdmin(false);
     await firebaseSignOut(auth);
   };
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, signIn, signInWithGoogle, signOut, isConfigured: isFirebaseConfigured }}
+      value={{ user, isAdmin, loading, signIn, signUp, signInWithGoogle, signOut, isConfigured: isFirebaseConfigured, checkAdminStatus }}
     >
       {children}
     </AuthContext.Provider>

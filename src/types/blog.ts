@@ -11,6 +11,8 @@ export interface BlogPost {
   publishedAt: Date | null;
   authorId: string;
   authorEmail: string;
+  metaTitle: string | null;
+  metaDescription: string | null;
 }
 
 export interface BlogPostInput {
@@ -20,4 +22,6 @@ export interface BlogPostInput {
   excerpt: string;
   featuredImage: string;
   status: "draft" | "published";
+  metaTitle?: string;
+  metaDescription?: string;
 }

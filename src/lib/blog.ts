@@ -17,6 +17,8 @@ function rowToPost(row: Record<string, unknown>): BlogPost {
     publishedAt: row.published_at ? new Date(row.published_at as string) : null,
     authorId: row.author_id as string,
     authorEmail: row.author_email as string,
+    metaTitle: (row.meta_title as string) || null,
+    metaDescription: (row.meta_description as string) || null,
   };
 }
 
@@ -129,6 +131,8 @@ export async function createPost(
     published_at: input.status === "published" ? now : null,
     author_id: authorId,
     author_email: authorEmail,
+    meta_title: input.metaTitle || null,
+    meta_description: input.metaDescription || null,
   };
 
   const { data, error } = await supabase
@@ -160,6 +164,8 @@ export async function updatePost(id: string, input: Partial<BlogPostInput>): Pro
   if (input.excerpt !== undefined) updateData.excerpt = input.excerpt;
   if (input.featuredImage !== undefined) updateData.featured_image = input.featuredImage;
   if (input.status !== undefined) updateData.status = input.status;
+  if (input.metaTitle !== undefined) updateData.meta_title = input.metaTitle || null;
+  if (input.metaDescription !== undefined) updateData.meta_description = input.metaDescription || null;
 
   // If publishing for the first time
   if (input.status === "published") {

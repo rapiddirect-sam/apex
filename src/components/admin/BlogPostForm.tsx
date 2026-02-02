@@ -22,6 +22,8 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
   const [excerpt, setExcerpt] = useState(post?.excerpt || "");
   const [featuredImage, setFeaturedImage] = useState(post?.featuredImage || "");
   const [status, setStatus] = useState<"draft" | "published">(post?.status || "draft");
+  const [metaTitle, setMetaTitle] = useState(post?.metaTitle || "");
+  const [metaDescription, setMetaDescription] = useState(post?.metaDescription || "");
   const [saving, setSaving] = useState(false);
   const [autoSlug, setAutoSlug] = useState(!isEditing);
 
@@ -49,6 +51,8 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
         excerpt,
         featuredImage,
         status,
+        metaTitle: metaTitle || undefined,
+        metaDescription: metaDescription || undefined,
       };
 
       if (isEditing && post) {
@@ -302,6 +306,52 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
             }}
           >
             <ImageUpload value={featuredImage} onChange={setFeaturedImage} />
+          </div>
+
+          {/* SEO Settings */}
+          <div
+            style={{
+              background: "#2a2a2a",
+              padding: "20px",
+              borderRadius: "12px",
+              border: "1px solid #333",
+            }}
+          >
+            <h3 style={{ color: "#fff", fontSize: "14px", fontWeight: 600, marginBottom: "16px" }}>
+              SEO Settings
+            </h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              <div>
+                <label style={{ ...labelStyle, fontSize: "13px" }}>
+                  Meta Title
+                  <span style={{ color: "#666", fontWeight: 400, marginLeft: "6px" }}>
+                    ({metaTitle.length}/60)
+                  </span>
+                </label>
+                <input
+                  type="text"
+                  value={metaTitle}
+                  onChange={(e) => setMetaTitle(e.target.value)}
+                  placeholder={title || "Uses post title if empty"}
+                  style={{ ...inputStyle, fontSize: "14px", padding: "10px 12px" }}
+                />
+              </div>
+              <div>
+                <label style={{ ...labelStyle, fontSize: "13px" }}>
+                  Meta Description
+                  <span style={{ color: "#666", fontWeight: 400, marginLeft: "6px" }}>
+                    ({metaDescription.length}/160)
+                  </span>
+                </label>
+                <textarea
+                  value={metaDescription}
+                  onChange={(e) => setMetaDescription(e.target.value)}
+                  placeholder={excerpt || "Uses excerpt if empty"}
+                  rows={3}
+                  style={{ ...inputStyle, fontSize: "14px", padding: "10px 12px", resize: "vertical" }}
+                />
+              </div>
+            </div>
           </div>
 
           {/* Post Info (only when editing) */}

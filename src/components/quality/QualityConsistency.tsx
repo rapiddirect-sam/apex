@@ -57,11 +57,11 @@ export function QualityConsistency() {
     <section
       className="relative overflow-hidden"
       style={{
-        padding: "80px 0",
+        padding: "clamp(40px, 8vw, 80px) 0",
         background: "#000000",
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -71,7 +71,7 @@ export function QualityConsistency() {
         >
           <h2
             style={{
-              fontSize: "46px",
+              fontSize: "clamp(28px, 5vw, 46px)",
               fontWeight: 700,
               color: "#FFFFFF",
               letterSpacing: "-0.015em",
@@ -83,24 +83,19 @@ export function QualityConsistency() {
 
         {/* Tab Navigation */}
         <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "0",
-            marginBottom: "48px",
-          }}
+          className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-2 sm:gap-0 mb-8 sm:mb-12"
         >
           {consistencyItems.map((item, index) => (
-            <div key={item.title} style={{ display: "flex", alignItems: "center" }}>
+            <div key={item.title} className="flex flex-col sm:flex-row items-stretch sm:items-center">
               <button
                 onClick={() => setActiveTab(index)}
+                className="w-full sm:w-auto"
                 style={{
-                  padding: "12px 24px",
+                  padding: "12px 16px",
                   background: activeTab === index ? "#D09947" : "transparent",
                   border: activeTab === index ? "1px solid #D09947" : "1px solid #7F4D0F",
                   color: activeTab === index ? "#000000" : "#EEC569",
-                  fontSize: "14px",
+                  fontSize: "13px",
                   fontWeight: 600,
                   cursor: "pointer",
                   transition: "all 0.3s ease",
@@ -108,9 +103,10 @@ export function QualityConsistency() {
               >
                 {item.title}
               </button>
-              {/* Connector line between tabs */}
+              {/* Connector line between tabs - hidden on mobile */}
               {index < consistencyItems.length - 1 && (
                 <div
+                  className="hidden sm:block"
                   style={{
                     width: "40px",
                     height: "2px",
@@ -128,18 +124,12 @@ export function QualityConsistency() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "24px",
-          }}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6"
         >
           {/* Left - Image */}
           <div
+            className="relative h-[250px] sm:h-[350px] lg:h-[480px] overflow-hidden"
             style={{
-              position: "relative",
-              height: "480px",
-              overflow: "hidden",
               border: "1px solid #EEC569",
             }}
           >
@@ -156,7 +146,7 @@ export function QualityConsistency() {
             style={{
               background: "#34312F",
               border: "1px solid #EEC569",
-              padding: "32px",
+              padding: "clamp(20px, 4vw, 32px)",
               display: "flex",
               flexDirection: "column",
             }}

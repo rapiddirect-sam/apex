@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { Home3Hero } from "@/components/home3/sections/Home3Hero";
@@ -10,6 +11,15 @@ import { Home3Industries } from "@/components/home3/sections/Home3Industries";
 import { Home3Portfolio } from "@/components/home3/sections/Home3Portfolio";
 import { Home3Certifications } from "@/components/home3/sections/Home3Certifications";
 import { Home3FAQ } from "@/components/home3/sections/Home3FAQ";
+import { getPageMetaWithDefaults } from "@/lib/pageMeta";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const meta = await getPageMetaWithDefaults("/");
+  return {
+    title: meta.title,
+    description: meta.description,
+  };
+}
 
 export default function Home() {
   return (

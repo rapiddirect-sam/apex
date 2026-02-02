@@ -102,7 +102,7 @@ export function AboutHero() {
             }}
           >
             <img
-              src="https://images.unsplash.com/photo-1565043666747-69f6646db940?w=600&q=80"
+              src={getImageUrl("about/1-about-banner-1.webp")}
               alt="CNC machining"
               style={{
                 width: "100%",
@@ -124,7 +124,7 @@ export function AboutHero() {
             }}
           >
             <img
-              src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80"
+              src={getImageUrl("about/1-about-banner-2.webp")}
               alt="Manufacturing"
               style={{
                 width: "100%",
@@ -147,7 +147,7 @@ export function AboutHero() {
             }}
           >
             <img
-              src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80"
+              src={getImageUrl("about/1-about-banner-3.webp")}
               alt="Precision parts"
               style={{
                 width: "100%",

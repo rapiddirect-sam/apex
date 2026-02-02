@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { CNCHero } from "@/components/cnc/CNCHero";
@@ -10,6 +11,15 @@ import { CNCTolerance } from "@/components/cnc/CNCTolerance";
 import { CNCMaterials } from "@/components/cnc/CNCMaterials";
 import { CNCSurfaceFinishes } from "@/components/cnc/CNCSurfaceFinishes";
 import { CNCCTA } from "@/components/cnc/CNCCTA";
+import { getPageMetaWithDefaults } from "@/lib/pageMeta";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const meta = await getPageMetaWithDefaults("/cnc-machining");
+  return {
+    title: meta.title,
+    description: meta.description,
+  };
+}
 
 export default function CNCMachiningPage() {
   return (
