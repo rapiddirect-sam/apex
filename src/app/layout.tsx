@@ -43,14 +43,6 @@ export const metadata: Metadata = {
   title: "Apex Batch | Precision Manufacturing, Intelligent Living",
   description:
     "Your partner for high-precision batch manufacturing. CNC machining, sheet metal, injection molding, and more with ISO-certified quality.",
-  keywords: [
-    "CNC machining",
-    "precision manufacturing",
-    "sheet metal",
-    "injection molding",
-    "die casting",
-    "batch manufacturing",
-  ],
 };
 
 export default function RootLayout({

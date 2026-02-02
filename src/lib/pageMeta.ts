@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from "next/cache";
 import { supabase, isSupabaseConfigured } from "./supabase";
 import { PageMeta, PageMetaInput, DEFAULT_PAGE_META } from "@/types/pageMeta";
 
@@ -99,6 +100,9 @@ export async function deletePageMeta(pageSlug: string): Promise<void> {
 
 // Helper to get meta for a page, falling back to defaults
 export async function getPageMetaWithDefaults(pageSlug: string): Promise<{ title: string; description: string }> {
+  // Disable caching so meta updates are reflected immediately
+  noStore();
+
   const defaults = DEFAULT_PAGE_META[pageSlug] || {
     title: "ApexBatch - Precision Manufacturing",
     description: "ApexBatch delivers high-precision CNC machining and manufacturing services.",
