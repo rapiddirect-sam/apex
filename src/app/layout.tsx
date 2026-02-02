@@ -40,6 +40,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://apexbatch.com"),
   title: "Apex Batch | Precision Manufacturing, Intelligent Living",
   description:
     "Your partner for high-precision batch manufacturing. CNC machining, sheet metal, injection molding, and more with ISO-certified quality.",

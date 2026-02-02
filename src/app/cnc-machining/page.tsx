@@ -18,6 +18,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: meta.title,
     description: meta.description,
+    alternates: {
+      canonical: "/cnc-machining",
+    },
   };
 }
 
