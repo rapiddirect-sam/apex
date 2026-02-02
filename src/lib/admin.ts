@@ -1,6 +1,7 @@
 import { supabase, isSupabaseConfigured } from "./supabase";
 
-const TABLE_NAME = "admin_users";
+const LEGACY_TABLE = "admin_users";
+const USERS_TABLE = "users";
 
 export async function isUserAdmin(email: string): Promise<boolean> {
   if (!isSupabaseConfigured || !supabase || !email) {
@@ -8,14 +9,28 @@ export async function isUserAdmin(email: string): Promise<boolean> {
   }
 
   try {
+    // First check the new users table for admin/super_admin role
+    const { data: userData, error: userError } = await supabase
+      .from(USERS_TABLE)
+      .select("role, status")
+      .eq("email", email.toLowerCase())
+      .single();
+
+    if (!userError && userData) {
+      // User found in users table - check role and status
+      const isAdminRole = userData.role === "admin" || userData.role === "super_admin";
+      const isActive = userData.status === "active";
+      return isAdminRole && isActive;
+    }
+
+    // Fallback to legacy admin_users table for backwards compatibility
     const { data, error } = await supabase
-      .from(TABLE_NAME)
+      .from(LEGACY_TABLE)
       .select("email")
       .eq("email", email.toLowerCase())
       .single();
 
     if (error) {
-      // PGRST116 means no rows found - not an admin
       if (error.code === "PGRST116") {
         return false;
       }
