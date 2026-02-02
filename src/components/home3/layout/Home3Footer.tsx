@@ -9,16 +9,14 @@ const quickLinks = [
   { href: "/home3", label: "Home" },
   { href: "#services", label: "Services" },
   { href: "#capabilities", label: "Capabilities" },
-  { href: "#industries", label: "Industries" },
-  { href: "#quality", label: "Quality Assurance" },
+  { href: "/#industries", label: "Industries" },
+  { href: "/quality", label: "Quality Assurance" },
 ];
 
 const aboutLinks = [
   { href: "/about", label: "About Us" },
-  { href: "/team", label: "Our Team" },
-  { href: "/certifications", label: "Certifications" },
-  { href: "/careers", label: "Careers" },
-  { href: "/news", label: "News & Updates" },
+  { href: "/about#team-structure", label: "Our Team" },
+  { href: "/quality#certifications", label: "Certifications" },
 ];
 
 const socialLinks = [

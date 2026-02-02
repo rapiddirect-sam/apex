@@ -79,13 +79,16 @@ export function EditableImage({
   if (!isEditMode) {
     // Use regular img for external URLs or special formats
     if (currentSrc.startsWith("http") || currentSrc.includes(".gif")) {
+      const imgStyle: CSSProperties = fill
+        ? { width: "100%", height: "100%", objectFit: "cover", ...style }
+        : style || {};
       return (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={currentSrc}
           alt={alt}
           className={className}
-          style={style}
+          style={imgStyle}
         />
       );
     }

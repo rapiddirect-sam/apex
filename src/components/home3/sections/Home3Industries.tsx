@@ -38,6 +38,7 @@ export function Home3Industries() {
 
   return (
     <section
+      id="industries"
       className="relative overflow-hidden"
       style={{
         padding: "76px 0 104px",

@@ -60,6 +60,7 @@ const DEFAULTS = {
 export function AboutTeamStructure() {
   return (
     <section
+      id="team-structure"
       style={{
         background: `
           radial-gradient(

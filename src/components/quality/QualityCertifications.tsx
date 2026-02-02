@@ -7,6 +7,7 @@ import { getImageUrl } from "@/lib/utils";
 export function QualityCertifications() {
   return (
     <section
+      id="certifications"
       className="relative overflow-hidden"
       style={{
         padding: "80px 0",
