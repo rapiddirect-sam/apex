@@ -9,6 +9,7 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
   const { signIn, signUp, signInWithGoogle, isConfigured } = useAuth();
@@ -69,10 +70,15 @@ export default function AdminLoginPage() {
     try {
       if (isRegister) {
         await signUp(email, password);
+        setSuccess("Account created successfully! You can now sign in.");
+        setIsRegister(false);
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
       } else {
         await signIn(email, password);
+        router.push("/admin/blog");
       }
-      router.push("/admin/blog");
     } catch {
       setError(isRegister ? "Registration failed. Email may already be in use." : "Invalid email or password");
     } finally {
@@ -97,6 +103,7 @@ export default function AdminLoginPage() {
   const toggleMode = () => {
     setIsRegister(!isRegister);
     setError("");
+    setSuccess("");
     setConfirmPassword("");
   };
 
@@ -155,6 +162,22 @@ export default function AdminLoginPage() {
             }}
           >
             {error}
+          </div>
+        )}
+
+        {success && (
+          <div
+            style={{
+              background: "rgba(34, 197, 94, 0.1)",
+              border: "1px solid rgba(34, 197, 94, 0.3)",
+              color: "#22c55e",
+              padding: "12px 16px",
+              borderRadius: "8px",
+              marginBottom: "24px",
+              fontSize: "14px",
+            }}
+          >
+            {success}
           </div>
         )}
 
