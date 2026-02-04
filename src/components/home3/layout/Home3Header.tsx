@@ -62,7 +62,8 @@ export function Home3Header() {
 
           {/* CTA Button */}
           <Link
-            href="/contact"
+            href="https://app.apexbatch.com/"
+            rel="nofollow"
             className="hidden lg:inline-flex items-center gap-2 bg-[#1A1A1A] hover:bg-[#000000] text-white font-semibold px-5 py-2.5 rounded-full transition-all text-sm"
           >
             Get Quote
@@ -116,7 +117,8 @@ export function Home3Header() {
             ))}
 
             <Link
-              href="/contact"
+              href="https://app.apexbatch.com/"
+              rel="nofollow"
               className="inline-flex items-center justify-center bg-gradient-to-r from-[#D09947] to-[#EEC569] hover:from-[#EEC569] hover:to-[#D09947] text-black font-semibold px-6 py-4 rounded-xl transition-all text-lg mt-8"
               onClick={() => setIsMobileMenuOpen(false)}
             >

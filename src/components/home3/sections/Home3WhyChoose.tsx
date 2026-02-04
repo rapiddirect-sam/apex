@@ -308,7 +308,8 @@ export function Home3WhyChoose() {
             Get Free engineering review before production.
           </p>
           <Link
-            href="/contact"
+            href="https://app.apexbatch.com/"
+            rel="nofollow"
             className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
           >
             Upload Your Design

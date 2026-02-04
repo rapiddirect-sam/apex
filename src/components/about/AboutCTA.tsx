@@ -10,7 +10,7 @@ const DEFAULTS = {
   heading: "Ready to Scale Your Production?",
   subheading: "Join 500+ global innovators who rely on ApexBatch for high-precision manufacturing solutions.",
   buttonText: "Request A Free Quote",
-  buttonLink: "/contact",
+  buttonLink: "https://app.apexbatch.com/",
 };
 
 export function AboutCTA() {
@@ -97,6 +97,7 @@ export function AboutCTA() {
           {/* CTA Button */}
           <Link
             href={DEFAULTS.buttonLink}
+            rel="nofollow"
             className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
           >
             <EditableText path="cta.buttonText" defaultValue={DEFAULTS.buttonText} />

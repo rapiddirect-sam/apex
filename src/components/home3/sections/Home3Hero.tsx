@@ -91,14 +91,15 @@ export function Home3Hero() {
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 mb-12">
               <Link
-                href="/contact"
+                href="https://app.apexbatch.com/"
+                rel="nofollow"
                 className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider flex items-center gap-2 group"
               >
                 Get Instant Quote
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                href="#capabilities"
+                href="#services"
                 className="border border-[#4A4A48] hover:border-[#D09947] text-white font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider"
               >
                 View Capabilities

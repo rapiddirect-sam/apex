@@ -237,7 +237,8 @@ export function Home3Portfolio() {
               Ready to experience precision engineering?
             </p>
             <Link
-              href="/contact"
+              href="https://app.apexbatch.com/"
+              rel="nofollow"
               className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
             >
               Get a Free Quote

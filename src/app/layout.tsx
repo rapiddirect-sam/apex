@@ -45,6 +45,11 @@ export const metadata: Metadata = {
   title: "Apex Batch | Precision Manufacturing, Intelligent Living",
   description:
     "Your partner for high-precision batch manufacturing. CNC machining, sheet metal, injection molding, and more with ISO-certified quality.",
+  icons: {
+    icon: "https://apex-batch-images.s3.us-east-1.amazonaws.com/favicon.png",
+    shortcut: "https://apex-batch-images.s3.us-east-1.amazonaws.com/favicon.png",
+    apple: "https://apex-batch-images.s3.us-east-1.amazonaws.com/favicon.png",
+  },
 };
 
 export default function RootLayout({
