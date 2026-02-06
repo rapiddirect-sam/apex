@@ -6,38 +6,50 @@ import Image from "next/image";
 const finishes = [
   {
     name: "Anodizing",
-    description: "Colored protective coating for aluminum with excellent corrosion and wear resistance",
-    ra: "0.8 - 1.6 μm",
+    compatibleMaterials: "Aluminum",
+    finish: "Matte / Glossy",
+    leadTime: "+1-2 days",
+    description: "Colored protective coating with excellent corrosion and wear resistance",
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
   },
   {
     name: "Hard Coat Anodizing",
+    compatibleMaterials: "Aluminum",
+    finish: "Matte",
+    leadTime: "+2-3 days",
     description: "Type III anodizing for maximum hardness and wear resistance on aluminum parts",
-    ra: "0.8 - 1.6 μm",
     image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&q=80",
   },
   {
     name: "Bead Blasting",
-    description: "Uniform matte texture that effectively hides machining marks and surface imperfections",
-    ra: "1.6 - 6.3 μm",
+    compatibleMaterials: "Aluminum, Stainless Steel",
+    finish: "Matte / Satin",
+    leadTime: "+1-2 days",
+    description: "Creates uniform matte appearance, removes tool marks, improves surface for painting",
     image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&q=80",
   },
   {
     name: "Passivation",
-    description: "Chemical treatment for stainless steel that enhances natural corrosion resistance",
-    ra: "Unchanged",
+    compatibleMaterials: "Stainless Steel",
+    finish: "Unchanged",
+    leadTime: "+1 day",
+    description: "Chemical treatment that enhances natural corrosion resistance",
     image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80",
   },
   {
     name: "Nickel/Chrome Plating",
+    compatibleMaterials: "Steel, Aluminum, Brass",
+    finish: "Glossy",
+    leadTime: "+3-5 days",
     description: "Electroplated coating for decorative finish and enhanced surface protection",
-    ra: "0.4 - 1.6 μm",
     image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=400&q=80",
   },
   {
     name: "Powder Coating",
+    compatibleMaterials: "Aluminum, Steel",
+    finish: "Matte / Glossy",
+    leadTime: "+2-3 days",
     description: "Durable decorative finish available in various colors for excellent protection",
-    ra: "1.6 - 3.2 μm",
     image: "https://images.unsplash.com/photo-1485083269755-a7b559a4fe5e?w=400&q=80",
   },
 ];
@@ -102,15 +114,8 @@ export function CNCSurfaceFinishes() {
               transition={{ delay: index * 0.08 }}
               className="group overflow-hidden transition-all duration-300 hover:-translate-y-1"
               style={{
-                background: `
-                  radial-gradient(
-                    60% 50% at 50% 0%,
-                    rgba(249,235,188,0.08),
-                    rgba(0,0,0,0) 65%
-                  ),
-                  #0D0D0D
-                `,
-                borderRadius: "18px",
+                background: "#1A1A1A",
+                borderRadius: "12px",
                 border: "2px solid rgba(208,153,71,0.35)",
                 boxShadow: "0 14px 36px rgba(0,0,0,0.45)",
               }}
@@ -123,52 +128,107 @@ export function CNCSurfaceFinishes() {
                 e.currentTarget.style.boxShadow = "0 14px 36px rgba(0,0,0,0.45)";
               }}
             >
-              {/* Image */}
-              <div className="relative h-40 overflow-hidden">
-                <Image
-                  src={finish.image}
-                  alt={finish.name}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div
-                  className="absolute inset-0"
+              {/* Top Content */}
+              <div style={{ padding: "24px 24px 0 24px" }}>
+                {/* Title */}
+                <h3
                   style={{
-                    background: "linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.6))",
+                    fontSize: "20px",
+                    fontWeight: 800,
+                    color: "#FFFFFF",
+                    marginBottom: "8px",
                   }}
-                />
-              </div>
+                >
+                  {finish.name}
+                </h3>
 
-              {/* Content */}
-              <div style={{ padding: "20px 24px" }}>
-                <div className="flex items-center justify-between mb-3">
-                  <h3
-                    style={{
-                      fontSize: "18px",
-                      fontWeight: 600,
-                      color: "#FFFFFF",
-                    }}
-                  >
-                    {finish.name}
-                  </h3>
-                  <span
-                    style={{
-                      border: "1px solid rgba(238,197,105,0.5)",
-                      color: "#F5D89A",
-                      background: "transparent",
-                      fontSize: "11px",
-                      padding: "4px 8px",
-                      borderRadius: "999px",
-                    }}
-                  >
-                    Ra: {finish.ra}
-                  </span>
-                </div>
+                {/* Compatible Materials */}
                 <p
                   style={{
                     fontSize: "14px",
-                    lineHeight: 1.65,
+                    color: "#7A7A7C",
+                    marginBottom: "20px",
+                  }}
+                >
+                  Compatible Materials: {finish.compatibleMaterials}
+                </p>
+
+                {/* Image */}
+                <div
+                  className="relative mx-auto"
+                  style={{
+                    width: "160px",
+                    height: "160px",
+                    marginBottom: "24px",
+                  }}
+                >
+                  <Image
+                    src={finish.image}
+                    alt={finish.name}
+                    fill
+                    className="object-cover rounded-full"
+                  />
+                </div>
+
+                {/* Finish and Lead Time */}
+                <div className="flex justify-between" style={{ marginBottom: "20px" }}>
+                  <div>
+                    <p
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: 700,
+                        color: "#EEC569",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      Finish
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        fontWeight: 600,
+                        color: "#FFFFFF",
+                      }}
+                    >
+                      {finish.finish}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: 700,
+                        color: "#EEC569",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      Lead Time Impact
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        fontWeight: 600,
+                        color: "#FFFFFF",
+                      }}
+                    >
+                      {finish.leadTime}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Description */}
+              <div
+                style={{
+                  padding: "16px 24px 24px 24px",
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: 1.6,
                     color: "#C5C6C9",
+                    textAlign: "center",
                   }}
                 >
                   {finish.description}

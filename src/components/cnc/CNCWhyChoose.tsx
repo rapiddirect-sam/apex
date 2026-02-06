@@ -37,14 +37,7 @@ export function CNCWhyChoose() {
       className="relative overflow-hidden"
       style={{
         padding: "112px 0 120px",
-        background: `
-          radial-gradient(
-            60% 50% at 50% 0%,
-            rgba(249,235,188,0.08),
-            rgba(0,0,0,0) 65%
-          ),
-          #000000
-        `,
+        background: "#34312F",
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
@@ -89,7 +82,7 @@ export function CNCWhyChoose() {
             <h3 style={{ fontSize: "18px", fontWeight: 600, color: "#FFFFFF", marginBottom: "8px" }}>
               {reasons[0].title}
             </h3>
-            <p style={{ fontSize: "13px", lineHeight: 1.6, color: "#9CA3AF" }}>
+            <p style={{ fontSize: "13px", lineHeight: 1.6, color: "#FFFFFF" }}>
               {reasons[0].description}
             </p>
           </motion.div>
@@ -111,7 +104,7 @@ export function CNCWhyChoose() {
             <h3 style={{ fontSize: "18px", fontWeight: 600, color: "#FFFFFF", marginBottom: "8px" }}>
               {reasons[1].title}
             </h3>
-            <p style={{ fontSize: "13px", lineHeight: 1.6, color: "#9CA3AF" }}>
+            <p style={{ fontSize: "13px", lineHeight: 1.6, color: "#FFFFFF" }}>
               {reasons[1].description}
             </p>
           </motion.div>
@@ -143,7 +136,7 @@ export function CNCWhyChoose() {
               style={{
                 fontSize: "14px",
                 lineHeight: 1.6,
-                color: "#9CA3AF",
+                color: "#FFFFFF",
                 marginBottom: "28px",
               }}
             >
@@ -193,7 +186,7 @@ export function CNCWhyChoose() {
             <h3 style={{ fontSize: "18px", fontWeight: 600, color: "#FFFFFF", marginBottom: "8px" }}>
               {reasons[2].title}
             </h3>
-            <p style={{ fontSize: "13px", lineHeight: 1.6, color: "#9CA3AF" }}>
+            <p style={{ fontSize: "13px", lineHeight: 1.6, color: "#FFFFFF" }}>
               {reasons[2].description}
             </p>
           </motion.div>
@@ -215,7 +208,7 @@ export function CNCWhyChoose() {
             <h3 style={{ fontSize: "18px", fontWeight: 600, color: "#FFFFFF", marginBottom: "8px" }}>
               {reasons[3].title}
             </h3>
-            <p style={{ fontSize: "13px", lineHeight: 1.6, color: "#9CA3AF" }}>
+            <p style={{ fontSize: "13px", lineHeight: 1.6, color: "#FFFFFF" }}>
               {reasons[3].description}
             </p>
           </motion.div>

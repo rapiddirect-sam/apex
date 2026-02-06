@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Image from "next/image";
 
 const materials = [
   {
@@ -15,6 +16,7 @@ const materials = [
       "Easy to anodize",
       "High thermal conductivity",
     ],
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
   },
   {
     name: "Stainless Steel",
@@ -27,6 +29,7 @@ const materials = [
       "Good temperature resistance",
       "Hygienic and easy to clean",
     ],
+    image: "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=600&q=80",
   },
   {
     name: "Steel Alloys",
@@ -39,6 +42,7 @@ const materials = [
       "Heat treatable",
       "Cost-effective",
     ],
+    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80",
   },
   {
     name: "Copper & Brass",
@@ -51,6 +55,7 @@ const materials = [
       "Natural antimicrobial",
       "Easy to machine",
     ],
+    image: "https://images.unsplash.com/photo-1605792657660-596af9009e82?w=600&q=80",
   },
   {
     name: "Titanium",
@@ -63,6 +68,7 @@ const materials = [
       "Excellent corrosion resistance",
       "High temperature resistance",
     ],
+    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80",
   },
   {
     name: "Plastics",
@@ -75,6 +81,7 @@ const materials = [
       "Electrical insulation",
       "Low friction options",
     ],
+    image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=600&q=80",
   },
 ];
 
@@ -172,91 +179,106 @@ export function CNCMaterials() {
               border: "1px solid rgba(208,153,71,0.2)",
             }}
           >
-            <h3
-              style={{
-                fontSize: "24px",
-                fontWeight: 600,
-                color: "#FFFFFF",
-                marginBottom: "14px",
-              }}
-            >
-              {materials[activeTab].name}
-            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Left Column - Content */}
+              <div>
+                <h3
+                  style={{
+                    fontSize: "24px",
+                    fontWeight: 600,
+                    color: "#FFFFFF",
+                    marginBottom: "14px",
+                  }}
+                >
+                  {materials[activeTab].name}
+                </h3>
 
-            <p
-              style={{
-                fontSize: "15px",
-                lineHeight: 1.65,
-                color: "#C5C6C9",
-                marginBottom: "28px",
-              }}
-            >
-              {materials[activeTab].description}
-            </p>
+                <p
+                  style={{
+                    fontSize: "15px",
+                    lineHeight: 1.65,
+                    color: "#C5C6C9",
+                    marginBottom: "28px",
+                  }}
+                >
+                  {materials[activeTab].description}
+                </p>
 
-            {/* Material Types */}
-            <div className="mb-6">
-              <h4
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 600,
-                  color: "#D09947",
-                  marginBottom: "14px",
-                }}
-              >
-                Available Grades
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {materials[activeTab].types.map((type) => (
-                  <span
-                    key={type}
+                {/* Material Types */}
+                <div className="mb-6">
+                  <h4
                     style={{
-                      border: "1px solid rgba(238,197,105,0.5)",
-                      color: "#F5D89A",
-                      background: "transparent",
-                      fontSize: "13px",
-                      padding: "6px 12px",
-                      borderRadius: "999px",
+                      fontSize: "14px",
+                      fontWeight: 600,
+                      color: "#D09947",
+                      marginBottom: "14px",
                     }}
                   >
-                    {type}
-                  </span>
-                ))}
-              </div>
-            </div>
+                    Available Grades
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {materials[activeTab].types.map((type) => (
+                      <span
+                        key={type}
+                        style={{
+                          border: "1px solid rgba(238,197,105,0.5)",
+                          color: "#F5D89A",
+                          background: "transparent",
+                          fontSize: "13px",
+                          padding: "6px 12px",
+                          borderRadius: "999px",
+                        }}
+                      >
+                        {type}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-            {/* Properties */}
-            <div>
-              <h4
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 600,
-                  color: "#D09947",
-                  marginBottom: "14px",
-                }}
-              >
-                Key Properties
-              </h4>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {materials[activeTab].properties.map((property) => (
-                  <li
-                    key={property}
-                    className="flex items-center gap-3"
-                    style={{ fontSize: "14px", color: "#C5C6C9" }}
+                {/* Properties */}
+                <div>
+                  <h4
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 600,
+                      color: "#D09947",
+                      marginBottom: "14px",
+                    }}
                   >
-                    <span
-                      style={{
-                        width: "6px",
-                        height: "6px",
-                        borderRadius: "50%",
-                        background: "#D09947",
-                        flexShrink: 0,
-                      }}
-                    />
-                    {property}
-                  </li>
-                ))}
-              </ul>
+                    Key Properties
+                  </h4>
+                  <ul className="flex flex-col gap-3">
+                    {materials[activeTab].properties.map((property) => (
+                      <li
+                        key={property}
+                        className="flex items-center gap-3"
+                        style={{ fontSize: "14px", color: "#C5C6C9" }}
+                      >
+                        <span
+                          style={{
+                            width: "6px",
+                            height: "6px",
+                            borderRadius: "50%",
+                            background: "#D09947",
+                            flexShrink: 0,
+                          }}
+                        />
+                        {property}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Right Column - Image */}
+              <div className="relative" style={{ minHeight: "280px", borderRadius: "12px", overflow: "hidden" }}>
+                <Image
+                  src={materials[activeTab].image}
+                  alt={materials[activeTab].name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
             </div>
           </motion.div>
         </div>

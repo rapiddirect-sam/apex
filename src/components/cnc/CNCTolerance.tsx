@@ -61,7 +61,7 @@ export function CNCTolerance() {
         `,
       }}
     >
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="max-w-[900px] mx-auto px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -99,7 +99,7 @@ export function CNCTolerance() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="overflow-x-auto flex justify-center"
+          className="overflow-x-auto"
         >
           <div
             style={{
@@ -126,9 +126,9 @@ export function CNCTolerance() {
                     borderBottom: "1px solid rgba(208,153,71,0.3)",
                     padding: "20px 28px",
                     textAlign: "center",
-                    color: "#FFFFFF",
+                    color: "#EEC569",
                     fontWeight: 700,
-                    fontSize: "17px",
+                    fontSize: "20px",
                   }}
                 >
                   Specification
@@ -139,9 +139,9 @@ export function CNCTolerance() {
                     borderBottom: "1px solid rgba(208,153,71,0.3)",
                     padding: "20px 28px",
                     textAlign: "center",
-                    color: "#FFFFFF",
+                    color: "#EEC569",
                     fontWeight: 700,
-                    fontSize: "17px",
+                    fontSize: "20px",
                   }}
                 >
                   Capability
@@ -152,9 +152,9 @@ export function CNCTolerance() {
                     borderBottom: "1px solid rgba(208,153,71,0.3)",
                     padding: "20px 28px",
                     textAlign: "center",
-                    color: "#FFFFFF",
+                    color: "#EEC569",
                     fontWeight: 700,
-                    fontSize: "17px",
+                    fontSize: "20px",
                   }}
                 >
                   Standard

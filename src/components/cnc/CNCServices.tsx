@@ -29,7 +29,7 @@ export function CNCServices() {
         background: "#34312F",
       }}
     >
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="max-w-[1000px] mx-auto px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -76,44 +76,19 @@ export function CNCServices() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group transition-all duration-300 hover:-translate-y-1"
+              className="group"
               style={{
-                background: `
-                  radial-gradient(
-                    60% 50% at 50% 0%,
-                    rgba(249,235,188,0.08),
-                    rgba(0,0,0,0) 65%
-                  ),
-                  #0D0D0D
-                `,
-                borderRadius: "18px",
-                border: "2px solid rgba(208,153,71,0.35)",
-                boxShadow: "0 14px 36px rgba(0,0,0,0.45)",
+                background: "#1A1A1A",
                 overflow: "hidden",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.border = "3px solid #D09947";
-                e.currentTarget.style.boxShadow = "0 0 50px rgba(208,153,71,0.7), 0 14px 36px rgba(0,0,0,0.45)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.border = "2px solid rgba(208,153,71,0.35)";
-                e.currentTarget.style.boxShadow = "0 14px 36px rgba(0,0,0,0.45)";
               }}
             >
               {/* Image */}
-              <div className="relative overflow-hidden" style={{ height: "220px" }}>
+              <div className="relative overflow-hidden" style={{ height: "260px" }}>
                 <Image
                   src={service.image}
                   alt={service.title}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                {/* Bottom fade overlay */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: "linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.6))",
-                  }}
+                  className="object-cover"
                 />
               </div>
 
@@ -121,10 +96,10 @@ export function CNCServices() {
               <div style={{ padding: "24px" }}>
                 <h3
                   style={{
-                    fontSize: "21px",
-                    fontWeight: 600,
+                    fontSize: "24px",
+                    fontWeight: 700,
                     color: "#FFFFFF",
-                    marginBottom: "12px",
+                    marginBottom: "16px",
                   }}
                 >
                   {service.title}
@@ -132,33 +107,42 @@ export function CNCServices() {
 
                 <p
                   style={{
-                    fontSize: "15px",
-                    lineHeight: 1.65,
+                    fontSize: "16px",
+                    lineHeight: 1.7,
                     color: "#C5C6C9",
-                    marginBottom: "20px",
+                    marginBottom: "24px",
                   }}
                 >
                   {service.description}
                 </p>
 
-                {/* Specs as pills */}
-                <div className="flex flex-wrap gap-2">
+                {/* Specs as bullet points */}
+                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                   {service.specs.map((spec) => (
-                    <span
+                    <li
                       key={spec}
                       style={{
-                        border: "1px solid rgba(238,197,105,0.5)",
-                        color: "#F5D89A",
-                        background: "transparent",
-                        fontSize: "13px",
-                        padding: "6px 10px",
-                        borderRadius: "999px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "12px",
+                        color: "#C5C6C9",
+                        fontSize: "16px",
+                        marginBottom: "8px",
                       }}
                     >
+                      <span
+                        style={{
+                          width: "8px",
+                          height: "8px",
+                          borderRadius: "50%",
+                          background: "#D09947",
+                          flexShrink: 0,
+                        }}
+                      />
                       {spec}
-                    </span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </motion.div>
           ))}

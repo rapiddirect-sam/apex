@@ -30,7 +30,7 @@ export function CNCCTA() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-2xl"
+          className="max-w-2xl mx-auto text-center"
         >
           <h2
             className="text-white"
@@ -56,7 +56,7 @@ export function CNCCTA() {
             analysis within 24 hours
           </p>
 
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 justify-center">
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 transition-all duration-300 hover:brightness-110 group"

@@ -45,14 +45,7 @@ export function CNCParts() {
       className="relative overflow-hidden"
       style={{
         padding: "112px 0 120px",
-        background: `
-          radial-gradient(
-            60% 50% at 50% 0%,
-            rgba(249,235,188,0.08),
-            rgba(0,0,0,0) 65%
-          ),
-          #000000
-        `,
+        background: "#000000",
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
@@ -169,16 +162,12 @@ export function CNCParts() {
                     <span
                       key={tag.label}
                       style={{
-                        fontSize: "12px",
-                        padding: "5px 10px",
+                        border: "1px solid rgba(238,197,105,0.5)",
+                        color: "#F5D89A",
+                        background: "transparent",
+                        fontSize: "13px",
+                        padding: "6px 10px",
                         borderRadius: "999px",
-                        background: tag.highlight
-                          ? "rgba(208,153,71,0.15)"
-                          : "transparent",
-                        border: tag.highlight
-                          ? "1px solid rgba(238,197,105,0.5)"
-                          : "1px solid rgba(255,255,255,0.2)",
-                        color: tag.highlight ? "#F5D89A" : "#C5C6C9",
                       }}
                     >
                       {tag.label}
