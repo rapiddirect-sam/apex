@@ -61,7 +61,7 @@ export function CNCTolerance() {
         `,
       }}
     >
-      <div className="max-w-[900px] mx-auto px-6">
+      <div className="max-w-[1200px] mx-auto px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -107,7 +107,7 @@ export function CNCTolerance() {
               border: "2px solid #7F4D0F",
               boxShadow: "inset 0 0 0 1px rgba(208,153,71,0.15), 0 24px 48px rgba(0,0,0,0.6)",
               overflow: "hidden",
-              maxWidth: "900px",
+              maxWidth: "100%",
               width: "100%",
             }}
           >

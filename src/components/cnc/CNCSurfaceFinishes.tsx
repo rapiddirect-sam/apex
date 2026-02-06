@@ -155,18 +155,20 @@ export function CNCSurfaceFinishes() {
 
                 {/* Image */}
                 <div
-                  className="relative mx-auto"
+                  className="relative"
                   style={{
-                    width: "160px",
-                    height: "160px",
+                    width: "100%",
+                    height: "180px",
                     marginBottom: "24px",
+                    borderRadius: "8px",
+                    overflow: "hidden",
                   }}
                 >
                   <Image
                     src={finish.image}
                     alt={finish.name}
                     fill
-                    className="object-cover rounded-full"
+                    className="object-cover"
                   />
                 </div>
 

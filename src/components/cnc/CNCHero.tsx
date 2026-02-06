@@ -8,6 +8,7 @@ import { ArrowRight } from "lucide-react";
 export function CNCHero() {
   return (
     <section className="relative bg-[#000000] pt-16 overflow-hidden">
+      <div className="max-w-[1200px] mx-auto px-6">
       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px]">
         {/* Left - Image */}
         <div className="relative h-[300px] lg:h-auto">
@@ -69,6 +70,7 @@ export function CNCHero() {
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>
+      </div>
       </div>
     </section>
   );

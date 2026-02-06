@@ -58,7 +58,7 @@ export function CNCSupplier() {
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left - Content */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -68,15 +68,15 @@ export function CNCSupplier() {
             <h2
               className="font-bold"
               style={{
-                fontSize: "46px",
+                fontSize: "36px",
                 fontWeight: 700,
                 letterSpacing: "-0.015em",
                 lineHeight: 1.1,
                 marginBottom: "24px",
+                whiteSpace: "nowrap",
               }}
             >
-              <span style={{ color: "#EEC569" }}>Precision CNC Machining Services</span>
-              <br />
+              <span style={{ color: "#EEC569" }}>Precision CNC Machining Services </span>
               <span style={{ color: "#FFFFFF" }}>Supplier</span>
             </h2>
 
@@ -147,6 +147,7 @@ export function CNCSupplier() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="relative"
+            style={{ marginTop: "80px" }}
           >
             <div
               className="relative overflow-hidden"
