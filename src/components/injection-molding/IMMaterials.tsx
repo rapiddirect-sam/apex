@@ -12,28 +12,28 @@ const materials = [
     icon: "M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z",
     grades: ["ABS", "PP", "HDPE", "GPPS"],
     benefits: "Cost-effective, excellent flow properties, easy processing",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/5-Injection-Molding-Material-General-Plastics.webp",
   },
   {
     name: "Engineering Plastics",
     icon: "M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65z",
     grades: ["PA (Nylon)", "PC", "POM", "PBT"],
     benefits: "High strength, heat resistance, dimensional stability",
-    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/5-Injection-Molding-Engineering-Plastics.webp",
   },
   {
     name: "High-Performance Plastics",
     icon: "M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z",
     grades: ["PEEK", "PEI", "PPS", "LCP"],
     benefits: "Extreme temperature resistance, chemical resistance, superior mechanical properties",
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/5-Injection-Molding-High-Performance-Plastics.webp",
   },
   {
     name: "Elastomers/TPE",
     icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z",
     grades: ["TPE", "TPU", "LSR", "Silicone"],
     benefits: "Flexibility, soft-touch feel, overmolding compatibility",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/5-Injection-Molding-Elastomers_TPE.webp",
   },
 ];
 

@@ -13,8 +13,8 @@ export function CNCHero() {
         {/* Left - Image */}
         <div className="relative h-[300px] lg:h-auto">
           <Image
-            src="https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1200&q=80"
-            alt="CNC Machined Parts"
+            src="https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp"
+            alt="Custom CNC Machining Services"
             fill
             className="object-cover"
           />

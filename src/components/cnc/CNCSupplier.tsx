@@ -14,20 +14,16 @@ const stats = [
 
 const images = [
   {
-    src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
-    alt: "Manufacturing Facility",
+    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/2-cnc-machining-machine-overview-1.webp",
+    alt: "CNC Machining Machine Overview",
   },
   {
-    src: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80",
-    alt: "CNC Machining Center",
+    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/2-cnc-machining-production-workshop-2.webp",
+    alt: "CNC Machining Production Workshop",
   },
   {
-    src: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80",
-    alt: "Precision Equipment",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80",
-    alt: "Production Floor",
+    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/2-cnc-machining-factory-3.webp",
+    alt: "CNC Machining Factory",
   },
 ];
 

@@ -9,14 +9,14 @@ const services = [
     description:
       "Ideal for complex geometries. Our 5-axis capabilities allow for multi-sided machining in a single setup, ensuring superior positional accuracy.",
     specs: ["Max Envelope: 1500mm", "Tolerance: ±0.01mm"],
-    image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/3-cnc-milling-machining-service.webp",
   },
   {
     title: "CNC Turning / Mill-Turn",
     description:
       "High-efficiency solutions for cylindrical parts. Swiss-style machining available for small, intricate components in high volumes.",
     specs: ["Roundness: 0.005mm", "Surface Finish: Ra 0.4"],
-    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/cnc-turning.webp",
   },
 ];
 

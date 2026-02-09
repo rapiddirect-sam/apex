@@ -13,8 +13,8 @@ export function IMHero() {
           {/* Left - Image */}
           <div className="relative h-[300px] lg:h-auto">
             <Image
-              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80"
-              alt="Injection Molded Parts"
+              src="https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp"
+              alt="Plastic Injection Molding Manufacturer"
               fill
               className="object-cover"
             />

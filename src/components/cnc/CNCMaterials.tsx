@@ -16,7 +16,7 @@ const materials = [
       "Easy to anodize",
       "High thermal conductivity",
     ],
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/5-aluminum-cnc-machining-materials.webp",
   },
   {
     name: "Stainless Steel",
@@ -29,7 +29,7 @@ const materials = [
       "Good temperature resistance",
       "Hygienic and easy to clean",
     ],
-    image: "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/5-stainless-steel-cnc-machining.webp",
   },
   {
     name: "Steel Alloys",
@@ -42,7 +42,20 @@ const materials = [
       "Heat treatable",
       "Cost-effective",
     ],
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/5-steel-alloy-cnc-machining-materials.webp",
+  },
+  {
+    name: "Tool Steel",
+    types: ["D2", "A2", "O1", "S7", "H13"],
+    description:
+      "Extremely hard and wear-resistant steels designed for cutting tools, dies, and molds. Excellent dimensional stability under heat.",
+    properties: [
+      "Superior hardness and wear resistance",
+      "Excellent dimensional stability",
+      "High heat resistance",
+      "Long tool life",
+    ],
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/5-tool-steel-cnc-machining.webp",
   },
   {
     name: "Copper & Brass",
@@ -55,33 +68,46 @@ const materials = [
       "Natural antimicrobial",
       "Easy to machine",
     ],
-    image: "https://images.unsplash.com/photo-1605792657660-596af9009e82?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/5-copper-brass-cnc-machining-materials.webp",
   },
   {
-    name: "Titanium",
-    types: ["Grade 2", "Grade 5 (Ti-6Al-4V)", "Grade 23"],
+    name: "Engineering Plastics",
+    types: ["Delrin/POM", "Nylon/PA", "PC", "PBT"],
     description:
-      "Exceptional strength-to-weight ratio and biocompatibility. Ideal for aerospace, medical implants, and high-performance applications.",
+      "High-performance thermoplastics with enhanced mechanical properties. Ideal for precision parts requiring strength, stiffness, and dimensional stability.",
     properties: [
-      "Highest strength-to-weight ratio",
-      "Biocompatible",
-      "Excellent corrosion resistance",
-      "High temperature resistance",
-    ],
-    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80",
-  },
-  {
-    name: "Plastics",
-    types: ["Delrin/POM", "Nylon", "PEEK", "PTFE", "ABS", "Polycarbonate"],
-    description:
-      "Versatile engineering plastics for lightweight, chemical-resistant, and electrically insulating applications.",
-    properties: [
-      "Lightweight",
+      "High strength and stiffness",
+      "Good dimensional stability",
       "Chemical resistance",
-      "Electrical insulation",
       "Low friction options",
     ],
-    image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/5-engineering-plastics-cnc-machining.webp",
+  },
+  {
+    name: "General Plastics",
+    types: ["ABS", "PP", "HDPE", "GPPS", "Acrylic"],
+    description:
+      "Cost-effective plastics for prototyping, enclosures, and non-structural components with good machinability.",
+    properties: [
+      "Lightweight",
+      "Cost-effective",
+      "Easy to machine",
+      "Good electrical insulation",
+    ],
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/5-general-plastics-cnc-machining.webp",
+  },
+  {
+    name: "High Performance",
+    types: ["PEEK", "PEI/Ultem", "PTFE", "PPS"],
+    description:
+      "Advanced polymers for extreme environments. Outstanding thermal, chemical, and mechanical performance for demanding applications.",
+    properties: [
+      "Extreme temperature resistance",
+      "Superior chemical resistance",
+      "Excellent mechanical properties",
+      "Biocompatible options",
+    ],
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/5-high-performance-materials-cnc-machining.webp",
   },
 ];
 

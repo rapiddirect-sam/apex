@@ -8,21 +8,21 @@ const parts = [
     name: "Medical Fluid Connector",
     description:
       "Ultrasonically welded and leak-tested after molding for guaranteed sterile fluid paths.",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Medical-Fluid Connector.webp",
     tags: ["PC", "ultrasonic welding", "leak-proof"],
   },
   {
     name: "Automotive Vent Grille",
     description:
       "Molded with precise, deep textures to achieve a consistent matte appearance across complex surfaces.",
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Automotive Vent-Grille.webp",
     tags: ["ABS", "texture molding", "SPI-D", "automotive interior"],
   },
   {
     name: "Wearable Device Band",
     description:
       "Soft-touch overmolding on a rigid core for durable and comfortable skin contact.",
-    image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Wearable-Device Band.webp",
     tags: ["two-shot", "TPE overmolding", "wearable"],
   },
 ];

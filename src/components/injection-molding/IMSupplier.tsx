@@ -14,20 +14,24 @@ const stats = [
 
 const images = [
   {
-    src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
-    alt: "Manufacturing Facility",
+    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-injection-molding-factory-workshop-1.webp",
+    alt: "Injection Molding Factory Workshop",
   },
   {
-    src: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80",
-    alt: "Injection Molding Center",
+    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-plastic-injection-molding-production-line-2.webp",
+    alt: "Plastic Injection Molding Production Line",
   },
   {
-    src: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80",
-    alt: "Precision Equipment",
+    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-custom-injection-molding-manufacturing-facility-3.webp",
+    alt: "Custom Injection Molding Manufacturing Facility",
   },
   {
-    src: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80",
-    alt: "Production Floor",
+    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-injection-molding-machines-on-site-4.webp",
+    alt: "Injection Molding Machines On Site",
+  },
+  {
+    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-plastic-injection-molding-factory-5.webp",
+    alt: "Plastic Injection Molding Factory",
   },
 ];
 

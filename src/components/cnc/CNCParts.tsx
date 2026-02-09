@@ -13,7 +13,7 @@ const parts = [
       { label: "Tolerance: ±0.05mm", highlight: false },
       { label: "Process: 5-axis machining", highlight: false },
     ],
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/4-UAV-structural components.webp",
   },
   {
     title: "Medical Device Housing",
@@ -24,7 +24,7 @@ const parts = [
       { label: "Tolerance: ±0.015mm", highlight: true },
       { label: "Finish: Passivation", highlight: false },
     ],
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/4-Medical-Device Housing.webp",
   },
   {
     title: "Automotive Sensor Mount",
@@ -35,7 +35,7 @@ const parts = [
       { label: "Tolerance: ±0.03mm", highlight: true },
       { label: "Finish: Black Anodize", highlight: false },
     ],
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/4-Automotive Sensor Mount.webp",
   },
 ];
 

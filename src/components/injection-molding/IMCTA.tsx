@@ -11,7 +11,7 @@ export function IMCTA() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1600&q=80"
+          src="https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/injection-molding-footer.webp"
           alt="Injection Molding Manufacturing"
           fill
           className="object-cover"

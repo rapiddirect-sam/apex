@@ -14,7 +14,7 @@ const services = [
       "Low minimum order quantity",
       "Design for manufacturability feedback",
     ],
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-rapid-injection-molding-prototyping.webp",
   },
   {
     name: "High-Volume Production",
@@ -26,7 +26,7 @@ const services = [
       "Quality control at every stage",
       "Just-in-time delivery options",
     ],
-    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-high-volume-injection-molding-production.webp",
   },
   {
     name: "Custom Solutions",
@@ -38,7 +38,7 @@ const services = [
       "Liquid silicone rubber (LSR)",
       "Micro-injection molding",
     ],
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-custom-injection-molding-solutions.webp",
   },
 ];
 

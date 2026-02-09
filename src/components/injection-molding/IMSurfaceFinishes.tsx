@@ -11,7 +11,7 @@ const finishes = [
     roughness: "< 0.1",
     description:
       "Mirror-like surface with exceptional reflectivity, ideal for optical and decorative applications.",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIA(High-Gloss).webp",
   },
   {
     name: "SPI B (Semi-Gloss)",
@@ -20,7 +20,7 @@ const finishes = [
     roughness: "0.1 - 0.4",
     description:
       "Soft satin finish that minimizes fingerprints while maintaining a professional appearance.",
-    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIB(Semi-Gloss).webp",
   },
   {
     name: "SPI C (Fine Matte)",
@@ -29,7 +29,7 @@ const finishes = [
     roughness: "0.4 - 1.6",
     description:
       "Uniform non-glossy surface that effectively hides minor imperfections and mold lines.",
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIC(Fine Matte).webp",
   },
   {
     name: "SPI D (Coarse Matte/Sandblast)",
@@ -38,7 +38,7 @@ const finishes = [
     roughness: "> 1.6",
     description:
       "Textured finish providing enhanced grip and masking of surface defects.",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPID(Coarse-Matte-Sandblast).webp",
   },
 ];
 

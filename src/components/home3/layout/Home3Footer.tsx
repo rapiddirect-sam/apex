@@ -10,13 +10,12 @@ const quickLinks = [
   { href: "#services", label: "Services" },
   { href: "#capabilities", label: "Capabilities" },
   { href: "/#industries", label: "Industries" },
-  { href: "/quality", label: "Quality Assurance" },
+  { href: "/reviews", label: "Reviews" },
 ];
 
 const aboutLinks = [
   { href: "/about", label: "About Us" },
   { href: "/about#team-structure", label: "Our Team" },
-  { href: "/quality#certifications", label: "Certifications" },
 ];
 
 const socialLinks = [

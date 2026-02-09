@@ -10,7 +10,7 @@ const finishes = [
     finish: "Matte / Glossy",
     leadTime: "+1-2 days",
     description: "Colored protective coating with excellent corrosion and wear resistance",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/6-finishing-services-anodizing.webp",
   },
   {
     name: "Hard Coat Anodizing",
@@ -18,7 +18,7 @@ const finishes = [
     finish: "Matte",
     leadTime: "+2-3 days",
     description: "Type III anodizing for maximum hardness and wear resistance on aluminum parts",
-    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/6-finishing-services-Hard-Coat-Anodizing.webp",
   },
   {
     name: "Bead Blasting",
@@ -26,7 +26,7 @@ const finishes = [
     finish: "Matte / Satin",
     leadTime: "+1-2 days",
     description: "Creates uniform matte appearance, removes tool marks, improves surface for painting",
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/6-finishing-services-Bead-Blasting.webp",
   },
   {
     name: "Passivation",
@@ -34,7 +34,7 @@ const finishes = [
     finish: "Unchanged",
     leadTime: "+1 day",
     description: "Chemical treatment that enhances natural corrosion resistance",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/6-finishing-services-laser-passivation.webp",
   },
   {
     name: "Nickel/Chrome Plating",
@@ -42,7 +42,7 @@ const finishes = [
     finish: "Glossy",
     leadTime: "+3-5 days",
     description: "Electroplated coating for decorative finish and enhanced surface protection",
-    image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=400&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/6-finishing-services-nickel-plating.webp",
   },
   {
     name: "Powder Coating",
@@ -50,7 +50,7 @@ const finishes = [
     finish: "Matte / Glossy",
     leadTime: "+2-3 days",
     description: "Durable decorative finish available in various colors for excellent protection",
-    image: "https://images.unsplash.com/photo-1485083269755-a7b559a4fe5e?w=400&q=80",
+    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/6-finishing-services-powder-coating.webp",
   },
 ];
 
