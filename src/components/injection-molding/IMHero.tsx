@@ -8,7 +8,7 @@ import { ArrowRight } from "lucide-react";
 export function IMHero() {
   return (
     <section className="relative bg-[#000000] pt-16 overflow-hidden">
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px]">
           {/* Left - Image */}
           <div className="relative h-[300px] lg:h-auto">
