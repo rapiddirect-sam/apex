@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { getPageMetaWithDefaults } from "@/lib/pageMeta";
+import { getPageContent } from "@/lib/pageContent";
 import { ContactPageClient } from "./ContactPageClient";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -13,6 +14,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function ContactPage() {
-  return <ContactPageClient />;
+export default async function ContactPage() {
+  const { content, version } = await getPageContent("/contact");
+
+  return (
+    <ContactPageClient
+      initialContent={content}
+      initialVersion={version}
+    />
+  );
 }

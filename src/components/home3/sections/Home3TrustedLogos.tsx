@@ -1,6 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { EditableText } from "@/components/cms";
+
+const DEFAULTS = {
+  logos: [
+    { name: "Microsoft" },
+    { name: "EMERSON" },
+    { name: "Nikon" },
+    { name: "TOYOTA" },
+    { name: "FESTO" },
+  ],
+};
 
 export function Home3TrustedLogos() {
   return (
@@ -20,20 +31,31 @@ export function Home3TrustedLogos() {
               <div className="bg-current" />
               <div className="bg-current" />
             </div>
-            <span className="text-lg font-semibold tracking-wide">Microsoft</span>
+            <span className="text-lg font-semibold tracking-wide">
+              <EditableText
+                path="trustedLogos.items.0.name"
+                defaultValue={DEFAULTS.logos[0].name}
+              />
+            </span>
           </div>
 
           {/* Emerson */}
           <div className="text-[#888888] hover:text-[#AAAAAA] transition-colors">
             <span className="text-xl font-bold tracking-wider" style={{ fontFamily: 'serif' }}>
-              EMERSON
+              <EditableText
+                path="trustedLogos.items.1.name"
+                defaultValue={DEFAULTS.logos[1].name}
+              />
             </span>
           </div>
 
           {/* Nikon */}
           <div className="text-[#888888] hover:text-[#AAAAAA] transition-colors">
             <span className="text-2xl font-bold italic tracking-tight" style={{ fontFamily: 'serif' }}>
-              Nikon
+              <EditableText
+                path="trustedLogos.items.2.name"
+                defaultValue={DEFAULTS.logos[2].name}
+              />
             </span>
           </div>
 
@@ -44,12 +66,22 @@ export function Home3TrustedLogos() {
               <ellipse cx="12" cy="12" rx="4" ry="10" fill="none" stroke="currentColor" strokeWidth="1.5" />
               <ellipse cx="12" cy="12" rx="10" ry="10" fill="none" stroke="currentColor" strokeWidth="1.5" />
             </svg>
-            <span className="text-lg font-bold tracking-widest">TOYOTA</span>
+            <span className="text-lg font-bold tracking-widest">
+              <EditableText
+                path="trustedLogos.items.3.name"
+                defaultValue={DEFAULTS.logos[3].name}
+              />
+            </span>
           </div>
 
           {/* Festo */}
           <div className="text-[#888888] hover:text-[#AAAAAA] transition-colors">
-            <span className="text-xl font-bold tracking-widest">FESTO</span>
+            <span className="text-xl font-bold tracking-widest">
+              <EditableText
+                path="trustedLogos.items.4.name"
+                defaultValue={DEFAULTS.logos[4].name}
+              />
+            </span>
           </div>
         </motion.div>
       </div>

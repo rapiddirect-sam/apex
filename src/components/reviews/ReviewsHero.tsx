@@ -2,17 +2,35 @@
 
 import { motion } from "framer-motion";
 import { CheckCircle, Building2, Globe } from "lucide-react";
+import { EditableText, EditableImage } from "@/components/cms";
+
+const DEFAULTS = {
+  backgroundImage: "/reviews/hero-bg.jpg",
+  heading: "Trusted by Global Manufacturing Clients",
+  subheading: "Real Reviews from Real Engineers",
+  description:
+    "From precision CNC machining to high-volume injection molding, Apexbatch delivers consistent quality for aerospace, automotive, and medical industries worldwide.",
+  stat1: "Verified Client Reviews",
+  stat2: "250+ Industrial Projects Delivered",
+  stat3: "Serving North America, Europe & Asia",
+};
 
 export function ReviewsHero() {
   return (
     <section
       className="relative pt-32 pb-16 overflow-hidden"
-      style={{
-        backgroundImage: "url('/reviews/hero-bg.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
     >
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <EditableImage
+          path="hero.backgroundImage"
+          defaultSrc={DEFAULTS.backgroundImage}
+          alt="Reviews hero background"
+          fill
+          style={{ objectFit: "cover" }}
+        />
+      </div>
+
       {/* Dark overlay */}
       <div
         className="absolute inset-0"
@@ -46,7 +64,7 @@ export function ReviewsHero() {
                 marginBottom: "8px",
               }}
             >
-              Trusted by Global Manufacturing Clients
+              <EditableText path="hero.heading" defaultValue={DEFAULTS.heading} />
             </h1>
 
             <h2
@@ -57,7 +75,7 @@ export function ReviewsHero() {
                 marginBottom: "20px",
               }}
             >
-              Real Reviews from Real Engineers
+              <EditableText path="hero.subheading" defaultValue={DEFAULTS.subheading} />
             </h2>
 
             <p
@@ -68,9 +86,7 @@ export function ReviewsHero() {
                 marginBottom: "32px",
               }}
             >
-              From precision CNC machining to high-volume injection molding,
-              Apexbatch delivers consistent quality for aerospace, automotive,
-              and medical industries worldwide.
+              <EditableText path="hero.description" defaultValue={DEFAULTS.description} multiline />
             </p>
 
             {/* Stats row - in separate rectangular container */}
@@ -88,7 +104,7 @@ export function ReviewsHero() {
                   style={{ width: "16px", height: "16px", color: "#EEC569" }}
                 />
                 <span style={{ color: "#FFFFFF", fontSize: "12px" }}>
-                  Verified Client Reviews
+                  <EditableText path="hero.stat1" defaultValue={DEFAULTS.stat1} />
                 </span>
               </div>
               <div className="flex items-center gap-2">
@@ -96,7 +112,7 @@ export function ReviewsHero() {
                   style={{ width: "16px", height: "16px", color: "#EEC569" }}
                 />
                 <span style={{ color: "#FFFFFF", fontSize: "12px" }}>
-                  250+ Industrial Projects Delivered
+                  <EditableText path="hero.stat2" defaultValue={DEFAULTS.stat2} />
                 </span>
               </div>
               <div className="flex items-center gap-2">
@@ -104,7 +120,7 @@ export function ReviewsHero() {
                   style={{ width: "16px", height: "16px", color: "#EEC569" }}
                 />
                 <span style={{ color: "#FFFFFF", fontSize: "12px" }}>
-                  Serving North America, Europe & Asia
+                  <EditableText path="hero.stat3" defaultValue={DEFAULTS.stat3} />
                 </span>
               </div>
             </div>

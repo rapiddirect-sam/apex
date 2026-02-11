@@ -10,6 +10,7 @@ interface EditableImageProps {
   defaultSrc: string;
   alt: string;
   className?: string;
+  containerClassName?: string;
   style?: CSSProperties;
   width?: number;
   height?: number;
@@ -22,6 +23,7 @@ export function EditableImage({
   defaultSrc,
   alt,
   className,
+  containerClassName,
   style,
   width,
   height,
@@ -70,17 +72,19 @@ export function EditableImage({
     e.target.value = "";
   };
 
+  // Determine if we need to use <img> for external URLs
+  const isExternal = currentSrc.startsWith("http") || currentSrc.includes(".gif");
+
   // Image props for Next/Image
   const imageProps = fill
     ? { fill: true as const, style: { objectFit: "cover" as const, ...style } }
     : { width: width || 400, height: height || 300, style };
 
-  // Non-edit mode - render image normally
+  // Non-edit mode - render image normally (no wrapper div)
   if (!isEditMode) {
-    // Use regular img for external URLs or special formats
-    if (currentSrc.startsWith("http") || currentSrc.includes(".gif")) {
+    if (isExternal) {
       const imgStyle: CSSProperties = fill
-        ? { width: "100%", height: "100%", objectFit: "cover", ...style }
+        ? { position: "absolute" as const, width: "100%", height: "100%", objectFit: "cover", ...style }
         : style || {};
       return (
         // eslint-disable-next-line @next/next/no-img-element
@@ -104,22 +108,21 @@ export function EditableImage({
     );
   }
 
-  // Edit mode
-  const containerStyle: CSSProperties = {
-    position: "relative",
-    display: fill ? "block" : "inline-block",
-    width: fill ? "100%" : width,
-    height: fill ? "100%" : height,
-  };
-
+  // Edit mode - wrap in a container for the upload overlay
   return (
     <div
-      style={containerStyle}
+      className={containerClassName}
+      style={{
+        position: "relative",
+        display: fill ? "block" : "inline-block",
+        width: fill ? "100%" : width,
+        height: fill ? "100%" : height,
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image */}
-      {currentSrc.startsWith("http") || currentSrc.includes(".gif") ? (
+      {isExternal ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={currentSrc}
@@ -151,6 +154,8 @@ export function EditableImage({
             justifyContent: "center",
             cursor: isUploading ? "wait" : "pointer",
             transition: "opacity 0.2s",
+            zIndex: 10,
+            borderRadius: "inherit",
           }}
         >
           {isUploading ? (
@@ -158,7 +163,7 @@ export function EditableImage({
               <Loader2
                 size={32}
                 color="#D09947"
-                style={{ animation: "spin 1s linear infinite" }}
+                className="animate-spin"
               />
               <span style={{ color: "#D09947", fontSize: "12px", marginTop: "8px" }}>
                 Uploading...
@@ -183,18 +188,6 @@ export function EditableImage({
         onChange={handleFileChange}
         style={{ display: "none" }}
       />
-
-      {/* Spin animation */}
-      <style jsx>{`
-        @keyframes spin {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
     </div>
   );
 }

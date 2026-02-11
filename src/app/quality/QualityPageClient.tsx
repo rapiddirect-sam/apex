@@ -8,10 +8,21 @@ import { QualityConsistency } from "@/components/quality/QualityConsistency";
 import { QualityEquipment } from "@/components/quality/QualityEquipment";
 import { QualityCertifications } from "@/components/quality/QualityCertifications";
 import { QualityCTA } from "@/components/quality/QualityCTA";
+import { CMSProvider } from "@/contexts/CMSContext";
+import { CMSToolbar } from "@/components/cms";
 
-export function QualityPageClient() {
+interface QualityPageClientProps {
+  initialContent: Record<string, unknown> | null;
+  initialVersion: number;
+}
+
+export function QualityPageClient({ initialContent, initialVersion }: QualityPageClientProps) {
   return (
-    <>
+    <CMSProvider
+      pageSlug="/quality"
+      initialContent={initialContent}
+      initialVersion={initialVersion}
+    >
       <Home3Header />
       <main className="bg-[#000000] min-h-screen">
         <QualityHero />
@@ -22,6 +33,7 @@ export function QualityPageClient() {
         <QualityCTA />
       </main>
       <Home3Footer />
-    </>
+      <CMSToolbar />
+    </CMSProvider>
   );
 }

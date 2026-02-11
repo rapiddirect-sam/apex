@@ -1,32 +1,37 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const equipment = [
-  {
-    name: "ZEISS CMM",
-    description: "Measures complex surfaces and geometric profiles to ensure precise component fit and assembly accuracy.",
-    image: getImageUrl("quality/qc-equipment-1.png"),
-  },
-  {
-    name: "2.5D Image Measuring",
-    description: "Performs non-contact optical inspection, ideal for delicate or reflective components requiring accurate measurement without surface contact.",
-    image: getImageUrl("quality/qc-equipment-2.png"),
-  },
-  {
-    name: "Spectrometer",
-    description: "Identifies material alloy composition within seconds, preventing material mix-up and ensuring correct material specifications.",
-    image: getImageUrl("quality/qc-equipment-2.png"),
-  },
-  {
-    name: "Roughness Tester",
-    description: "Quantifies surface finish characteristics critical for friction, wear resistance, and sealing performance in moving components.",
-    image: getImageUrl("quality/qc-equipment-2.png"),
-  },
-];
+const DEFAULTS = {
+  sectionTitle: "Advanced Quality Control ",
+  sectionTitleHighlight: "Equipment",
+  sectionDescription: "State-of-the-art inspection technology ensuring precision at every measurement",
+  equipment: [
+    {
+      name: "ZEISS CMM",
+      description: "Measures complex surfaces and geometric profiles to ensure precise component fit and assembly accuracy.",
+      image: getImageUrl("quality/qc-equipment-1.png"),
+    },
+    {
+      name: "2.5D Image Measuring",
+      description: "Performs non-contact optical inspection, ideal for delicate or reflective components requiring accurate measurement without surface contact.",
+      image: getImageUrl("quality/qc-equipment-2.png"),
+    },
+    {
+      name: "Spectrometer",
+      description: "Identifies material alloy composition within seconds, preventing material mix-up and ensuring correct material specifications.",
+      image: getImageUrl("quality/qc-equipment-2.png"),
+    },
+    {
+      name: "Roughness Tester",
+      description: "Quantifies surface finish characteristics critical for friction, wear resistance, and sealing performance in moving components.",
+      image: getImageUrl("quality/qc-equipment-2.png"),
+    },
+  ],
+};
 
 export function QualityEquipment() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -62,7 +67,10 @@ export function QualityEquipment() {
               letterSpacing: "-0.015em",
             }}
           >
-            Advanced Quality Control <span style={{ color: "#EEC569" }}>Equipment</span>
+            <EditableText path="equipment.sectionTitle" defaultValue={DEFAULTS.sectionTitle} />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText path="equipment.sectionTitleHighlight" defaultValue={DEFAULTS.sectionTitleHighlight} />
+            </span>
           </h2>
           <p
             style={{
@@ -73,15 +81,19 @@ export function QualityEquipment() {
               margin: "16px auto 0",
             }}
           >
-            State-of-the-art inspection technology ensuring precision at every measurement
+            <EditableText
+              path="equipment.sectionDescription"
+              defaultValue={DEFAULTS.sectionDescription}
+              multiline
+            />
           </p>
         </motion.div>
 
         {/* Equipment Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {equipment.map((item, index) => (
+          {DEFAULTS.equipment.map((item, index) => (
             <motion.div
-              key={item.name}
+              key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -102,13 +114,14 @@ export function QualityEquipment() {
             >
               {/* Image */}
               <div className="relative h-48 overflow-hidden" style={{ background: "#3A3A3A" }}>
-                <Image
-                  src={item.image}
+                <EditableImage
+                  path={`equipment.items.${index}.image`}
+                  defaultSrc={item.image}
                   alt={item.name}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#34312F] to-transparent opacity-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#34312F] to-transparent opacity-60 pointer-events-none" />
               </div>
 
               {/* Content */}
@@ -121,9 +134,18 @@ export function QualityEquipment() {
                     marginBottom: "8px",
                   }}
                 >
-                  {item.name}
+                  <EditableText
+                    path={`equipment.items.${index}.name`}
+                    defaultValue={item.name}
+                  />
                 </h3>
-                <p style={{ color: "#C5C6C9", fontSize: "14px", lineHeight: 1.6 }}>{item.description}</p>
+                <p style={{ color: "#C5C6C9", fontSize: "14px", lineHeight: 1.6 }}>
+                  <EditableText
+                    path={`equipment.items.${index}.description`}
+                    defaultValue={item.description}
+                    multiline
+                  />
+                </p>
               </div>
             </motion.div>
           ))}

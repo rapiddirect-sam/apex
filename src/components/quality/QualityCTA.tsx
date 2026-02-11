@@ -3,6 +3,17 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { EditableText } from "@/components/cms";
+
+const DEFAULTS = {
+  heading: "Ready to Experience Our ",
+  headingHighlight: "Quality Standards",
+  headingSuffix: "?",
+  description:
+    "Request our comprehensive quality package including certifications, inspection capabilities, and sample reports to see how we can meet your quality requirements.",
+  ctaText: "Request Quality Package",
+  footerText: "Get certifications, process documentation, and sample inspection reports",
+};
 
 export function QualityCTA() {
   return (
@@ -47,7 +58,11 @@ export function QualityCTA() {
                 marginBottom: "16px",
               }}
             >
-              Ready to Experience Our <span style={{ color: "#EEC569" }}>Quality Standards</span>?
+              <EditableText path="cta.heading" defaultValue={DEFAULTS.heading} />
+              <span style={{ color: "#EEC569" }}>
+                <EditableText path="cta.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+              </span>
+              <EditableText path="cta.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
             </h2>
             <p
               style={{
@@ -58,19 +73,26 @@ export function QualityCTA() {
                 margin: "0 auto 32px",
               }}
             >
-              Request our comprehensive quality package including certifications, inspection capabilities, and sample reports to see how we can meet your quality requirements.
+              <EditableText
+                path="cta.description"
+                defaultValue={DEFAULTS.description}
+                multiline
+              />
             </p>
 
             <Link
               href="/contact"
               className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
             >
-              Request Quality Package
+              <EditableText path="cta.ctaText" defaultValue={DEFAULTS.ctaText} />
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
 
             <p style={{ color: "#7A7A7C", fontSize: "14px", marginTop: "24px" }}>
-              Get certifications, process documentation, and sample inspection reports
+              <EditableText
+                path="cta.footerText"
+                defaultValue={DEFAULTS.footerText}
+              />
             </p>
           </div>
         </motion.div>

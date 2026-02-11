@@ -2,32 +2,54 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Sparkles, Settings, ArrowRight } from "lucide-react";
+import { ChevronDown, Sparkles, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { EditableText } from "@/components/cms";
 
-const faqItems = [
-  {
-    question: "What manufacturing tolerances can ApexBatch achieve for precision components?",
-    answer: "We achieve tolerances as tight as ±0.01mm for CNC machining and ±0.05mm for standard parts. Our Zeiss CMM equipment verifies critical dimensions to ensure your specifications are met consistently across production runs.",
-  },
-  {
-    question: "How does ApexBatch ensure quality consistency across production batches?",
-    answer: "We implement rigorous IPQC (In-Process Quality Control) every 2 hours during production. Combined with first article inspection, final inspection, and full documentation including COC and material certificates, we maintain 99.8% quality rates across all orders.",
-  },
-  {
-    question: "What is your typical lead time for prototype vs. batch production?",
-    answer: "Standard lead times range from 5-10 business days for prototypes and 2-4 weeks for production runs depending on complexity and quantity. We offer expedited services for urgent projects.",
-  },
-  {
-    question: "How does ApexBatch handle material selection and certification for regulated industries?",
-    answer: "Yes, we provide full material traceability and certification for all orders. This includes mill certificates, material test reports, and certificates of conformance. We source materials from approved suppliers with documented quality standards.",
-  },
-  {
-    question: "What after-sales solutions does ApexBatch provide?",
-    answer: "We provide comprehensive after-sales support including technical consultation, design optimization for future orders, quality issue resolution, and ongoing engineering support. Our dedicated project managers are available to assist with any concerns.",
-  },
-];
+const DEFAULTS = {
+  titleWhite: "Have Any ",
+  titleHighlight: "Questions?",
+  subtitle:
+    "Find answers to common questions about our precision manufacturing services, quality standards, and production capabilities",
+  faqItems: [
+    {
+      question:
+        "What manufacturing tolerances can ApexBatch achieve for precision components?",
+      answer:
+        "We achieve tolerances as tight as \u00B10.01mm for CNC machining and \u00B10.05mm for standard parts. Our Zeiss CMM equipment verifies critical dimensions to ensure your specifications are met consistently across production runs.",
+    },
+    {
+      question:
+        "How does ApexBatch ensure quality consistency across production batches?",
+      answer:
+        "We implement rigorous IPQC (In-Process Quality Control) every 2 hours during production. Combined with first article inspection, final inspection, and full documentation including COC and material certificates, we maintain 99.8% quality rates across all orders.",
+    },
+    {
+      question:
+        "What is your typical lead time for prototype vs. batch production?",
+      answer:
+        "Standard lead times range from 5-10 business days for prototypes and 2-4 weeks for production runs depending on complexity and quantity. We offer expedited services for urgent projects.",
+    },
+    {
+      question:
+        "How does ApexBatch handle material selection and certification for regulated industries?",
+      answer:
+        "Yes, we provide full material traceability and certification for all orders. This includes mill certificates, material test reports, and certificates of conformance. We source materials from approved suppliers with documented quality standards.",
+    },
+    {
+      question:
+        "What after-sales solutions does ApexBatch provide?",
+      answer:
+        "We provide comprehensive after-sales support including technical consultation, design optimization for future orders, quality issue resolution, and ongoing engineering support. Our dedicated project managers are available to assist with any concerns.",
+    },
+  ],
+  stillHaveQuestionsTitle: "Still Have Questions?",
+  stillHaveQuestionsDescription:
+    "Our engineering team is ready to discuss your specific manufacturing requirements and provide tailored solutions for your project.",
+  contactButton: "Contact Sales Team",
+  quoteButton: "Request a Quote",
+};
 
 export function Home3FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -57,16 +79,29 @@ export function Home3FAQ() {
           className="text-center mb-6"
         >
           <h2 className="text-white mb-4 tracking-[-0.02em]" style={{ fontSize: "clamp(36px, 7vw, 68px)", fontWeight: 800 }}>
-            Have Any <span className="text-[#EEC569]">Questions?</span>
+            <EditableText
+              path="faq.titleWhite"
+              defaultValue={DEFAULTS.titleWhite}
+            />
+            <span className="text-[#EEC569]">
+              <EditableText
+                path="faq.titleHighlight"
+                defaultValue={DEFAULTS.titleHighlight}
+              />
+            </span>
           </h2>
           <p className="max-w-xl mx-auto leading-relaxed" style={{ color: "#888888", fontSize: "clamp(16px, 2.5vw, 21px)" }}>
-            Find answers to common questions about our precision manufacturing services, quality standards, and production capabilities
+            <EditableText
+              path="faq.subtitle"
+              defaultValue={DEFAULTS.subtitle}
+              multiline
+            />
           </p>
         </motion.div>
 
         {/* FAQ Accordion - Card Style with proper spacing */}
         <div className="space-y-3 mb-12 mt-12">
-          {faqItems.map((item, index) => (
+          {DEFAULTS.faqItems.map((item, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -98,7 +133,10 @@ export function Home3FAQ() {
 
                 {/* Question Text - max 85% width, larger font */}
                 <span className="flex-1 font-semibold max-w-[85%] leading-snug text-base sm:text-lg md:text-[21px]" style={{ color: "#FFFFFF" }}>
-                  {item.question}
+                  <EditableText
+                    path={`faq.items.${index}.question`}
+                    defaultValue={item.question}
+                  />
                 </span>
 
                 {/* Chevron with animation - larger size */}
@@ -124,7 +162,11 @@ export function Home3FAQ() {
                     {/* Answer with proper spacing - mt-3, pb-7 */}
                     <div className="px-6 pb-7 pl-6 sm:pl-[76px]">
                       <p className="text-white text-[15px] leading-[1.7] mt-1">
-                        {item.answer}
+                        <EditableText
+                          path={`faq.items.${index}.answer`}
+                          defaultValue={item.answer}
+                          multiline
+                        />
                       </p>
                     </div>
                   </motion.div>
@@ -147,17 +189,27 @@ export function Home3FAQ() {
           </div>
 
           <h3 style={{ fontSize: "clamp(24px, 4vw, 30px)", fontWeight: 800, color: "#FFFFFF", marginBottom: "12px" }}>
-            Still Have Questions?
+            <EditableText
+              path="faq.stillHaveQuestionsTitle"
+              defaultValue={DEFAULTS.stillHaveQuestionsTitle}
+            />
           </h3>
           <p style={{ fontSize: "clamp(16px, 2.5vw, 21px)", color: "#F9EBBC", maxWidth: "480px", marginLeft: "auto", marginRight: "auto", lineHeight: 1.5, marginBottom: "32px" }}>
-            Our engineering team is ready to discuss your specific manufacturing requirements and provide tailored solutions for your project.
+            <EditableText
+              path="faq.stillHaveQuestionsDescription"
+              defaultValue={DEFAULTS.stillHaveQuestionsDescription}
+              multiline
+            />
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/contact"
               className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
             >
-              Contact Sales Team
+              <EditableText
+                path="faq.contactButton"
+                defaultValue={DEFAULTS.contactButton}
+              />
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
@@ -165,7 +217,10 @@ export function Home3FAQ() {
               rel="nofollow"
               className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
             >
-              Request a Quote
+              <EditableText
+                path="faq.quoteButton"
+                defaultValue={DEFAULTS.quoteButton}
+              />
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

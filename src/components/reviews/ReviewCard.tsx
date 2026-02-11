@@ -3,8 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Star, ChevronDown, ChevronUp } from "lucide-react";
+import { EditableText } from "@/components/cms";
 
 interface ReviewCardProps {
+  index: number;
   name: string;
   initials: string;
   location: string;
@@ -18,21 +20,22 @@ interface ReviewCardProps {
 }
 
 const countryFlags: Record<string, string> = {
-  DE: "🇩🇪",
-  US: "🇺🇸",
-  UK: "🇬🇧",
-  FR: "🇫🇷",
-  JP: "🇯🇵",
-  CN: "🇨🇳",
-  CA: "🇨🇦",
-  AU: "🇦🇺",
-  IT: "🇮🇹",
-  NL: "🇳🇱",
-  KR: "🇰🇷",
-  CH: "🇨🇭",
+  DE: "\u{1F1E9}\u{1F1EA}",
+  US: "\u{1F1FA}\u{1F1F8}",
+  UK: "\u{1F1EC}\u{1F1E7}",
+  FR: "\u{1F1EB}\u{1F1F7}",
+  JP: "\u{1F1EF}\u{1F1F5}",
+  CN: "\u{1F1E8}\u{1F1F3}",
+  CA: "\u{1F1E8}\u{1F1E6}",
+  AU: "\u{1F1E6}\u{1F1FA}",
+  IT: "\u{1F1EE}\u{1F1F9}",
+  NL: "\u{1F1F3}\u{1F1F1}",
+  KR: "\u{1F1F0}\u{1F1F7}",
+  CH: "\u{1F1E8}\u{1F1ED}",
 };
 
 export function ReviewCard({
+  index,
   name,
   initials,
   location,
@@ -50,6 +53,8 @@ export function ReviewCard({
   const displayText = shouldTruncate && !isExpanded
     ? quote.slice(0, 200) + "..."
     : quote;
+
+  const basePath = `grid.reviews.${index}`;
 
   return (
     <div
@@ -75,13 +80,19 @@ export function ReviewCard({
             justifyContent: "center",
           }}
         >
-          <span style={{ color: "#FFFFFF", fontWeight: 700, fontSize: "18px" }}>{initials}</span>
+          <span style={{ color: "#FFFFFF", fontWeight: 700, fontSize: "18px" }}>
+            <EditableText path={`${basePath}.initials`} defaultValue={initials} />
+          </span>
         </div>
         <div>
-          <h3 style={{ color: "#FFFFFF", fontWeight: 600, fontSize: "16px" }}>{name}</h3>
+          <h3 style={{ color: "#FFFFFF", fontWeight: 600, fontSize: "16px" }}>
+            <EditableText path={`${basePath}.name`} defaultValue={name} />
+          </h3>
           <p style={{ color: "#C5C6C9", fontSize: "14px", display: "flex", alignItems: "center", gap: "6px" }}>
-            <span>{countryFlags[countryCode] || "🌍"}</span>
-            <span>{location}</span>
+            <span>{countryFlags[countryCode] || "\u{1F30D}"}</span>
+            <span>
+              <EditableText path={`${basePath}.location`} defaultValue={location} />
+            </span>
           </p>
         </div>
       </div>
@@ -103,14 +114,18 @@ export function ReviewCard({
 
       {/* Project Type and Date */}
       <div className="flex items-center justify-between mb-4">
-        <span style={{ color: "#C5C6C9", fontSize: "14px" }}>{projectType}</span>
-        <span style={{ color: "#7A7A7C", fontSize: "13px" }}>{date}</span>
+        <span style={{ color: "#C5C6C9", fontSize: "14px" }}>
+          <EditableText path={`${basePath}.projectType`} defaultValue={projectType} />
+        </span>
+        <span style={{ color: "#7A7A7C", fontSize: "13px" }}>
+          <EditableText path={`${basePath}.date`} defaultValue={date} />
+        </span>
       </div>
 
       {/* Quote */}
       <div className="flex-grow">
         <p style={{ color: "#FFFFFF", fontStyle: "italic", fontSize: "14px", lineHeight: 1.6 }}>
-          &quot;{displayText}&quot;
+          &quot;<EditableText path={`${basePath}.quote`} defaultValue={displayText} multiline />&quot;
         </p>
 
         {shouldTruncate && (

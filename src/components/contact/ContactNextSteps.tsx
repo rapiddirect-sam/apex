@@ -1,5 +1,34 @@
 "use client";
 
+import { EditableText } from "@/components/cms";
+
+const DEFAULTS = {
+  pillLabel: "NEXT STEPS",
+  headingPrefix: "What Happens ",
+  headingHighlight: "Next?",
+  subheading:
+    "Our streamlined process ensures you get the attention and results you deserve",
+  // Card 1
+  card1Title: "Quick Response",
+  card1Description:
+    "We review your inquiry and respond within 24 hours with initial feedback and next steps.",
+  card1Time: "Within 24 hours",
+  // Card 2
+  card2Title: "Consultation Call",
+  card2Description:
+    "Schedule a detailed consultation with our experts to discuss your requirements and project scope.",
+  card2Time: "2-3 business days",
+  // Card 3
+  card3Title: "Project Launch",
+  card3Description:
+    "Receive a customized proposal and timeline. Once approved, we kick off your project immediately.",
+  card3Time: "1 week",
+  // Bottom CTA
+  ctaHeading:
+    "Ready to get started? Fill out the form above and let's begin your journey to success.",
+  ctaSubtext: "Our team is standing by to help bring your vision to life.",
+};
+
 export function ContactNextSteps() {
   return (
     <section
@@ -59,7 +88,10 @@ export function ContactNextSteps() {
                 textTransform: "uppercase",
               }}
             >
-              NEXT STEPS
+              <EditableText
+                path="nextSteps.pillLabel"
+                defaultValue={DEFAULTS.pillLabel}
+              />
             </span>
           </div>
         </div>
@@ -75,7 +107,16 @@ export function ContactNextSteps() {
             letterSpacing: "-0.015em",
           }}
         >
-          What Happens <span style={{ color: "#EEC569" }}>Next?</span>
+          <EditableText
+            path="nextSteps.headingPrefix"
+            defaultValue={DEFAULTS.headingPrefix}
+          />
+          <span style={{ color: "#EEC569" }}>
+            <EditableText
+              path="nextSteps.headingHighlight"
+              defaultValue={DEFAULTS.headingHighlight}
+            />
+          </span>
         </h2>
 
         {/* Subheading */}
@@ -88,8 +129,11 @@ export function ContactNextSteps() {
             fontWeight: 400,
           }}
         >
-          Our streamlined process ensures you get the attention and results you
-          deserve
+          <EditableText
+            path="nextSteps.subheading"
+            defaultValue={DEFAULTS.subheading}
+            multiline
+          />
         </p>
 
         {/* Cards container */}
@@ -212,7 +256,10 @@ export function ContactNextSteps() {
                 margin: "0 0 16px 0",
               }}
             >
-              Quick Response
+              <EditableText
+                path="nextSteps.card1Title"
+                defaultValue={DEFAULTS.card1Title}
+              />
             </h3>
 
             {/* Description */}
@@ -224,8 +271,11 @@ export function ContactNextSteps() {
                 margin: "0 0 24px 0",
               }}
             >
-              We review your inquiry and respond within 24 hours with initial
-              feedback and next steps.
+              <EditableText
+                path="nextSteps.card1Description"
+                defaultValue={DEFAULTS.card1Description}
+                multiline
+              />
             </p>
 
             {/* Divider */}
@@ -263,7 +313,10 @@ export function ContactNextSteps() {
                   fontWeight: "500",
                 }}
               >
-                Within 24 hours
+                <EditableText
+                  path="nextSteps.card1Time"
+                  defaultValue={DEFAULTS.card1Time}
+                />
               </span>
             </div>
           </div>
@@ -382,7 +435,10 @@ export function ContactNextSteps() {
                 margin: "0 0 16px 0",
               }}
             >
-              Consultation Call
+              <EditableText
+                path="nextSteps.card2Title"
+                defaultValue={DEFAULTS.card2Title}
+              />
             </h3>
 
             {/* Description */}
@@ -394,8 +450,11 @@ export function ContactNextSteps() {
                 margin: "0 0 24px 0",
               }}
             >
-              Schedule a detailed consultation with our experts to discuss your
-              requirements and project scope.
+              <EditableText
+                path="nextSteps.card2Description"
+                defaultValue={DEFAULTS.card2Description}
+                multiline
+              />
             </p>
 
             {/* Divider */}
@@ -433,7 +492,10 @@ export function ContactNextSteps() {
                   fontWeight: "500",
                 }}
               >
-                2-3 business days
+                <EditableText
+                  path="nextSteps.card2Time"
+                  defaultValue={DEFAULTS.card2Time}
+                />
               </span>
             </div>
           </div>
@@ -525,7 +587,10 @@ export function ContactNextSteps() {
                 margin: "0 0 16px 0",
               }}
             >
-              Project Launch
+              <EditableText
+                path="nextSteps.card3Title"
+                defaultValue={DEFAULTS.card3Title}
+              />
             </h3>
 
             {/* Description */}
@@ -537,8 +602,11 @@ export function ContactNextSteps() {
                 margin: "0 0 24px 0",
               }}
             >
-              Receive a customized proposal and timeline. Once approved, we kick
-              off your project immediately.
+              <EditableText
+                path="nextSteps.card3Description"
+                defaultValue={DEFAULTS.card3Description}
+                multiline
+              />
             </p>
 
             {/* Divider */}
@@ -576,7 +644,10 @@ export function ContactNextSteps() {
                   fontWeight: "500",
                 }}
               >
-                1 week
+                <EditableText
+                  path="nextSteps.card3Time"
+                  defaultValue={DEFAULTS.card3Time}
+                />
               </span>
             </div>
           </div>
@@ -621,8 +692,11 @@ export function ContactNextSteps() {
               fontWeight: 500,
             }}
           >
-            Ready to get started? Fill out the form above and let&apos;s begin
-            your journey to success.
+            <EditableText
+              path="nextSteps.ctaHeading"
+              defaultValue={DEFAULTS.ctaHeading}
+              multiline
+            />
           </p>
           <p
             style={{
@@ -632,7 +706,11 @@ export function ContactNextSteps() {
               fontWeight: 400,
             }}
           >
-            Our team is standing by to help bring your vision to life.
+            <EditableText
+              path="nextSteps.ctaSubtext"
+              defaultValue={DEFAULTS.ctaSubtext}
+              multiline
+            />
           </p>
         </div>
       </div>

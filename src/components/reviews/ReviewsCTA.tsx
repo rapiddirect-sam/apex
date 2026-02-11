@@ -2,6 +2,16 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { EditableText } from "@/components/cms";
+
+const DEFAULTS = {
+  headingPrefix: "Join Industry Leaders Who ",
+  headingHighlight: "Build with Precision",
+  description:
+    "Apexbatch delivers manufacturing solutions for engineering teams that demand quality, reliability, and technical partnership.",
+  primaryButton: "Request a Quote",
+  secondaryButton: "Contact Engineering Team",
+};
 
 export function ReviewsCTA() {
   return (
@@ -26,7 +36,10 @@ export function ReviewsCTA() {
             marginBottom: "32px",
           }}
         >
-          Join Industry Leaders Who <span style={{ color: "#EEC569" }}>Build with Precision</span>
+          <EditableText path="cta.headingPrefix" defaultValue={DEFAULTS.headingPrefix} />
+          <span style={{ color: "#EEC569" }}>
+            <EditableText path="cta.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+          </span>
         </motion.h2>
 
         {/* Description */}
@@ -43,7 +56,7 @@ export function ReviewsCTA() {
             margin: "0 auto 48px",
           }}
         >
-          Apexbatch delivers manufacturing solutions for engineering teams that demand quality, reliability, and technical partnership.
+          <EditableText path="cta.description" defaultValue={DEFAULTS.description} multiline />
         </motion.p>
 
         {/* Buttons */}
@@ -69,7 +82,7 @@ export function ReviewsCTA() {
               borderRadius: "4px",
             }}
           >
-            Request a Quote
+            <EditableText path="cta.primaryButton" defaultValue={DEFAULTS.primaryButton} />
           </Link>
           <Link
             href="/contact"
@@ -86,7 +99,7 @@ export function ReviewsCTA() {
               borderRadius: "4px",
             }}
           >
-            Contact Engineering Team
+            <EditableText path="cta.secondaryButton" defaultValue={DEFAULTS.secondaryButton} />
           </Link>
         </motion.div>
       </div>

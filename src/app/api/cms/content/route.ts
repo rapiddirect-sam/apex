@@ -2,16 +2,42 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { upsertPageContent, getPageContent } from "@/lib/pageContent";
 import { isUserAdmin } from "@/lib/admin";
-import { auth, isFirebaseConfigured } from "@/lib/firebase";
+import { verifyIdToken } from "@/lib/firebaseAdmin";
+
+// Simple schema validation for CMS content
+function validateContent(content: unknown): { valid: boolean; error?: string } {
+  if (!content || typeof content !== "object") {
+    return { valid: false, error: "Content must be a non-null object" };
+  }
+
+  // Check for reasonable size (prevent abuse)
+  const json = JSON.stringify(content);
+  if (json.length > 1_000_000) {
+    return { valid: false, error: "Content too large (max 1MB)" };
+  }
+
+  // Check nesting depth (prevent deeply nested objects)
+  function checkDepth(obj: unknown, depth: number): boolean {
+    if (depth > 10) return false;
+    if (obj && typeof obj === "object") {
+      for (const value of Object.values(obj as Record<string, unknown>)) {
+        if (!checkDepth(value, depth + 1)) return false;
+      }
+    }
+    return true;
+  }
+
+  if (!checkDepth(content, 0)) {
+    return { valid: false, error: "Content nesting too deep (max 10 levels)" };
+  }
+
+  return { valid: true };
+}
 
 /**
  * Get user email from Firebase auth token in cookie
  */
 async function getUserEmailFromRequest(): Promise<string | null> {
-  if (!isFirebaseConfigured || !auth) {
-    return null;
-  }
-
   try {
     const cookieStore = await cookies();
     const sessionCookie = cookieStore.get("auth-session");
@@ -20,19 +46,8 @@ async function getUserEmailFromRequest(): Promise<string | null> {
       return null;
     }
 
-    // The cookie contains the ID token
-    // In a production app, you'd verify this server-side with Firebase Admin SDK
-    // For now, we'll trust the token and extract the email from it
-    // This is a simplified version - consider using Firebase Admin SDK for proper verification
-
-    // Decode the JWT to get the email (without verification - this is a demo)
-    const tokenParts = sessionCookie.value.split(".");
-    if (tokenParts.length !== 3) {
-      return null;
-    }
-
-    const payload = JSON.parse(atob(tokenParts[1]));
-    return payload.email || null;
+    const result = await verifyIdToken(sessionCookie.value);
+    return result?.email || null;
   } catch (error) {
     console.error("Error getting user from token:", error);
     return null;
@@ -79,14 +94,16 @@ export async function PUT(request: NextRequest) {
 
     // Parse request body
     const body = await request.json();
-    const { pageSlug, content, version } = body;
+    const { pageSlug, content } = body;
 
-    if (!pageSlug) {
-      return NextResponse.json({ error: "Missing pageSlug" }, { status: 400 });
+    if (!pageSlug || typeof pageSlug !== "string") {
+      return NextResponse.json({ error: "Missing or invalid pageSlug" }, { status: 400 });
     }
 
-    if (!content || typeof content !== "object") {
-      return NextResponse.json({ error: "Invalid content" }, { status: 400 });
+    // Validate content structure
+    const validation = validateContent(content);
+    if (!validation.valid) {
+      return NextResponse.json({ error: validation.error }, { status: 400 });
     }
 
     // Save content

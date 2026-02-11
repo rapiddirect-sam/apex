@@ -1,41 +1,48 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const stats = [
-  { value: "50,000 m²", label: "Total Factory Area" },
-  { value: "8", label: "Specialized Production Shops" },
-  { value: "300+", label: "Advanced Equipment" },
-  { value: "98%", label: "On-time Delivery" },
-];
-
-const images = [
-  {
-    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/2-cnc-machining-machine-overview-1.webp",
-    alt: "CNC Machining Machine Overview",
-  },
-  {
-    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/2-cnc-machining-production-workshop-2.webp",
-    alt: "CNC Machining Production Workshop",
-  },
-  {
-    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/2-cnc-machining-factory-3.webp",
-    alt: "CNC Machining Factory",
-  },
-];
+const DEFAULTS = {
+  headingHighlight: "Precision CNC Machining Services ",
+  headingSuffix: "Supplier",
+  description1:
+    "Located in Shenzhen\u2019s advanced manufacturing district, our 50,000 m\u00B2 vertically integrated facility operates 8 specialized production shops and is equipped with 300+ advanced machines.",
+  description2:
+    "We support end-to-end manufacturing in one location, including CNC machining, precision injection molding, sheet metal fabrication, 3D printing, as well as in-house surface treatment and quality inspection lines.",
+  stats: [
+    { value: "50,000 m\u00B2", label: "Total Factory Area" },
+    { value: "8", label: "Specialized Production Shops" },
+    { value: "300+", label: "Advanced Equipment" },
+    { value: "98%", label: "On-time Delivery" },
+  ],
+  images: [
+    {
+      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/2-cnc-machining-machine-overview-1.webp",
+      alt: "CNC Machining Machine Overview",
+    },
+    {
+      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/2-cnc-machining-production-workshop-2.webp",
+      alt: "CNC Machining Production Workshop",
+    },
+    {
+      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/2-cnc-machining-factory-3.webp",
+      alt: "CNC Machining Factory",
+    },
+  ],
+};
 
 export function CNCSupplier() {
   const [currentImage, setCurrentImage] = useState(0);
 
   const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % images.length);
+    setCurrentImage((prev) => (prev + 1) % DEFAULTS.images.length);
   };
 
   const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
+    setCurrentImage((prev) => (prev - 1 + DEFAULTS.images.length) % DEFAULTS.images.length);
   };
 
   return (
@@ -72,11 +79,15 @@ export function CNCSupplier() {
                 whiteSpace: "nowrap",
               }}
             >
-              <span style={{ color: "#EEC569" }}>Precision CNC Machining Services </span>
-              <span style={{ color: "#FFFFFF" }}>Supplier</span>
+              <span style={{ color: "#EEC569" }}>
+                <EditableText path="supplier.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+              </span>
+              <span style={{ color: "#FFFFFF" }}>
+                <EditableText path="supplier.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
+              </span>
             </h2>
 
-            <p
+            <div
               style={{
                 fontSize: "15px",
                 lineHeight: 1.7,
@@ -84,19 +95,18 @@ export function CNCSupplier() {
                 marginBottom: "32px",
               }}
             >
-              Located in Shenzhen&apos;s advanced manufacturing district, our 50,000
-              m² vertically integrated facility operates 8 specialized production
-              shops and is equipped with 300+ advanced machines.
-              <br /><br />
-              We support end-to-end manufacturing in one location, including CNC
-              machining, precision injection molding, sheet metal fabrication, 3D
-              printing, as well as in-house surface treatment and quality inspection
-              lines.
-            </p>
+              <p>
+                <EditableText path="supplier.description1" defaultValue={DEFAULTS.description1} multiline />
+              </p>
+              <br />
+              <p>
+                <EditableText path="supplier.description2" defaultValue={DEFAULTS.description2} multiline />
+              </p>
+            </div>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-2 gap-4">
-              {stats.map((stat, index) => (
+              {DEFAULTS.stats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
                   initial={{ opacity: 0, y: 20 }}
@@ -119,7 +129,7 @@ export function CNCSupplier() {
                       lineHeight: 1.1,
                     }}
                   >
-                    {stat.value}
+                    <EditableText path={`supplier.stats.${index}.value`} defaultValue={stat.value} />
                   </div>
                   <div
                     style={{
@@ -130,7 +140,7 @@ export function CNCSupplier() {
                       letterSpacing: "0.05em",
                     }}
                   >
-                    {stat.label}
+                    <EditableText path={`supplier.stats.${index}.label`} defaultValue={stat.label} />
                   </div>
                 </motion.div>
               ))}
@@ -154,47 +164,16 @@ export function CNCSupplier() {
               }}
             >
               {/* Corner brackets */}
-              <div
-                className="absolute top-3 left-3 z-10"
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderTop: "2px solid #7F4D0F",
-                  borderLeft: "2px solid #7F4D0F",
-                }}
-              />
-              <div
-                className="absolute top-3 right-3 z-10"
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderTop: "2px solid #7F4D0F",
-                  borderRight: "2px solid #7F4D0F",
-                }}
-              />
-              <div
-                className="absolute bottom-3 left-3 z-10"
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderBottom: "2px solid #7F4D0F",
-                  borderLeft: "2px solid #7F4D0F",
-                }}
-              />
-              <div
-                className="absolute bottom-3 right-3 z-10"
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderBottom: "2px solid #7F4D0F",
-                  borderRight: "2px solid #7F4D0F",
-                }}
-              />
+              <div className="absolute top-3 left-3 z-10" style={{ width: "24px", height: "24px", borderTop: "2px solid #7F4D0F", borderLeft: "2px solid #7F4D0F" }} />
+              <div className="absolute top-3 right-3 z-10" style={{ width: "24px", height: "24px", borderTop: "2px solid #7F4D0F", borderRight: "2px solid #7F4D0F" }} />
+              <div className="absolute bottom-3 left-3 z-10" style={{ width: "24px", height: "24px", borderBottom: "2px solid #7F4D0F", borderLeft: "2px solid #7F4D0F" }} />
+              <div className="absolute bottom-3 right-3 z-10" style={{ width: "24px", height: "24px", borderBottom: "2px solid #7F4D0F", borderRight: "2px solid #7F4D0F" }} />
 
               <div className="relative aspect-[4/3]">
-                <Image
-                  src={images[currentImage].src}
-                  alt={images[currentImage].alt}
+                <EditableImage
+                  path={`supplier.images.${currentImage}.src`}
+                  defaultSrc={DEFAULTS.images[currentImage].src}
+                  alt={DEFAULTS.images[currentImage].alt}
                   fill
                   className="object-cover transition-opacity duration-500"
                 />
@@ -203,26 +182,14 @@ export function CNCSupplier() {
                 <button
                   onClick={prevImage}
                   className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300 hover:bg-[rgba(208,153,71,0.15)]"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "8px",
-                    background: "rgba(0,0,0,0.75)",
-                    border: "1px solid rgba(208,153,71,0.4)",
-                  }}
+                  style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.75)", border: "1px solid rgba(208,153,71,0.4)" }}
                 >
                   <ChevronLeft className="w-5 h-5" style={{ color: "#D09947" }} />
                 </button>
                 <button
                   onClick={nextImage}
                   className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300 hover:bg-[rgba(208,153,71,0.15)]"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "8px",
-                    background: "rgba(0,0,0,0.75)",
-                    border: "1px solid rgba(208,153,71,0.4)",
-                  }}
+                  style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.75)", border: "1px solid rgba(208,153,71,0.4)" }}
                 >
                   <ChevronRight className="w-5 h-5" style={{ color: "#D09947" }} />
                 </button>
@@ -231,7 +198,7 @@ export function CNCSupplier() {
 
             {/* Dot indicators */}
             <div className="flex justify-center gap-2 mt-5">
-              {images.map((_, index) => (
+              {DEFAULTS.images.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentImage(index)}

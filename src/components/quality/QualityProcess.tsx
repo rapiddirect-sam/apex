@@ -3,63 +3,76 @@
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const stages = [
-  {
-    number: "01",
-    title: "Incoming Material Inspection",
-    subtitle: "Preventing non-conforming materials from entering production flow",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
-    keyProcedures: [
-      "Supplier certification verification",
-      "Material test reports review",
-      "Incoming quality inspection",
-      "Non-conforming material quarantine",
-    ],
-    coreParameters: [
-      "Material composition analysis",
-      "Hardness testing",
-      "Dimensional verification",
-      "Surface quality check",
-    ],
-  },
-  {
-    number: "02",
-    title: "In-Process Quality Control",
-    subtitle: "Monitoring during manufacturing to catch issues early",
-    image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80",
-    keyProcedures: [
-      "First Article Inspection (FAI)",
-      "Statistical Process Control (SPC)",
-      "In-process dimension checks",
-      "Process parameter monitoring",
-    ],
-    coreParameters: [
-      "Critical dimensions tracking",
-      "Surface roughness measurement",
-      "Geometric tolerances (GD&T)",
-      "Tool wear monitoring",
-    ],
-  },
-  {
-    number: "03",
-    title: "Final Inspection & Delivery",
-    subtitle: "Comprehensive outgoing verification before shipment",
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80",
-    keyProcedures: [
-      "100% final inspection",
-      "Inspection report generation",
-      "Certificate of Conformance",
-      "Traceable packaging & labeling",
-    ],
-    coreParameters: [
-      "Full dimensional verification",
-      "Surface finish validation",
-      "Functional testing",
-      "Visual inspection standards",
-    ],
-  },
-];
+const DEFAULTS = {
+  sectionTitle: "Quality Control ",
+  sectionTitleHighlight: "System",
+  sectionDescription: "Three-phase inspection system ensuring quality at every stage of production",
+  ctaText: "Request Quality Package",
+  stages: [
+    {
+      number: "01",
+      title: "Incoming Material Inspection",
+      subtitle: "Preventing non-conforming materials from entering production flow",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+      keyProceduresTitle: "Key Procedures",
+      keyProcedures: [
+        "Supplier certification verification",
+        "Material test reports review",
+        "Incoming quality inspection",
+        "Non-conforming material quarantine",
+      ],
+      coreParametersTitle: "Core Inspection Parameters",
+      coreParameters: [
+        "Material composition analysis",
+        "Hardness testing",
+        "Dimensional verification",
+        "Surface quality check",
+      ],
+    },
+    {
+      number: "02",
+      title: "In-Process Quality Control",
+      subtitle: "Monitoring during manufacturing to catch issues early",
+      image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80",
+      keyProceduresTitle: "Key Procedures",
+      keyProcedures: [
+        "First Article Inspection (FAI)",
+        "Statistical Process Control (SPC)",
+        "In-process dimension checks",
+        "Process parameter monitoring",
+      ],
+      coreParametersTitle: "Core Inspection Parameters",
+      coreParameters: [
+        "Critical dimensions tracking",
+        "Surface roughness measurement",
+        "Geometric tolerances (GD&T)",
+        "Tool wear monitoring",
+      ],
+    },
+    {
+      number: "03",
+      title: "Final Inspection & Delivery",
+      subtitle: "Comprehensive outgoing verification before shipment",
+      image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80",
+      keyProceduresTitle: "Key Procedures",
+      keyProcedures: [
+        "100% final inspection",
+        "Inspection report generation",
+        "Certificate of Conformance",
+        "Traceable packaging & labeling",
+      ],
+      coreParametersTitle: "Core Inspection Parameters",
+      coreParameters: [
+        "Full dimensional verification",
+        "Surface finish validation",
+        "Functional testing",
+        "Visual inspection standards",
+      ],
+    },
+  ],
+};
 
 export function QualityProcess() {
   return (
@@ -78,7 +91,7 @@ export function QualityProcess() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-<h2
+          <h2
             style={{
               fontSize: "clamp(32px, 5vw, 46px)",
               fontWeight: 700,
@@ -86,7 +99,10 @@ export function QualityProcess() {
               letterSpacing: "-0.015em",
             }}
           >
-            Quality Control <span style={{ color: "#EEC569" }}>System</span>
+            <EditableText path="process.sectionTitle" defaultValue={DEFAULTS.sectionTitle} />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText path="process.sectionTitleHighlight" defaultValue={DEFAULTS.sectionTitleHighlight} />
+            </span>
           </h2>
           <p
             style={{
@@ -97,13 +113,17 @@ export function QualityProcess() {
               margin: "16px auto 0",
             }}
           >
-            Three-phase inspection system ensuring quality at every stage of production
+            <EditableText
+              path="process.sectionDescription"
+              defaultValue={DEFAULTS.sectionDescription}
+              multiline
+            />
           </p>
         </motion.div>
 
         {/* Process Cards - Vertical Stack */}
         <div className="space-y-12">
-          {stages.map((stage, index) => (
+          {DEFAULTS.stages.map((stage, index) => (
             <motion.div
               key={stage.number}
               initial={{ opacity: 0, y: 30 }}
@@ -126,14 +146,11 @@ export function QualityProcess() {
                   overflow: "hidden",
                 }}
               >
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    backgroundImage: `url('${stage.image}')`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
+                <EditableImage
+                  path={`process.stages.${index}.image`}
+                  defaultSrc={stage.image}
+                  alt={stage.title}
+                  fill
                 />
                 {/* Dark overlay on image */}
                 <div
@@ -141,6 +158,7 @@ export function QualityProcess() {
                     position: "absolute",
                     inset: 0,
                     background: "linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%)",
+                    pointerEvents: "none",
                   }}
                 />
               </div>
@@ -176,7 +194,10 @@ export function QualityProcess() {
                         fontWeight: 700,
                       }}
                     >
-                      {stage.number}
+                      <EditableText
+                        path={`process.stages.${index}.number`}
+                        defaultValue={stage.number}
+                      />
                     </span>
                   </div>
 
@@ -189,7 +210,10 @@ export function QualityProcess() {
                       margin: 0,
                     }}
                   >
-                    {stage.title}
+                    <EditableText
+                      path={`process.stages.${index}.title`}
+                      defaultValue={stage.title}
+                    />
                   </h3>
                 </div>
 
@@ -202,7 +226,10 @@ export function QualityProcess() {
                     marginBottom: "clamp(20px, 4vw, 32px)",
                   }}
                 >
-                  {stage.subtitle}
+                  <EditableText
+                    path={`process.stages.${index}.subtitle`}
+                    defaultValue={stage.subtitle}
+                  />
                 </p>
 
                 {/* Two Column Layout */}
@@ -227,7 +254,10 @@ export function QualityProcess() {
                         letterSpacing: "0.05em",
                       }}
                     >
-                      Key Procedures
+                      <EditableText
+                        path={`process.stages.${index}.keyProceduresTitle`}
+                        defaultValue={stage.keyProceduresTitle}
+                      />
                     </h4>
                     <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                       {stage.keyProcedures.map((item, idx) => (
@@ -268,7 +298,10 @@ export function QualityProcess() {
                               lineHeight: 1.4,
                             }}
                           >
-                            {item}
+                            <EditableText
+                              path={`process.stages.${index}.keyProcedures.${idx}`}
+                              defaultValue={item}
+                            />
                           </span>
                         </li>
                       ))}
@@ -287,7 +320,10 @@ export function QualityProcess() {
                         letterSpacing: "0.05em",
                       }}
                     >
-                      Core Inspection Parameters
+                      <EditableText
+                        path={`process.stages.${index}.coreParametersTitle`}
+                        defaultValue={stage.coreParametersTitle}
+                      />
                     </h4>
                     <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                       {stage.coreParameters.map((item, idx) => (
@@ -328,7 +364,10 @@ export function QualityProcess() {
                               lineHeight: 1.4,
                             }}
                           >
-                            {item}
+                            <EditableText
+                              path={`process.stages.${index}.coreParameters.${idx}`}
+                              defaultValue={item}
+                            />
                           </span>
                         </li>
                       ))}
@@ -352,7 +391,7 @@ export function QualityProcess() {
             href="/contact"
             className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
           >
-            Request Quality Package
+            <EditableText path="process.ctaText" defaultValue={DEFAULTS.ctaText} />
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>

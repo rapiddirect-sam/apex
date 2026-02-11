@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { getPageMetaWithDefaults } from "@/lib/pageMeta";
+import { getPageContent } from "@/lib/pageContent";
 import { ReviewsPageClient } from "./ReviewsPageClient";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -13,6 +14,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function ReviewsPage() {
-  return <ReviewsPageClient />;
+export default async function ReviewsPage() {
+  const { content, version } = await getPageContent("/reviews");
+
+  return (
+    <ReviewsPageClient
+      initialContent={content}
+      initialVersion={version}
+    />
+  );
 }

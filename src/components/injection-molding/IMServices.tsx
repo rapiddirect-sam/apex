@@ -1,46 +1,53 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const services = [
-  {
-    name: "Rapid Prototyping",
-    description:
-      "Quick-turn injection molding for design validation and functional testing before mass production.",
-    specs: [
-      "3-7 day turnaround",
-      "Aluminum tooling for speed",
-      "Low minimum order quantity",
-      "Design for manufacturability feedback",
-    ],
-    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-rapid-injection-molding-prototyping.webp",
-  },
-  {
-    name: "High-Volume Production",
-    description:
-      "Mass production with steel molds for maximum efficiency and lowest per-part cost.",
-    specs: [
-      "Steel tooling for durability",
-      "Automated production lines",
-      "Quality control at every stage",
-      "Just-in-time delivery options",
-    ],
-    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-high-volume-injection-molding-production.webp",
-  },
-  {
-    name: "Custom Solutions",
-    description:
-      "Specialized injection molding services including insert molding, overmolding, and multi-material.",
-    specs: [
-      "Insert and overmolding",
-      "Two-shot/multi-material molding",
-      "Liquid silicone rubber (LSR)",
-      "Micro-injection molding",
-    ],
-    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-custom-injection-molding-solutions.webp",
-  },
-];
+const DEFAULTS = {
+  heading: "Our ",
+  headingHighlight: "Injection Molding",
+  headingSuffix: " Services",
+  subheading:
+    "We provide comprehensive plastic injection molding solutions tailored to your project requirements, from prototyping to full-scale production.",
+  services: [
+    {
+      title: "Rapid Prototyping",
+      description:
+        "Quick-turn injection molding for design validation and functional testing before mass production.",
+      specs: [
+        "3-7 day turnaround",
+        "Aluminum tooling for speed",
+        "Low minimum order quantity",
+        "Design for manufacturability feedback",
+      ],
+      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-rapid-injection-molding-prototyping.webp",
+    },
+    {
+      title: "High-Volume Production",
+      description:
+        "Mass production with steel molds for maximum efficiency and lowest per-part cost.",
+      specs: [
+        "Steel tooling for durability",
+        "Automated production lines",
+        "Quality control at every stage",
+        "Just-in-time delivery options",
+      ],
+      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-high-volume-injection-molding-production.webp",
+    },
+    {
+      title: "Custom Solutions",
+      description:
+        "Specialized injection molding services including insert molding, overmolding, and multi-material.",
+      specs: [
+        "Insert and overmolding",
+        "Two-shot/multi-material molding",
+        "Liquid silicone rubber (LSR)",
+        "Micro-injection molding",
+      ],
+      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-custom-injection-molding-solutions.webp",
+    },
+  ],
+};
 
 export function IMServices() {
   return (
@@ -68,7 +75,11 @@ export function IMServices() {
               letterSpacing: "-0.015em",
             }}
           >
-            Our <span style={{ color: "#EEC569" }}>Injection Molding</span> Services
+            <EditableText path="services.heading" defaultValue={DEFAULTS.heading} />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText path="services.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+            </span>
+            <EditableText path="services.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
           </h2>
           <p
             className="mx-auto"
@@ -80,8 +91,7 @@ export function IMServices() {
               marginTop: "18px",
             }}
           >
-            We provide comprehensive plastic injection molding solutions tailored to your project requirements, from
-            prototyping to full-scale production.
+            <EditableText path="services.subheading" defaultValue={DEFAULTS.subheading} multiline />
           </p>
         </motion.div>
 
@@ -91,9 +101,9 @@ export function IMServices() {
             className="grid grid-cols-1 md:grid-cols-3"
             style={{ gap: "24px" }}
           >
-            {services.map((service, index) => (
+            {DEFAULTS.services.map((service, index) => (
               <motion.div
-                key={service.name}
+                key={service.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -105,9 +115,10 @@ export function IMServices() {
               >
                 {/* Image */}
                 <div className="relative" style={{ height: "200px" }}>
-                  <Image
-                    src={service.image}
-                    alt={service.name}
+                  <EditableImage
+                    path={`services.items.${index}.image`}
+                    defaultSrc={service.image}
+                    alt={service.title}
                     fill
                     className="object-cover"
                   />
@@ -123,7 +134,7 @@ export function IMServices() {
                       marginBottom: "12px",
                     }}
                   >
-                    {service.name}
+                    <EditableText path={`services.items.${index}.title`} defaultValue={service.title} />
                   </h3>
 
                   <p
@@ -134,12 +145,12 @@ export function IMServices() {
                       marginBottom: "20px",
                     }}
                   >
-                    {service.description}
+                    <EditableText path={`services.items.${index}.description`} defaultValue={service.description} multiline />
                   </p>
 
                   {/* Specs as bullet points */}
                   <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                    {service.specs.map((spec) => (
+                    {service.specs.map((spec, specIndex) => (
                       <li
                         key={spec}
                         style={{
@@ -160,7 +171,7 @@ export function IMServices() {
                             flexShrink: 0,
                           }}
                         />
-                        {spec}
+                        <EditableText path={`services.items.${index}.specs.${specIndex}`} defaultValue={spec} />
                       </li>
                     ))}
                   </ul>

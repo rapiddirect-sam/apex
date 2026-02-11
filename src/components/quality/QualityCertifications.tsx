@@ -1,8 +1,19 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
+
+const DEFAULTS = {
+  sectionTitle: "Quality ",
+  sectionTitleHighlight: "Certifications",
+  sectionDescription: "Our Certified systems ensure consistent quality, compliance, and traceability throughout production.",
+  certifications: [
+    { src: getImageUrl("home/6-quality-ISO9001.webp"), alt: "ISO 9001:2015 Certification" },
+    { src: getImageUrl("home/6-quality-ISO13485.webp"), alt: "ISO 13485:2016 Certification" },
+    { src: getImageUrl("home/6-quality-ISO14001.webp"), alt: "ISO 14001:2015 Certification" },
+  ],
+};
 
 export function QualityCertifications() {
   return (
@@ -37,7 +48,10 @@ export function QualityCertifications() {
               letterSpacing: "-0.015em",
             }}
           >
-            Quality <span style={{ color: "#EEC569" }}>Certifications</span>
+            <EditableText path="certifications.sectionTitle" defaultValue={DEFAULTS.sectionTitle} />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText path="certifications.sectionTitleHighlight" defaultValue={DEFAULTS.sectionTitleHighlight} />
+            </span>
           </h2>
           <p
             style={{
@@ -48,32 +62,33 @@ export function QualityCertifications() {
               margin: "16px auto 0",
             }}
           >
-            Our Certified systems ensure consistent quality, compliance, and traceability throughout production.
+            <EditableText
+              path="certifications.sectionDescription"
+              defaultValue={DEFAULTS.sectionDescription}
+              multiline
+            />
           </p>
         </motion.div>
 
         {/* Certifications Images */}
         <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { src: getImageUrl("home/6-quality-ISO9001.webp"), alt: "ISO 9001:2015 Certification" },
-            { src: getImageUrl("home/6-quality-ISO13485.webp"), alt: "ISO 13485:2016 Certification" },
-            { src: getImageUrl("home/6-quality-ISO14001.webp"), alt: "ISO 14001:2015 Certification" },
-          ].map((cert, index) => (
+          {DEFAULTS.certifications.map((cert, index) => (
             <motion.div
-              key={cert.src}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               className="relative"
+              style={{ borderRadius: "18px", overflow: "hidden" }}
             >
-              <Image
-                src={cert.src}
+              <EditableImage
+                path={`certifications.items.${index}.image`}
+                defaultSrc={cert.src}
                 alt={cert.alt}
                 width={400}
                 height={300}
                 className="w-full h-auto"
-                style={{ borderRadius: "18px" }}
               />
             </motion.div>
           ))}

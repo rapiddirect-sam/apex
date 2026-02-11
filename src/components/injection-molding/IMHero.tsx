@@ -1,9 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { EditableText, EditableImage } from "@/components/cms";
+
+const DEFAULTS = {
+  title: "Plastic Injection Molding Services",
+  description:
+    "Your end-to-end injection molding partner. We deliver precision plastic parts with 100+ material options, fast turnaround, and competitive pricing.",
+  heroImage:
+    "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp",
+  ctaText: "Get Instant Quote",
+};
 
 export function IMHero() {
   return (
@@ -12,11 +21,11 @@ export function IMHero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px]">
           {/* Left - Image */}
           <div className="relative h-[300px] lg:h-auto">
-            <Image
-              src="https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp"
+            <EditableImage
+              path="hero.image"
+              defaultSrc={DEFAULTS.heroImage}
               alt="Plastic Injection Molding Manufacturer"
               fill
-              className="object-cover"
             />
           </div>
 
@@ -35,7 +44,7 @@ export function IMHero() {
                 marginBottom: "24px",
               }}
             >
-              Plastic Injection Molding Services
+              <EditableText path="hero.title" defaultValue={DEFAULTS.title} />
             </h1>
 
             <p
@@ -46,9 +55,11 @@ export function IMHero() {
                 marginBottom: "32px",
               }}
             >
-              Your end-to-end injection molding partner. We deliver
-              precision plastic parts with 100+ material options, fast
-              turnaround, and competitive pricing.
+              <EditableText
+                path="hero.description"
+                defaultValue={DEFAULTS.description}
+                multiline
+              />
             </p>
 
             <Link
@@ -67,7 +78,7 @@ export function IMHero() {
                 boxShadow: "0 4px 15px rgba(208,153,71,0.3)",
               }}
             >
-              Get Instant Quote
+              <EditableText path="hero.ctaText" defaultValue={DEFAULTS.ctaText} />
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>

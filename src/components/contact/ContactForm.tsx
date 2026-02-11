@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { getVisitData } from "@/hooks/useVisitTracking";
+import { EditableText } from "@/components/cms";
 import {
   Phone,
   Mail,
@@ -13,6 +14,41 @@ import {
   MessageSquare,
   ArrowRight,
 } from "lucide-react";
+
+const DEFAULTS = {
+  // Left column - Form header
+  formPillLabel: "CONTACT FORM",
+  formHeadingPrefix: "Send Us a ",
+  formHeadingHighlight: "Message",
+  formSubheading: "Fill out the form below and our team will get back to you within 24 hours.",
+  // File upload zone
+  uploadTitle: "Drag & Drop Your Files Here",
+  uploadOr: "or",
+  uploadBrowse: "Browse Files",
+  uploadFormats: "Available: stp, step, stl, igs, iges, sldprt, x_t, jpg, png, pdf, zip, rar",
+  // Success/error messages
+  successMessage: "Thank you! Your message has been sent successfully. We'll get back to you within 24 hours.",
+  errorMessage: "Please fill in all required fields. Project description must be at least 10 characters.",
+  // Right column - Direct Contact
+  directContactPill: "DIRECT CONTACT",
+  directContactHeadingPrefix: "Reach Us ",
+  directContactHeadingHighlight: "Directly",
+  callUsTitle: "Call Us",
+  callUsDetail: "Phone / WhatsApp: +86 13302480516",
+  emailUsTitle: "Email Us",
+  emailGeneral: "General Inquiries: info@apexbatch.com",
+  emailQuote: "Quick Quote: quotes@apexbatch.com",
+  emailSupport: "Support: support@apexbatch.com",
+  // Right column - Location
+  locationPill: "LOCATION",
+  locationHeadingPrefix: "Our ",
+  locationHeadingHighlight: "Headquarters",
+  addressLabel: "Address",
+  addressValue: "2nd Floor, Building F, 52 Huangpu Road, Shangliao Community, Xinqiao Street",
+  cityLabel: "City, State",
+  cityValue: "Shenzhen, Guangdong, China",
+  directionsButton: "Get Directions",
+};
 
 const businessNeedsOptions = [
   "CNC Machining",
@@ -243,7 +279,10 @@ export function ContactForm() {
                     textTransform: "uppercase",
                   }}
                 >
-                  CONTACT FORM
+                  <EditableText
+                    path="form.pillLabel"
+                    defaultValue={DEFAULTS.formPillLabel}
+                  />
                 </span>
               </div>
 
@@ -256,7 +295,16 @@ export function ContactForm() {
                   letterSpacing: "-0.015em",
                 }}
               >
-                Send Us a <span style={{ color: "#EEC569" }}>Message</span>
+                <EditableText
+                  path="form.headingPrefix"
+                  defaultValue={DEFAULTS.formHeadingPrefix}
+                />
+                <span style={{ color: "#EEC569" }}>
+                  <EditableText
+                    path="form.headingHighlight"
+                    defaultValue={DEFAULTS.formHeadingHighlight}
+                  />
+                </span>
               </h2>
               <p
                 style={{
@@ -265,8 +313,11 @@ export function ContactForm() {
                   lineHeight: 1.6,
                 }}
               >
-                Fill out the form below and our team will get back to you within
-                24 hours.
+                <EditableText
+                  path="form.subheading"
+                  defaultValue={DEFAULTS.formSubheading}
+                  multiline
+                />
               </p>
             </div>
 
@@ -496,7 +547,10 @@ export function ContactForm() {
                     marginBottom: "8px",
                   }}
                 >
-                  Drag & Drop Your Files Here
+                  <EditableText
+                    path="form.uploadTitle"
+                    defaultValue={DEFAULTS.uploadTitle}
+                  />
                 </p>
                 <p
                   style={{
@@ -505,7 +559,10 @@ export function ContactForm() {
                     marginBottom: "16px",
                   }}
                 >
-                  or
+                  <EditableText
+                    path="form.uploadOr"
+                    defaultValue={DEFAULTS.uploadOr}
+                  />
                 </p>
                 <button
                   type="button"
@@ -522,10 +579,16 @@ export function ContactForm() {
                     marginBottom: "16px",
                   }}
                 >
-                  Browse Files
+                  <EditableText
+                    path="form.uploadBrowse"
+                    defaultValue={DEFAULTS.uploadBrowse}
+                  />
                 </button>
                 <p style={{ fontSize: "11px", color: "rgba(208,153,71,0.7)" }}>
-                  Available: stp, step, stl, igs, iges, sldprt, x_t, jpg, png, pdf, zip, rar
+                  <EditableText
+                    path="form.uploadFormats"
+                    defaultValue={DEFAULTS.uploadFormats}
+                  />
                 </p>
 
                 {/* Display selected files */}
@@ -585,7 +648,11 @@ export function ContactForm() {
                     fontSize: "14px",
                   }}
                 >
-                  Thank you! Your message has been sent successfully. We&apos;ll get back to you within 24 hours.
+                  <EditableText
+                    path="form.successMessage"
+                    defaultValue={DEFAULTS.successMessage}
+                    multiline
+                  />
                 </div>
               )}
 
@@ -600,7 +667,11 @@ export function ContactForm() {
                     fontSize: "14px",
                   }}
                 >
-                  Please fill in all required fields. Project description must be at least 10 characters.
+                  <EditableText
+                    path="form.errorMessage"
+                    defaultValue={DEFAULTS.errorMessage}
+                    multiline
+                  />
                 </div>
               )}
 
@@ -671,7 +742,10 @@ export function ContactForm() {
                     textTransform: "uppercase",
                   }}
                 >
-                  DIRECT CONTACT
+                  <EditableText
+                    path="sidebar.directContactPill"
+                    defaultValue={DEFAULTS.directContactPill}
+                  />
                 </span>
               </div>
 
@@ -683,7 +757,16 @@ export function ContactForm() {
                   marginBottom: "20px",
                 }}
               >
-                Reach Us <span style={{ color: "#EEC569" }}>Directly</span>
+                <EditableText
+                  path="sidebar.directContactHeadingPrefix"
+                  defaultValue={DEFAULTS.directContactHeadingPrefix}
+                />
+                <span style={{ color: "#EEC569" }}>
+                  <EditableText
+                    path="sidebar.directContactHeadingHighlight"
+                    defaultValue={DEFAULTS.directContactHeadingHighlight}
+                  />
+                </span>
               </h3>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -728,10 +811,16 @@ export function ContactForm() {
                         marginBottom: "4px",
                       }}
                     >
-                      Call Us
+                      <EditableText
+                        path="sidebar.callUsTitle"
+                        defaultValue={DEFAULTS.callUsTitle}
+                      />
                     </p>
                     <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
-                      Phone / WhatsApp: <span style={{ color: "#EEC569" }}>+86 13302480516</span>
+                      <EditableText
+                        path="sidebar.callUsDetail"
+                        defaultValue={DEFAULTS.callUsDetail}
+                      />
                     </p>
                   </div>
                 </div>
@@ -777,16 +866,28 @@ export function ContactForm() {
                         marginBottom: "4px",
                       }}
                     >
-                      Email Us
+                      <EditableText
+                        path="sidebar.emailUsTitle"
+                        defaultValue={DEFAULTS.emailUsTitle}
+                      />
                     </p>
                     <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
-                      General Inquiries: <span style={{ color: "#EEC569" }}>info@apexbatch.com</span>
+                      <EditableText
+                        path="sidebar.emailGeneral"
+                        defaultValue={DEFAULTS.emailGeneral}
+                      />
                     </p>
                     <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
-                      Quick Quote: <span style={{ color: "#EEC569" }}>quotes@apexbatch.com</span>
+                      <EditableText
+                        path="sidebar.emailQuote"
+                        defaultValue={DEFAULTS.emailQuote}
+                      />
                     </p>
                     <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
-                      Support: <span style={{ color: "#EEC569" }}>support@apexbatch.com</span>
+                      <EditableText
+                        path="sidebar.emailSupport"
+                        defaultValue={DEFAULTS.emailSupport}
+                      />
                     </p>
                   </div>
                 </div>
@@ -841,7 +942,10 @@ export function ContactForm() {
                     textTransform: "uppercase",
                   }}
                 >
-                  LOCATION
+                  <EditableText
+                    path="sidebar.locationPill"
+                    defaultValue={DEFAULTS.locationPill}
+                  />
                 </span>
               </div>
 
@@ -853,7 +957,16 @@ export function ContactForm() {
                   marginBottom: "20px",
                 }}
               >
-                Our <span style={{ color: "#EEC569" }}>Headquarters</span>
+                <EditableText
+                  path="sidebar.locationHeadingPrefix"
+                  defaultValue={DEFAULTS.locationHeadingPrefix}
+                />
+                <span style={{ color: "#EEC569" }}>
+                  <EditableText
+                    path="sidebar.locationHeadingHighlight"
+                    defaultValue={DEFAULTS.locationHeadingHighlight}
+                  />
+                </span>
               </h3>
 
               {/* Map Placeholder with gold border */}
@@ -902,10 +1015,17 @@ export function ContactForm() {
                         marginBottom: "4px",
                       }}
                     >
-                      Address
+                      <EditableText
+                        path="sidebar.addressLabel"
+                        defaultValue={DEFAULTS.addressLabel}
+                      />
                     </p>
                     <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
-                      2nd Floor, Building F, 52 Huangpu Road, Shangliao Community, Xinqiao Street
+                      <EditableText
+                        path="sidebar.addressValue"
+                        defaultValue={DEFAULTS.addressValue}
+                        multiline
+                      />
                     </p>
                   </div>
                   <div>
@@ -917,10 +1037,16 @@ export function ContactForm() {
                         marginBottom: "4px",
                       }}
                     >
-                      City, State
+                      <EditableText
+                        path="sidebar.cityLabel"
+                        defaultValue={DEFAULTS.cityLabel}
+                      />
                     </p>
                     <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
-                      Shenzhen, Guangdong, China
+                      <EditableText
+                        path="sidebar.cityValue"
+                        defaultValue={DEFAULTS.cityValue}
+                      />
                     </p>
                   </div>
                 </div>
@@ -929,7 +1055,10 @@ export function ContactForm() {
                 <button
                   className="w-full bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center justify-center gap-2 group"
                 >
-                  Get Directions
+                  <EditableText
+                    path="sidebar.directionsButton"
+                    defaultValue={DEFAULTS.directionsButton}
+                  />
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>

@@ -1,57 +1,60 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Check, GraduationCap, TrendingUp, Users } from "lucide-react";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const consistencyItems = [
-  {
-    icon: GraduationCap,
-    title: "Operator Quality Training",
-    subtitle: "Ensuring skilled and empowered personnel",
-    image: getImageUrl("quality/qc-training.png"),
-    items: [
-      { text: "All operators must pass pre-job quality training and assessment before assignment", highlight: "pre-job quality training and assessment" },
-      { text: "Key process operators undergo periodic retraining to maintain competency", highlight: "periodic retraining" },
-      { text: "Operators are authorized to immediately stop production upon detecting quality risks and initiate problem resolution protocols", highlight: "immediately stop production" },
-      { text: "Regular quality awareness sessions and skill development workshops", highlight: "" },
-    ],
-    footer: "Empowered operators are the first line of defense in quality assurance",
-  },
-  {
-    icon: TrendingUp,
-    title: "Continuous Improvement",
-    subtitle: "Systematic approach to quality enhancement",
-    image: getImageUrl("quality/qc-improvement.png"),
-    items: [
-      { text: "Non-conformances are addressed through the PDCA (Plan-Do-Check-Act) cycle", highlight: "PDCA (Plan-Do-Check-Act) cycle" },
-      { text: "Each quality deviation triggers documentation, root cause analysis, and corrective actions", highlight: "documentation, root cause analysis, and corrective actions" },
-      { text: "Monthly review of key quality indicators (KQIs) for process optimization and stability enhancement", highlight: "Monthly review" },
-      { text: "Implementation of preventive actions based on trend analysis and risk assessment", highlight: "" },
-    ],
-    footer: "Every deviation is an opportunity for systematic improvement",
-  },
-  {
-    icon: Users,
-    title: "Customer Quality Collaboration",
-    subtitle: "Partnership-driven quality assurance",
-    image: getImageUrl("quality/qc-team.png"),
-    items: [
-      { text: "Dedicated quality engineers assigned to key accounts for personalized support", highlight: "Dedicated quality engineers" },
-      { text: "Customer-specific quality requirements documented and tracked in our system", highlight: "Customer-specific quality requirements" },
-      { text: "Regular quality review meetings and performance reporting", highlight: "Regular quality review meetings" },
-      { text: "Rapid response protocols for any quality concerns or inquiries", highlight: "Rapid response protocols" },
-    ],
-    footer: "Your quality standards become our quality standards",
-  },
-];
+const DEFAULTS = {
+  sectionTitle: "How We Ensure ",
+  sectionTitleHighlight: "Consistent Quality",
+  tabs: [
+    {
+      title: "Operator Quality Training",
+      subtitle: "Ensuring skilled and empowered personnel",
+      image: getImageUrl("quality/qc-training.png"),
+      items: [
+        "All operators must pass pre-job quality training and assessment before assignment",
+        "Key process operators undergo periodic retraining to maintain competency",
+        "Operators are authorized to immediately stop production upon detecting quality risks and initiate problem resolution protocols",
+        "Regular quality awareness sessions and skill development workshops",
+      ],
+      footer: "Empowered operators are the first line of defense in quality assurance",
+    },
+    {
+      title: "Continuous Improvement",
+      subtitle: "Systematic approach to quality enhancement",
+      image: getImageUrl("quality/qc-improvement.png"),
+      items: [
+        "Non-conformances are addressed through the PDCA (Plan-Do-Check-Act) cycle",
+        "Each quality deviation triggers documentation, root cause analysis, and corrective actions",
+        "Monthly review of key quality indicators (KQIs) for process optimization and stability enhancement",
+        "Implementation of preventive actions based on trend analysis and risk assessment",
+      ],
+      footer: "Every deviation is an opportunity for systematic improvement",
+    },
+    {
+      title: "Customer Quality Collaboration",
+      subtitle: "Partnership-driven quality assurance",
+      image: getImageUrl("quality/qc-team.png"),
+      items: [
+        "Dedicated quality engineers assigned to key accounts for personalized support",
+        "Customer-specific quality requirements documented and tracked in our system",
+        "Regular quality review meetings and performance reporting",
+        "Rapid response protocols for any quality concerns or inquiries",
+      ],
+      footer: "Your quality standards become our quality standards",
+    },
+  ],
+};
+
+const tabIcons = [GraduationCap, TrendingUp, Users];
 
 export function QualityConsistency() {
   const [activeTab, setActiveTab] = useState(0);
-  const activeItem = consistencyItems[activeTab];
-  const Icon = activeItem.icon;
+  const activeItem = DEFAULTS.tabs[activeTab];
+  const Icon = tabIcons[activeTab];
 
   return (
     <section
@@ -77,7 +80,10 @@ export function QualityConsistency() {
               letterSpacing: "-0.015em",
             }}
           >
-            How We Ensure <span style={{ color: "#EEC569" }}>Consistent Quality</span>
+            <EditableText path="consistency.sectionTitle" defaultValue={DEFAULTS.sectionTitle} />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText path="consistency.sectionTitleHighlight" defaultValue={DEFAULTS.sectionTitleHighlight} />
+            </span>
           </h2>
         </motion.div>
 
@@ -85,8 +91,8 @@ export function QualityConsistency() {
         <div
           className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-2 sm:gap-0 mb-8 sm:mb-12"
         >
-          {consistencyItems.map((item, index) => (
-            <div key={item.title} className="flex flex-col sm:flex-row items-stretch sm:items-center">
+          {DEFAULTS.tabs.map((item, index) => (
+            <div key={index} className="flex flex-col sm:flex-row items-stretch sm:items-center">
               <button
                 onClick={() => setActiveTab(index)}
                 className="w-full sm:w-auto"
@@ -101,10 +107,13 @@ export function QualityConsistency() {
                   transition: "all 0.3s ease",
                 }}
               >
-                {item.title}
+                <EditableText
+                  path={`consistency.tabs.${index}.title`}
+                  defaultValue={item.title}
+                />
               </button>
               {/* Connector line between tabs - hidden on mobile */}
-              {index < consistencyItems.length - 1 && (
+              {index < DEFAULTS.tabs.length - 1 && (
                 <div
                   className="hidden sm:block"
                   style={{
@@ -133,11 +142,11 @@ export function QualityConsistency() {
               border: "1px solid #EEC569",
             }}
           >
-            <Image
-              src={activeItem.image}
+            <EditableImage
+              path={`consistency.tabs.${activeTab}.image`}
+              defaultSrc={activeItem.image}
               alt={activeItem.title}
               fill
-              className="object-cover"
             />
           </div>
 
@@ -185,7 +194,10 @@ export function QualityConsistency() {
                     margin: 0,
                   }}
                 >
-                  {activeItem.title}
+                  <EditableText
+                    path={`consistency.tabs.${activeTab}.title`}
+                    defaultValue={activeItem.title}
+                  />
                 </h3>
                 <p
                   style={{
@@ -194,7 +206,10 @@ export function QualityConsistency() {
                     margin: "4px 0 0 0",
                   }}
                 >
-                  {activeItem.subtitle}
+                  <EditableText
+                    path={`consistency.tabs.${activeTab}.subtitle`}
+                    defaultValue={activeItem.subtitle}
+                  />
                 </p>
               </div>
             </div>
@@ -234,15 +249,11 @@ export function QualityConsistency() {
                     />
                   </div>
                   <span style={{ color: "#C5C6C9", fontSize: "15px", lineHeight: 1.6 }}>
-                    {listItem.highlight ? (
-                      <>
-                        {listItem.text.split(listItem.highlight)[0]}
-                        <span style={{ color: "#FFFFFF", fontWeight: 600 }}>{listItem.highlight}</span>
-                        {listItem.text.split(listItem.highlight)[1]}
-                      </>
-                    ) : (
-                      listItem.text
-                    )}
+                    <EditableText
+                      path={`consistency.tabs.${activeTab}.items.${idx}`}
+                      defaultValue={listItem}
+                      multiline
+                    />
                   </span>
                 </li>
               ))}
@@ -256,7 +267,10 @@ export function QualityConsistency() {
               }}
             >
               <p style={{ color: "#EEC569", fontSize: "14px", fontStyle: "italic", margin: 0 }}>
-                {activeItem.footer}
+                <EditableText
+                  path={`consistency.tabs.${activeTab}.footer`}
+                  defaultValue={activeItem.footer}
+                />
               </p>
             </div>
           </div>

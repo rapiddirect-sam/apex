@@ -1,59 +1,68 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const portfolioItems = [
-  {
-    title: "CNC Machining",
-    label: "",
-    image: getImageUrl("home/5-Parts-display-CNC-Machined-Components.webp"),
-    gridArea: "hero", // Hero card - spans 2 rows, 2 columns
-  },
-  {
-    title: "Die Casting",
-    label: "",
-    image: getImageUrl("home/5-Parts-display-die-casting-materials-copper-parts.webp"),
-    gridArea: "small1",
-  },
-  {
-    title: "Extrusion",
-    label: "",
-    image: getImageUrl("home/5-Parts-display-extrusion-parts-2.webp"),
-    gridArea: "small2",
-  },
-  {
-    title: "Sheet Metal",
-    label: "",
-    image: getImageUrl("home/5-Parts-display-sheet-metal.webp"),
-    gridArea: "small3",
-  },
-  {
-    title: "Injection Molding",
-    label: "",
-    image: getImageUrl("home/5-Parts-display-Injection-Molding.webp"),
-    gridArea: "small4",
-  },
-  {
-    title: "",
-    label: "",
-    image: getImageUrl("home/5-Parts-display-CNC06-1.webp"),
-    gridArea: "small5",
-  },
-];
+const DEFAULTS = {
+  titleWhiteLine1: "Excellent Parts We Made,",
+  titleHighlightLine2: "Built for Real Applications",
+  ctaText: "Ready to experience precision engineering?",
+  ctaButton: "Get a Free Quote",
+  portfolioItems: [
+    {
+      title: "CNC Machining",
+      image: getImageUrl("home/5-Parts-display-CNC-Machined-Components.webp"),
+      gridArea: "hero",
+    },
+    {
+      title: "Die Casting",
+      image: getImageUrl("home/5-Parts-display-die-casting-materials-copper-parts.webp"),
+      gridArea: "small1",
+    },
+    {
+      title: "Extrusion",
+      image: getImageUrl("home/5-Parts-display-extrusion-parts-2.webp"),
+      gridArea: "small2",
+    },
+    {
+      title: "Sheet Metal",
+      image: getImageUrl("home/5-Parts-display-sheet-metal.webp"),
+      gridArea: "small3",
+    },
+    {
+      title: "Injection Molding",
+      image: getImageUrl("home/5-Parts-display-Injection-Molding.webp"),
+      gridArea: "small4",
+    },
+    {
+      title: "",
+      image: getImageUrl("home/5-Parts-display-CNC06-1.webp"),
+      gridArea: "small5",
+    },
+    {
+      title: "",
+      image: getImageUrl("home/5-Parts-display-CNC10-3.webp"),
+      gridArea: "small6",
+    },
+    {
+      title: "",
+      image: getImageUrl("home/5-Parts-display-CNC21-1.webp"),
+      gridArea: "small7",
+    },
+  ],
+};
 
 function PortfolioCard({
-  item,
   index,
-  isHero = false
+  isHero = false,
 }: {
-  item: typeof portfolioItems[0];
   index: number;
   isHero?: boolean;
 }) {
+  const item = DEFAULTS.portfolioItems[index];
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -67,11 +76,13 @@ function PortfolioCard({
       }}
     >
       <div className="relative w-full h-full" style={{ minHeight: isHero ? "500px" : "230px" }}>
-        <Image
-          src={item.image}
-          alt={item.title}
+        <EditableImage
+          path={`portfolio.items.${index}.image`}
+          defaultSrc={item.image}
+          alt={item.title || `Portfolio item ${index + 1}`}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          style={{ objectFit: "cover" }}
+          className="transition-transform duration-500 group-hover:scale-105"
         />
 
         {/* Gradient overlay - darker on hover */}
@@ -83,17 +94,22 @@ function PortfolioCard({
         />
 
         {/* Title */}
-        <div className="absolute bottom-5 left-5 right-5">
-          <h3
-            className="text-white"
-            style={{
-              fontSize: isHero ? "22px" : "18px",
-              fontWeight: 600,
-            }}
-          >
-            {item.title}
-          </h3>
-        </div>
+        {item.title && (
+          <div className="absolute bottom-5 left-5 right-5">
+            <h3
+              className="text-white"
+              style={{
+                fontSize: isHero ? "22px" : "18px",
+                fontWeight: 600,
+              }}
+            >
+              <EditableText
+                path={`portfolio.items.${index}.title`}
+                defaultValue={item.title}
+              />
+            </h3>
+          </div>
+        )}
       </div>
     </motion.div>
   );
@@ -133,7 +149,10 @@ export function Home3Portfolio() {
               marginBottom: "4px",
             }}
           >
-            Excellent Parts We Made,
+            <EditableText
+              path="portfolio.titleWhiteLine1"
+              defaultValue={DEFAULTS.titleWhiteLine1}
+            />
           </h2>
           <h2
             style={{
@@ -143,14 +162,17 @@ export function Home3Portfolio() {
               color: "#EEC569",
             }}
           >
-            Built for Real Applications
+            <EditableText
+              path="portfolio.titleHighlightLine2"
+              defaultValue={DEFAULTS.titleHighlightLine2}
+            />
           </h2>
         </motion.div>
 
         {/* Portfolio Grid - Mobile: single column, Tablet: 2 columns, Desktop: asymmetric */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-6 mb-16">
-          {portfolioItems.map((item, index) => (
-            <PortfolioCard key={index} item={item} index={index} />
+          {DEFAULTS.portfolioItems.slice(0, 6).map((_, index) => (
+            <PortfolioCard key={index} index={index} />
           ))}
         </div>
 
@@ -168,45 +190,29 @@ export function Home3Portfolio() {
         >
           {/* Hero Card - spans 2 rows */}
           <div style={{ gridArea: "hero" }}>
-            <PortfolioCard item={portfolioItems[0]} index={0} isHero />
+            <PortfolioCard index={0} isHero />
           </div>
 
           {/* Small Cards */}
           <div style={{ gridArea: "small1" }}>
-            <PortfolioCard item={portfolioItems[1]} index={1} />
+            <PortfolioCard index={1} />
           </div>
           <div style={{ gridArea: "small2" }}>
-            <PortfolioCard item={portfolioItems[2]} index={2} />
+            <PortfolioCard index={2} />
           </div>
           <div style={{ gridArea: "small3" }}>
-            <PortfolioCard item={portfolioItems[3]} index={3} />
+            <PortfolioCard index={3} />
           </div>
           <div style={{ gridArea: "small4" }}>
-            <PortfolioCard item={portfolioItems[4]} index={4} />
+            <PortfolioCard index={4} />
           </div>
         </div>
 
         {/* Bottom row - 3 equal cards on desktop, stacked on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          <PortfolioCard item={portfolioItems[5]} index={5} />
-          <PortfolioCard
-            item={{
-              title: "",
-              label: "",
-              image: getImageUrl("home/5-Parts-display-CNC10-3.webp"),
-              gridArea: "small6",
-            }}
-            index={6}
-          />
-          <PortfolioCard
-            item={{
-              title: "",
-              label: "",
-              image: getImageUrl("home/5-Parts-display-CNC21-1.webp"),
-              gridArea: "small7",
-            }}
-            index={7}
-          />
+          <PortfolioCard index={5} />
+          <PortfolioCard index={6} />
+          <PortfolioCard index={7} />
         </div>
 
         {/* CTA Card */}
@@ -234,14 +240,20 @@ export function Home3Portfolio() {
                 fontWeight: 500,
               }}
             >
-              Ready to experience precision engineering?
+              <EditableText
+                path="portfolio.ctaText"
+                defaultValue={DEFAULTS.ctaText}
+              />
             </p>
             <Link
               href="https://app.apexbatch.com/"
               rel="nofollow"
               className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
             >
-              Get a Free Quote
+              <EditableText
+                path="portfolio.ctaButton"
+                defaultValue={DEFAULTS.ctaButton}
+              />
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

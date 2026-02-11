@@ -3,44 +3,52 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { EditableText } from "@/components/cms";
 
-const steps = [
-  {
-    number: "01",
-    title: "Design & DFM",
-    description:
-      "3D model analysis and Design for Manufacturability feedback to optimize part design.",
-    iconPath: "M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z",
-  },
-  {
-    number: "02",
-    title: "Tooling & Mold Making",
-    description:
-      "Precision mold fabrication using CNC machining, EDM, and polishing to create injection molds.",
-    iconPath: "M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z",
-  },
-  {
-    number: "03",
-    title: "Material Preparation & Injection",
-    description:
-      "Material drying and plasticizing, followed by injection into mold under controlled conditions.",
-    iconPath: "M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z",
-  },
-  {
-    number: "04",
-    title: "Cooling & Ejection",
-    description:
-      "Controlled cooling cycle followed by part ejection, then secondary operations as needed.",
-    iconPath: "M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 9.93 20 11 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 14.07 4 13 4c-4.42 0-8 3.58-8 8H2l4 4 4-4H6z",
-  },
-  {
-    number: "05",
-    title: "Quality Control & Shipping",
-    description:
-      "Dimensional inspection, visual checks, and packaging for shipment to customer.",
-    iconPath: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z",
-  },
-];
+const DEFAULTS = {
+  heading: "Our Injection Molding ",
+  headingHighlight: "Process",
+  subheading:
+    "Our comprehensive injection molding workflow ensures precision, quality, and consistency from design to final part delivery.",
+  ctaText: "Get Instant Quote",
+  steps: [
+    {
+      number: "01",
+      title: "Design & DFM",
+      description:
+        "3D model analysis and Design for Manufacturability feedback to optimize part design.",
+      iconPath: "M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z",
+    },
+    {
+      number: "02",
+      title: "Tooling & Mold Making",
+      description:
+        "Precision mold fabrication using CNC machining, EDM, and polishing to create injection molds.",
+      iconPath: "M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z",
+    },
+    {
+      number: "03",
+      title: "Material Preparation & Injection",
+      description:
+        "Material drying and plasticizing, followed by injection into mold under controlled conditions.",
+      iconPath: "M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z",
+    },
+    {
+      number: "04",
+      title: "Cooling & Ejection",
+      description:
+        "Controlled cooling cycle followed by part ejection, then secondary operations as needed.",
+      iconPath: "M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 9.93 20 11 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 14.07 4 13 4c-4.42 0-8 3.58-8 8H2l4 4 4-4H6z",
+    },
+    {
+      number: "05",
+      title: "Quality Control & Shipping",
+      description:
+        "Dimensional inspection, visual checks, and packaging for shipment to customer.",
+      iconPath: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z",
+    },
+  ],
+};
 
 export function IMProcess() {
   return (
@@ -75,7 +83,10 @@ export function IMProcess() {
               letterSpacing: "-0.015em",
             }}
           >
-            Our Injection Molding <span style={{ color: "#EEC569" }}>Process</span>
+            <EditableText path="process.heading" defaultValue={DEFAULTS.heading} />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText path="process.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+            </span>
           </h2>
           <p
             style={{
@@ -85,8 +96,7 @@ export function IMProcess() {
               marginTop: "18px",
             }}
           >
-            Our comprehensive injection molding workflow ensures precision, quality, and
-            consistency from design to final part delivery.
+            <EditableText path="process.subheading" defaultValue={DEFAULTS.subheading} multiline />
           </p>
         </motion.div>
 
@@ -95,7 +105,7 @@ export function IMProcess() {
           className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5"
           style={{ gap: "24px" }}
         >
-          {steps.map((step, index) => (
+          {DEFAULTS.steps.map((step, index) => (
             <motion.div
               key={step.number}
               initial={{ opacity: 0, y: 30 }}
@@ -130,7 +140,7 @@ export function IMProcess() {
                   marginBottom: "12px",
                 }}
               >
-                {index + 1}. {step.title}
+                {index + 1}. <EditableText path={`process.steps.${index}.title`} defaultValue={step.title} />
               </h3>
 
               {/* Description */}
@@ -141,11 +151,11 @@ export function IMProcess() {
                   color: "#C5C6C9",
                 }}
               >
-                {step.description}
+                <EditableText path={`process.steps.${index}.description`} defaultValue={step.description} multiline />
               </p>
 
               {/* Connector line (except last) */}
-              {index < steps.length - 1 && (
+              {index < DEFAULTS.steps.length - 1 && (
                 <div
                   className="hidden lg:block absolute top-8 -right-3 w-6 h-[2px]"
                   style={{
@@ -181,7 +191,7 @@ export function IMProcess() {
               letterSpacing: "0.05em",
             }}
           >
-            Get Instant Quote
+            <EditableText path="process.ctaText" defaultValue={DEFAULTS.ctaText} />
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>

@@ -1,31 +1,35 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const parts = [
-  {
-    name: "Medical Fluid Connector",
-    description:
-      "Ultrasonically welded and leak-tested after molding for guaranteed sterile fluid paths.",
-    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Medical-Fluid Connector.webp",
-    tags: ["PC", "ultrasonic welding", "leak-proof"],
-  },
-  {
-    name: "Automotive Vent Grille",
-    description:
-      "Molded with precise, deep textures to achieve a consistent matte appearance across complex surfaces.",
-    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Automotive Vent-Grille.webp",
-    tags: ["ABS", "texture molding", "SPI-D", "automotive interior"],
-  },
-  {
-    name: "Wearable Device Band",
-    description:
-      "Soft-touch overmolding on a rigid core for durable and comfortable skin contact.",
-    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Wearable-Device Band.webp",
-    tags: ["two-shot", "TPE overmolding", "wearable"],
-  },
-];
+const DEFAULTS = {
+  heading: "Molding Parts ",
+  headingHighlight: "Made By Us",
+  parts: [
+    {
+      title: "Medical Fluid Connector",
+      description:
+        "Ultrasonically welded and leak-tested after molding for guaranteed sterile fluid paths.",
+      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Medical-Fluid Connector.webp",
+      tags: ["PC", "ultrasonic welding", "leak-proof"],
+    },
+    {
+      title: "Automotive Vent Grille",
+      description:
+        "Molded with precise, deep textures to achieve a consistent matte appearance across complex surfaces.",
+      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Automotive Vent-Grille.webp",
+      tags: ["ABS", "texture molding", "SPI-D", "automotive interior"],
+    },
+    {
+      title: "Wearable Device Band",
+      description:
+        "Soft-touch overmolding on a rigid core for durable and comfortable skin contact.",
+      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Wearable-Device Band.webp",
+      tags: ["two-shot", "TPE overmolding", "wearable"],
+    },
+  ],
+};
 
 export function IMParts() {
   return (
@@ -53,7 +57,10 @@ export function IMParts() {
               letterSpacing: "-0.015em",
             }}
           >
-            Molding Parts <span style={{ color: "#EEC569" }}>Made By Us</span>
+            <EditableText path="parts.heading" defaultValue={DEFAULTS.heading} />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText path="parts.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+            </span>
           </h2>
         </motion.div>
 
@@ -62,9 +69,9 @@ export function IMParts() {
           className="grid grid-cols-1 md:grid-cols-3"
           style={{ gap: "28px" }}
         >
-          {parts.map((part, index) => (
+          {DEFAULTS.parts.map((part, index) => (
             <motion.div
-              key={part.name}
+              key={part.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -86,9 +93,10 @@ export function IMParts() {
             >
               {/* Image */}
               <div className="relative overflow-hidden" style={{ height: "220px" }}>
-                <Image
-                  src={part.image}
-                  alt={part.name}
+                <EditableImage
+                  path={`parts.items.${index}.image`}
+                  defaultSrc={part.image}
+                  alt={part.title}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -104,7 +112,7 @@ export function IMParts() {
                     marginBottom: "8px",
                   }}
                 >
-                  {part.name}
+                  <EditableText path={`parts.items.${index}.title`} defaultValue={part.title} />
                 </h3>
 
                 <p
@@ -115,12 +123,12 @@ export function IMParts() {
                     marginBottom: "16px",
                   }}
                 >
-                  {part.description}
+                  <EditableText path={`parts.items.${index}.description`} defaultValue={part.description} multiline />
                 </p>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2">
-                  {part.tags.map((tag) => (
+                  {part.tags.map((tag, tagIndex) => (
                     <span
                       key={tag}
                       style={{
@@ -132,7 +140,7 @@ export function IMParts() {
                         borderRadius: "999px",
                       }}
                     >
-                      {tag}
+                      <EditableText path={`parts.items.${index}.tags.${tagIndex}`} defaultValue={tag} />
                     </span>
                   ))}
                 </div>

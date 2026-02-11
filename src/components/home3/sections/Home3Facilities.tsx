@@ -2,25 +2,34 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const stats = [
-  { value: "50,000 m²", label: "Total Factory Area" },
-  { value: "8", label: "Specialized Production Shops" },
-  { value: "300+", label: "Advanced Equipment" },
-  { value: "98%", label: "On-Time Delivery" },
-];
-
-const facilityImages = [
-  getImageUrl("home/2-our-facilities-cnc.webp"),
-  getImageUrl("home/2-our-facilities-injection-molding.webp"),
-  getImageUrl("home/2-our-facilities-sheet-metal.webp"),
-];
+const DEFAULTS = {
+  eyebrow: "State-of-the-Art Manufacturing Environment",
+  titleWhite: "Our ",
+  titleHighlight: "Facilities",
+  panelTitle: "Advanced Manufacturing Hub",
+  panelDescription1:
+    "Located in Shenzhen's advanced manufacturing district, our 50,000 m\u00B2 vertically integrated facility operates 8 specialized production shops and is equipped with 300+ advanced machines.",
+  panelDescription2:
+    "We support end-to-end manufacturing in one location, including CNC machining, precision injection molding, sheet metal fabrication, 3D printing, as well as in-house surface treatment and quality inspection lines.",
+  stats: [
+    { value: "50,000 m\u00B2", label: "Total Factory Area" },
+    { value: "8", label: "Specialized Production Shops" },
+    { value: "300+", label: "Advanced Equipment" },
+    { value: "98%", label: "On-Time Delivery" },
+  ],
+  facilityImages: [
+    getImageUrl("home/2-our-facilities-cnc.webp"),
+    getImageUrl("home/2-our-facilities-injection-molding.webp"),
+    getImageUrl("home/2-our-facilities-sheet-metal.webp"),
+  ],
+};
 
 // Metric component with corner brackets (top-left and bottom-right only)
-function Metric({ value, label, delay }: { value: string; label: string; delay: number }) {
+function Metric({ index, delay }: { index: number; delay: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -76,7 +85,10 @@ function Metric({ value, label, delay }: { value: string; label: string; delay: 
           whiteSpace: "nowrap",
         }}
       >
-        {value}
+        <EditableText
+          path={`facilities.stats.${index}.value`}
+          defaultValue={DEFAULTS.stats[index].value}
+        />
       </div>
       {/* Label */}
       <div
@@ -86,7 +98,10 @@ function Metric({ value, label, delay }: { value: string; label: string; delay: 
           marginTop: "4px",
         }}
       >
-        {label}
+        <EditableText
+          path={`facilities.stats.${index}.label`}
+          defaultValue={DEFAULTS.stats[index].label}
+        />
       </div>
     </motion.div>
   );
@@ -96,11 +111,11 @@ export function Home3Facilities() {
   const [currentImage, setCurrentImage] = useState(0);
 
   const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % facilityImages.length);
+    setCurrentImage((prev) => (prev + 1) % DEFAULTS.facilityImages.length);
   };
 
   const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + facilityImages.length) % facilityImages.length);
+    setCurrentImage((prev) => (prev - 1 + DEFAULTS.facilityImages.length) % DEFAULTS.facilityImages.length);
   };
 
   return (
@@ -137,7 +152,10 @@ export function Home3Facilities() {
                 color: "rgba(208,153,71,0.65)",
               }}
             >
-              State-of-the-Art Manufacturing Environment
+              <EditableText
+                path="facilities.eyebrow"
+                defaultValue={DEFAULTS.eyebrow}
+              />
             </span>
             <div
               style={{
@@ -157,7 +175,16 @@ export function Home3Facilities() {
               letterSpacing: "-0.015em",
             }}
           >
-            Our <span style={{ color: "#EEC569" }}>Facilities</span>
+            <EditableText
+              path="facilities.titleWhite"
+              defaultValue={DEFAULTS.titleWhite}
+            />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText
+                path="facilities.titleHighlight"
+                defaultValue={DEFAULTS.titleHighlight}
+              />
+            </span>
           </h2>
         </motion.div>
 
@@ -188,7 +215,10 @@ export function Home3Facilities() {
                   marginBottom: "16px",
                 }}
               >
-                Advanced Manufacturing Hub
+                <EditableText
+                  path="facilities.panelTitle"
+                  defaultValue={DEFAULTS.panelTitle}
+                />
               </h3>
               <p
                 style={{
@@ -198,9 +228,11 @@ export function Home3Facilities() {
                   marginBottom: "12px",
                 }}
               >
-                Located in Shenzhen&apos;s advanced manufacturing district, our 50,000 m²
-                vertically integrated facility operates 8 specialized production shops and is
-                equipped with 300+ advanced machines.
+                <EditableText
+                  path="facilities.panelDescription1"
+                  defaultValue={DEFAULTS.panelDescription1}
+                  multiline
+                />
               </p>
               <p
                 style={{
@@ -209,9 +241,11 @@ export function Home3Facilities() {
                   color: "#C5C6C9",
                 }}
               >
-                We support end-to-end manufacturing in one location, including CNC
-                machining, precision injection molding, sheet metal fabrication, 3D printing,
-                as well as in-house surface treatment and quality inspection lines.
+                <EditableText
+                  path="facilities.panelDescription2"
+                  defaultValue={DEFAULTS.panelDescription2}
+                  multiline
+                />
               </p>
 
               {/* Decorative line with diamond */}
@@ -243,11 +277,10 @@ export function Home3Facilities() {
                 gap: "24px 32px",
               }}
             >
-              {stats.map((stat, index) => (
+              {DEFAULTS.stats.map((_, index) => (
                 <Metric
-                  key={stat.label}
-                  value={stat.value}
-                  label={stat.label}
+                  key={index}
+                  index={index}
                   delay={index * 0.1}
                 />
               ))}
@@ -270,11 +303,12 @@ export function Home3Facilities() {
                 outline: "1px solid rgba(208,153,71,0.25)",
               }}
             >
-              <Image
-                src={facilityImages[currentImage]}
+              <EditableImage
+                path={`facilities.images.${currentImage}`}
+                defaultSrc={DEFAULTS.facilityImages[currentImage]}
                 alt="Manufacturing facility"
                 fill
-                className="object-cover transition-opacity duration-500"
+                style={{ objectFit: "cover" }}
               />
 
               {/* Navigation Arrows - subtle industrial style */}
@@ -308,7 +342,7 @@ export function Home3Facilities() {
 
             {/* Dot Indicators */}
             <div className="flex justify-center gap-2" style={{ marginTop: "20px" }}>
-              {facilityImages.map((_, index) => (
+              {DEFAULTS.facilityImages.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentImage(index)}

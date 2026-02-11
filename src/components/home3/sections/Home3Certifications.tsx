@@ -2,54 +2,54 @@
 
 import { motion } from "framer-motion";
 import { Shield, Target, TrendingUp, CheckCircle, Award } from "lucide-react";
-import Image from "next/image";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const metrics = [
-  {
-    icon: Target,
-    value: "±0.001",
-    label: "Zeiss CMM Verification",
-    description: "Every critical dimension verified by world-class metrology.",
-    featured: false,
-  },
-  {
-    icon: TrendingUp,
-    value: "2-Hr",
-    label: "Dynamic IPQC",
-    description: "In-process quality control every 2 hours for consistency.",
-    featured: false,
-  },
-  {
-    icon: CheckCircle,
-    value: "100%",
-    label: "Full Documentation",
-    description: "Digital OQC, Material Certs, and DFM reports included.",
-    featured: false,
-  },
-  {
-    icon: Award,
-    value: "0.2%",
-    label: "ISO Certified",
-    description: "ISO 9001:2015 & ISO 13485 & ISO 14001 standards backed.",
-    featured: true,
-  },
-];
+const DEFAULTS = {
+  badge: "Quality Assurance",
+  titleWhiteLine1: "Your Trust,",
+  titleHighlightLine2: "Verified by Data.",
+  description:
+    "We exceed standards with rigorous testing and verification for real-world applications.",
+  metrics: [
+    {
+      value: "\u00B10.001",
+      label: "Zeiss CMM Verification",
+      description: "Every critical dimension verified by world-class metrology.",
+    },
+    {
+      value: "2-Hr",
+      label: "Dynamic IPQC",
+      description: "In-process quality control every 2 hours for consistency.",
+    },
+    {
+      value: "100%",
+      label: "Full Documentation",
+      description: "Digital OQC, Material Certs, and DFM reports included.",
+    },
+    {
+      value: "0.2%",
+      label: "ISO Certified",
+      description: "ISO 9001:2015 & ISO 13485 & ISO 14001 standards backed.",
+    },
+  ],
+  certificates: [
+    {
+      name: "ISO 9001",
+      image: getImageUrl("home/6-quality-ISO9001.webp"),
+    },
+    {
+      name: "ISO 13485",
+      image: getImageUrl("home/6-quality-ISO13485.webp"),
+    },
+    {
+      name: "ISO 14001",
+      image: getImageUrl("home/6-quality-ISO14001.webp"),
+    },
+  ],
+};
 
-const certificates = [
-  {
-    name: "ISO 9001",
-    image: getImageUrl("home/6-quality-ISO9001.webp"),
-  },
-  {
-    name: "ISO 13485",
-    image: getImageUrl("home/6-quality-ISO13485.webp"),
-  },
-  {
-    name: "ISO 14001",
-    image: getImageUrl("home/6-quality-ISO14001.webp"),
-  },
-];
+const metricIcons = [Target, TrendingUp, CheckCircle, Award];
 
 export function Home3Certifications() {
   return (
@@ -67,18 +67,31 @@ export function Home3Certifications() {
             <div className="inline-flex items-center gap-2 px-4 py-2 border border-[#D09947] rounded-full mb-8">
               <Shield className="w-4 h-4 text-[#D09947]" />
               <span className="text-[#D09947] text-xs font-medium tracking-[0.1em] uppercase">
-                Quality Assurance
+                <EditableText
+                  path="certifications.badge"
+                  defaultValue={DEFAULTS.badge}
+                />
               </span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl text-white mb-2 tracking-[-0.02em]" style={{ fontWeight: 800 }}>
-              Your Trust,
+              <EditableText
+                path="certifications.titleWhiteLine1"
+                defaultValue={DEFAULTS.titleWhiteLine1}
+              />
             </h2>
             <h2 className="text-3xl sm:text-4xl md:text-5xl text-[#EEC569] mb-6 tracking-[-0.02em]" style={{ fontWeight: 800 }}>
-              Verified by Data.
+              <EditableText
+                path="certifications.titleHighlightLine2"
+                defaultValue={DEFAULTS.titleHighlightLine2}
+              />
             </h2>
             <p className="text-[#888888] text-base max-w-lg leading-relaxed">
-              We exceed standards with rigorous testing and verification for real-world applications.
+              <EditableText
+                path="certifications.description"
+                defaultValue={DEFAULTS.description}
+                multiline
+              />
             </p>
           </motion.div>
 
@@ -90,9 +103,9 @@ export function Home3Certifications() {
             className="flex justify-center lg:justify-end items-center overflow-hidden"
           >
             <div className="flex gap-2 sm:gap-4">
-              {certificates.map((cert, index) => (
+              {DEFAULTS.certificates.map((cert, index) => (
                 <motion.div
-                  key={cert.name}
+                  key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -102,11 +115,12 @@ export function Home3Certifications() {
                     transform: `rotate(${index === 0 ? -3 : index === 2 ? 3 : 0}deg)`,
                   }}
                 >
-                  <Image
-                    src={cert.image}
+                  <EditableImage
+                    path={`certifications.certificates.${index}.image`}
+                    defaultSrc={cert.image}
                     alt={cert.name}
                     fill
-                    className="object-cover"
+                    style={{ objectFit: "cover" }}
                   />
                 </motion.div>
               ))}
@@ -116,11 +130,11 @@ export function Home3Certifications() {
 
         {/* Bottom - Metrics Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {metrics.map((metric, index) => {
-            const Icon = metric.icon;
+          {DEFAULTS.metrics.map((metric, index) => {
+            const Icon = metricIcons[index];
             return (
               <motion.div
-                key={metric.label}
+                key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -152,18 +166,28 @@ export function Home3Certifications() {
                     <Icon className="w-5 h-5 text-[#D09947]" />
                   </div>
                   <span className="text-2xl font-bold text-white">
-                    {metric.value}
+                    <EditableText
+                      path={`certifications.metrics.${index}.value`}
+                      defaultValue={metric.value}
+                    />
                   </span>
                 </div>
 
                 {/* Label */}
                 <h4 style={{ color: "#EEC569", fontWeight: 700, fontSize: "18px", marginBottom: "8px" }}>
-                  {metric.label}
+                  <EditableText
+                    path={`certifications.metrics.${index}.label`}
+                    defaultValue={metric.label}
+                  />
                 </h4>
 
                 {/* Description */}
                 <p style={{ color: "#C5C6C9", fontSize: "14px", lineHeight: 1.5 }}>
-                  {metric.description}
+                  <EditableText
+                    path={`certifications.metrics.${index}.description`}
+                    defaultValue={metric.description}
+                    multiline
+                  />
                 </p>
               </motion.div>
             );

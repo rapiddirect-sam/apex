@@ -3,24 +3,30 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import { EditableText, EditableImage } from "@/components/cms";
+
+const DEFAULTS = {
+  backgroundImage: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1600&q=80",
+  heading: "Start your precision manufacturing project",
+  description: "Upload your design files and get a detailed quote and free DFM analysis within 24 hours",
+  primaryCta: "Upload files for an instant quote",
+  secondaryCta: "Contact our engineers",
+};
 
 export function CNCCTA() {
   return (
     <section className="relative overflow-hidden" style={{ padding: "120px 0" }}>
-      {/* Background Image */}
       <div className="absolute inset-0">
-        <Image
-          src="https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1600&q=80"
+        <EditableImage
+          path="cta.backgroundImage"
+          defaultSrc={DEFAULTS.backgroundImage}
           alt="CNC Manufacturing"
           fill
-          className="object-cover"
         />
         <div
           className="absolute inset-0"
           style={{
-            background:
-              "linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.6) 100%)",
+            background: "linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.6) 100%)",
           }}
         />
       </div>
@@ -34,26 +40,12 @@ export function CNCCTA() {
         >
           <h2
             className="text-white"
-            style={{
-              fontSize: "46px",
-              fontWeight: 700,
-              letterSpacing: "-0.015em",
-              lineHeight: 1.1,
-              marginBottom: "18px",
-            }}
+            style={{ fontSize: "46px", fontWeight: 700, letterSpacing: "-0.015em", lineHeight: 1.1, marginBottom: "18px" }}
           >
-            Start your precision manufacturing project
+            <EditableText path="cta.heading" defaultValue={DEFAULTS.heading} />
           </h2>
-          <p
-            style={{
-              fontSize: "18px",
-              lineHeight: 1.6,
-              color: "#C5C6C9",
-              marginBottom: "36px",
-            }}
-          >
-            Upload your design files and get a detailed quote and free DFM
-            analysis within 24 hours
+          <p style={{ fontSize: "18px", lineHeight: 1.6, color: "#C5C6C9", marginBottom: "36px" }}>
+            <EditableText path="cta.description" defaultValue={DEFAULTS.description} multiline />
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center">
@@ -70,7 +62,7 @@ export function CNCCTA() {
                 boxShadow: "0 4px 15px rgba(208,153,71,0.3)",
               }}
             >
-              Upload files for an instant quote
+              <EditableText path="cta.primaryCta" defaultValue={DEFAULTS.primaryCta} />
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
@@ -86,7 +78,7 @@ export function CNCCTA() {
                 borderRadius: "12px",
               }}
             >
-              Contact our engineers
+              <EditableText path="cta.secondaryCta" defaultValue={DEFAULTS.secondaryCta} />
             </Link>
           </div>
         </motion.div>

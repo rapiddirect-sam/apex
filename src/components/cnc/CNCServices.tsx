@@ -1,24 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const services = [
-  {
-    title: "CNC Milling (3/4/5-Axis)",
-    description:
-      "Ideal for complex geometries. Our 5-axis capabilities allow for multi-sided machining in a single setup, ensuring superior positional accuracy.",
-    specs: ["Max Envelope: 1500mm", "Tolerance: ±0.01mm"],
-    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/3-cnc-milling-machining-service.webp",
-  },
-  {
-    title: "CNC Turning / Mill-Turn",
-    description:
-      "High-efficiency solutions for cylindrical parts. Swiss-style machining available for small, intricate components in high volumes.",
-    specs: ["Roundness: 0.005mm", "Surface Finish: Ra 0.4"],
-    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/cnc-turning.webp",
-  },
-];
+const DEFAULTS = {
+  heading: "Our CNC ",
+  headingHighlight: "Machining",
+  headingSuffix: " Services",
+  subheading: "Comprehensive precision machining solutions for demanding applications",
+  services: [
+    {
+      title: "CNC Milling (3/4/5-Axis)",
+      description:
+        "Ideal for complex geometries. Our 5-axis capabilities allow for multi-sided machining in a single setup, ensuring superior positional accuracy.",
+      specs: ["Max Envelope: 1500mm", "Tolerance: \u00B10.01mm"],
+      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/3-cnc-milling-machining-service.webp",
+    },
+    {
+      title: "CNC Turning / Mill-Turn",
+      description:
+        "High-efficiency solutions for cylindrical parts. Swiss-style machining available for small, intricate components in high volumes.",
+      specs: ["Roundness: 0.005mm", "Surface Finish: Ra 0.4"],
+      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/cnc-turning.webp",
+    },
+  ],
+};
 
 export function CNCServices() {
   return (
@@ -45,7 +51,11 @@ export function CNCServices() {
               letterSpacing: "-0.015em",
             }}
           >
-            Our CNC <span style={{ color: "#EEC569" }}>Machining</span> Services
+            <EditableText path="services.heading" defaultValue={DEFAULTS.heading} />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText path="services.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+            </span>
+            <EditableText path="services.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
           </h2>
           <p
             className="mx-auto"
@@ -57,19 +67,16 @@ export function CNCServices() {
               marginTop: "18px",
             }}
           >
-            Comprehensive precision machining solutions for demanding applications
+            <EditableText path="services.subheading" defaultValue={DEFAULTS.subheading} />
           </p>
         </motion.div>
 
-        {/* Services Grid - 2 cards */}
+        {/* Services Grid */}
         <div
           className="grid grid-cols-1 md:grid-cols-2"
-          style={{
-            gap: "32px",
-            marginTop: "72px",
-          }}
+          style={{ gap: "32px", marginTop: "72px" }}
         >
-          {services.map((service, index) => (
+          {DEFAULTS.services.map((service, index) => (
             <motion.div
               key={service.title}
               initial={{ opacity: 0, y: 30 }}
@@ -77,69 +84,29 @@ export function CNCServices() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               className="group"
-              style={{
-                background: "#1A1A1A",
-                overflow: "hidden",
-              }}
+              style={{ background: "#1A1A1A", overflow: "hidden" }}
             >
-              {/* Image */}
               <div className="relative overflow-hidden" style={{ height: "260px" }}>
-                <Image
-                  src={service.image}
+                <EditableImage
+                  path={`services.items.${index}.image`}
+                  defaultSrc={service.image}
                   alt={service.title}
                   fill
                   className="object-cover"
                 />
               </div>
-
-              {/* Content */}
               <div style={{ padding: "24px" }}>
-                <h3
-                  style={{
-                    fontSize: "24px",
-                    fontWeight: 700,
-                    color: "#FFFFFF",
-                    marginBottom: "16px",
-                  }}
-                >
-                  {service.title}
+                <h3 style={{ fontSize: "24px", fontWeight: 700, color: "#FFFFFF", marginBottom: "16px" }}>
+                  <EditableText path={`services.items.${index}.title`} defaultValue={service.title} />
                 </h3>
-
-                <p
-                  style={{
-                    fontSize: "16px",
-                    lineHeight: 1.7,
-                    color: "#C5C6C9",
-                    marginBottom: "24px",
-                  }}
-                >
-                  {service.description}
+                <p style={{ fontSize: "16px", lineHeight: 1.7, color: "#C5C6C9", marginBottom: "24px" }}>
+                  <EditableText path={`services.items.${index}.description`} defaultValue={service.description} multiline />
                 </p>
-
-                {/* Specs as bullet points */}
                 <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                  {service.specs.map((spec) => (
-                    <li
-                      key={spec}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "12px",
-                        color: "#C5C6C9",
-                        fontSize: "16px",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      <span
-                        style={{
-                          width: "8px",
-                          height: "8px",
-                          borderRadius: "50%",
-                          background: "#D09947",
-                          flexShrink: 0,
-                        }}
-                      />
-                      {spec}
+                  {service.specs.map((spec, specIndex) => (
+                    <li key={spec} style={{ display: "flex", alignItems: "center", gap: "12px", color: "#C5C6C9", fontSize: "16px", marginBottom: "8px" }}>
+                      <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#D09947", flexShrink: 0 }} />
+                      <EditableText path={`services.items.${index}.specs.${specIndex}`} defaultValue={spec} />
                     </li>
                   ))}
                 </ul>

@@ -1,49 +1,56 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const stats = [
-  { value: "50,000 m²", label: "Total Factory Area" },
-  { value: "8", label: "Specialized Production Shops" },
-  { value: "300+", label: "Advanced Equipment" },
-  { value: "98%", label: "On-time Delivery" },
-];
-
-const images = [
-  {
-    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-injection-molding-factory-workshop-1.webp",
-    alt: "Injection Molding Factory Workshop",
-  },
-  {
-    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-plastic-injection-molding-production-line-2.webp",
-    alt: "Plastic Injection Molding Production Line",
-  },
-  {
-    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-custom-injection-molding-manufacturing-facility-3.webp",
-    alt: "Custom Injection Molding Manufacturing Facility",
-  },
-  {
-    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-injection-molding-machines-on-site-4.webp",
-    alt: "Injection Molding Machines On Site",
-  },
-  {
-    src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-plastic-injection-molding-factory-5.webp",
-    alt: "Plastic Injection Molding Factory",
-  },
-];
+const DEFAULTS = {
+  headingHighlight: "Precision Injection Molding Services ",
+  headingSuffix: "Supplier",
+  description1:
+    "Located in Shenzhen\u2019s advanced manufacturing district, our 50,000 m\u00B2 vertically integrated facility operates 8 specialized production shops and is equipped with 300+ advanced machines.",
+  description2:
+    "We support end-to-end manufacturing in one location, including CNC machining, precision injection molding, sheet metal fabrication, 3D printing, as well as in-house surface treatment and quality inspection lines.",
+  stats: [
+    { value: "50,000 m\u00B2", label: "Total Factory Area" },
+    { value: "8", label: "Specialized Production Shops" },
+    { value: "300+", label: "Advanced Equipment" },
+    { value: "98%", label: "On-time Delivery" },
+  ],
+  images: [
+    {
+      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-injection-molding-factory-workshop-1.webp",
+      alt: "Injection Molding Factory Workshop",
+    },
+    {
+      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-plastic-injection-molding-production-line-2.webp",
+      alt: "Plastic Injection Molding Production Line",
+    },
+    {
+      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-custom-injection-molding-manufacturing-facility-3.webp",
+      alt: "Custom Injection Molding Manufacturing Facility",
+    },
+    {
+      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-injection-molding-machines-on-site-4.webp",
+      alt: "Injection Molding Machines On Site",
+    },
+    {
+      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-plastic-injection-molding-factory-5.webp",
+      alt: "Plastic Injection Molding Factory",
+    },
+  ],
+};
 
 export function IMSupplier() {
   const [currentImage, setCurrentImage] = useState(0);
 
   const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % images.length);
+    setCurrentImage((prev) => (prev + 1) % DEFAULTS.images.length);
   };
 
   const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
+    setCurrentImage((prev) => (prev - 1 + DEFAULTS.images.length) % DEFAULTS.images.length);
   };
 
   return (
@@ -80,11 +87,15 @@ export function IMSupplier() {
                 whiteSpace: "nowrap",
               }}
             >
-              <span style={{ color: "#EEC569" }}>Precision Injection Molding Services </span>
-              <span style={{ color: "#FFFFFF" }}>Supplier</span>
+              <span style={{ color: "#EEC569" }}>
+                <EditableText path="supplier.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+              </span>
+              <span style={{ color: "#FFFFFF" }}>
+                <EditableText path="supplier.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
+              </span>
             </h2>
 
-            <p
+            <div
               style={{
                 fontSize: "15px",
                 lineHeight: 1.7,
@@ -92,19 +103,18 @@ export function IMSupplier() {
                 marginBottom: "32px",
               }}
             >
-              Located in Shenzhen&apos;s advanced manufacturing district, our 50,000
-              m² vertically integrated facility operates 8 specialized production
-              shops and is equipped with 300+ advanced machines.
-              <br /><br />
-              We support end-to-end manufacturing in one location, including CNC
-              machining, precision injection molding, sheet metal fabrication, 3D
-              printing, as well as in-house surface treatment and quality inspection
-              lines.
-            </p>
+              <p>
+                <EditableText path="supplier.description1" defaultValue={DEFAULTS.description1} multiline />
+              </p>
+              <br />
+              <p>
+                <EditableText path="supplier.description2" defaultValue={DEFAULTS.description2} multiline />
+              </p>
+            </div>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-2 gap-4">
-              {stats.map((stat, index) => (
+              {DEFAULTS.stats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
                   initial={{ opacity: 0, y: 20 }}
@@ -127,7 +137,7 @@ export function IMSupplier() {
                       lineHeight: 1.1,
                     }}
                   >
-                    {stat.value}
+                    <EditableText path={`supplier.stats.${index}.value`} defaultValue={stat.value} />
                   </div>
                   <div
                     style={{
@@ -138,7 +148,7 @@ export function IMSupplier() {
                       letterSpacing: "0.05em",
                     }}
                   >
-                    {stat.label}
+                    <EditableText path={`supplier.stats.${index}.label`} defaultValue={stat.label} />
                   </div>
                 </motion.div>
               ))}
@@ -200,9 +210,10 @@ export function IMSupplier() {
               />
 
               <div className="relative aspect-[4/3]">
-                <Image
-                  src={images[currentImage].src}
-                  alt={images[currentImage].alt}
+                <EditableImage
+                  path={`supplier.images.${currentImage}.src`}
+                  defaultSrc={DEFAULTS.images[currentImage].src}
+                  alt={DEFAULTS.images[currentImage].alt}
                   fill
                   className="object-cover transition-opacity duration-500"
                 />
@@ -239,7 +250,7 @@ export function IMSupplier() {
 
             {/* Dot indicators */}
             <div className="flex justify-center gap-2 mt-5">
-              {images.map((_, index) => (
+              {DEFAULTS.images.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentImage(index)}

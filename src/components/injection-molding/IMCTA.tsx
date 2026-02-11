@@ -3,18 +3,26 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import { EditableText, EditableImage } from "@/components/cms";
+
+const DEFAULTS = {
+  backgroundImage: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/injection-molding-footer.webp",
+  heading: "Start Your Injection Molding Project Today",
+  description: "Upload your design files and get a detailed quote and free DFM analysis within 24 hours",
+  primaryCta: "Upload files for an instant quote",
+  secondaryCta: "Contact our engineers",
+};
 
 export function IMCTA() {
   return (
     <section className="relative overflow-hidden" style={{ padding: "120px 0" }}>
       {/* Background Image */}
       <div className="absolute inset-0">
-        <Image
-          src="https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/injection-molding-footer.webp"
+        <EditableImage
+          path="cta.backgroundImage"
+          defaultSrc={DEFAULTS.backgroundImage}
           alt="Injection Molding Manufacturing"
           fill
-          className="object-cover"
         />
         <div
           className="absolute inset-0"
@@ -42,7 +50,7 @@ export function IMCTA() {
               marginBottom: "18px",
             }}
           >
-            Start Your Injection Molding Project Today
+            <EditableText path="cta.heading" defaultValue={DEFAULTS.heading} />
           </h2>
           <p
             style={{
@@ -52,8 +60,7 @@ export function IMCTA() {
               marginBottom: "36px",
             }}
           >
-            Upload your design files and get a detailed quote and free DFM
-            analysis within 24 hours
+            <EditableText path="cta.description" defaultValue={DEFAULTS.description} multiline />
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center">
@@ -71,7 +78,7 @@ export function IMCTA() {
                 boxShadow: "0 4px 15px rgba(208,153,71,0.3)",
               }}
             >
-              Upload files for an instant quote
+              <EditableText path="cta.primaryCta" defaultValue={DEFAULTS.primaryCta} />
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
@@ -87,7 +94,7 @@ export function IMCTA() {
                 borderRadius: "12px",
               }}
             >
-              Contact our engineers
+              <EditableText path="cta.secondaryCta" defaultValue={DEFAULTS.secondaryCta} />
             </Link>
           </div>
         </motion.div>

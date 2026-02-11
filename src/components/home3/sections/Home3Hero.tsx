@@ -5,26 +5,39 @@ import { Check, Star, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const testimonialFaces = [
-  "https://randomuser.me/api/portraits/men/32.jpg",
-  "https://randomuser.me/api/portraits/women/44.jpg",
-  "https://randomuser.me/api/portraits/men/67.jpg",
-  "https://randomuser.me/api/portraits/women/28.jpg",
-];
-
-const features = [
-  { highlight: "30-60", text: "Minute quote response" },
-  { highlight: "±0.01-0.05mm", text: "Precision control" },
-  { highlight: "ISO-certified", text: "Quality system" },
-  { highlight: "Free", text: "Technical Support" },
-];
-
-const stats = [
-  { value: "15+", label: "Years Experience" },
-  { value: "50K+", label: "Projects Done" },
-  { value: "99.8%", label: "Accuracy Rate" },
-];
+const DEFAULTS = {
+  badge: "Precision Engineering",
+  headingLine1: "Precision",
+  headingLine2: "Manufacturing,",
+  headingLine3: "Built to Last",
+  description:
+    "Your Partner for High-Precision Batch Manufacturing. Industrial-grade quality with rapid turnaround times.",
+  ctaPrimary: "Get Instant Quote",
+  ctaSecondary: "View Capabilities",
+  socialProofCount: "25M+",
+  socialProofLabel: "Parts Created",
+  socialProofReviews: "22,500+ Happy Customers",
+  backgroundImage: getImageUrl("home/1-homepage-banner.webp"),
+  features: [
+    { highlight: "30-60", text: "Minute quote response" },
+    { highlight: "±0.01-0.05mm", text: "Precision control" },
+    { highlight: "ISO-certified", text: "Quality system" },
+    { highlight: "Free", text: "Technical Support" },
+  ],
+  stats: [
+    { value: "15+", label: "Years Experience" },
+    { value: "50K+", label: "Projects Done" },
+    { value: "99.8%", label: "Accuracy Rate" },
+  ],
+  testimonialFaces: [
+    "https://randomuser.me/api/portraits/men/32.jpg",
+    "https://randomuser.me/api/portraits/women/44.jpg",
+    "https://randomuser.me/api/portraits/men/67.jpg",
+    "https://randomuser.me/api/portraits/women/28.jpg",
+  ],
+};
 
 export function Home3Hero() {
   return (
@@ -41,11 +54,16 @@ export function Home3Hero() {
 
       {/* Background image - right side only */}
       <div
-        className="absolute right-0 top-0 bottom-0 w-1/2 bg-cover bg-center hidden lg:block"
-        style={{
-          backgroundImage: `url('${getImageUrl("home/1-homepage-banner.webp")}')`,
-        }}
-      />
+        className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block overflow-hidden"
+      >
+        <EditableImage
+          path="hero.backgroundImage"
+          defaultSrc={DEFAULTS.backgroundImage}
+          alt="Manufacturing background"
+          fill
+          style={{ objectFit: "cover" }}
+        />
+      </div>
       {/* Diagonal gradient overlay on image */}
       <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-gradient-to-r from-[#000000] via-[#000000]/80 to-transparent hidden lg:block" />
 
@@ -69,23 +87,38 @@ export function Home3Hero() {
             <div className="inline-flex items-center gap-2 px-4 py-2 border border-[#D09947]/30 rounded mb-8">
               <div className="w-2 h-2 bg-[#D09947] rounded-full animate-pulse" />
               <span className="text-[#D09947] text-xs font-medium uppercase tracking-[0.2em]">
-                Precision Engineering
+                <EditableText
+                  path="hero.badge"
+                  defaultValue={DEFAULTS.badge}
+                />
               </span>
             </div>
 
             <h1 className="text-[42px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-extrabold text-white leading-[0.95] tracking-tight uppercase mb-2">
-              Precision
+              <EditableText
+                path="hero.headingLine1"
+                defaultValue={DEFAULTS.headingLine1}
+              />
             </h1>
             <h1 className="text-[42px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-extrabold text-white leading-[0.95] tracking-tight uppercase mb-2">
-              Manufacturing,
+              <EditableText
+                path="hero.headingLine2"
+                defaultValue={DEFAULTS.headingLine2}
+              />
             </h1>
             <h1 className="text-[42px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-extrabold text-[#D09947] leading-[0.95] tracking-tight uppercase mb-8">
-              Built to Last
+              <EditableText
+                path="hero.headingLine3"
+                defaultValue={DEFAULTS.headingLine3}
+              />
             </h1>
 
             <p className="text-[#7A7A7C] text-lg max-w-xl mb-10 leading-relaxed">
-              Your Partner for High-Precision Batch Manufacturing. Industrial-grade
-              quality with rapid turnaround times.
+              <EditableText
+                path="hero.description"
+                defaultValue={DEFAULTS.description}
+                multiline
+              />
             </p>
 
             {/* CTA Buttons */}
@@ -95,21 +128,27 @@ export function Home3Hero() {
                 rel="nofollow"
                 className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider flex items-center gap-2 group"
               >
-                Get Instant Quote
+                <EditableText
+                  path="hero.ctaPrimary"
+                  defaultValue={DEFAULTS.ctaPrimary}
+                />
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="#services"
                 className="border border-[#4A4A48] hover:border-[#D09947] text-white font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider"
               >
-                View Capabilities
+                <EditableText
+                  path="hero.ctaSecondary"
+                  defaultValue={DEFAULTS.ctaSecondary}
+                />
               </Link>
             </div>
 
             {/* Social Proof */}
             <div className="flex items-center gap-6">
               <div className="flex -space-x-3">
-                {testimonialFaces.map((face, i) => (
+                {DEFAULTS.testimonialFaces.map((face, i) => (
                   <div
                     key={i}
                     className="w-10 h-10 rounded-full border-2 border-[#000000] overflow-hidden relative"
@@ -125,13 +164,27 @@ export function Home3Hero() {
               </div>
               <div>
                 <p className="text-white text-sm">
-                  <span className="font-bold text-[#D09947]">25M+</span> Parts Created
+                  <span className="font-bold text-[#D09947]">
+                    <EditableText
+                      path="hero.socialProofCount"
+                      defaultValue={DEFAULTS.socialProofCount}
+                    />
+                  </span>{" "}
+                  <EditableText
+                    path="hero.socialProofLabel"
+                    defaultValue={DEFAULTS.socialProofLabel}
+                  />
                 </p>
                 <div className="flex items-center gap-1">
                   {[1, 2, 3, 4, 5].map((i) => (
                     <Star key={i} className="w-3 h-3 fill-[#D09947] text-[#D09947]" />
                   ))}
-                  <span className="text-[#7A7A7C] text-xs ml-2">22,500+ Happy Customers</span>
+                  <span className="text-[#7A7A7C] text-xs ml-2">
+                    <EditableText
+                      path="hero.socialProofReviews"
+                      defaultValue={DEFAULTS.socialProofReviews}
+                    />
+                  </span>
                 </div>
               </div>
             </div>
@@ -150,16 +203,22 @@ export function Home3Hero() {
 
               {/* Feature List */}
               <ul className="space-y-5 mb-8 relative">
-                {features.map((feature, index) => (
+                {DEFAULTS.features.map((feature, index) => (
                   <li key={index} className="flex items-center gap-4">
                     <div className="w-8 h-8 bg-[#D09947]/10 border border-[#D09947]/30 rounded flex items-center justify-center flex-shrink-0">
                       <Check className="w-4 h-4 text-[#D09947]" />
                     </div>
                     <span className="text-white text-sm">
                       <span className="text-[#D09947] font-semibold">
-                        {feature.highlight}
+                        <EditableText
+                          path={`hero.features.${index}.highlight`}
+                          defaultValue={feature.highlight}
+                        />
                       </span>{" "}
-                      {feature.text}
+                      <EditableText
+                        path={`hero.features.${index}.text`}
+                        defaultValue={feature.text}
+                      />
                     </span>
                   </li>
                 ))}
@@ -167,13 +226,19 @@ export function Home3Hero() {
 
               {/* Stats Row */}
               <div className="grid grid-cols-3 gap-4 pt-6 border-t border-[#D09947]/20">
-                {stats.map((stat, index) => (
+                {DEFAULTS.stats.map((stat, index) => (
                   <div key={index} className="text-center">
                     <div className="text-[#D09947] text-2xl font-bold">
-                      {stat.value}
+                      <EditableText
+                        path={`hero.stats.${index}.value`}
+                        defaultValue={stat.value}
+                      />
                     </div>
                     <div className="text-[#7A7A7C] text-[10px] uppercase tracking-wider">
-                      {stat.label}
+                      <EditableText
+                        path={`hero.stats.${index}.label`}
+                        defaultValue={stat.label}
+                      />
                     </div>
                   </div>
                 ))}

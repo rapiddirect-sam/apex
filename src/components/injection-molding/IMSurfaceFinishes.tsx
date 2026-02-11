@@ -1,46 +1,52 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const finishes = [
-  {
-    name: "SPI A (High Gloss)",
-    compatibleMaterials: "high-gloss applications",
-    spiGrade: "A1, A2, A3",
-    roughness: "< 0.1",
-    description:
-      "Mirror-like surface with exceptional reflectivity, ideal for optical and decorative applications.",
-    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIA(High-Gloss).webp",
-  },
-  {
-    name: "SPI B (Semi-Gloss)",
-    compatibleMaterials: "general-purpose plastics",
-    spiGrade: "B1, B2, B3",
-    roughness: "0.1 - 0.4",
-    description:
-      "Soft satin finish that minimizes fingerprints while maintaining a professional appearance.",
-    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIB(Semi-Gloss).webp",
-  },
-  {
-    name: "SPI C (Fine Matte)",
-    compatibleMaterials: "matte-finish engineering plastics",
-    spiGrade: "C1, C2, C3",
-    roughness: "0.4 - 1.6",
-    description:
-      "Uniform non-glossy surface that effectively hides minor imperfections and mold lines.",
-    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIC(Fine Matte).webp",
-  },
-  {
-    name: "SPI D (Coarse Matte/Sandblast)",
-    compatibleMaterials: "textured/structural parts",
-    spiGrade: "D1, D2, D3",
-    roughness: "> 1.6",
-    description:
-      "Textured finish providing enhanced grip and masking of surface defects.",
-    image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPID(Coarse-Matte-Sandblast).webp",
-  },
-];
+const DEFAULTS = {
+  heading: "Injection Molding ",
+  headingHighlight: "Surface Finishes",
+  subheading:
+    "Professional SPI surface finishes and texture options to meet aesthetic and functional requirements for your injection molded parts.",
+  finishes: [
+    {
+      name: "SPI A (High Gloss)",
+      compatibleMaterials: "high-gloss applications",
+      spiGrade: "A1, A2, A3",
+      roughness: "< 0.1",
+      description:
+        "Mirror-like surface with exceptional reflectivity, ideal for optical and decorative applications.",
+      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIA(High-Gloss).webp",
+    },
+    {
+      name: "SPI B (Semi-Gloss)",
+      compatibleMaterials: "general-purpose plastics",
+      spiGrade: "B1, B2, B3",
+      roughness: "0.1 - 0.4",
+      description:
+        "Soft satin finish that minimizes fingerprints while maintaining a professional appearance.",
+      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIB(Semi-Gloss).webp",
+    },
+    {
+      name: "SPI C (Fine Matte)",
+      compatibleMaterials: "matte-finish engineering plastics",
+      spiGrade: "C1, C2, C3",
+      roughness: "0.4 - 1.6",
+      description:
+        "Uniform non-glossy surface that effectively hides minor imperfections and mold lines.",
+      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIC(Fine Matte).webp",
+    },
+    {
+      name: "SPI D (Coarse Matte/Sandblast)",
+      compatibleMaterials: "textured/structural parts",
+      spiGrade: "D1, D2, D3",
+      roughness: "> 1.6",
+      description:
+        "Textured finish providing enhanced grip and masking of surface defects.",
+      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPID(Coarse-Matte-Sandblast).webp",
+    },
+  ],
+};
 
 export function IMSurfaceFinishes() {
   return (
@@ -67,8 +73,10 @@ export function IMSurfaceFinishes() {
               marginBottom: "18px",
             }}
           >
-            Injection Molding{" "}
-            <span style={{ color: "#EEC569" }}>Surface Finishes</span>
+            <EditableText path="finishes.heading" defaultValue={DEFAULTS.heading} />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText path="finishes.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+            </span>
           </h2>
           <p
             style={{
@@ -79,8 +87,7 @@ export function IMSurfaceFinishes() {
               marginBottom: "72px",
             }}
           >
-            Professional SPI surface finishes and texture options to meet aesthetic and functional requirements
-            for your injection molded parts.
+            <EditableText path="finishes.subheading" defaultValue={DEFAULTS.subheading} multiline />
           </p>
         </motion.div>
 
@@ -91,7 +98,7 @@ export function IMSurfaceFinishes() {
             gap: "32px",
           }}
         >
-          {finishes.map((finish, index) => (
+          {DEFAULTS.finishes.map((finish, index) => (
             <motion.div
               key={finish.name}
               initial={{ opacity: 0, y: 30 }}
@@ -128,7 +135,7 @@ export function IMSurfaceFinishes() {
                     marginBottom: "8px",
                   }}
                 >
-                  {finish.name}
+                  <EditableText path={`finishes.items.${index}.name`} defaultValue={finish.name} />
                 </h3>
 
                 {/* Compatible Materials */}
@@ -139,7 +146,7 @@ export function IMSurfaceFinishes() {
                     marginBottom: "20px",
                   }}
                 >
-                  Compatible Materials : {finish.compatibleMaterials}
+                  Compatible Materials : <EditableText path={`finishes.items.${index}.compatibleMaterials`} defaultValue={finish.compatibleMaterials} />
                 </p>
 
                 {/* Image */}
@@ -153,8 +160,9 @@ export function IMSurfaceFinishes() {
                     overflow: "hidden",
                   }}
                 >
-                  <Image
-                    src={finish.image}
+                  <EditableImage
+                    path={`finishes.items.${index}.image`}
+                    defaultSrc={finish.image}
                     alt={finish.name}
                     fill
                     className="object-cover"
@@ -184,7 +192,7 @@ export function IMSurfaceFinishes() {
                         color: "#FFFFFF",
                       }}
                     >
-                      {finish.spiGrade}
+                      <EditableText path={`finishes.items.${index}.spiGrade`} defaultValue={finish.spiGrade} />
                     </p>
                   </div>
                   <div className="text-right">
@@ -205,7 +213,7 @@ export function IMSurfaceFinishes() {
                         color: "#FFFFFF",
                       }}
                     >
-                      {finish.roughness}
+                      <EditableText path={`finishes.items.${index}.roughness`} defaultValue={finish.roughness} />
                     </p>
                   </div>
                 </div>
@@ -224,7 +232,7 @@ export function IMSurfaceFinishes() {
                     color: "#C5C6C9",
                   }}
                 >
-                  {finish.description}
+                  <EditableText path={`finishes.items.${index}.description`} defaultValue={finish.description} multiline />
                 </p>
               </div>
             </motion.div>

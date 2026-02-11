@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { getPageMetaWithDefaults } from "@/lib/pageMeta";
+import { getPageContent } from "@/lib/pageContent";
 import { QualityPageClient } from "./QualityPageClient";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -13,6 +14,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function QualityPage() {
-  return <QualityPageClient />;
+export default async function QualityPage() {
+  const { content, version } = await getPageContent("/quality");
+
+  return (
+    <QualityPageClient
+      initialContent={content}
+      initialVersion={version}
+    />
+  );
 }

@@ -2,37 +2,46 @@
 
 import { motion } from "framer-motion";
 import { Upload, FileSearch, Settings, Truck } from "lucide-react";
+import { EditableText } from "@/components/cms";
 
-const steps = [
-  {
-    number: "01",
-    icon: Upload,
-    title: "Submit Your Design",
-    description: "Upload your CAD files and basic requirements. Our team reviews your drawings, materials, tolerances, and application needs.",
-    bullets: ["STEP, IGES, STL", "PDF Drawings", "3D Models"],
-  },
-  {
-    number: "02",
-    icon: FileSearch,
-    title: "Engineering Review & Quotation",
-    description: "Within 24 hours, we provide a manufacturability review, process recommendations, pricing, and lead time options.",
-    bullets: ["Automated Pricing", "DFM Analysis", "Material Selection"],
-  },
-  {
-    number: "03",
-    icon: Settings,
-    title: "Production & Quality Control",
-    description: "Once confirmed, we start production with controlled processes and in-process inspections to ensure every part meets specifications.",
-    bullets: ["CNC Machining", "Quality Control", "Progress Updates"],
-  },
-  {
-    number: "04",
-    icon: Truck,
-    title: "Delivery & Ongoing Support",
-    description: "Parts are shipped with tracking and inspection records. Our team remains available for follow-up support and future production needs.",
-    bullets: ["CMM Inspection", "Quality Certs", "Fast Shipping"],
-  },
-];
+const DEFAULTS = {
+  titleWhite: "How to Work ",
+  titleHighlight: "With ApexBatch",
+  subtitle:
+    "A clear, guided process that takes you from design to delivery — without unnecessary complexity.",
+  steps: [
+    {
+      number: "01",
+      title: "Submit Your Design",
+      description:
+        "Upload your CAD files and basic requirements. Our team reviews your drawings, materials, tolerances, and application needs.",
+      bullets: ["STEP, IGES, STL", "PDF Drawings", "3D Models"],
+    },
+    {
+      number: "02",
+      title: "Engineering Review & Quotation",
+      description:
+        "Within 24 hours, we provide a manufacturability review, process recommendations, pricing, and lead time options.",
+      bullets: ["Automated Pricing", "DFM Analysis", "Material Selection"],
+    },
+    {
+      number: "03",
+      title: "Production & Quality Control",
+      description:
+        "Once confirmed, we start production with controlled processes and in-process inspections to ensure every part meets specifications.",
+      bullets: ["CNC Machining", "Quality Control", "Progress Updates"],
+    },
+    {
+      number: "04",
+      title: "Delivery & Ongoing Support",
+      description:
+        "Parts are shipped with tracking and inspection records. Our team remains available for follow-up support and future production needs.",
+      bullets: ["CMM Inspection", "Quality Certs", "Fast Shipping"],
+    },
+  ],
+};
+
+const stepIcons = [Upload, FileSearch, Settings, Truck];
 
 export function Home3Process() {
   return (
@@ -59,7 +68,16 @@ export function Home3Process() {
               letterSpacing: "-0.015em",
             }}
           >
-            How to Work <span style={{ color: "#EEC569" }}>With ApexBatch</span>
+            <EditableText
+              path="process.titleWhite"
+              defaultValue={DEFAULTS.titleWhite}
+            />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText
+                path="process.titleHighlight"
+                defaultValue={DEFAULTS.titleHighlight}
+              />
+            </span>
           </h2>
           <p
             className="mx-auto"
@@ -71,7 +89,11 @@ export function Home3Process() {
               marginTop: "18px",
             }}
           >
-            A clear, guided process that takes you from design to delivery — without unnecessary complexity.
+            <EditableText
+              path="process.subtitle"
+              defaultValue={DEFAULTS.subtitle}
+              multiline
+            />
           </p>
         </motion.div>
 
@@ -83,11 +105,11 @@ export function Home3Process() {
             marginTop: "72px",
           }}
         >
-          {steps.map((step, index) => {
-            const Icon = step.icon;
+          {DEFAULTS.steps.map((step, index) => {
+            const Icon = stepIcons[index];
             return (
               <motion.div
-                key={step.title}
+                key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -128,7 +150,10 @@ export function Home3Process() {
                     lineHeight: 1.3,
                   }}
                 >
-                  {step.title}
+                  <EditableText
+                    path={`process.steps.${index}.title`}
+                    defaultValue={step.title}
+                  />
                 </h3>
 
                 {/* Description */}
@@ -140,13 +165,17 @@ export function Home3Process() {
                     marginBottom: "16px",
                   }}
                 >
-                  {step.description}
+                  <EditableText
+                    path={`process.steps.${index}.description`}
+                    defaultValue={step.description}
+                    multiline
+                  />
                 </p>
 
                 {/* Bullet Points */}
                 <ul className="space-y-1.5">
-                  {step.bullets.map((bullet) => (
-                    <li key={bullet} className="flex items-center gap-2.5">
+                  {step.bullets.map((bullet, bulletIndex) => (
+                    <li key={bulletIndex} className="flex items-center gap-2.5">
                       <div
                         className="flex-shrink-0"
                         style={{
@@ -162,7 +191,10 @@ export function Home3Process() {
                           color: "#C5C6C9",
                         }}
                       >
-                        {bullet}
+                        <EditableText
+                          path={`process.steps.${index}.bullets.${bulletIndex}`}
+                          defaultValue={bullet}
+                        />
                       </span>
                     </li>
                   ))}

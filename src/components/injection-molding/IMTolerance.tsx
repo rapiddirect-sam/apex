@@ -3,39 +3,46 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { EditableText } from "@/components/cms";
 
-const toleranceData = [
-  {
-    element: "Wall Thickness",
-    recommended: "1.5 - 3.0 mm",
-    limit: "0.5 mm (for LCP, etc.)",
-    notes: "Uniform wall thickness to avoid sink marks",
-  },
-  {
-    element: "Draft Angle",
-    recommended: "1° - 3°",
-    limit: "0.5° (textured parts require larger)",
-    notes: "Smooth surfaces take smaller values, textured surfaces require larger values",
-  },
-  {
-    element: "Rib Thickness",
-    recommended: "50% - 60% of main wall",
-    limit: "30% (deeper ribs need to be thinner)",
-    notes: "Prevents sink marks on opposite side",
-  },
-  {
-    element: "Mold Tolerance",
-    recommended: "±0.03 mm / 25mm",
-    limit: "±0.01 mm",
-    notes: "Depends on steel material and machining accuracy",
-  },
-  {
-    element: "Part Tolerance",
-    recommended: "±0.1 mm (general)",
-    limit: "±0.05 mm (precision)",
-    notes: "Significantly affected by material shrinkage rate",
-  },
-];
+const DEFAULTS = {
+  heading: "Design for Manufacturing ",
+  headingHighlight: "Guidelines",
+  subheading:
+    "Critical design parameters and tolerances for optimal injection molding results. Follow these guidelines to ensure manufacturability and quality.",
+  toleranceData: [
+    {
+      element: "Wall Thickness",
+      recommended: "1.5 - 3.0 mm",
+      limit: "0.5 mm (for LCP, etc.)",
+      notes: "Uniform wall thickness to avoid sink marks",
+    },
+    {
+      element: "Draft Angle",
+      recommended: "1\u00B0 - 3\u00B0",
+      limit: "0.5\u00B0 (textured parts require larger)",
+      notes: "Smooth surfaces take smaller values, textured surfaces require larger values",
+    },
+    {
+      element: "Rib Thickness",
+      recommended: "50% - 60% of main wall",
+      limit: "30% (deeper ribs need to be thinner)",
+      notes: "Prevents sink marks on opposite side",
+    },
+    {
+      element: "Mold Tolerance",
+      recommended: "\u00B10.03 mm / 25mm",
+      limit: "\u00B10.01 mm",
+      notes: "Depends on steel material and machining accuracy",
+    },
+    {
+      element: "Part Tolerance",
+      recommended: "\u00B10.1 mm (general)",
+      limit: "\u00B10.05 mm (precision)",
+      notes: "Significantly affected by material shrinkage rate",
+    },
+  ],
+};
 
 export function IMTolerance() {
   return (
@@ -70,8 +77,10 @@ export function IMTolerance() {
               marginBottom: "18px",
             }}
           >
-            Design for Manufacturing{" "}
-            <span style={{ color: "#EEC569" }}>Guidelines</span>
+            <EditableText path="tolerance.heading" defaultValue={DEFAULTS.heading} />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText path="tolerance.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+            </span>
           </h2>
           <p
             style={{
@@ -81,8 +90,7 @@ export function IMTolerance() {
               maxWidth: "700px",
             }}
           >
-            Critical design parameters and tolerances for optimal injection molding results. Follow
-            these guidelines to ensure manufacturability and quality.
+            <EditableText path="tolerance.subheading" defaultValue={DEFAULTS.subheading} multiline />
           </p>
         </motion.div>
 
@@ -168,7 +176,7 @@ export function IMTolerance() {
 
               {/* Body */}
               <tbody>
-                {toleranceData.map((row, index) => (
+                {DEFAULTS.toleranceData.map((row, index) => (
                   <tr
                     key={index}
                     style={{
@@ -181,7 +189,7 @@ export function IMTolerance() {
                     <td
                       style={{
                         borderBottom:
-                          index < toleranceData.length - 1
+                          index < DEFAULTS.toleranceData.length - 1
                             ? "1px solid rgba(255,255,255,0.08)"
                             : "none",
                         padding: "18px 28px",
@@ -191,12 +199,12 @@ export function IMTolerance() {
                         fontSize: "16px",
                       }}
                     >
-                      {row.element}
+                      <EditableText path={`tolerance.data.${index}.element`} defaultValue={row.element} />
                     </td>
                     <td
                       style={{
                         borderBottom:
-                          index < toleranceData.length - 1
+                          index < DEFAULTS.toleranceData.length - 1
                             ? "1px solid rgba(255,255,255,0.08)"
                             : "none",
                         padding: "18px 28px",
@@ -206,12 +214,12 @@ export function IMTolerance() {
                         fontSize: "16px",
                       }}
                     >
-                      {row.recommended}
+                      <EditableText path={`tolerance.data.${index}.recommended`} defaultValue={row.recommended} />
                     </td>
                     <td
                       style={{
                         borderBottom:
-                          index < toleranceData.length - 1
+                          index < DEFAULTS.toleranceData.length - 1
                             ? "1px solid rgba(255,255,255,0.08)"
                             : "none",
                         padding: "18px 28px",
@@ -221,12 +229,12 @@ export function IMTolerance() {
                         fontSize: "16px",
                       }}
                     >
-                      {row.limit}
+                      <EditableText path={`tolerance.data.${index}.limit`} defaultValue={row.limit} />
                     </td>
                     <td
                       style={{
                         borderBottom:
-                          index < toleranceData.length - 1
+                          index < DEFAULTS.toleranceData.length - 1
                             ? "1px solid rgba(255,255,255,0.08)"
                             : "none",
                         padding: "18px 28px",
@@ -236,7 +244,7 @@ export function IMTolerance() {
                         fontSize: "16px",
                       }}
                     >
-                      {row.notes}
+                      <EditableText path={`tolerance.data.${index}.notes`} defaultValue={row.notes} multiline />
                     </td>
                   </tr>
                 ))}

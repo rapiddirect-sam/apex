@@ -2,32 +2,43 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const industries = [
-  {
-    title: "Medical Devices",
-    description: "ISO 13485 compliant precision components for life-critical applications. Full traceability and documentation for regulatory compliance.",
-    image: getImageUrl("home/5-industries-medical.webp"),
-  },
-  {
-    title: "Aerospace",
-    description: "AS9100 certified high-performance parts with full traceability. Meeting the strictest quality and safety standards for aviation.",
-    image: getImageUrl("home/5-industries-aerospace.webp"),
-  },
-  {
-    title: "Automotive",
-    description: "IATF 16949 quality management for OEM and aftermarket components. High-volume production with consistent precision.",
-    image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80",
-  },
-  {
-    title: "Consumer Electronics",
-    description: "Production of precision metal and plastic components for enclosures, internal frames, and functional assemblies in consumer electronics.",
-    image: getImageUrl("home/5-industries-consumer-electronics.webp"),
-  },
-];
+const DEFAULTS = {
+  titleWhite: "Industries ",
+  titleHighlight: "We Serve",
+  subtitle:
+    "Supporting medium-to-large batch production across industries with strict performance, compliance, and delivery requirements.",
+  industries: [
+    {
+      title: "Medical Devices",
+      description:
+        "ISO 13485 compliant precision components for life-critical applications. Full traceability and documentation for regulatory compliance.",
+      image: getImageUrl("home/5-industries-medical.webp"),
+    },
+    {
+      title: "Aerospace",
+      description:
+        "AS9100 certified high-performance parts with full traceability. Meeting the strictest quality and safety standards for aviation.",
+      image: getImageUrl("home/5-industries-aerospace.webp"),
+    },
+    {
+      title: "Automotive",
+      description:
+        "IATF 16949 quality management for OEM and aftermarket components. High-volume production with consistent precision.",
+      image:
+        "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80",
+    },
+    {
+      title: "Consumer Electronics",
+      description:
+        "Production of precision metal and plastic components for enclosures, internal frames, and functional assemblies in consumer electronics.",
+      image: getImageUrl("home/5-industries-consumer-electronics.webp"),
+    },
+  ],
+};
 
 export function Home3Industries() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
@@ -68,7 +79,16 @@ export function Home3Industries() {
               letterSpacing: "-0.015em",
             }}
           >
-            Industries <span style={{ color: "#EEC569" }}>We Serve</span>
+            <EditableText
+              path="industries.titleWhite"
+              defaultValue={DEFAULTS.titleWhite}
+            />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText
+                path="industries.titleHighlight"
+                defaultValue={DEFAULTS.titleHighlight}
+              />
+            </span>
           </h2>
           <p
             className="mx-auto"
@@ -80,8 +100,11 @@ export function Home3Industries() {
               marginTop: "18px",
             }}
           >
-            Supporting medium-to-large batch production across industries with strict
-            performance, compliance, and delivery requirements.
+            <EditableText
+              path="industries.subtitle"
+              defaultValue={DEFAULTS.subtitle}
+              multiline
+            />
           </p>
         </motion.div>
 
@@ -93,11 +116,11 @@ export function Home3Industries() {
             marginTop: "64px",
           }}
         >
-          {industries.map((industry, index) => {
+          {DEFAULTS.industries.map((industry, index) => {
             const isExpanded = expandedIndex === index;
             return (
               <motion.div
-                key={industry.title}
+                key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -114,11 +137,12 @@ export function Home3Industries() {
               >
                 {/* Background image */}
                 <div className="relative w-full h-full" style={{ minHeight: "300px" }}>
-                  <Image
-                    src={industry.image}
+                  <EditableImage
+                    path={`industries.items.${index}.image`}
+                    defaultSrc={industry.image}
                     alt={industry.title}
                     fill
-                    className="object-cover"
+                    style={{ objectFit: "cover" }}
                   />
 
                   {/* Gradient overlay */}
@@ -141,7 +165,10 @@ export function Home3Industries() {
                         fontWeight: 600,
                       }}
                     >
-                      {industry.title}
+                      <EditableText
+                        path={`industries.items.${index}.title`}
+                        defaultValue={industry.title}
+                      />
                     </h3>
                   </div>
 
@@ -192,7 +219,10 @@ export function Home3Industries() {
                             fontWeight: 600,
                           }}
                         >
-                          {industry.title}
+                          <EditableText
+                            path={`industries.items.${index}.title`}
+                            defaultValue={industry.title}
+                          />
                         </h3>
                         <p
                           style={{
@@ -202,7 +232,11 @@ export function Home3Industries() {
                             maxWidth: "90%",
                           }}
                         >
-                          {industry.description}
+                          <EditableText
+                            path={`industries.items.${index}.description`}
+                            defaultValue={industry.description}
+                            multiline
+                          />
                         </p>
                       </motion.div>
                     )}

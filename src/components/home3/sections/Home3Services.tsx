@@ -1,49 +1,56 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const services = [
-  {
-    title: "CNC Machining",
-    description: "Precision machining for complex geometries and tight tolerances.",
-    image: getImageUrl("home/3-our-services-cnc-machining.webp"),
-    tags: ["3/4/5-Axis Machining", "Tight Tolerances", "Material Variety"],
-  },
-  {
-    title: "Sheet Metal",
-    description: "Custom sheet metal fabrication for enclosures and structures.",
-    image: getImageUrl("home/3-our-services-sheet-metal.webp"),
-    tags: ["Laser Cutting", "CNC Bending", "Welding & Assembly"],
-  },
-  {
-    title: "Injection Molding",
-    description: "Optimized for low to medium volume plastic parts production.",
-    image: getImageUrl("home/3-our-services-injection-molding.webp"),
-    tags: ["Rapid Prototyping", "High Volume", "Multi-Cavity Molds"],
-  },
-  {
-    title: "Extrusion",
-    description: "Custom profile extrusion in plastic and metal.",
-    image: getImageUrl("home/3-our-services-extrusion.webp"),
-    tags: ["Custom Profiles", "Aluminum & Plastic", "Long Lengths"],
-  },
-  {
-    title: "Die Casting",
-    description: "High-quality aluminum and zinc die casting.",
-    image: getImageUrl("home/3-our-services-die-casting.webp"),
-    tags: ["Aluminum & Zinc", "High Productivity", "Thin Walls"],
-  },
-  {
-    title: "Surface Finishing",
-    description: "Professional surface treatment for enhanced durability.",
-    image: getImageUrl("home/3-our-services-surface-finishing.webp"),
-    tags: ["Anodizing", "Powder Coating", "Electroplating"],
-  },
-];
+const DEFAULTS = {
+  titleWhite: "Our ",
+  titleHighlight: "Services",
+  subtitle: "Everything You Need to Move from Design to Production",
+  ctaText: "Need a custom solution?",
+  ctaButton: "Get Instant Quote",
+  services: [
+    {
+      title: "CNC Machining",
+      description: "Precision machining for complex geometries and tight tolerances.",
+      image: getImageUrl("home/3-our-services-cnc-machining.webp"),
+      tags: ["3/4/5-Axis Machining", "Tight Tolerances", "Material Variety"],
+    },
+    {
+      title: "Sheet Metal",
+      description: "Custom sheet metal fabrication for enclosures and structures.",
+      image: getImageUrl("home/3-our-services-sheet-metal.webp"),
+      tags: ["Laser Cutting", "CNC Bending", "Welding & Assembly"],
+    },
+    {
+      title: "Injection Molding",
+      description: "Optimized for low to medium volume plastic parts production.",
+      image: getImageUrl("home/3-our-services-injection-molding.webp"),
+      tags: ["Rapid Prototyping", "High Volume", "Multi-Cavity Molds"],
+    },
+    {
+      title: "Extrusion",
+      description: "Custom profile extrusion in plastic and metal.",
+      image: getImageUrl("home/3-our-services-extrusion.webp"),
+      tags: ["Custom Profiles", "Aluminum & Plastic", "Long Lengths"],
+    },
+    {
+      title: "Die Casting",
+      description: "High-quality aluminum and zinc die casting.",
+      image: getImageUrl("home/3-our-services-die-casting.webp"),
+      tags: ["Aluminum & Zinc", "High Productivity", "Thin Walls"],
+    },
+    {
+      title: "Surface Finishing",
+      description: "Professional surface treatment for enhanced durability.",
+      image: getImageUrl("home/3-our-services-surface-finishing.webp"),
+      tags: ["Anodizing", "Powder Coating", "Electroplating"],
+    },
+  ],
+};
 
 export function Home3Services() {
   return (
@@ -71,7 +78,16 @@ export function Home3Services() {
               letterSpacing: "-0.015em",
             }}
           >
-            Our <span style={{ color: "#EEC569" }}>Services</span>
+            <EditableText
+              path="services.titleWhite"
+              defaultValue={DEFAULTS.titleWhite}
+            />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText
+                path="services.titleHighlight"
+                defaultValue={DEFAULTS.titleHighlight}
+              />
+            </span>
           </h2>
           <p
             className="mx-auto"
@@ -83,7 +99,10 @@ export function Home3Services() {
               marginTop: "18px",
             }}
           >
-            Everything You Need to Move from Design to Production
+            <EditableText
+              path="services.subtitle"
+              defaultValue={DEFAULTS.subtitle}
+            />
           </p>
         </motion.div>
 
@@ -95,9 +114,9 @@ export function Home3Services() {
             marginTop: "72px",
           }}
         >
-          {services.map((service, index) => (
+          {DEFAULTS.services.map((service, index) => (
             <motion.div
-              key={service.title}
+              key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -129,11 +148,13 @@ export function Home3Services() {
             >
               {/* Image with fade overlay */}
               <div className="relative overflow-hidden" style={{ height: "190px" }}>
-                <Image
-                  src={service.image}
+                <EditableImage
+                  path={`services.items.${index}.image`}
+                  defaultSrc={service.image}
                   alt={service.title}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  style={{ objectFit: "cover" }}
+                  className="transition-transform duration-500 group-hover:scale-105"
                 />
                 {/* Bottom fade overlay */}
                 <div
@@ -155,7 +176,10 @@ export function Home3Services() {
                     marginTop: "4px",
                   }}
                 >
-                  {service.title}
+                  <EditableText
+                    path={`services.items.${index}.title`}
+                    defaultValue={service.title}
+                  />
                 </h3>
 
                 {/* Description */}
@@ -168,14 +192,18 @@ export function Home3Services() {
                     marginBottom: "16px",
                   }}
                 >
-                  {service.description}
+                  <EditableText
+                    path={`services.items.${index}.description`}
+                    defaultValue={service.description}
+                    multiline
+                  />
                 </p>
 
                 {/* Capability Pills - outline style */}
                 <div className="flex flex-wrap gap-2" style={{ marginBottom: "20px" }}>
-                  {service.tags.map((tag) => (
+                  {service.tags.map((tag, tagIndex) => (
                     <span
-                      key={tag}
+                      key={tagIndex}
                       style={{
                         border: "1px solid rgba(238,197,105,0.5)",
                         color: "#F5D89A",
@@ -185,7 +213,10 @@ export function Home3Services() {
                         borderRadius: "999px",
                       }}
                     >
-                      {tag}
+                      <EditableText
+                        path={`services.items.${index}.tags.${tagIndex}`}
+                        defaultValue={tag}
+                      />
                     </span>
                   ))}
                 </div>
@@ -224,14 +255,20 @@ export function Home3Services() {
               marginBottom: "16px",
             }}
           >
-            Need a custom solution?
+            <EditableText
+              path="services.ctaText"
+              defaultValue={DEFAULTS.ctaText}
+            />
           </p>
           <Link
             href="https://app.apexbatch.com/"
             rel="nofollow"
             className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
           >
-            Get Instant Quote
+            <EditableText
+              path="services.ctaButton"
+              defaultValue={DEFAULTS.ctaButton}
+            />
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>

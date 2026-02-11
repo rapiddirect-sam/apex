@@ -2,6 +2,17 @@
 
 import { motion } from "framer-motion";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
+
+const DEFAULTS = {
+  backgroundImage: getImageUrl("contact/1-contact-banner.webp"),
+  pillLabel: "GET IN TOUCH",
+  eyebrow: "ApexBatch is the answer to your challenge",
+  headingPrefix: "Get in Touch with ",
+  headingHighlight: "ApexBatch",
+  subheadline:
+    "Let's Bring Your Project To Life. Whether you're moving from prototype to batch production or need a high-precision manufacturing partner, our engineering team is ready.",
+};
 
 export function ContactHero() {
   return (
@@ -14,11 +25,20 @@ export function ContactHero() {
     >
       {/* Background image */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url('${getImageUrl("contact/1-contact-banner.webp")}')`,
-        }}
-      />
+        className="absolute inset-0"
+        style={{ overflow: "hidden" }}
+      >
+        <EditableImage
+          path="hero.backgroundImage"
+          defaultSrc={DEFAULTS.backgroundImage}
+          alt="Contact banner"
+          fill
+          style={{
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
+        />
+      </div>
 
       {/* Multi-layer cinematic overlay - matching home3 */}
       <div
@@ -70,7 +90,10 @@ export function ContactHero() {
                   textTransform: "uppercase",
                 }}
               >
-                GET IN TOUCH
+                <EditableText
+                  path="hero.pillLabel"
+                  defaultValue={DEFAULTS.pillLabel}
+                />
               </span>
             </div>
           </div>
@@ -84,7 +107,10 @@ export function ContactHero() {
               marginBottom: "16px",
             }}
           >
-            ApexBatch is the answer to your challenge
+            <EditableText
+              path="hero.eyebrow"
+              defaultValue={DEFAULTS.eyebrow}
+            />
           </p>
 
           {/* Main Heading - LARGER, ApexBatch ITALIC */}
@@ -98,8 +124,16 @@ export function ContactHero() {
               marginBottom: "24px",
             }}
           >
-            Get in Touch with{" "}
-            <span style={{ color: "#EEC569" }}>ApexBatch</span>
+            <EditableText
+              path="hero.headingPrefix"
+              defaultValue={DEFAULTS.headingPrefix}
+            />{" "}
+            <span style={{ color: "#EEC569" }}>
+              <EditableText
+                path="hero.headingHighlight"
+                defaultValue={DEFAULTS.headingHighlight}
+              />
+            </span>
           </h1>
 
           {/* Subheadline */}
@@ -111,7 +145,11 @@ export function ContactHero() {
               maxWidth: "100%",
             }}
           >
-            Let&apos;s Bring Your Project To Life. Whether you&apos;re moving from prototype to batch production or need a high-precision manufacturing partner, our engineering team is ready.
+            <EditableText
+              path="hero.subheadline"
+              defaultValue={DEFAULTS.subheadline}
+              multiline
+            />
           </p>
         </motion.div>
       </div>

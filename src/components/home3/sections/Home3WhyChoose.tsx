@@ -2,47 +2,57 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Check, ArrowRight } from "lucide-react";
 import { getImageUrl } from "@/lib/utils";
+import { EditableText, EditableImage } from "@/components/cms";
 
-const slides = [
-  {
-    image: getImageUrl("home/4-why-choose-us-1.webp"),
-    number: "01",
-    title: "Comprehensive Free Services",
-    description: "Full-spectrum support including DFM analysis, process optimization, design validation, and quality inspection. Reduce trial costs with free engineering verification.",
-  },
-  {
-    image: getImageUrl("home/4-why-choose-us-2.webp"),
-    number: "02",
-    title: "Expert Engineering Team",
-    description: "Our team of experienced engineers provides technical consultation and design optimization to ensure manufacturability and cost-effectiveness.",
-  },
-  {
-    image: getImageUrl("home/4-why-choose-us-3.webp"),
-    number: "03",
-    title: "Quality Guaranteed",
-    description: "ISO-certified processes with rigorous quality control at every stage. Full documentation and traceability for all production runs.",
-  },
-  {
-    image: getImageUrl("home/4-why-choose-us-4.webp"),
-    number: "04",
-    title: "Fast Turnaround",
-    description: "Rapid prototyping and efficient production scheduling. Get your parts delivered on time, every time with our streamlined processes.",
-  },
-];
+const DEFAULTS = {
+  titleWhite: "Why Engineers ",
+  titleHighlight: "Choose ApexBatch",
+  ctaText: "Get Free engineering review before production.",
+  ctaButton: "Upload Your Design",
+  slides: [
+    {
+      image: getImageUrl("home/4-why-choose-us-1.webp"),
+      number: "01",
+      title: "Comprehensive Free Services",
+      description:
+        "Full-spectrum support including DFM analysis, process optimization, design validation, and quality inspection. Reduce trial costs with free engineering verification.",
+    },
+    {
+      image: getImageUrl("home/4-why-choose-us-2.webp"),
+      number: "02",
+      title: "Expert Engineering Team",
+      description:
+        "Our team of experienced engineers provides technical consultation and design optimization to ensure manufacturability and cost-effectiveness.",
+    },
+    {
+      image: getImageUrl("home/4-why-choose-us-3.webp"),
+      number: "03",
+      title: "Quality Guaranteed",
+      description:
+        "ISO-certified processes with rigorous quality control at every stage. Full documentation and traceability for all production runs.",
+    },
+    {
+      image: getImageUrl("home/4-why-choose-us-4.webp"),
+      number: "04",
+      title: "Fast Turnaround",
+      description:
+        "Rapid prototyping and efficient production scheduling. Get your parts delivered on time, every time with our streamlined processes.",
+    },
+  ],
+};
 
 export function Home3WhyChoose() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setCurrentSlide((prev) => (prev + 1) % DEFAULTS.slides.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    setCurrentSlide((prev) => (prev - 1 + DEFAULTS.slides.length) % DEFAULTS.slides.length);
   };
 
   return (
@@ -78,7 +88,16 @@ export function Home3WhyChoose() {
               letterSpacing: "-0.015em",
             }}
           >
-            Why Engineers <span style={{ color: "#EEC569" }}>Choose ApexBatch</span>
+            <EditableText
+              path="whyChoose.titleWhite"
+              defaultValue={DEFAULTS.titleWhite}
+            />
+            <span style={{ color: "#EEC569" }}>
+              <EditableText
+                path="whyChoose.titleHighlight"
+                defaultValue={DEFAULTS.titleHighlight}
+              />
+            </span>
           </h2>
         </motion.div>
 
@@ -141,11 +160,12 @@ export function Home3WhyChoose() {
 
               {/* Image */}
               <div className="relative aspect-[4/3]">
-                <Image
-                  src={slides[currentSlide].image}
+                <EditableImage
+                  path={`whyChoose.slides.${currentSlide}.image`}
+                  defaultSrc={DEFAULTS.slides[currentSlide].image}
                   alt="Manufacturing facility"
                   fill
-                  className="object-cover transition-opacity duration-500"
+                  style={{ objectFit: "cover" }}
                 />
 
                 {/* Navigation Arrows - Industrial rectangular style */}
@@ -180,7 +200,7 @@ export function Home3WhyChoose() {
 
             {/* Dot Indicators */}
             <div className="flex justify-center gap-2 mt-5">
-              {slides.map((_, index) => (
+              {DEFAULTS.slides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
@@ -221,7 +241,10 @@ export function Home3WhyChoose() {
                   marginBottom: "8px",
                 }}
               >
-                {slides[currentSlide].number}
+                <EditableText
+                  path={`whyChoose.slides.${currentSlide}.number`}
+                  defaultValue={DEFAULTS.slides[currentSlide].number}
+                />
               </div>
 
               {/* Title */}
@@ -233,7 +256,10 @@ export function Home3WhyChoose() {
                   marginBottom: "16px",
                 }}
               >
-                {slides[currentSlide].title}
+                <EditableText
+                  path={`whyChoose.slides.${currentSlide}.title`}
+                  defaultValue={DEFAULTS.slides[currentSlide].title}
+                />
               </h3>
 
               {/* Checkbox with description */}
@@ -257,14 +283,18 @@ export function Home3WhyChoose() {
                     maxWidth: "90%",
                   }}
                 >
-                  {slides[currentSlide].description}
+                  <EditableText
+                    path={`whyChoose.slides.${currentSlide}.description`}
+                    defaultValue={DEFAULTS.slides[currentSlide].description}
+                    multiline
+                  />
                 </p>
               </div>
             </div>
 
             {/* Thumbnail Images - Dataset reference style */}
             <div className="grid grid-cols-4 gap-3">
-              {slides.map((slide, index) => (
+              {DEFAULTS.slides.map((slide, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
@@ -277,11 +307,12 @@ export function Home3WhyChoose() {
                     opacity: index === currentSlide ? 1 : 0.65,
                   }}
                 >
-                  <Image
-                    src={slide.image}
+                  <EditableImage
+                    path={`whyChoose.slides.${index}.image`}
+                    defaultSrc={slide.image}
                     alt={`Thumbnail ${index + 1}`}
                     fill
-                    className="object-cover"
+                    style={{ objectFit: "cover" }}
                   />
                 </button>
               ))}
@@ -305,14 +336,20 @@ export function Home3WhyChoose() {
               color: "#FFFFFF",
             }}
           >
-            Get Free engineering review before production.
+            <EditableText
+              path="whyChoose.ctaText"
+              defaultValue={DEFAULTS.ctaText}
+            />
           </p>
           <Link
             href="https://app.apexbatch.com/"
             rel="nofollow"
             className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
           >
-            Upload Your Design
+            <EditableText
+              path="whyChoose.ctaButton"
+              defaultValue={DEFAULTS.ctaButton}
+            />
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>

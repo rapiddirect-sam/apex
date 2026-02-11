@@ -1,9 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { EditableText, EditableImage } from "@/components/cms";
+
+const DEFAULTS = {
+  title: "Precision CNC Machining Services",
+  description:
+    "From rapid prototyping to batch production, we ensure tolerances are strictly controlled within \u00B10.005 mm and offer global shipping services with delivery as fast as 3 days.",
+  heroImage:
+    "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp",
+  ctaText: "Get Instant Quote",
+};
 
 export function CNCHero() {
   return (
@@ -12,11 +21,11 @@ export function CNCHero() {
       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px]">
         {/* Left - Image */}
         <div className="relative h-[300px] lg:h-auto">
-          <Image
-            src="https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp"
+          <EditableImage
+            path="hero.image"
+            defaultSrc={DEFAULTS.heroImage}
             alt="Custom CNC Machining Services"
             fill
-            className="object-cover"
           />
         </div>
 
@@ -35,7 +44,7 @@ export function CNCHero() {
               marginBottom: "24px",
             }}
           >
-            Precision CNC Machining Services
+            <EditableText path="hero.title" defaultValue={DEFAULTS.title} />
           </h1>
 
           <p
@@ -46,9 +55,11 @@ export function CNCHero() {
               marginBottom: "32px",
             }}
           >
-            From rapid prototyping to batch production, we ensure tolerances are
-            strictly controlled within ±0.005 mm and offer global shipping
-            services with delivery as fast as 3 days.
+            <EditableText
+              path="hero.description"
+              defaultValue={DEFAULTS.description}
+              multiline
+            />
           </p>
 
           <Link
@@ -66,7 +77,7 @@ export function CNCHero() {
               boxShadow: "0 4px 15px rgba(208,153,71,0.3)",
             }}
           >
-            Get Instant Quote
+            <EditableText path="hero.ctaText" defaultValue={DEFAULTS.ctaText} />
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>

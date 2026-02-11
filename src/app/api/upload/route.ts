@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { uploadToS3 } from "@/lib/s3";
+import { verifyIdToken } from "@/lib/firebaseAdmin";
+import { isUserAdmin } from "@/lib/admin";
 
 // Magic numbers for file type verification
 const FILE_SIGNATURES: Record<string, number[][]> = {
@@ -22,23 +25,9 @@ function verifyFileSignature(buffer: Buffer, mimeType: string): boolean {
   );
 }
 
-// Sanitize filename to prevent path traversal
-function sanitizeFilename(filename: string): string {
-  // Remove path components and special characters
-  const basename = filename.split(/[/\\]/).pop() || "file";
-  // Only allow alphanumeric, dash, underscore, and dot
-  const sanitized = basename.replace(/[^a-zA-Z0-9._-]/g, "_");
-  // Prevent double extensions like .jpg.exe
-  const parts = sanitized.split(".");
-  if (parts.length > 2) {
-    return `${parts[0]}.${parts[parts.length - 1]}`;
-  }
-  return sanitized;
-}
-
-// Generate safe filename with UUID
-function generateSafeFilename(originalName: string, mimeType: string): string {
-  const ext = mimeType.split("/")[1] || "bin";
+// Generate safe filename with timestamp and random suffix
+function generateSafeFilename(mimeType: string): string {
+  const ext = mimeType.split("/")[1] === "jpeg" ? "jpg" : mimeType.split("/")[1];
   const timestamp = Date.now();
   const random = Math.random().toString(36).substring(2, 10);
   return `${timestamp}-${random}.${ext}`;
@@ -46,6 +35,24 @@ function generateSafeFilename(originalName: string, mimeType: string): string {
 
 export async function POST(request: NextRequest) {
   try {
+    // Authenticate the request
+    const cookieStore = await cookies();
+    const sessionCookie = cookieStore.get("auth-session");
+
+    if (!sessionCookie?.value) {
+      return NextResponse.json({ error: "Unauthorized - please log in" }, { status: 401 });
+    }
+
+    const user = await verifyIdToken(sessionCookie.value);
+    if (!user?.email) {
+      return NextResponse.json({ error: "Unauthorized - invalid session" }, { status: 401 });
+    }
+
+    const adminStatus = await isUserAdmin(user.email);
+    if (!adminStatus) {
+      return NextResponse.json({ error: "Forbidden - admin access required" }, { status: 403 });
+    }
+
     const formData = await request.formData();
     const file = formData.get("file") as File;
 
@@ -81,13 +88,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate safe filename (don't use original filename)
-    const safeFilename = generateSafeFilename(file.name, file.type);
-    const url = await uploadToS3(buffer, safeFilename, file.type);
+    // Generate safe filename and upload to S3 cms folder
+    const safeFilename = generateSafeFilename(file.type);
+    const url = await uploadToS3(buffer, safeFilename, file.type, "cms");
 
     return NextResponse.json({ url });
   } catch (error) {
-    // Log error in development only
     if (process.env.NODE_ENV === "development") {
       console.error("Upload error:", error);
     }
