@@ -12,6 +12,7 @@ function rowToPost(row: Record<string, unknown>): BlogPost {
     excerpt: row.excerpt as string,
     featuredImage: row.featured_image as string,
     status: row.status as "draft" | "published",
+    categoryId: (row.category_id as string) || null,
     createdAt: new Date(row.created_at as string),
     updatedAt: new Date(row.updated_at as string),
     publishedAt: row.published_at ? new Date(row.published_at as string) : null,
@@ -126,6 +127,7 @@ export async function createPost(
     excerpt: input.excerpt,
     featured_image: input.featuredImage,
     status: input.status,
+    category_id: input.categoryId || null,
     created_at: now,
     updated_at: now,
     published_at: input.status === "published" ? now : null,
@@ -164,6 +166,7 @@ export async function updatePost(id: string, input: Partial<BlogPostInput>): Pro
   if (input.excerpt !== undefined) updateData.excerpt = input.excerpt;
   if (input.featuredImage !== undefined) updateData.featured_image = input.featuredImage;
   if (input.status !== undefined) updateData.status = input.status;
+  if (input.categoryId !== undefined) updateData.category_id = input.categoryId || null;
   if (input.metaTitle !== undefined) updateData.meta_title = input.metaTitle || null;
   if (input.metaDescription !== undefined) updateData.meta_description = input.metaDescription || null;
 

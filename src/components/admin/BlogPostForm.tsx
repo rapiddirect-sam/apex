@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { TiptapEditor } from "./TiptapEditor";
 import { ImageUpload } from "./ImageUpload";
-import { BlogPost, BlogPostInput } from "@/types/blog";
+import { BlogPost, BlogPostInput, Category } from "@/types/blog";
 import { createPost, updatePost, generateSlug } from "@/lib/blog";
+import { getAllCategories } from "@/lib/categories";
 import { useAuth } from "@/contexts/AuthContext";
 import { ArrowLeft, Save, Eye } from "lucide-react";
 import Link from "next/link";
@@ -22,6 +23,8 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
   const [excerpt, setExcerpt] = useState(post?.excerpt || "");
   const [featuredImage, setFeaturedImage] = useState(post?.featuredImage || "");
   const [status, setStatus] = useState<"draft" | "published">(post?.status || "draft");
+  const [categoryId, setCategoryId] = useState(post?.categoryId || "");
+  const [categories, setCategories] = useState<Category[]>([]);
   const [metaTitle, setMetaTitle] = useState(post?.metaTitle || "");
   const [metaDescription, setMetaDescription] = useState(post?.metaDescription || "");
   const [saving, setSaving] = useState(false);
@@ -29,6 +32,10 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
 
   const { user } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    getAllCategories().then(setCategories);
+  }, []);
 
   useEffect(() => {
     if (autoSlug && title) {
@@ -51,6 +58,7 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
         excerpt,
         featuredImage,
         status,
+        categoryId: categoryId || null,
         metaTitle: metaTitle || undefined,
         metaDescription: metaDescription || undefined,
       };
@@ -294,6 +302,34 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
                 Published
               </button>
             </div>
+          </div>
+
+          {/* Category */}
+          <div
+            style={{
+              background: "#2a2a2a",
+              padding: "20px",
+              borderRadius: "12px",
+              border: "1px solid #333",
+            }}
+          >
+            <label style={labelStyle}>Category</label>
+            <select
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
+              style={{
+                ...inputStyle,
+                cursor: "pointer",
+                appearance: "auto",
+              }}
+            >
+              <option value="">Uncategorized</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Featured Image */}
