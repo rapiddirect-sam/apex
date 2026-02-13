@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
-import { FileText, LogOut, Home, Search, ShieldAlert, Users, Tag } from "lucide-react";
+import { FileText, LogOut, Home, Search, ShieldAlert, Users, Tag, UserCircle } from "lucide-react";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -212,6 +212,26 @@ export function AdminLayout({ children }: AdminLayoutProps) {
           >
             <Tag size={18} />
             <span>Categories</span>
+          </Link>
+
+          <Link
+            href="/admin/authors"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              padding: "12px 16px",
+              color: "#C5C6C9",
+              textDecoration: "none",
+              borderRadius: "8px",
+              marginBottom: "4px",
+              transition: "background 0.2s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "#2a2a2a")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+          >
+            <UserCircle size={18} />
+            <span>Authors</span>
           </Link>
 
           <Link

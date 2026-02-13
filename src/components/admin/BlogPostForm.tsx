@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { TiptapEditor } from "./TiptapEditor";
 import { ImageUpload } from "./ImageUpload";
-import { BlogPost, BlogPostInput, Category } from "@/types/blog";
+import { BlogPost, BlogPostInput, Category, Author } from "@/types/blog";
 import { createPost, updatePost, generateSlug } from "@/lib/blog";
 import { getAllCategories } from "@/lib/categories";
+import { getAllAuthors } from "@/lib/authors";
 import { useAuth } from "@/contexts/AuthContext";
 import { ArrowLeft, Save, Eye } from "lucide-react";
 import Link from "next/link";
@@ -24,7 +25,9 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
   const [featuredImage, setFeaturedImage] = useState(post?.featuredImage || "");
   const [status, setStatus] = useState<"draft" | "published">(post?.status || "draft");
   const [categoryId, setCategoryId] = useState(post?.categoryId || "");
+  const [authorRef, setAuthorRef] = useState(post?.authorRef || "");
   const [categories, setCategories] = useState<Category[]>([]);
+  const [authors, setAuthors] = useState<Author[]>([]);
   const [metaTitle, setMetaTitle] = useState(post?.metaTitle || "");
   const [metaDescription, setMetaDescription] = useState(post?.metaDescription || "");
   const [saving, setSaving] = useState(false);
@@ -35,6 +38,7 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
 
   useEffect(() => {
     getAllCategories().then(setCategories);
+    getAllAuthors().then(setAuthors);
   }, []);
 
   useEffect(() => {
@@ -59,6 +63,7 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
         featuredImage,
         status,
         categoryId: categoryId || null,
+        authorRef: authorRef || null,
         metaTitle: metaTitle || undefined,
         metaDescription: metaDescription || undefined,
       };
@@ -330,6 +335,42 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
                 </option>
               ))}
             </select>
+          </div>
+
+          {/* Author */}
+          <div
+            style={{
+              background: "#2a2a2a",
+              padding: "20px",
+              borderRadius: "12px",
+              border: "1px solid #333",
+            }}
+          >
+            <label style={labelStyle}>Author</label>
+            <select
+              value={authorRef}
+              onChange={(e) => setAuthorRef(e.target.value)}
+              style={{
+                ...inputStyle,
+                cursor: "pointer",
+                appearance: "auto",
+              }}
+            >
+              <option value="">No Author</option>
+              {authors.map((author) => (
+                <option key={author.id} value={author.id}>
+                  {author.name}
+                </option>
+              ))}
+            </select>
+            {authors.length === 0 && (
+              <p style={{ color: "#888", fontSize: "12px", marginTop: "8px" }}>
+                No authors yet.{" "}
+                <Link href="/admin/authors/new" style={{ color: "#D09947" }}>
+                  Create one
+                </Link>
+              </p>
+            )}
           </div>
 
           {/* Featured Image */}

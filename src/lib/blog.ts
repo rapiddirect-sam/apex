@@ -18,6 +18,7 @@ function rowToPost(row: Record<string, unknown>): BlogPost {
     publishedAt: row.published_at ? new Date(row.published_at as string) : null,
     authorId: row.author_id as string,
     authorEmail: row.author_email as string,
+    authorRef: (row.author_ref as string) || null,
     metaTitle: (row.meta_title as string) || null,
     metaDescription: (row.meta_description as string) || null,
   };
@@ -128,6 +129,7 @@ export async function createPost(
     featured_image: input.featuredImage,
     status: input.status,
     category_id: input.categoryId || null,
+    author_ref: input.authorRef || null,
     created_at: now,
     updated_at: now,
     published_at: input.status === "published" ? now : null,
@@ -167,6 +169,7 @@ export async function updatePost(id: string, input: Partial<BlogPostInput>): Pro
   if (input.featuredImage !== undefined) updateData.featured_image = input.featuredImage;
   if (input.status !== undefined) updateData.status = input.status;
   if (input.categoryId !== undefined) updateData.category_id = input.categoryId || null;
+  if (input.authorRef !== undefined) updateData.author_ref = input.authorRef || null;
   if (input.metaTitle !== undefined) updateData.meta_title = input.metaTitle || null;
   if (input.metaDescription !== undefined) updateData.meta_description = input.metaDescription || null;
 

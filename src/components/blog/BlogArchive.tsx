@@ -17,9 +17,8 @@ import { getImageUrl } from "@/lib/utils";
 function estimateReadTime(content: string): number {
   const text = content.replace(/<[^>]*>/g, "");
   const words = text.split(/\s+/).filter(Boolean).length;
-  if (words < 1500) return 5;
-  if (words <= 2000) return 8;
-  return 10;
+  const minutes = Math.ceil(words / 200);
+  return Math.max(1, minutes);
 }
 
 interface BlogArchiveProps {
@@ -63,9 +62,10 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
     return counts;
   }, [posts]);
 
-  const featuredPost = filteredPosts[0];
+  const isFiltering = Boolean(searchQuery || selectedCategory);
+  const featuredPost = isFiltering ? null : filteredPosts[0];
   const popularPosts = posts.slice(0, 3);
-  const gridPosts = filteredPosts.slice(searchQuery || selectedCategory ? 0 : 1);
+  const gridPosts = isFiltering ? filteredPosts : filteredPosts.slice(1);
 
   return (
     <>
@@ -261,30 +261,20 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
             </div>
           </div>
 
-          {/* Featured Post + Sidebar */}
-          {filteredPosts.length === 0 ? (
+          {/* Featured Post + Sidebar (only when NOT filtering) */}
+          {!isFiltering && filteredPosts.length === 0 && (
             <div style={{ textAlign: "center", padding: "80px 0" }}>
               <FileText size={48} style={{ color: "#D4D4D4", margin: "0 auto 16px" }} />
               <h3 style={{ color: "#1E1E1E", fontSize: "20px", fontWeight: 600, marginBottom: "8px" }}>
-                {searchQuery ? "No results found" : "No posts yet"}
+                No posts yet
               </h3>
               <p style={{ color: "#888", fontSize: "15px" }}>
-                {searchQuery ? "Try adjusting your search or category filter." : "Check back soon for updates!"}
+                Check back soon for updates!
               </p>
-              {(searchQuery || selectedCategory) && (
-                <button
-                  onClick={() => { setSearchQuery(""); setSelectedCategory(""); }}
-                  style={{
-                    marginTop: "20px", padding: "10px 24px", background: "#1E1E1E",
-                    color: "#FFFFFF", border: "none", borderRadius: "8px",
-                    fontSize: "14px", fontWeight: 500, cursor: "pointer",
-                  }}
-                >
-                  Clear filters
-                </button>
-              )}
             </div>
-          ) : (
+          )}
+
+          {!isFiltering && featuredPost && (
             <div
               style={{
                 display: "grid",
@@ -294,71 +284,87 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               className="lg:!grid-cols-[1fr_320px] grid-cols-1"
             >
               {/* Featured Post - Large Card */}
-              {featuredPost && (
-                <article className="group" style={{ borderRadius: "12px", overflow: "hidden", border: "1px solid #E8E8E8" }}>
-                  <Link href={`/blog/${featuredPost.slug}`} style={{ textDecoration: "none" }}>
-                    <div style={{ position: "relative", height: "340px", background: "#F5F5F5", overflow: "hidden" }}>
-                      {featuredPost.featuredImage ? (
-                        <Image
-                          src={featuredPost.featuredImage}
-                          alt={featuredPost.title}
-                          fill
-                          style={{ objectFit: "cover", transition: "transform 0.5s" }}
-                          className="group-hover:scale-105"
-                        />
-                      ) : (
-                        <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                          <FileText size={64} style={{ color: "#D4D4D4" }} />
-                        </div>
-                      )}
-                      {getCategoryName(featuredPost.categoryId) && (
-                        <span style={{
-                          position: "absolute", top: "16px", left: "16px",
-                          background: "linear-gradient(135deg, #D09947, #EEC569)",
-                          color: "#FFFFFF", fontSize: "12px", fontWeight: 700,
-                          padding: "6px 14px", borderRadius: "6px",
-                          textTransform: "uppercase", letterSpacing: "0.5px",
-                        }}>
-                          {getCategoryName(featuredPost.categoryId)}
-                        </span>
-                      )}
-                    </div>
-
-                    <div style={{ padding: "24px 28px 28px" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "14px" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "5px", color: "#B0960E", fontSize: "13px" }}>
-                          <Calendar size={13} />
-                          {featuredPost.publishedAt?.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
-                        </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: "5px", color: "#B0960E", fontSize: "13px" }}>
-                          <Clock size={13} />
-                          {estimateReadTime(featuredPost.content)} min read
-                        </div>
+              <article
+                className="group"
+                style={{
+                  borderRadius: "12px", overflow: "hidden",
+                  border: "2px solid transparent",
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+                  transition: "transform 0.3s, box-shadow 0.3s, border-color 0.3s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-4px)";
+                  e.currentTarget.style.boxShadow = "0 8px 30px rgba(208,153,71,0.25)";
+                  e.currentTarget.style.borderColor = "#D09947";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.08)";
+                  e.currentTarget.style.borderColor = "transparent";
+                }}
+              >
+                <Link href={`/blog/${featuredPost.slug}`} style={{ textDecoration: "none" }}>
+                  <div style={{ position: "relative", height: "340px", background: "#F5F5F5", overflow: "hidden" }}>
+                    {featuredPost.featuredImage ? (
+                      <Image
+                        src={featuredPost.featuredImage}
+                        alt={featuredPost.title}
+                        fill
+                        style={{ objectFit: "cover", transition: "transform 0.5s" }}
+                        className="group-hover:scale-105"
+                      />
+                    ) : (
+                      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <FileText size={64} style={{ color: "#D4D4D4" }} />
                       </div>
+                    )}
+                    {getCategoryName(featuredPost.categoryId) && (
+                      <span style={{
+                        position: "absolute", top: "16px", left: "16px",
+                        background: "linear-gradient(135deg, #D09947, #EEC569)",
+                        color: "#FFFFFF", fontSize: "12px", fontWeight: 700,
+                        padding: "6px 14px", borderRadius: "6px",
+                        textTransform: "uppercase", letterSpacing: "0.5px",
+                      }}>
+                        {getCategoryName(featuredPost.categoryId)}
+                      </span>
+                    )}
+                  </div>
 
-                      <h2 style={{ color: "#1E1E1E", fontSize: "24px", fontWeight: 700, marginBottom: "12px", lineHeight: 1.3 }}>
-                        {featuredPost.title}
-                      </h2>
-
-                      {featuredPost.excerpt && (
-                        <p style={{
-                          color: "#666", fontSize: "15px", lineHeight: 1.7,
-                          marginBottom: "20px",
-                          display: "-webkit-box", WebkitLineClamp: 3,
-                          WebkitBoxOrient: "vertical", overflow: "hidden",
-                        }}>
-                          {featuredPost.excerpt}
-                        </p>
-                      )}
-
-                      <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#D09947", fontSize: "14px", fontWeight: 600 }}>
-                        Read More
-                        <ArrowRight size={15} className="group-hover:translate-x-1" style={{ transition: "transform 0.2s" }} />
+                  <div style={{ padding: "24px 28px 28px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "14px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "5px", color: "#B0960E", fontSize: "13px" }}>
+                        <Calendar size={13} />
+                        {featuredPost.publishedAt?.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "5px", color: "#B0960E", fontSize: "13px" }}>
+                        <Clock size={13} />
+                        {estimateReadTime(featuredPost.content)} min read
                       </div>
                     </div>
-                  </Link>
-                </article>
-              )}
+
+                    <h2 style={{ color: "#1E1E1E", fontSize: "24px", fontWeight: 700, marginBottom: "12px", lineHeight: 1.3 }}>
+                      {featuredPost.title}
+                    </h2>
+
+                    {featuredPost.excerpt && (
+                      <p style={{
+                        color: "#666", fontSize: "15px", lineHeight: 1.7,
+                        marginBottom: "20px",
+                        display: "-webkit-box", WebkitLineClamp: 3,
+                        WebkitBoxOrient: "vertical", overflow: "hidden",
+                      }}>
+                        {featuredPost.excerpt}
+                      </p>
+                    )}
+
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#D09947", fontSize: "14px", fontWeight: 600 }}>
+                      Read More
+                      <ArrowRight size={15} className="group-hover:translate-x-1" style={{ transition: "transform 0.2s" }} />
+                    </div>
+                  </div>
+                </Link>
+              </article>
 
               {/* Right Sidebar: Popular Posts + Newsletter */}
               <aside style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
@@ -454,8 +460,8 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
         </div>
       </section>
 
-      {/* Row 2: Categories Sidebar + All Articles Grid */}
-      {gridPosts.length > 0 && (
+      {/* Row 2: Categories Sidebar + All Articles Grid (always shown when there are posts or when filtering) */}
+      {(gridPosts.length > 0 || isFiltering) && (
         <section style={{ background: "#FFFFFF", paddingBottom: "80px" }}>
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             {/* Section Header */}
@@ -465,7 +471,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               textDecoration: "underline", textUnderlineOffset: "8px",
               textDecorationColor: "#E5E5E5",
             }}>
-              All articles ({filteredPosts.length})
+              {isFiltering ? `Search Results (${filteredPosts.length})` : `All articles (${filteredPosts.length})`}
             </h2>
 
             <div
@@ -550,6 +556,27 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               </aside>
 
               {/* Posts Grid - 3 columns */}
+              {gridPosts.length === 0 ? (
+                <div style={{ textAlign: "center", padding: "60px 20px" }}>
+                  <FileText size={48} style={{ color: "#D4D4D4", margin: "0 auto 16px" }} />
+                  <h3 style={{ color: "#1E1E1E", fontSize: "20px", fontWeight: 600, marginBottom: "8px" }}>
+                    No results found
+                  </h3>
+                  <p style={{ color: "#888", fontSize: "15px" }}>
+                    Try adjusting your search or category filter.
+                  </p>
+                  <button
+                    onClick={() => { setSearchQuery(""); setSelectedCategory(""); }}
+                    style={{
+                      marginTop: "20px", padding: "10px 24px", background: "#1E1E1E",
+                      color: "#FFFFFF", border: "none", borderRadius: "8px",
+                      fontSize: "14px", fontWeight: 500, cursor: "pointer",
+                    }}
+                  >
+                    Clear filters
+                  </button>
+                </div>
+              ) : (
               <div
                 style={{
                   display: "grid",
@@ -570,16 +597,19 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                         background: "#FFFFFF",
                         borderRadius: "10px",
                         overflow: "hidden",
-                        border: "1px solid #E8E8E8",
-                        transition: "transform 0.3s, box-shadow 0.3s",
+                        border: "2px solid transparent",
+                        boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+                        transition: "transform 0.3s, box-shadow 0.3s, border-color 0.3s",
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.transform = "translateY(-4px)";
-                        e.currentTarget.style.boxShadow = "0 12px 32px rgba(0,0,0,0.1)";
+                        e.currentTarget.style.boxShadow = "0 8px 30px rgba(208,153,71,0.25)";
+                        e.currentTarget.style.borderColor = "#D09947";
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.transform = "translateY(0)";
-                        e.currentTarget.style.boxShadow = "none";
+                        e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.08)";
+                        e.currentTarget.style.borderColor = "transparent";
                       }}
                     >
                       <Link href={`/blog/${post.slug}`} style={{ textDecoration: "none" }}>
@@ -655,6 +685,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                   );
                 })}
               </div>
+              )}
             </div>
           </div>
         </section>

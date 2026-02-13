@@ -12,6 +12,7 @@ export interface BlogPost {
   publishedAt: Date | null;
   authorId: string;
   authorEmail: string;
+  authorRef: string | null;
   metaTitle: string | null;
   metaDescription: string | null;
 }
@@ -24,8 +25,34 @@ export interface BlogPostInput {
   featuredImage: string;
   status: "draft" | "published";
   categoryId?: string | null;
+  authorRef?: string | null;
   metaTitle?: string;
   metaDescription?: string;
+}
+
+export interface Author {
+  id: string;
+  name: string;
+  slug: string;
+  bio: string;
+  avatarUrl: string | null;
+  email: string | null;
+  website: string | null;
+  socialTwitter: string | null;
+  socialLinkedin: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface AuthorInput {
+  name: string;
+  slug: string;
+  bio: string;
+  avatarUrl?: string;
+  email?: string;
+  website?: string;
+  socialTwitter?: string;
+  socialLinkedin?: string;
 }
 
 export interface Category {
