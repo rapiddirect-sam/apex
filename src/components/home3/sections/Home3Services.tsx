@@ -18,6 +18,7 @@ const DEFAULTS = {
       description: "Precision machining for complex geometries and tight tolerances.",
       image: getImageUrl("home/3-our-services-cnc-machining.webp"),
       tags: ["3/4/5-Axis Machining", "Tight Tolerances", "Material Variety"],
+      href: "/cnc-machining",
     },
     {
       title: "Sheet Metal",
@@ -30,6 +31,7 @@ const DEFAULTS = {
       description: "Optimized for low to medium volume plastic parts production.",
       image: getImageUrl("home/3-our-services-injection-molding.webp"),
       tags: ["Rapid Prototyping", "High Volume", "Multi-Cavity Molds"],
+      href: "/injection-molding",
     },
     {
       title: "Extrusion",
@@ -222,19 +224,35 @@ export function Home3Services() {
                 </div>
 
                 {/* Learn More Link - subtle */}
-                <a
-                  href="#"
-                  className="inline-flex items-center gap-1.5 transition-colors hover:text-[#F5D89A]"
-                  style={{
-                    marginTop: "4px",
-                    fontWeight: 500,
-                    color: "#EEC569",
-                    fontSize: "14px",
-                  }}
-                >
-                  Learn More
-                  <ArrowRight className="w-4 h-4" />
-                </a>
+                {service.href ? (
+                  <Link
+                    href={service.href}
+                    className="inline-flex items-center gap-1.5 transition-colors hover:text-[#F5D89A]"
+                    style={{
+                      marginTop: "4px",
+                      fontWeight: 500,
+                      color: "#EEC569",
+                      fontSize: "14px",
+                    }}
+                  >
+                    Learn More
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                ) : (
+                  <a
+                    href="#"
+                    className="inline-flex items-center gap-1.5 transition-colors hover:text-[#F5D89A]"
+                    style={{
+                      marginTop: "4px",
+                      fontWeight: 500,
+                      color: "#EEC569",
+                      fontSize: "14px",
+                    }}
+                  >
+                    Learn More
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                )}
               </div>
             </motion.div>
           ))}

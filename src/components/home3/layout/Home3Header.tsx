@@ -7,6 +7,8 @@ import { cn, getImageUrl } from "@/lib/utils";
 import { Menu, X, ChevronRight } from "lucide-react";
 
 const navLinks = [
+  { href: "/cnc-machining", label: "CNC Machining" },
+  { href: "/injection-molding", label: "Injection Molding" },
   { href: "/about", label: "About" },
   { href: "/reviews", label: "Reviews" },
   { href: "/contact", label: "Contact" },
