@@ -480,51 +480,72 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                 <div style={{ width: "32px", height: "3px", background: "#D09947", borderRadius: "2px", marginBottom: "16px" }} />
 
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <button
-                    onClick={() => setSelectedCategory("")}
-                    style={{
-                      display: "flex", justifyContent: "space-between", alignItems: "center",
-                      padding: "10px 0", borderBottom: "1px solid #F0F0F0",
-                      background: "none", border: "none", borderBottomWidth: "1px", borderBottomStyle: "solid", borderBottomColor: "#F0F0F0",
-                      cursor: "pointer", textAlign: "left",
-                      color: selectedCategory === "" ? "#D09947" : "#1E1E1E",
-                      fontWeight: selectedCategory === "" ? 600 : 400,
-                      fontSize: "14px",
-                    }}
-                  >
-                    <span style={{
-                      borderLeft: selectedCategory === "" ? "3px solid #D09947" : "3px solid transparent",
-                      paddingLeft: "10px",
-                    }}>
-                      All Posts
-                    </span>
-                    <span style={{ color: "#999", fontSize: "13px" }}>{posts.length}</span>
-                  </button>
-                  {categories.map((cat) => (
-                    <button
-                      key={cat.id}
-                      onClick={() => setSelectedCategory(selectedCategory === cat.id ? "" : cat.id)}
-                      style={{
-                        display: "flex", justifyContent: "space-between", alignItems: "center",
-                        padding: "10px 0",
-                        background: "none", border: "none", borderBottomWidth: "1px", borderBottomStyle: "solid", borderBottomColor: "#F0F0F0",
-                        cursor: "pointer", textAlign: "left",
-                        color: selectedCategory === cat.id ? "#D09947" : "#1E1E1E",
-                        fontWeight: selectedCategory === cat.id ? 600 : 400,
-                        fontSize: "14px",
-                      }}
-                    >
-                      <span style={{
-                        borderLeft: selectedCategory === cat.id ? "3px solid #D09947" : "3px solid transparent",
-                        paddingLeft: "10px",
-                      }}>
-                        {cat.name}
-                      </span>
-                      <span style={{ color: "#999", fontSize: "13px" }}>
-                        {categoryCounts[cat.id] || 0}
-                      </span>
-                    </button>
-                  ))}
+                  {[
+                    { id: "", name: "All Posts", count: posts.length },
+                    ...categories.map((cat) => ({
+                      id: cat.id,
+                      name: cat.name,
+                      count: categoryCounts[cat.id] || 0,
+                    })),
+                  ].map((item) => {
+                    const isActive = selectedCategory === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() =>
+                          setSelectedCategory(isActive && item.id !== "" ? "" : item.id)
+                        }
+                        className="category-sidebar-btn"
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          padding: "10px 0",
+                          background: "none",
+                          border: "none",
+                          borderBottom: "1px solid #F0F0F0",
+                          cursor: "pointer",
+                          textAlign: "left",
+                          color: isActive ? "#D09947" : "#1E1E1E",
+                          fontWeight: isActive ? 600 : 400,
+                          fontSize: "14px",
+                          transition: "color 0.2s",
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!isActive) {
+                            e.currentTarget.style.color = "#D09947";
+                            e.currentTarget.style.fontWeight = "600";
+                            const line = e.currentTarget.querySelector<HTMLElement>("[data-line]");
+                            if (line) line.style.borderLeftColor = "#D09947";
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isActive) {
+                            e.currentTarget.style.color = "#1E1E1E";
+                            e.currentTarget.style.fontWeight = "400";
+                            const line = e.currentTarget.querySelector<HTMLElement>("[data-line]");
+                            if (line) line.style.borderLeftColor = "transparent";
+                          }
+                        }}
+                      >
+                        <span
+                          data-line=""
+                          style={{
+                            borderLeft: isActive
+                              ? "3px solid #D09947"
+                              : "3px solid transparent",
+                            paddingLeft: "10px",
+                            transition: "border-color 0.2s",
+                          }}
+                        >
+                          {item.name}
+                        </span>
+                        <span style={{ color: "#999", fontSize: "13px" }}>
+                          {item.count}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </aside>
 
