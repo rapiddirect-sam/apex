@@ -59,9 +59,10 @@ export function AuthorForm({ author, isEditing = false }: AuthorFormProps) {
       }
 
       router.push("/admin/authors");
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Error saving author:", error);
-      alert("Failed to save author. Please try again.");
+      const msg = error instanceof Error ? error.message : String(error);
+      alert(`Failed to save author: ${msg}`);
     } finally {
       setSaving(false);
     }

@@ -90,7 +90,7 @@ export function BlogPostContent({
   return (
     <>
       {/* Hero Section - 2-column layout */}
-      <section style={{ paddingTop: "100px", background: "#FEFBF0" }}>
+      <section style={{ paddingTop: "100px", background: "#0A0A0A" }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8" style={{ paddingTop: "24px", paddingBottom: "40px" }}>
           {/* Breadcrumb */}
           <nav
@@ -99,26 +99,26 @@ export function BlogPostContent({
               alignItems: "center",
               gap: "8px",
               fontSize: "14px",
-              color: "#888",
+              color: "#999",
               marginBottom: "28px",
               flexWrap: "wrap",
             }}
           >
-            <Link href="/" style={{ color: "#888", textDecoration: "none" }}>
+            <Link href="/" style={{ color: "#999", textDecoration: "none" }}>
               Home
             </Link>
-            <ChevronRight size={14} style={{ color: "#CCC" }} />
+            <ChevronRight size={14} style={{ color: "#555" }} />
             <Link href="/blog" style={{ color: "#D09947", textDecoration: "none" }}>
               Blog
             </Link>
             {category && (
               <>
-                <ChevronRight size={14} style={{ color: "#CCC" }} />
+                <ChevronRight size={14} style={{ color: "#555" }} />
                 <span style={{ color: "#D09947" }}>{category.name}</span>
               </>
             )}
-            <ChevronRight size={14} style={{ color: "#CCC" }} />
-            <span style={{ color: "#1E1E1E", fontWeight: 500 }}>{post.title}</span>
+            <ChevronRight size={14} style={{ color: "#555" }} />
+            <span style={{ color: "#FFFFFF", fontWeight: 500 }}>{post.title}</span>
           </nav>
 
           {/* 2-column hero: text left, image right */}
@@ -163,7 +163,7 @@ export function BlogPostContent({
                 style={{
                   fontSize: "clamp(26px, 3.5vw, 36px)",
                   fontWeight: 700,
-                  color: "#181717",
+                  color: "#FFFFFF",
                   lineHeight: 1.2,
                   marginBottom: "20px",
                 }}
@@ -175,7 +175,7 @@ export function BlogPostContent({
               {post.excerpt && (
                 <p
                   style={{
-                    color: "#4E4E4E",
+                    color: "#CCCCCC",
                     fontSize: "16px",
                     lineHeight: 1.6,
                     marginBottom: "28px",
@@ -193,19 +193,21 @@ export function BlogPostContent({
                   gap: "20px",
                   flexWrap: "wrap",
                   paddingTop: "16px",
-                  borderTop: "1px solid #E5E5E5",
+                  borderTop: "1px solid #333333",
                 }}
               >
                 {/* Author avatar + info */}
                 <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                   {author?.avatarUrl ? (
-                    <Image
-                      src={author.avatarUrl}
-                      alt={author.name}
-                      width={44}
-                      height={44}
-                      style={{ borderRadius: "50%", objectFit: "cover" }}
-                    />
+                    <div style={{ width: "44px", height: "44px", borderRadius: "50%", overflow: "hidden", flexShrink: 0 }}>
+                      <Image
+                        src={author.avatarUrl}
+                        alt={author.name}
+                        width={44}
+                        height={44}
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    </div>
                   ) : (
                     <div
                       style={{
@@ -225,10 +227,10 @@ export function BlogPostContent({
                     </div>
                   )}
                   <div>
-                    <div style={{ color: "#1E1E1E", fontWeight: 600, fontSize: "14px" }}>
+                    <div style={{ color: "#FFFFFF", fontWeight: 600, fontSize: "14px" }}>
                       {author?.name || post.authorEmail?.split("@")[0] || "Author"}
                     </div>
-                    <div style={{ color: "#888", fontSize: "13px" }}>
+                    <div style={{ color: "#999", fontSize: "13px" }}>
                       {author?.bio
                         ? author.bio.replace(/<[^>]*>/g, "").substring(0, 50) + (author.bio.replace(/<[^>]*>/g, "").length > 50 ? "..." : "")
                         : "ApexBatch Team"}
@@ -536,6 +538,266 @@ export function BlogPostContent({
                 background: #FEFBF0;
               }
             `}</style>
+
+            {/* Author Bio Box - inside content column */}
+            {author && author.bio && (
+              <div
+                style={{
+                  marginTop: "48px",
+                  paddingTop: "40px",
+                  borderTop: "1px solid #E5E5E5",
+                }}
+              >
+                <div
+                  style={{
+                    background: "#FEFBF0",
+                    padding: "32px",
+                    borderRadius: "12px",
+                    border: "1px solid #E8E8E8",
+                  }}
+                >
+                  <h3 style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "20px" }}>
+                    About {author.name}
+                  </h3>
+                  <div style={{ display: "flex", gap: "24px", alignItems: "flex-start" }}>
+                    {author.avatarUrl ? (
+                      <div style={{ width: "80px", height: "80px", borderRadius: "50%", overflow: "hidden", flexShrink: 0 }}>
+                        <Image
+                          src={author.avatarUrl}
+                          alt={author.name}
+                          width={80}
+                          height={80}
+                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        />
+                      </div>
+                    ) : (
+                      <div
+                        style={{
+                          width: "80px",
+                          height: "80px",
+                          borderRadius: "50%",
+                          background: "linear-gradient(135deg, #D09947, #EEC569)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "#FFFFFF",
+                          fontWeight: 700,
+                          fontSize: "32px",
+                          flexShrink: 0,
+                        }}
+                      >
+                        {author.name[0]?.toUpperCase() || "A"}
+                      </div>
+                    )}
+                    <div style={{ flex: 1 }}>
+                      <SanitizedHTML html={author.bio} className="author-bio" />
+                      <style>{`
+                        .author-bio {
+                          color: #333;
+                          font-size: 15px;
+                          line-height: 1.6;
+                        }
+                        .author-bio p {
+                          margin-bottom: 12px;
+                        }
+                        .author-bio a {
+                          color: #D09947;
+                          text-decoration: underline;
+                        }
+                      `}</style>
+
+                      {(author.website || author.socialTwitter || author.socialLinkedin) && (
+                        <div style={{ display: "flex", gap: "8px", marginTop: "16px", alignItems: "center" }}>
+                          {author.website && (
+                            <a
+                              href={author.website}
+                              target="_blank"
+                              rel="noopener noreferrer nofollow"
+                              title="Website"
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                width: "36px",
+                                height: "36px",
+                                borderRadius: "50%",
+                                border: "1px solid #E0E0E0",
+                                color: "#666",
+                                textDecoration: "none",
+                              }}
+                            >
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            </a>
+                          )}
+                          {author.socialTwitter && (
+                            <a
+                              href={`https://twitter.com/${author.socialTwitter}`}
+                              target="_blank"
+                              rel="noopener noreferrer nofollow"
+                              title="X (Twitter)"
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                width: "36px",
+                                height: "36px",
+                                borderRadius: "50%",
+                                border: "1px solid #E0E0E0",
+                                color: "#666",
+                                textDecoration: "none",
+                              }}
+                            >
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            </a>
+                          )}
+                          {author.socialLinkedin && (
+                            <a
+                              href={`https://linkedin.com/in/${author.socialLinkedin}`}
+                              target="_blank"
+                              rel="noopener noreferrer nofollow"
+                              title="LinkedIn"
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                width: "36px",
+                                height: "36px",
+                                borderRadius: "50%",
+                                border: "1px solid #E0E0E0",
+                                color: "#666",
+                                textDecoration: "none",
+                              }}
+                            >
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            </a>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Related Articles - inside content column */}
+            {relatedPosts.length > 0 && (
+              <div style={{ marginTop: "48px", paddingTop: "40px", borderTop: "1px solid #E5E5E5" }}>
+                <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#1E1E1E", marginBottom: "24px" }}>
+                  Related Articles
+                </h2>
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2, 1fr)",
+                    gap: "20px",
+                  }}
+                >
+                  {relatedPosts.slice(0, 4).map((rp) => {
+                    const catName = getCategoryName(rp.categoryId);
+                    const rpReadTime = estimateReadTime(rp.content);
+
+                    return (
+                      <article
+                        key={rp.id}
+                        className="group"
+                        style={{
+                          background: "#FFFFFF",
+                          borderRadius: "10px",
+                          overflow: "hidden",
+                          border: "2px solid transparent",
+                          boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+                          transition: "transform 0.3s, box-shadow 0.3s, border-color 0.3s",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = "translateY(-4px)";
+                          e.currentTarget.style.boxShadow = "0 8px 30px rgba(208,153,71,0.25)";
+                          e.currentTarget.style.borderColor = "#D09947";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = "translateY(0)";
+                          e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.08)";
+                          e.currentTarget.style.borderColor = "transparent";
+                        }}
+                      >
+                        <Link href={`/blog/${rp.slug}`} style={{ textDecoration: "none" }}>
+                          <div
+                            style={{
+                              position: "relative",
+                              height: "140px",
+                              background: "#F5F5F5",
+                              overflow: "hidden",
+                            }}
+                          >
+                            {rp.featuredImage ? (
+                              <Image
+                                src={rp.featuredImage}
+                                alt={rp.title}
+                                fill
+                                style={{ objectFit: "cover", transition: "transform 0.5s" }}
+                                className="group-hover:scale-105"
+                              />
+                            ) : (
+                              <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <FileText size={36} style={{ color: "#D4D4D4" }} />
+                              </div>
+                            )}
+                            {catName && (
+                              <span
+                                style={{
+                                  position: "absolute",
+                                  top: "10px",
+                                  left: "10px",
+                                  background: "linear-gradient(135deg, #D09947, #EEC569)",
+                                  color: "#FFFFFF",
+                                  fontSize: "10px",
+                                  fontWeight: 700,
+                                  padding: "4px 10px",
+                                  borderRadius: "5px",
+                                  textTransform: "uppercase",
+                                  letterSpacing: "0.5px",
+                                }}
+                              >
+                                {catName}
+                              </span>
+                            )}
+                          </div>
+
+                          <div style={{ padding: "14px 16px 18px" }}>
+                            <h3
+                              style={{
+                                color: "#1E1E1E",
+                                fontSize: "14px",
+                                fontWeight: 700,
+                                marginBottom: "8px",
+                                lineHeight: 1.4,
+                                display: "-webkit-box",
+                                WebkitLineClamp: 2,
+                                WebkitBoxOrient: "vertical",
+                                overflow: "hidden",
+                              }}
+                            >
+                              {rp.title}
+                            </h3>
+
+                            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                              <div style={{ display: "flex", alignItems: "center", gap: "4px", color: "#B0960E", fontSize: "11px" }}>
+                                <Calendar size={11} />
+                                {rp.publishedAt?.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+                              </div>
+                              <div style={{ display: "flex", alignItems: "center", gap: "4px", color: "#B0960E", fontSize: "11px" }}>
+                                <Clock size={11} />
+                                {rpReadTime} min read
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right Sidebar: Popular Posts + CTA */}
@@ -620,296 +882,91 @@ export function BlogPostContent({
               </div>
             </div>
 
-            {/* CTA Card */}
+            {/* CTA Card - Instant Quote */}
             <div
               style={{
-                background: "#FEFBF0",
-                borderRadius: "12px",
-                padding: "24px",
-                border: "1px solid #E8E8E8",
+                borderRadius: "14px",
+                overflow: "hidden",
+                boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
+                border: "1px solid #E0E0E0",
+                background: "#FFFFFF",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
-                <Zap size={18} style={{ color: "#D09947" }} />
-                <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#1E1E1E" }}>
-                  Turn Your Design into Real Parts
-                </h3>
-              </div>
-              <p style={{ color: "#666", fontSize: "14px", lineHeight: 1.6, marginBottom: "16px" }}>
-                Check manufacturability, pricing, and lead times before starting production.
-              </p>
-              <Link
-                href="/contact"
+              {/* Blue header */}
+              <div
                 style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  padding: "10px 20px",
-                  background: "linear-gradient(135deg, #D09947, #EEC569)",
-                  color: "#FFFFFF",
-                  border: "none",
-                  borderRadius: "8px",
-                  fontSize: "14px",
-                  fontWeight: 600,
-                  textDecoration: "none",
-                  cursor: "pointer",
+                  background: "linear-gradient(180deg, #3B82F6 0%, #2563EB 100%)",
+                  padding: "20px 20px 28px",
+                  textAlign: "center",
+                  position: "relative",
                 }}
               >
-                Get Free Consultation
-                <ArrowRight size={14} />
-              </Link>
+                <p style={{ color: "#FFFFFF", fontSize: "15px", fontWeight: 600, fontStyle: "italic", margin: 0, letterSpacing: "0.5px" }}>
+                  GET AN INSTANT
+                </p>
+                <h3 style={{ color: "#FFFFFF", fontSize: "28px", fontWeight: 800, fontStyle: "italic", margin: "2px 0 0", letterSpacing: "1px" }}>
+                  QUOTE
+                </h3>
+                {/* Triangle pointer */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "-12px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: 0,
+                    height: 0,
+                    borderLeft: "14px solid transparent",
+                    borderRight: "14px solid transparent",
+                    borderTop: "14px solid #2563EB",
+                  }}
+                />
+              </div>
+
+              {/* White body with checklist */}
+              <div style={{ padding: "28px 24px 20px" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "20px" }}>
+                  {["Fast", "Free", "Easy!"].map((item) => (
+                    <div key={item} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 10.5L8 14.5L16 6.5" stroke="#3B82F6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      <span style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E" }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Get Started button */}
+                <Link
+                  href="/contact"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "8px",
+                    padding: "12px 20px",
+                    background: "linear-gradient(180deg, #3B82F6 0%, #2563EB 100%)",
+                    color: "#FFFFFF",
+                    border: "none",
+                    borderRadius: "8px",
+                    fontSize: "15px",
+                    fontWeight: 700,
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    letterSpacing: "1px",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  GET STARTED
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
             </div>
           </aside>
         </div>
       </section>
 
-      {/* Author Bio Box */}
-      {author && author.bio && (
-        <section style={{ background: "#FFFFFF", paddingBottom: "48px" }}>
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div
-              style={{
-                background: "#FEFBF0",
-                padding: "32px",
-                borderRadius: "12px",
-                border: "1px solid #E8E8E8",
-              }}
-            >
-              <h3 style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "20px" }}>
-                About {author.name}
-              </h3>
-              <div style={{ display: "flex", gap: "24px", alignItems: "flex-start" }}>
-                {author.avatarUrl ? (
-                  <Image
-                    src={author.avatarUrl}
-                    alt={author.name}
-                    width={80}
-                    height={80}
-                    style={{ borderRadius: "50%", objectFit: "cover", flexShrink: 0 }}
-                  />
-                ) : (
-                  <div
-                    style={{
-                      width: "80px",
-                      height: "80px",
-                      borderRadius: "50%",
-                      background: "linear-gradient(135deg, #D09947, #EEC569)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#FFFFFF",
-                      fontWeight: 700,
-                      fontSize: "32px",
-                      flexShrink: 0,
-                    }}
-                  >
-                    {author.name[0]?.toUpperCase() || "A"}
-                  </div>
-                )}
-                <div style={{ flex: 1 }}>
-                  <SanitizedHTML html={author.bio} className="author-bio" />
-                  <style>{`
-                    .author-bio {
-                      color: #333;
-                      font-size: 15px;
-                      line-height: 1.6;
-                    }
-                    .author-bio p {
-                      margin-bottom: 12px;
-                    }
-                    .author-bio a {
-                      color: #D09947;
-                      text-decoration: underline;
-                    }
-                  `}</style>
 
-                  {(author.website || author.socialTwitter || author.socialLinkedin) && (
-                    <div style={{ display: "flex", gap: "10px", marginTop: "16px", flexWrap: "wrap" }}>
-                      {author.website && (
-                        <a
-                          href={author.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            padding: "6px 16px",
-                            background: "#D09947",
-                            color: "#FFF",
-                            borderRadius: "6px",
-                            fontSize: "13px",
-                            textDecoration: "none",
-                            fontWeight: 500,
-                          }}
-                        >
-                          Website
-                        </a>
-                      )}
-                      {author.socialTwitter && (
-                        <a
-                          href={`https://twitter.com/${author.socialTwitter}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            padding: "6px 16px",
-                            background: "#1E1E1E",
-                            color: "#FFF",
-                            borderRadius: "6px",
-                            fontSize: "13px",
-                            textDecoration: "none",
-                            fontWeight: 500,
-                          }}
-                        >
-                          X (Twitter)
-                        </a>
-                      )}
-                      {author.socialLinkedin && (
-                        <a
-                          href={`https://linkedin.com/in/${author.socialLinkedin}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            padding: "6px 16px",
-                            background: "#0077B5",
-                            color: "#FFF",
-                            borderRadius: "6px",
-                            fontSize: "13px",
-                            textDecoration: "none",
-                            fontWeight: 500,
-                          }}
-                        >
-                          LinkedIn
-                        </a>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Related Articles */}
-      {relatedPosts.length > 0 && (
-        <section style={{ background: "#FFFFFF", paddingBottom: "80px" }}>
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#1E1E1E", marginBottom: "24px" }}>
-              Related Articles
-            </h2>
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
-                gap: "24px",
-              }}
-              className="lg:!grid-cols-4 md:!grid-cols-2 grid-cols-1"
-            >
-              {relatedPosts.slice(0, 4).map((rp) => {
-                const catName = getCategoryName(rp.categoryId);
-                const rpReadTime = estimateReadTime(rp.content);
-
-                return (
-                  <article
-                    key={rp.id}
-                    className="group"
-                    style={{
-                      background: "#FFFFFF",
-                      borderRadius: "10px",
-                      overflow: "hidden",
-                      border: "2px solid transparent",
-                      boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
-                      transition: "transform 0.3s, box-shadow 0.3s, border-color 0.3s",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = "translateY(-4px)";
-                      e.currentTarget.style.boxShadow = "0 8px 30px rgba(208,153,71,0.25)";
-                      e.currentTarget.style.borderColor = "#D09947";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.08)";
-                      e.currentTarget.style.borderColor = "transparent";
-                    }}
-                  >
-                    <Link href={`/blog/${rp.slug}`} style={{ textDecoration: "none" }}>
-                      <div
-                        style={{
-                          position: "relative",
-                          height: "160px",
-                          background: "#F5F5F5",
-                          overflow: "hidden",
-                        }}
-                      >
-                        {rp.featuredImage ? (
-                          <Image
-                            src={rp.featuredImage}
-                            alt={rp.title}
-                            fill
-                            style={{ objectFit: "cover", transition: "transform 0.5s" }}
-                            className="group-hover:scale-105"
-                          />
-                        ) : (
-                          <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            <FileText size={36} style={{ color: "#D4D4D4" }} />
-                          </div>
-                        )}
-                        {catName && (
-                          <span
-                            style={{
-                              position: "absolute",
-                              top: "10px",
-                              left: "10px",
-                              background: "linear-gradient(135deg, #D09947, #EEC569)",
-                              color: "#FFFFFF",
-                              fontSize: "10px",
-                              fontWeight: 700,
-                              padding: "4px 10px",
-                              borderRadius: "5px",
-                              textTransform: "uppercase",
-                              letterSpacing: "0.5px",
-                            }}
-                          >
-                            {catName}
-                          </span>
-                        )}
-                      </div>
-
-                      <div style={{ padding: "14px 16px 18px" }}>
-                        <h3
-                          style={{
-                            color: "#1E1E1E",
-                            fontSize: "14px",
-                            fontWeight: 700,
-                            marginBottom: "8px",
-                            lineHeight: 1.4,
-                            display: "-webkit-box",
-                            WebkitLineClamp: 2,
-                            WebkitBoxOrient: "vertical",
-                            overflow: "hidden",
-                          }}
-                        >
-                          {rp.title}
-                        </h3>
-
-                        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: "4px", color: "#B0960E", fontSize: "11px" }}>
-                            <Calendar size={11} />
-                            {rp.publishedAt?.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
-                          </div>
-                          <div style={{ display: "flex", alignItems: "center", gap: "4px", color: "#B0960E", fontSize: "11px" }}>
-                            <Clock size={11} />
-                            {rpReadTime} min read
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
     </>
   );
 }
