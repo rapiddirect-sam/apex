@@ -138,17 +138,7 @@ export function IMWhyChoose() {
             <Link
               href="https://app.apexbatch.com/"
               rel="nofollow"
-              className="inline-flex items-center justify-center gap-2 transition-all duration-300 hover:brightness-110 group w-full"
-              style={{
-                background: "#D09947",
-                color: "#000000",
-                fontWeight: 600,
-                fontSize: "14px",
-                padding: "16px 28px",
-                borderRadius: "8px",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
-              }}
+              className="inline-flex items-center justify-center gap-2 w-full bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group"
             >
               <EditableText path="whychoose.ctaButton" defaultValue={DEFAULTS.ctaButton} />
             </Link>

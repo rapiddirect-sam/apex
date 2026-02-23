@@ -71,11 +71,12 @@ export function CNCSupplier() {
             <h2
               className="font-bold"
               style={{
-                fontSize: "36px",
+                fontSize: "46px",
                 fontWeight: 700,
                 letterSpacing: "-0.015em",
                 lineHeight: 1.1,
-                marginBottom: "24px",
+                marginTop: "10px",
+                marginBottom: "34px",
                 whiteSpace: "nowrap",
               }}
             >

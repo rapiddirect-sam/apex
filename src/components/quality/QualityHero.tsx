@@ -20,114 +20,108 @@ const DEFAULTS = {
 
 export function QualityHero() {
   return (
-    <section
-      className="relative pt-24 pb-20 overflow-hidden"
-      style={{
-        background: `
-          radial-gradient(
-            70% 50% at 50% 0%,
-            rgba(249,235,188,0.10),
-            rgba(0,0,0,0) 65%
-          ),
-          #000000
-        `,
-      }}
-    >
-      {/* Background image with overlay */}
-      <div className="absolute inset-0 opacity-30">
+    <section className="relative bg-[#000000] pt-16 overflow-hidden">
+      {/* Background Image */}
+      <div className="relative w-full" style={{ minHeight: "640px" }}>
         <EditableImage
           path="hero.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Quality background"
           fill
+          style={{ objectFit: "cover" }}
         />
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-r from-[#000000] via-[#000000]/80 to-transparent" />
 
-      {/* Grid pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(208, 153, 71, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(208, 153, 71, 0.05) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
+        {/* Dark overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "rgba(0, 0, 0, 0.5)" }}
+        />
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className=""
+        {/* Content Overlay */}
+        <div
+          className="relative flex flex-col items-center justify-center px-6"
+          style={{ minHeight: "640px" }}
         >
-          <h1
+          {/* Text Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center w-full max-w-7xl flex flex-col items-center"
             style={{
-              fontSize: "clamp(36px, 5vw, 56px)",
-              fontWeight: 700,
-              letterSpacing: "-0.015em",
-              lineHeight: 1.1,
-              marginBottom: "24px",
+              background: "rgba(52, 49, 47, 0.5)",
+              border: "1px solid rgba(238, 197, 105, 0.3)",
+              borderRadius: "8px",
+              padding: "48px 40px",
             }}
           >
-            <span className="text-white">
+            <h1
+              className="text-white font-extrabold tracking-tight"
+              style={{
+                fontSize: "clamp(36px, 5vw, 56px)",
+                lineHeight: 1.1,
+                marginBottom: "20px",
+              }}
+            >
               <EditableText path="hero.titlePart1" defaultValue={DEFAULTS.titlePart1} />
-            </span>
-            <span style={{ color: "#EEC569" }}>
-              <EditableText path="hero.titleHighlight" defaultValue={DEFAULTS.titleHighlight} />
-            </span>
-            <span className="text-white">
+              <span style={{ color: "#EEC569" }}>
+                <EditableText path="hero.titleHighlight" defaultValue={DEFAULTS.titleHighlight} />
+              </span>
               <EditableText path="hero.titlePart2" defaultValue={DEFAULTS.titlePart2} />
-            </span>
-          </h1>
+            </h1>
 
-          <p
-            style={{
-              color: "#C5C6C9",
-              fontSize: "18px",
-              lineHeight: 1.7,
-              marginBottom: "40px",
-            }}
-          >
-            <EditableText
-              path="hero.description"
-              defaultValue={DEFAULTS.description}
-              multiline
-            />
-          </p>
+            <p
+              className="text-white/90"
+              style={{
+                fontSize: "16px",
+                lineHeight: 1.6,
+                marginBottom: "36px",
+                maxWidth: "700px",
+              }}
+            >
+              <EditableText
+                path="hero.description"
+                defaultValue={DEFAULTS.description}
+                multiline
+              />
+            </p>
 
-          {/* Stats */}
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-            {DEFAULTS.stats.map((stat, index) => (
-              <div
-                key={index}
-                className="flex sm:flex-col items-center sm:items-start gap-2 sm:gap-1 flex-1"
-                style={{
-                  background: "linear-gradient(to right, rgba(208,153,71,0.4) 0%, #EEC569 100%)",
-                  borderRadius: "12px",
-                  padding: "12px 16px",
-                }}
-              >
+            {/* Stats */}
+            <div
+              className="inline-flex flex-col sm:flex-row gap-4"
+              style={{ borderTop: "1px solid #EEC569", paddingTop: "8px" }}
+            >
+              {DEFAULTS.stats.map((stat, index) => (
                 <div
-                  className="text-lg sm:text-2xl lg:text-3xl font-bold text-white whitespace-nowrap"
+                  key={index}
+                  className="flex flex-col items-center gap-1"
+                  style={{
+                    padding: "16px 24px",
+                  }}
                 >
-                  <EditableText
-                    path={`hero.stats.${index}.value`}
-                    defaultValue={stat.value}
-                  />
+                  <div
+                    className="text-2xl lg:text-3xl font-bold"
+                    style={{ color: "#EEC569" }}
+                  >
+                    <EditableText
+                      path={`hero.stats.${index}.value`}
+                      defaultValue={stat.value}
+                    />
+                  </div>
+                  <div
+                    className="text-sm"
+                    style={{ color: "#FFFFFF", fontWeight: 500 }}
+                  >
+                    <EditableText
+                      path={`hero.stats.${index}.label`}
+                      defaultValue={stat.label}
+                    />
+                  </div>
                 </div>
-                <div
-                  className="text-white/80 text-xs sm:text-sm"
-                >
-                  <EditableText
-                    path={`hero.stats.${index}.label`}
-                    defaultValue={stat.label}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

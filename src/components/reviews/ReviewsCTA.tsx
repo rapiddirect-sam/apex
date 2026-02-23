@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { EditableText } from "@/components/cms";
+import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
+  backgroundImage: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp",
   headingPrefix: "Join Industry Leaders Who ",
   headingHighlight: "Build with Precision",
   description:
@@ -19,10 +20,24 @@ export function ReviewsCTA() {
       className="relative overflow-hidden"
       style={{
         padding: "80px 0 100px",
-        background: "#000000",
       }}
     >
-      <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <EditableImage
+          path="cta.backgroundImage"
+          defaultSrc={DEFAULTS.backgroundImage}
+          alt="CTA background"
+          fill
+          style={{ objectFit: "cover" }}
+        />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "rgba(0, 0, 0, 0.7)" }}
+        />
+      </div>
+
+      <div className="relative max-w-6xl mx-auto px-6 lg:px-8 text-center">
         {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

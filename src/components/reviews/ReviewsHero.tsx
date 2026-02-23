@@ -5,8 +5,9 @@ import { CheckCircle, Building2, Globe } from "lucide-react";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  backgroundImage: "/reviews/hero-bg.jpg",
-  heading: "Trusted by Global Manufacturing Clients",
+  backgroundImage: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp",
+  headingLine1: "Trusted by",
+  headingLine2: "Global Manufacturing Clients",
   subheading: "Real Reviews from Real Engineers",
   description:
     "From precision CNC machining to high-volume injection molding, Apexbatch delivers consistent quality for aerospace, automotive, and medical industries worldwide.",
@@ -17,11 +18,9 @@ const DEFAULTS = {
 
 export function ReviewsHero() {
   return (
-    <section
-      className="relative pt-32 pb-16 overflow-hidden"
-    >
-      {/* Background image */}
-      <div className="absolute inset-0">
+    <section className="relative bg-[#000000] pt-16 overflow-hidden">
+      {/* Background Image */}
+      <div className="relative w-full" style={{ minHeight: "640px" }}>
         <EditableImage
           path="hero.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
@@ -29,47 +28,49 @@ export function ReviewsHero() {
           fill
           style={{ objectFit: "cover" }}
         />
-      </div>
 
-      {/* Dark overlay */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: "rgba(0, 0, 0, 0.5)",
-        }}
-      />
+        {/* Dark overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "rgba(0, 0, 0, 0.5)" }}
+        />
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 flex justify-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-5xl w-full"
+        {/* Content Overlay */}
+        <div
+          className="relative flex flex-col items-center justify-center px-6"
+          style={{ minHeight: "640px" }}
         >
-          {/* Dark card */}
-          <div
+          {/* Text Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center w-full max-w-7xl flex flex-col items-center"
             style={{
-              background: "#303030",
-              padding: "clamp(24px, 5vw, 48px)",
-              borderRadius: "0",
+              background: "rgba(52, 49, 47, 0.5)",
+              border: "1px solid rgba(238, 197, 105, 0.3)",
+              borderRadius: "8px",
+              padding: "48px 40px",
             }}
           >
             <h1
+              className="text-white font-extrabold tracking-tight"
               style={{
-                fontSize: "clamp(22px, 3.5vw, 36px)",
-                fontWeight: 700,
-                color: "#F9EBBC",
-                letterSpacing: "-0.015em",
-                lineHeight: 1.2,
-                marginBottom: "8px",
+                fontSize: "clamp(36px, 5vw, 56px)",
+                lineHeight: 1.1,
+                marginBottom: "12px",
               }}
             >
-              <EditableText path="hero.heading" defaultValue={DEFAULTS.heading} />
+              <EditableText path="hero.headingLine1" defaultValue={DEFAULTS.headingLine1} />
+              <br />
+              <span style={{ color: "#EEC569" }}>
+                <EditableText path="hero.headingLine2" defaultValue={DEFAULTS.headingLine2} />
+              </span>
             </h1>
 
             <h2
               style={{
-                fontSize: "clamp(18px, 2.5vw, 22px)",
+                fontSize: "clamp(18px, 2.5vw, 24px)",
                 fontWeight: 600,
                 color: "#FFFFFF",
                 marginBottom: "20px",
@@ -79,53 +80,53 @@ export function ReviewsHero() {
             </h2>
 
             <p
+              className="text-white/90"
               style={{
-                color: "#C5C6C9",
                 fontSize: "16px",
-                lineHeight: 1.7,
-                marginBottom: "32px",
+                lineHeight: 1.6,
+                marginBottom: "36px",
+                maxWidth: "700px",
               }}
             >
               <EditableText path="hero.description" defaultValue={DEFAULTS.description} multiline />
             </p>
 
-            {/* Stats row - in separate rectangular container */}
+            {/* Stats row */}
             <div
-              className="flex flex-col sm:flex-row flex-wrap"
+              className="inline-flex flex-col sm:flex-row flex-wrap justify-center gap-6"
               style={{
-                background: "#252525",
-                padding: "clamp(12px, 2vw, 16px) clamp(16px, 3vw, 24px)",
-                alignItems: "flex-start",
-                gap: "clamp(12px, 2vw, 24px)",
+                background: "rgba(30, 30, 30, 0.7)",
+                padding: "16px 24px",
+                borderRadius: "6px",
               }}
             >
               <div className="flex items-center gap-2">
                 <CheckCircle
-                  style={{ width: "16px", height: "16px", color: "#EEC569" }}
+                  style={{ width: "18px", height: "18px", color: "#EEC569" }}
                 />
-                <span style={{ color: "#FFFFFF", fontSize: "12px" }}>
+                <span style={{ color: "#FFFFFF", fontSize: "14px", fontWeight: 500 }}>
                   <EditableText path="hero.stat1" defaultValue={DEFAULTS.stat1} />
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <Building2
-                  style={{ width: "16px", height: "16px", color: "#EEC569" }}
+                  style={{ width: "18px", height: "18px", color: "#EEC569" }}
                 />
-                <span style={{ color: "#FFFFFF", fontSize: "12px" }}>
+                <span style={{ color: "#FFFFFF", fontSize: "14px", fontWeight: 500 }}>
                   <EditableText path="hero.stat2" defaultValue={DEFAULTS.stat2} />
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <Globe
-                  style={{ width: "16px", height: "16px", color: "#EEC569" }}
+                  style={{ width: "18px", height: "18px", color: "#EEC569" }}
                 />
-                <span style={{ color: "#FFFFFF", fontSize: "12px" }}>
+                <span style={{ color: "#FFFFFF", fontSize: "14px", fontWeight: 500 }}>
                   <EditableText path="hero.stat3" defaultValue={DEFAULTS.stat3} />
                 </span>
               </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

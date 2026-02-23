@@ -66,7 +66,7 @@ export function Home3Header() {
           <Link
             href="https://app.apexbatch.com/"
             rel="nofollow"
-            className="hidden lg:inline-flex items-center gap-2 bg-[#1A1A1A] hover:bg-[#000000] text-white font-semibold px-5 py-2.5 rounded-full transition-all text-sm"
+            className="hidden lg:inline-flex items-center gap-2 bg-[#1A1A1A] hover:bg-[#000000] text-white hover:text-[#D09947] active:text-[#D09947] font-semibold px-5 py-2.5 rounded-full transition-all text-sm"
           >
             Get Quote
           </Link>

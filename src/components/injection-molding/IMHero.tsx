@@ -17,42 +17,52 @@ const DEFAULTS = {
 export function IMHero() {
   return (
     <section className="relative bg-[#000000] pt-16 overflow-hidden">
-      <div className="w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px]">
-          {/* Left - Image */}
-          <div className="relative h-[300px] lg:h-auto">
-            <EditableImage
-              path="hero.image"
-              defaultSrc={DEFAULTS.heroImage}
-              alt="Plastic Injection Molding Manufacturer"
-              fill
-            />
-          </div>
+      {/* Background Image */}
+      <div className="relative w-full" style={{ minHeight: "640px" }}>
+        <EditableImage
+          path="hero.image"
+          defaultSrc={DEFAULTS.heroImage}
+          alt="Plastic Injection Molding Manufacturer"
+          fill
+          style={{ objectFit: "cover" }}
+        />
 
-          {/* Right - Content */}
+        {/* Content Overlay */}
+        <div
+          className="relative flex flex-col items-center justify-center px-6"
+          style={{ minHeight: "640px" }}
+        >
+          {/* Text Card */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex flex-col justify-center bg-[#1A1A1A] p-8 lg:p-16"
+            className="text-center w-full max-w-[1200px] flex flex-col items-center"
+            style={{
+              background: "rgba(52, 49, 47, 0.5)",
+              border: "1px solid rgba(238, 197, 105, 0.3)",
+              borderRadius: "8px",
+              padding: "48px 40px",
+            }}
           >
             <h1
-              className="text-white font-bold uppercase tracking-tight"
+              className="text-white font-extrabold tracking-tight"
               style={{
-                fontSize: "clamp(28px, 4vw, 42px)",
+                fontSize: "clamp(36px, 5vw, 56px)",
                 lineHeight: 1.1,
-                marginBottom: "24px",
+                marginBottom: "20px",
               }}
             >
               <EditableText path="hero.title" defaultValue={DEFAULTS.title} />
             </h1>
 
             <p
+              className="text-white/90"
               style={{
                 fontSize: "16px",
-                lineHeight: 1.7,
-                color: "#C5C6C9",
-                marginBottom: "32px",
+                lineHeight: 1.6,
+                marginBottom: "36px",
+                maxWidth: "640px",
               }}
             >
               <EditableText
@@ -62,23 +72,16 @@ export function IMHero() {
               />
             </p>
 
+            {/* CTA Button */}
             <Link
               href="https://app.apexbatch.com/"
               rel="nofollow"
-              className="inline-flex items-center justify-center gap-2 self-start transition-all duration-300 hover:brightness-110 group"
-              style={{
-                background: "#D09947",
-                color: "#000000",
-                fontWeight: 600,
-                fontSize: "14px",
-                padding: "14px 32px",
-                borderRadius: "12px",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
-                boxShadow: "0 4px 15px rgba(208,153,71,0.3)",
-              }}
+              className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider flex items-center justify-center gap-2 group"
             >
-              <EditableText path="hero.ctaText" defaultValue={DEFAULTS.ctaText} />
+              <EditableText
+                path="hero.ctaText"
+                defaultValue={DEFAULTS.ctaText}
+              />
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>

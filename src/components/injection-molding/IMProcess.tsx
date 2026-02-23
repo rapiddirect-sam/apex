@@ -178,18 +178,7 @@ export function IMProcess() {
           <Link
             href="https://app.apexbatch.com/"
             rel="nofollow"
-            className="inline-flex items-center gap-2 transition-all duration-300 hover:brightness-110 group"
-            style={{
-              background: "#D09947",
-              color: "#000000",
-              fontWeight: 600,
-              fontSize: "16px",
-              padding: "18px 40px",
-              borderRadius: "12px",
-              boxShadow: "0 4px 15px rgba(208,153,71,0.3)",
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
-            }}
+            className="inline-flex items-center gap-2 bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group"
           >
             <EditableText path="process.ctaText" defaultValue={DEFAULTS.ctaText} />
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

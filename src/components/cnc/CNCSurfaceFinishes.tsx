@@ -66,12 +66,9 @@ export function CNCSurfaceFinishes() {
               }}
             >
               <div style={{ padding: "24px 24px 0 24px" }}>
-                <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#FFFFFF", marginBottom: "8px" }}>
+                <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#FFFFFF", marginBottom: "20px" }}>
                   <EditableText path={`finishes.items.${index}.name`} defaultValue={finish.name} />
                 </h3>
-                <p style={{ fontSize: "14px", color: "#7A7A7C", marginBottom: "20px" }}>
-                  Compatible Materials: <EditableText path={`finishes.items.${index}.compatibleMaterials`} defaultValue={finish.compatibleMaterials} />
-                </p>
                 <div className="relative" style={{ width: "100%", height: "180px", marginBottom: "24px", borderRadius: "8px", overflow: "hidden" }}>
                   <EditableImage
                     path={`finishes.items.${index}.image`}
@@ -97,7 +94,10 @@ export function CNCSurfaceFinishes() {
                 </div>
               </div>
               <div style={{ padding: "16px 24px 24px 24px" }}>
-                <p style={{ fontSize: "14px", lineHeight: 1.6, color: "#C5C6C9", textAlign: "center" }}>
+                <p style={{ fontSize: "14px", color: "#C5C6C9", marginBottom: "8px" }}>
+                  Compatible Materials: <EditableText path={`finishes.items.${index}.compatibleMaterials`} defaultValue={finish.compatibleMaterials} />
+                </p>
+                <p style={{ fontSize: "14px", lineHeight: 1.6, color: "#FFFFFF", textAlign: "left" }}>
                   <EditableText path={`finishes.items.${index}.description`} defaultValue={finish.description} multiline />
                 </p>
               </div>

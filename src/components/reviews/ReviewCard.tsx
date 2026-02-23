@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Star, ChevronDown, ChevronUp } from "lucide-react";
-import { EditableText } from "@/components/cms";
+import { EditableText, EditableImage } from "@/components/cms";
 
 interface ReviewCardProps {
   index: number;
@@ -49,10 +49,7 @@ export function ReviewCard({
 }: ReviewCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const shouldTruncate = quote.length > 200;
-  const displayText = shouldTruncate && !isExpanded
-    ? quote.slice(0, 200) + "..."
-    : quote;
+  const shouldTruncate = quote.length > 80;
 
   const basePath = `grid.reviews.${index}`;
 
@@ -67,6 +64,22 @@ export function ReviewCard({
         boxShadow: "0 12px 32px rgba(0,0,0,0.45)",
       }}
     >
+      {/* Product Image */}
+      {productImage && (
+        <div
+          className="overflow-hidden aspect-video relative mb-5 rounded-lg"
+          style={{ background: "#3A3A3A" }}
+        >
+          <EditableImage
+            path={`${basePath}.productImage`}
+            defaultSrc={productImage}
+            alt="Product"
+            fill
+            className="object-cover"
+          />
+        </div>
+      )}
+
       {/* Header - Avatar and Name */}
       <div className="flex items-center gap-4 mb-5">
         <div
@@ -124,8 +137,21 @@ export function ReviewCard({
 
       {/* Quote */}
       <div className="flex-grow">
-        <p style={{ color: "#FFFFFF", fontStyle: "italic", fontSize: "14px", lineHeight: 1.6 }}>
-          &quot;<EditableText path={`${basePath}.quote`} defaultValue={displayText} multiline />&quot;
+        <p
+          style={{
+            color: "#FFFFFF",
+            fontStyle: "italic",
+            fontSize: "14px",
+            lineHeight: 1.6,
+            ...(!isExpanded ? {
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical" as const,
+              overflow: "hidden",
+            } : {}),
+          }}
+        >
+          &quot;<EditableText path={`${basePath}.quote`} defaultValue={quote} multiline />&quot;
         </p>
 
         {shouldTruncate && (
@@ -166,21 +192,6 @@ export function ReviewCard({
           </span>
         ))}
       </div>
-
-      {/* Product Image */}
-      {productImage && (
-        <div
-          className="mt-5 overflow-hidden aspect-video relative"
-          style={{ borderRadius: "12px", background: "#3A3A3A" }}
-        >
-          <Image
-            src={productImage}
-            alt="Product"
-            fill
-            className="object-cover"
-          />
-        </div>
-      )}
 
     </div>
   );
