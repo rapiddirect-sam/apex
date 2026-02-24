@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState, ReactNode } from "react
 import { User, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut as firebaseSignOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, isFirebaseConfigured } from "@/lib/firebase";
 import { isUserAdmin } from "@/lib/admin";
+import { syncUserFromAuth } from "@/lib/users";
 
 interface AuthContextType {
   user: User | null;
@@ -42,8 +43,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
 
-      // Check admin status
       if (user?.email) {
+        // Sync user to Supabase (creates if not exists, updates last login if exists)
+        await syncUserFromAuth(user.email, user.displayName);
+        // Check admin status
         const adminStatus = await isUserAdmin(user.email);
         setIsAdmin(adminStatus);
       } else {
