@@ -513,29 +513,38 @@ export function BlogPostContent({
               }
               .blog-content table {
                 width: 100%;
-                border-collapse: collapse;
+                border-collapse: separate;
+                border-spacing: 0;
                 margin: 1.5em 0;
-                border-radius: 8px;
+                border-radius: 12px;
                 overflow: hidden;
+                border: 1px solid #E8E8E8;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.04);
               }
               .blog-content thead th {
-                background: linear-gradient(135deg, #D09947, #EEC569);
+                background: linear-gradient(135deg, #D09947, #E8C46A);
                 color: #FFFFFF;
                 font-weight: 700;
                 text-align: left;
-                padding: 14px 18px;
-                font-size: 14px;
+                padding: 18px 24px;
+                font-size: 16px;
+                letter-spacing: 0.2px;
+                border-bottom: none;
               }
               .blog-content tbody td {
-                padding: 14px 18px;
-                border-bottom: 1px solid #F0F0F0;
+                padding: 20px 24px;
+                border-bottom: 1px solid #EBEBEB;
                 font-size: 15px;
+                color: #6B6B6B;
+              }
+              .blog-content tbody tr:last-child td {
+                border-bottom: none;
               }
               .blog-content tbody tr:nth-child(even) {
-                background: #FAFAFA;
+                background: #F7F9FB;
               }
               .blog-content tbody tr:hover {
-                background: #FEFBF0;
+                background: #FEF9F0;
               }
             `}</style>
 

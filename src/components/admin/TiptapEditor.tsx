@@ -399,6 +399,33 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
               color: #D09947;
               text-decoration: underline;
             }
+            .tiptap-editor-content table {
+              width: 100%;
+              border-collapse: separate;
+              border-spacing: 0;
+              margin: 1em 0;
+              border-radius: 12px;
+              overflow: hidden;
+              border: 1px solid #444;
+            }
+            .tiptap-editor-content thead th,
+            .tiptap-editor-content th {
+              background: linear-gradient(135deg, #D09947, #E8C46A);
+              color: #FFFFFF;
+              font-weight: 700;
+              text-align: left;
+              padding: 14px 18px;
+              font-size: 14px;
+            }
+            .tiptap-editor-content tbody td,
+            .tiptap-editor-content td {
+              padding: 14px 18px;
+              border-bottom: 1px solid #333;
+              font-size: 14px;
+            }
+            .tiptap-editor-content tbody tr:nth-child(even) {
+              background: rgba(255,255,255,0.03);
+            }
             @keyframes spin {
               from { transform: rotate(0deg); }
               to { transform: rotate(360deg); }
