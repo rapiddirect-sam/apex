@@ -5,7 +5,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import {
   Bold,
   Italic,
@@ -22,6 +22,7 @@ import {
   Link as LinkIcon,
   Image as ImageIcon,
   Code2,
+  Loader2,
 } from "lucide-react";
 
 interface TiptapEditorProps {
@@ -33,6 +34,8 @@ interface TiptapEditorProps {
 export function TiptapEditor({ content, onChange, placeholder = "Write your content..." }: TiptapEditorProps) {
   const [showHtml, setShowHtml] = useState(false);
   const [htmlContent, setHtmlContent] = useState(content);
+  const [imageUploading, setImageUploading] = useState(false);
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   const editor = useEditor({
     extensions: [
@@ -66,12 +69,32 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
     },
   });
 
-  const addImage = useCallback(() => {
-    const url = window.prompt("Enter image URL:");
-    if (url && editor) {
-      editor.chain().focus().setImage({ src: url }).run();
+  const handleImageUpload = useCallback(async (file: File) => {
+    if (!editor) return;
+    setImageUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Upload failed");
+      }
+      editor.chain().focus().setImage({ src: data.url }).run();
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Image upload failed");
+    } finally {
+      setImageUploading(false);
+      if (imageInputRef.current) imageInputRef.current.value = "";
     }
   }, [editor]);
+
+  const addImage = useCallback(() => {
+    imageInputRef.current?.click();
+  }, []);
 
   const addLink = useCallback(() => {
     const url = window.prompt("Enter URL:");
@@ -233,9 +256,19 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
         <ToolbarButton onClick={addLink} title="Add Link">
           <LinkIcon size={18} />
         </ToolbarButton>
-        <ToolbarButton onClick={addImage} title="Add Image">
-          <ImageIcon size={18} />
+        <ToolbarButton onClick={addImage} title="Upload Image">
+          {imageUploading ? <Loader2 size={18} style={{ animation: "spin 1s linear infinite" }} /> : <ImageIcon size={18} />}
         </ToolbarButton>
+        <input
+          ref={imageInputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/gif,image/webp"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) handleImageUpload(file);
+          }}
+          style={{ display: "none" }}
+        />
 
         <div style={{ width: "1px", height: "24px", background: "#444", margin: "0 8px" }} />
 
@@ -365,6 +398,10 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
             .tiptap-editor-content a.blog-link {
               color: #D09947;
               text-decoration: underline;
+            }
+            @keyframes spin {
+              from { transform: rotate(0deg); }
+              to { transform: rotate(360deg); }
             }
           `}</style>
           <EditorContent editor={editor} />
