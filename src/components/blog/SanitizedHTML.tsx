@@ -23,10 +23,12 @@ export function SanitizedHTML({ html, className }: SanitizedHTMLProps) {
         "blockquote", "pre", "code",
         "table", "thead", "tbody", "tr", "th", "td",
         "div", "span",
+        "details", "summary",
       ],
       ALLOWED_ATTR: [
         "href", "src", "alt", "title", "class", "id",
         "target", "rel", "width", "height",
+        "open",
       ],
       ALLOW_DATA_ATTR: false,
       ADD_ATTR: ["target"], // Allow target attribute for links
