@@ -28,7 +28,7 @@ export function SanitizedHTML({ html, className }: SanitizedHTMLProps) {
       ALLOWED_ATTR: [
         "href", "src", "alt", "title", "class", "id",
         "target", "rel", "width", "height",
-        "open",
+        "open", "colspan", "rowspan",
       ],
       ALLOW_DATA_ATTR: false,
       ADD_ATTR: ["target"], // Allow target attribute for links

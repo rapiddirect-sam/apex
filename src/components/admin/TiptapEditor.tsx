@@ -6,17 +6,41 @@ import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
-import { Table, TableRow, TableCell, TableHeader } from "@tiptap/extension-table";
-
-const TableCaptionNode = Node.create({
-  name: "tableCaption",
+// Preserve tables as raw HTML blocks so TipTap doesn't mangle the structure
+const RawTableNode = Node.create({
+  name: "rawTable",
   group: "block",
-  content: "inline*",
-  parseHTML() {
-    return [{ tag: "caption" }];
+  atom: true,
+  draggable: false,
+  addAttributes() {
+    return {
+      rawHtml: {
+        default: "",
+        renderHTML: () => ({}),
+        parseHTML: () => "",
+      },
+    };
   },
-  renderHTML({ HTMLAttributes }) {
-    return ["caption", mergeAttributes(HTMLAttributes), 0];
+  parseHTML() {
+    return [{
+      tag: "table",
+      getAttrs(node: HTMLElement) {
+        return { rawHtml: node.outerHTML };
+      },
+    }];
+  },
+  renderHTML({ node }) {
+    // Encode the raw HTML in a data attribute so getHTML() preserves it
+    return ["div", { "data-raw-table": encodeURIComponent(node.attrs.rawHtml) }];
+  },
+  addNodeView() {
+    return ({ node }) => {
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("raw-table-wrapper");
+      wrapper.contentEditable = "false";
+      wrapper.innerHTML = node.attrs.rawHtml;
+      return { dom: wrapper };
+    };
   },
 });
 
@@ -84,6 +108,17 @@ interface TiptapEditorProps {
   placeholder?: string;
 }
 
+// Restore raw table HTML from data-raw-table divs in getHTML() output
+function restoreRawTables(html: string): string {
+  return html.replace(/<div data-raw-table="([^"]+)"[^>]*><\/div>/g, (_, encoded) => {
+    try {
+      return decodeURIComponent(encoded);
+    } catch {
+      return "";
+    }
+  });
+}
+
 export function TiptapEditor({ content, onChange, placeholder = "Write your content..." }: TiptapEditorProps) {
   const [showHtml, setShowHtml] = useState(false);
   const [htmlContent, setHtmlContent] = useState(content);
@@ -107,11 +142,7 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
       Placeholder.configure({
         placeholder,
       }),
-      Table.configure({ resizable: false }),
-      TableRow,
-      TableCell,
-      TableHeader,
-      TableCaptionNode,
+      RawTableNode,
       DetailsNode,
       DetailsSummaryNode,
       DetailsContentNode,
@@ -119,7 +150,7 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
     content,
     immediatelyRender: false,
     onUpdate: ({ editor }) => {
-      const html = editor.getHTML();
+      const html = restoreRawTables(editor.getHTML());
       onChange(html);
       setHtmlContent(html);
     },
@@ -351,7 +382,7 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
             if (showHtml && editor) {
               editor.commands.setContent(htmlContent);
             } else if (!showHtml && editor) {
-              setHtmlContent(editor.getHTML());
+              setHtmlContent(restoreRawTables(editor.getHTML()));
             }
             setShowHtml(!showHtml);
           }}
