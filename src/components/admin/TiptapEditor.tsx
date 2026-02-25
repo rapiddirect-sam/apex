@@ -6,6 +6,22 @@ import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
+import Table from "@tiptap/extension-table";
+import TableRow from "@tiptap/extension-table-row";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+
+const TableCaptionNode = Node.create({
+  name: "tableCaption",
+  group: "block",
+  content: "inline*",
+  parseHTML() {
+    return [{ tag: "caption" }];
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ["caption", mergeAttributes(HTMLAttributes), 0];
+  },
+});
 
 const DetailsNode = Node.create({
   name: "details",
@@ -94,6 +110,11 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
       Placeholder.configure({
         placeholder,
       }),
+      Table.configure({ resizable: false }),
+      TableRow,
+      TableCell,
+      TableHeader,
+      TableCaptionNode,
       DetailsNode,
       DetailsSummaryNode,
       DetailsContentNode,

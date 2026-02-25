@@ -21,7 +21,7 @@ export function SanitizedHTML({ html, className }: SanitizedHTMLProps) {
         "strong", "em", "b", "i", "u", "s",
         "a", "img",
         "blockquote", "pre", "code",
-        "table", "thead", "tbody", "tr", "th", "td",
+        "table", "caption", "thead", "tbody", "tr", "th", "td",
         "div", "span",
         "details", "summary",
       ],
