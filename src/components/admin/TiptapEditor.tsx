@@ -105,9 +105,6 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
 
   const handleHtmlChange = (html: string) => {
     setHtmlContent(html);
-    if (editor) {
-      editor.commands.setContent(html);
-    }
     onChange(html);
   };
 
@@ -289,7 +286,22 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
 
         <button
           type="button"
-          onClick={() => setShowHtml(!showHtml)}
+          onClick={() => {
+            if (showHtml && editor) {
+              // Warn if HTML contains tags that Visual mode will strip
+              if (/<details|<summary/i.test(htmlContent)) {
+                if (!window.confirm("Switching to Visual mode will remove FAQ (details/summary) tags. Continue?")) {
+                  return;
+                }
+              }
+              // Switching from HTML to Visual: sync TipTap from raw HTML
+              editor.commands.setContent(htmlContent);
+            } else if (!showHtml && editor) {
+              // Switching from Visual to HTML: sync textarea from TipTap
+              setHtmlContent(editor.getHTML());
+            }
+            setShowHtml(!showHtml);
+          }}
           style={{
             padding: "6px 12px",
             background: showHtml ? "#D09947" : "#333",
