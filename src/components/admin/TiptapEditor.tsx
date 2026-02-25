@@ -14,31 +14,36 @@ const RawTableNode = Node.create({
   draggable: false,
   addAttributes() {
     return {
-      rawHtml: {
-        default: "",
-        renderHTML: () => ({}),
-        parseHTML: () => "",
-      },
+      rawHtml: { default: "" },
     };
   },
   parseHTML() {
-    return [{
-      tag: "table",
-      getAttrs(node: HTMLElement) {
-        return { rawHtml: node.outerHTML };
+    return [
+      {
+        tag: "table",
+        getAttrs(node: HTMLElement) {
+          return { rawHtml: node.outerHTML };
+        },
       },
-    }];
+      {
+        tag: "div[data-raw-table]",
+        getAttrs(node: HTMLElement) {
+          const encoded = node.getAttribute("data-raw-table") || "";
+          try { return { rawHtml: decodeURIComponent(encoded) }; }
+          catch { return { rawHtml: "" }; }
+        },
+      },
+    ];
   },
   renderHTML({ node }) {
-    // Encode the raw HTML in a data attribute so getHTML() preserves it
-    return ["div", { "data-raw-table": encodeURIComponent(node.attrs.rawHtml) }];
+    return ["div", { "data-raw-table": encodeURIComponent(node.attrs.rawHtml || "") }];
   },
   addNodeView() {
     return ({ node }) => {
       const wrapper = document.createElement("div");
       wrapper.classList.add("raw-table-wrapper");
       wrapper.contentEditable = "false";
-      wrapper.innerHTML = node.attrs.rawHtml;
+      wrapper.innerHTML = node.attrs.rawHtml || "";
       return { dom: wrapper };
     };
   },
