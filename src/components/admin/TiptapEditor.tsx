@@ -426,6 +426,33 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
             .tiptap-editor-content tbody tr:nth-child(even) {
               background: rgba(255,255,255,0.03);
             }
+            .tiptap-editor-content details {
+              border: 1px solid #444;
+              border-radius: 12px;
+              margin: 12px 0;
+              background: #2a2a2a;
+            }
+            .tiptap-editor-content details[open] {
+              border-color: #D09947;
+              background: #2f2a22;
+            }
+            .tiptap-editor-content details summary {
+              padding: 16px 20px;
+              font-weight: 600;
+              font-size: 15px;
+              color: #E0E0E0;
+              cursor: pointer;
+              list-style: none;
+            }
+            .tiptap-editor-content details summary::-webkit-details-marker {
+              display: none;
+            }
+            .tiptap-editor-content details > :not(summary) {
+              padding: 0 20px 16px;
+              color: #999;
+              font-size: 14px;
+              line-height: 1.6;
+            }
             @keyframes spin {
               from { transform: rotate(0deg); }
               to { transform: rotate(360deg); }

@@ -546,6 +546,58 @@ export function BlogPostContent({
               .blog-content tbody tr:hover {
                 background: #FEF9F0;
               }
+              .blog-content details {
+                border: 1px solid #E8E8E8;
+                border-radius: 12px;
+                margin: 12px 0;
+                background: #FFFFFF;
+                transition: all 0.2s ease;
+              }
+              .blog-content details[open] {
+                border-color: #E8C46A;
+                background: #FFFDF7;
+              }
+              .blog-content details summary {
+                padding: 20px 24px;
+                font-weight: 600;
+                font-size: 16px;
+                color: #1E1E1E;
+                cursor: pointer;
+                list-style: none;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+              }
+              .blog-content details summary::-webkit-details-marker {
+                display: none;
+              }
+              .blog-content details summary::after {
+                content: "";
+                width: 28px;
+                height: 28px;
+                min-width: 28px;
+                border: 2px solid #999;
+                border-radius: 50%;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: center;
+                transition: transform 0.2s ease;
+              }
+              .blog-content details[open] summary::after {
+                transform: rotate(180deg);
+                border-color: #D09947;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23D09947' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+              }
+              .blog-content details > :not(summary) {
+                padding: 0 24px 20px;
+                color: #6B6B6B;
+                font-size: 15px;
+                line-height: 1.7;
+              }
+              .blog-content details p:first-of-type {
+                margin-top: 0;
+              }
             `}</style>
 
             {/* Author Bio Box - inside content column */}
