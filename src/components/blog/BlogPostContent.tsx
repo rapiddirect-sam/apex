@@ -892,10 +892,10 @@ export function BlogPostContent({
                 background: "#FFFFFF",
               }}
             >
-              {/* Blue header */}
+              {/* Gold header */}
               <div
                 style={{
-                  background: "linear-gradient(180deg, #3B82F6 0%, #2563EB 100%)",
+                  background: "linear-gradient(180deg, #D09947 0%, #B8832E 100%)",
                   padding: "20px 20px 28px",
                   textAlign: "center",
                   position: "relative",
@@ -918,7 +918,7 @@ export function BlogPostContent({
                     height: 0,
                     borderLeft: "14px solid transparent",
                     borderRight: "14px solid transparent",
-                    borderTop: "14px solid #2563EB",
+                    borderTop: "14px solid #B8832E",
                   }}
                 />
               </div>
@@ -929,7 +929,7 @@ export function BlogPostContent({
                   {["Fast", "Free", "Easy!"].map((item) => (
                     <div key={item} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path d="M4 10.5L8 14.5L16 6.5" stroke="#3B82F6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M4 10.5L8 14.5L16 6.5" stroke="#D09947" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                       <span style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E" }}>{item}</span>
                     </div>
@@ -945,7 +945,7 @@ export function BlogPostContent({
                     justifyContent: "center",
                     gap: "8px",
                     padding: "12px 20px",
-                    background: "linear-gradient(180deg, #3B82F6 0%, #2563EB 100%)",
+                    background: "linear-gradient(180deg, #D09947 0%, #B8832E 100%)",
                     color: "#FFFFFF",
                     border: "none",
                     borderRadius: "8px",
