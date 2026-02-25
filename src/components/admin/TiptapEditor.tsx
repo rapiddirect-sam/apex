@@ -1,10 +1,50 @@
 "use client";
 
 import { useEditor, EditorContent } from "@tiptap/react";
+import { Node, mergeAttributes } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
+
+const DetailsNode = Node.create({
+  name: "details",
+  group: "block",
+  content: "detailsSummary detailsContent",
+  defining: true,
+  parseHTML() {
+    return [{ tag: "details" }];
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ["details", mergeAttributes(HTMLAttributes), 0];
+  },
+});
+
+const DetailsSummaryNode = Node.create({
+  name: "detailsSummary",
+  group: "",
+  content: "inline*",
+  defining: true,
+  parseHTML() {
+    return [{ tag: "summary" }];
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ["summary", mergeAttributes(HTMLAttributes), 0];
+  },
+});
+
+const DetailsContentNode = Node.create({
+  name: "detailsContent",
+  group: "",
+  content: "block+",
+  defining: true,
+  parseHTML() {
+    return [{ tag: "details > *:not(summary)", priority: 0 }];
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ["div", mergeAttributes(HTMLAttributes, { class: "details-content" }), 0];
+  },
+});
 import { useState, useCallback, useRef } from "react";
 import {
   Bold,
@@ -54,6 +94,9 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
       Placeholder.configure({
         placeholder,
       }),
+      DetailsNode,
+      DetailsSummaryNode,
+      DetailsContentNode,
     ],
     content,
     immediatelyRender: false,
@@ -288,16 +331,8 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
           type="button"
           onClick={() => {
             if (showHtml && editor) {
-              // Warn if HTML contains tags that Visual mode will strip
-              if (/<details|<summary/i.test(htmlContent)) {
-                if (!window.confirm("Switching to Visual mode will remove FAQ (details/summary) tags. Continue?")) {
-                  return;
-                }
-              }
-              // Switching from HTML to Visual: sync TipTap from raw HTML
               editor.commands.setContent(htmlContent);
             } else if (!showHtml && editor) {
-              // Switching from Visual to HTML: sync textarea from TipTap
               setHtmlContent(editor.getHTML());
             }
             setShowHtml(!showHtml);
