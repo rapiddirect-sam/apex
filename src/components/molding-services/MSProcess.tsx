@@ -38,7 +38,7 @@ const DEFAULTS = {
   ],
 };
 
-export function SMProcess() {
+export function MSProcess() {
   return (
     <section
       className="relative overflow-hidden"

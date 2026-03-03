@@ -4,52 +4,52 @@ import { motion } from "framer-motion";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  heading: "Sheet Metal Fabrication ",
-  headingHighlight: "Services",
+  heading: "Molding ",
+  headingHighlight: "Solutions",
   headingSuffix: "",
   subheading:
-    "We provide comprehensive sheet metal fabrication services with advanced equipment and strict quality control systems to ensure every part meets the highest standards.",
+    "We provide comprehensive molding services fabrication services with advanced equipment and strict quality control systems to ensure every part meets the highest standards.",
   services: [
     {
-      title: "Laser Cutting",
+      title: "Injection Molding",
       description:
-        "High-precision laser cutting for complex geometries and tight tolerances. Ideal for prototyping and production runs.",
+        "High-precision plastic injection molding services, from 50-ton to 2000-ton injection machines, meeting production needs from small precision parts to large structural components.",
       specs: [
-        "Fiber laser cutting up to 25mm thickness",
-        "\u00B10.1mm precision on contours and holes",
-        "Minimal heat-affected zone",
-        "Nesting optimization for material efficiency",
+        "Clamping Force/Injection Volume/Injection Pressure/Plasticizing Capacity",
+        "Time/Position/Speed/Pressure/Temperature Control",
+        "Max Mold Weight: 20T-50T",
+        "CNC Machining Accuracy: \u00B10.005mm-\u00B10.01mm",
       ],
       image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-rapid-injection-molding-prototyping.webp",
     },
     {
-      title: "Bending",
+      title: "Extrusion Molding",
       description:
-        "Precision bending with CNC press brakes for accurate angles and consistent results across production runs.",
+        "Professional extrusion molding services, producing various plastic profiles, pipes, sheets, and films, meeting construction, industrial, and packaging needs.",
       specs: [
-        "CNC press brakes up to 300 tons",
-        "\u00B10.5\u00B0 bending angle accuracy",
-        "Multiple bend configurations",
-        "Tooling for complex formed features",
+        "Temperature/Speed/Pressure/Extrusion Ratio Control",
+        "Hot/Cold Extrusion Processes",
+        "Extrusion Die Life: 5,000 - 50,000 meters",
+        "Steel: H13/SKD61",
       ],
       image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-high-volume-injection-molding-production.webp",
     },
     {
-      title: "Stamping",
+      title: "Die Casting",
       description:
-        "High-volume production of stamped parts with consistent quality and rapid cycle times.",
+        "Precision die casting services, producing high-quality zinc, aluminum, magnesium alloy die castings, suitable for automotive, electronics, and consumer goods industries.",
       specs: [
-        "Progressive and transfer die stamping",
-        "Turret punching for hole patterns",
-        "Embossing, coining, and forming",
-        "Secondary operations: tapping, welding",
+        "Pressure/Speed/Temperature/Time Control",
+        "Injection Force/Injection Ratio/Fill Rate Optimization",
+        "Die Casting Mold Life: 80,000 - 200,000 cycles",
+        "Steel: H13/8407/2344",
       ],
       image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-custom-injection-molding-solutions.webp",
     },
   ],
 };
 
-export function SMServices() {
+export function MSServices() {
   return (
     <section
       className="relative overflow-hidden"
@@ -124,6 +124,7 @@ export function SMServices() {
                   <p style={{ fontSize: "14px", lineHeight: 1.6, color: "#C5C6C9", marginBottom: "20px" }}>
                     <EditableText path={`services.items.${index}.description`} defaultValue={service.description} multiline />
                   </p>
+                  <p style={{ fontSize: "14px", fontWeight: 700, color: "#EEC569", marginBottom: "12px" }}>Key Parameters:</p>
                   <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                     {service.specs.map((spec, specIndex) => (
                       <li key={spec} style={{ display: "flex", alignItems: "center", gap: "12px", color: "#C5C6C9", fontSize: "14px", marginBottom: "8px" }}>

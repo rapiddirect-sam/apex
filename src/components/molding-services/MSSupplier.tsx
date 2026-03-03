@@ -6,12 +6,12 @@ import { useState } from "react";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  headingHighlight: "Sheet Metal Fabrication ",
+  headingHighlight: "Molding Manufacturing ",
   headingSuffix: "Factory",
   description1:
     "Located in Shenzhen\u2019s advanced manufacturing district, our 50,000 m\u00B2 vertically integrated facility operates 8 specialized production shops and is equipped with 300+ advanced machines.",
   description2:
-    "We support end-to-end manufacturing in one location, including CNC machining, precision injection molding, sheet metal fabrication, 3D printing, as well as in-house surface treatment and quality inspection lines.",
+    "We support end-to-end manufacturing in one location, including CNC machining, precision injection molding, molding services fabrication, 3D printing, as well as in-house surface treatment and quality inspection lines.",
   stats: [
     { value: "50,000 m\u00B2", label: "Total Factory Area" },
     { value: "8", label: "Specialized Production Shops" },
@@ -21,28 +21,28 @@ const DEFAULTS = {
   images: [
     {
       src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-injection-molding-factory-workshop-1.webp",
-      alt: "Sheet Metal Fabrication Workshop",
+      alt: "Molding Services Fabrication Workshop",
     },
     {
       src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-plastic-injection-molding-production-line-2.webp",
-      alt: "Sheet Metal Production Line",
+      alt: "Molding Services Production Line",
     },
     {
       src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-custom-injection-molding-manufacturing-facility-3.webp",
-      alt: "Sheet Metal Manufacturing Facility",
+      alt: "Molding Services Manufacturing Facility",
     },
     {
       src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-injection-molding-machines-on-site-4.webp",
-      alt: "Sheet Metal Machines On Site",
+      alt: "Molding Services Machines On Site",
     },
     {
       src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-plastic-injection-molding-factory-5.webp",
-      alt: "Sheet Metal Fabrication Factory",
+      alt: "Molding Services Fabrication Factory",
     },
   ],
 };
 
-export function SMSupplier() {
+export function MSSupplier() {
   const [currentImage, setCurrentImage] = useState(0);
 
   const nextImage = () => {

@@ -4,39 +4,50 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { EditableText, EditableImage } from "@/components/cms";
+import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
   heading: "Sheet Metal ",
   headingHighlight: "Materials",
   materials: [
     {
-      name: "Aluminum Alloys",
-      icon: "M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z",
-      grades: ["5052", "6061", "6063", "7075"],
-      benefits: "Lightweight, corrosion resistant, excellent formability and weldability",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/5-Injection-Molding-Material-General-Plastics.webp",
+      name: "Aluminum",
+      grades: [
+        { name: "AL5052 H32 / AL5052 O-state", primary: true },
+        { name: "AL5754", primary: false },
+        { name: "AL6061", primary: false },
+        { name: "AL1060 / AL1050", primary: false },
+      ],
+      characteristics: [
+        "AL5052: Best bending performance, no cracking",
+        "AL5754: Suitable for bending applications",
+        "AL6061: Not suitable for bending, good for machining",
+        "AL1060/1050: Excellent bending performance, pure aluminum",
+      ],
     },
     {
       name: "Stainless Steel",
-      icon: "M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65z",
-      grades: ["304", "316", "301", "430"],
-      benefits: "High strength, excellent corrosion resistance, food-grade options",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/5-Injection-Molding-Engineering-Plastics.webp",
+      grades: [
+        { name: "SUS304, SUS316", primary: true },
+        { name: "SUS430", primary: false },
+      ],
+      characteristics: [
+        "SUS304/316: High corrosion resistance, strength, good appearance",
+        "SUS430: Magnetic, moderate corrosion resistance, lower cost",
+      ],
     },
     {
-      name: "Carbon Steel",
-      icon: "M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z",
-      grades: ["SPCC", "Q235", "SGCC", "S355"],
-      benefits: "Cost-effective, high strength, widely available, easy to weld",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/5-Injection-Molding-High-Performance-Plastics.webp",
-    },
-    {
-      name: "Copper & Brass",
-      icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z",
-      grades: ["C110", "C260 Brass", "C101", "Phosphor Bronze"],
-      benefits: "Excellent electrical/thermal conductivity, decorative appearance",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/5-Injection-Molding-Elastomers_TPE.webp",
+      name: "Steel",
+      grades: [
+        { name: "SPCC (Cold Rolled)", primary: true },
+        { name: "SGCC (Galvanized)", primary: false },
+        { name: "Q235 (Hot Rolled)", primary: false },
+      ],
+      characteristics: [
+        "SPCC: Smooth surface, good for painting and plating",
+        "SGCC: Zinc-coated for enhanced corrosion resistance",
+        "Q235: High strength, low cost, surface has oxide layer",
+      ],
     },
   ],
 };
@@ -70,30 +81,54 @@ export function SMMaterials() {
 
         <motion.div key={activeTab} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }} style={{ background: "#1A1A1A", borderRadius: "16px", padding: "40px", border: "1px solid rgba(208,153,71,0.15)" }}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Left side: Material name + Grades */}
             <div>
-              <div className="flex items-center gap-3" style={{ marginBottom: "24px" }}>
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="#D09947"><path d={DEFAULTS.materials[activeTab].icon} /></svg>
-                <h3 style={{ fontSize: "22px", fontWeight: 700, color: "#FFFFFF" }}>
-                  <EditableText path={`materials.items.${activeTab}.name`} defaultValue={DEFAULTS.materials[activeTab].name} />
-                </h3>
-              </div>
-              <div style={{ marginBottom: "24px" }}>
-                <p style={{ fontSize: "14px", fontWeight: 600, color: "#EEC569", marginBottom: "12px" }}>Common Grades</p>
-                <div className="flex flex-wrap gap-2">
-                  {DEFAULTS.materials[activeTab].grades.map((grade) => (
-                    <span key={grade} style={{ border: "1px solid rgba(238,197,105,0.5)", color: "#F5D89A", background: "transparent", fontSize: "13px", padding: "6px 12px", borderRadius: "999px" }}>{grade}</span>
-                  ))}
-                </div>
-              </div>
+              <h3 style={{ fontSize: "24px", fontWeight: 700, color: "#FFFFFF", marginBottom: "24px" }}>
+                <EditableText path={`materials.items.${activeTab}.name`} defaultValue={DEFAULTS.materials[activeTab].name} />
+              </h3>
               <div>
-                <p style={{ fontSize: "14px", fontWeight: 600, color: "#EEC569", marginBottom: "8px" }}>Key Benefits</p>
-                <p style={{ fontSize: "15px", lineHeight: 1.7, color: "#C5C6C9" }}>
-                  <EditableText path={`materials.items.${activeTab}.description`} defaultValue={DEFAULTS.materials[activeTab].benefits} multiline />
-                </p>
+                {DEFAULTS.materials[activeTab].grades.map((grade, i) => (
+                  <p
+                    key={i}
+                    style={{
+                      fontSize: grade.primary ? "18px" : "16px",
+                      fontWeight: grade.primary ? 700 : 400,
+                      color: grade.primary ? "#FFFFFF" : "#C5C6C9",
+                      marginBottom: "6px",
+                    }}
+                  >
+                    {grade.name}
+                  </p>
+                ))}
               </div>
             </div>
-            <div className="relative" style={{ minHeight: "280px", borderRadius: "12px", overflow: "hidden" }}>
-              <EditableImage path={`materials.items.${activeTab}.image`} defaultSrc={DEFAULTS.materials[activeTab].image} alt={DEFAULTS.materials[activeTab].name} fill className="object-cover" />
+
+            {/* Right side: Key Characteristics */}
+            <div>
+              <h4 style={{ fontSize: "18px", fontWeight: 700, color: "#FFFFFF", marginBottom: "16px" }}>
+                Key Characteristics:
+              </h4>
+              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                {DEFAULTS.materials[activeTab].characteristics.map((item, i) => (
+                  <li
+                    key={i}
+                    style={{
+                      fontSize: "15px",
+                      lineHeight: 1.7,
+                      color: "#C5C6C9",
+                      paddingLeft: "16px",
+                      position: "relative",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    <span style={{ position: "absolute", left: 0, color: "#7A7A7C" }}>&bull;</span>
+                    <EditableText
+                      path={`materials.items.${activeTab}.characteristics.${i}`}
+                      defaultValue={item}
+                    />
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </motion.div>

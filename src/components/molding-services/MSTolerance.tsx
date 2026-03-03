@@ -6,46 +6,52 @@ import { ArrowRight } from "lucide-react";
 import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
-  heading: "Tolerance Standards",
+  heading: "Mold Types and Standards",
   subheading:
-    "We follow international tolerance standards while providing higher precision capabilities than industry standards.",
+    "We offer various mold type options, from rapid prototyping molds to precision production molds, meeting different production requirements.",
   toleranceData: [
     {
-      dimension: "Cutting Linear Tolerance",
-      industryStandard: "\u00B1 0.2 mm",
-      apexPrecision: "\u00B1 0.1 mm",
-      reference: "ISO 9013",
+      dimension: "Rapid Prototyping Mold",
+      industryStandard: "S50C/Aluminum (7075/6061)",
+      apexPrecision: "100 - 1,000 cycles",
+      reference: "Prototype verification, urgent delivery, very low volume",
     },
     {
-      dimension: "Bending Linear Tolerance",
-      industryStandard: "\u00B1 0.3 mm",
-      apexPrecision: "\u00B1 0.15 mm",
-      reference: "ISO 2768",
+      dimension: "Soft Steel Production Mold",
+      industryStandard: "Steel (P20/718H)",
+      apexPrecision: "10,000 - 50,000 cycles",
+      reference: "Small batch production, short lifecycle products",
     },
     {
-      dimension: "Bend Angle Tolerance",
-      industryStandard: "\u00B1 1.0\u00B0",
-      apexPrecision: "\u00B1 0.5\u00B0",
-      reference: "ISO 2768",
+      dimension: "Hardened Production Mold",
+      industryStandard: "Steel (S136/8407)",
+      apexPrecision: "300,000 - 1,000,000+ cycles",
+      reference: "High-volume production, high-precision products",
     },
     {
-      dimension: "Hole to Edge Distance",
-      industryStandard: "\u00B1 0.2 mm",
-      apexPrecision: "\u00B1 0.1 mm",
-      reference: "ISO 2768",
+      dimension: "Die Casting Mold",
+      industryStandard: "Steel (H13/8407/2344)",
+      apexPrecision: "80,000 - 200,000 cycles (Aluminum)",
+      reference: "Aluminum, zinc alloy die casting production",
     },
     {
-      dimension: "Welding Distortion Control",
-      industryStandard: "Depending on size",
-      apexPrecision: "Depending on product structure",
-      reference: "Customer drawing requirements",
+      dimension: "Extrusion Dies",
+      industryStandard: "Steel (H13/SKD61)",
+      apexPrecision: "5,000 - 50,000 meters (material dependent)",
+      reference: "Continuous production of aluminum/plastic profiles",
+    },
+    {
+      dimension: "Progressive Stamping Die",
+      industryStandard: "Steel (SKD11/DC53)",
+      apexPrecision: "500,000 - 5,000,000 cycles",
+      reference: "High-volume precision metal stamping",
     },
   ],
 };
 
-const HEADERS = ["Dimension", "Industry Standard", "ApexBatch Precision Capability", "Reference Standard"];
+const HEADERS = ["Mold Category", "Core/Cavity Material", "Expected Life (Cycles)", "Best For"];
 
-export function SMTolerance() {
+export function MSTolerance() {
   return (
     <section
       className="relative overflow-hidden"
