@@ -103,6 +103,36 @@ const D = {
     "In order to resolve a complaint regarding the Services or to receive further information regarding use of the Services, please contact us at:\n\nShenzhen Rapid Direct Co., Ltd\nBuilding A12, Haosi Industrial Park, Nanpu Road, Xinqiao Street, Bao'an District\nNanpu Road, Xinqiao Street, Bao'an District\nShenzhen, Guangdong 518104\nChina\nPhone: (+86)13302480516\nsupport@rapiddirect.com",
 };
 
+const TOC_ITEMS = [
+  { id: "tc-section-1", label: "OUR SERVICES" },
+  { id: "tc-section-2", label: "INTELLECTUAL PROPERTY RIGHTS" },
+  { id: "tc-section-3", label: "USER REPRESENTATIONS" },
+  { id: "tc-section-4", label: "USER REGISTRATION" },
+  { id: "tc-section-5", label: "PURCHASES AND PAYMENT" },
+  { id: "tc-section-6", label: "POLICY" },
+  { id: "tc-section-7", label: "PROHIBITED ACTIVITIES" },
+  { id: "tc-section-8", label: "USER GENERATED CONTRIBUTIONS" },
+  { id: "tc-section-9", label: "CONTRIBUTION LICENSE" },
+  { id: "tc-section-10", label: "GUIDELINES FOR REVIEWS" },
+  { id: "tc-section-11", label: "THIRD-PARTY WEBSITES AND CONTENT" },
+  { id: "tc-section-12", label: "SERVICES MANAGEMENT" },
+  { id: "tc-section-13", label: "PRIVACY POLICY" },
+  { id: "tc-section-14", label: "COPYRIGHT INFRINGEMENTS" },
+  { id: "tc-section-15", label: "TERM AND TERMINATION" },
+  { id: "tc-section-16", label: "MODIFICATIONS AND INTERRUPTIONS" },
+  { id: "tc-section-17", label: "GOVERNING LAW" },
+  { id: "tc-section-18", label: "DISPUTE RESOLUTION" },
+  { id: "tc-section-19", label: "CORRECTIONS" },
+  { id: "tc-section-20", label: "DISCLAIMER" },
+  { id: "tc-section-21", label: "LIMITATIONS OF LIABILITY" },
+  { id: "tc-section-22", label: "INDEMNIFICATION" },
+  { id: "tc-section-23", label: "USER DATA" },
+  { id: "tc-section-24", label: "ELECTRONIC COMMUNICATIONS, TRANSACTIONS, AND SIGNATURES" },
+  { id: "tc-section-25", label: "CALIFORNIA USERS AND RESIDENTS" },
+  { id: "tc-section-26", label: "MISCELLANEOUS" },
+  { id: "tc-section-27", label: "CONTACT US" },
+];
+
 export function TermsAndConditionsClient({
   initialContent,
   initialVersion,
@@ -130,11 +160,8 @@ export function TermsAndConditionsClient({
               contentPath="agreement"
               contentDefault={D.agreement}
             />
-            <SectionWithTitle
-              titlePath="tocTitle"
-              titleDefault={D.tocTitle}
-              contentPath="toc"
-              contentDefault={D.toc}
+            <TableOfContents
+              items={TOC_ITEMS}
             />
             {Array.from({ length: 27 }, (_, i) => {
               const num = i + 1;
@@ -142,6 +169,7 @@ export function TermsAndConditionsClient({
               return (
                 <SectionWithTitle
                   key={num}
+                  id={`tc-section-${num}`}
                   titlePath={`${key}Title`}
                   titleDefault={D[`${key}Title` as keyof typeof D] as string}
                   contentPath={`${key}Content`}
@@ -160,19 +188,47 @@ export function TermsAndConditionsClient({
   );
 }
 
+function TableOfContents({
+  items,
+}: {
+  items: { id: string; label: string }[];
+}) {
+  return (
+    <div>
+      <h2 className="text-xl lg:text-2xl font-bold text-[#D09947] mb-4">
+        TABLE OF CONTENTS
+      </h2>
+      <ol className="space-y-2 text-sm lg:text-base">
+        {items.map((item, i) => (
+          <li key={item.id}>
+            <a
+              href={`#${item.id}`}
+              className="text-white/80 hover:text-[#D09947] transition-colors"
+            >
+              {i + 1}. {item.label}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 function SectionWithTitle({
+  id,
   titlePath,
   titleDefault,
   contentPath,
   contentDefault,
 }: {
+  id?: string;
   titlePath: string;
   titleDefault: string;
   contentPath: string;
   contentDefault: string;
 }) {
   return (
-    <div>
+    <div id={id} className={id ? "scroll-mt-24" : undefined}>
       <h2 className="text-xl lg:text-2xl font-bold text-[#D09947] mb-4">
         <EditableText path={titlePath} defaultValue={titleDefault} />
       </h2>

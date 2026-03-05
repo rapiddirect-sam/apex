@@ -72,6 +72,24 @@ const D = {
     "Based on the applicable laws of your country, you may have the right to request access to the personal information we collect from you, change that information, or delete it. To request to review, update, or delete your personal information, please fill out and submit a data subject access request.",
 };
 
+const PP_TOC_ITEMS = [
+  { id: "pp-section-1", label: "WHAT INFORMATION DO WE COLLECT?" },
+  { id: "pp-section-2", label: "HOW DO WE PROCESS YOUR INFORMATION?" },
+  { id: "pp-section-3", label: "WHAT LEGAL BASES DO WE RELY ON TO PROCESS YOUR PERSONAL INFORMATION?" },
+  { id: "pp-section-4", label: "WHEN AND WITH WHOM DO WE SHARE YOUR PERSONAL INFORMATION?" },
+  { id: "pp-section-5", label: "DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?" },
+  { id: "pp-section-6", label: "HOW LONG DO WE KEEP YOUR INFORMATION?" },
+  { id: "pp-section-7", label: "HOW DO WE KEEP YOUR INFORMATION SAFE?" },
+  { id: "pp-section-8", label: "DO WE COLLECT INFORMATION FROM MINORS?" },
+  { id: "pp-section-9", label: "WHAT ARE YOUR PRIVACY RIGHTS?" },
+  { id: "pp-section-10", label: "CONTROLS FOR DO-NOT-TRACK FEATURES" },
+  { id: "pp-section-11", label: "DO UNITED STATES RESIDENTS HAVE SPECIFIC PRIVACY RIGHTS?" },
+  { id: "pp-section-12", label: "DO OTHER REGIONS HAVE SPECIFIC PRIVACY RIGHTS?" },
+  { id: "pp-section-13", label: "DO WE MAKE UPDATES TO THIS NOTICE?" },
+  { id: "pp-section-14", label: "HOW CAN YOU CONTACT US ABOUT THIS NOTICE?" },
+  { id: "pp-section-15", label: "HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?" },
+];
+
 export function PrivacyPolicyClient({
   initialContent,
   initialVersion,
@@ -100,18 +118,14 @@ export function PrivacyPolicyClient({
               contentPath="summary"
               contentDefault={D.summary}
             />
-            <SectionWithTitle
-              titlePath="tocTitle"
-              titleDefault={D.tocTitle}
-              contentPath="toc"
-              contentDefault={D.toc}
-            />
+            <TableOfContents items={PP_TOC_ITEMS} />
             {Array.from({ length: 15 }, (_, i) => {
               const num = i + 1;
               const key = `s${num}` as keyof typeof D;
               return (
                 <SectionWithTitle
                   key={num}
+                  id={`pp-section-${num}`}
                   titlePath={`${key}Title`}
                   titleDefault={D[`${key}Title` as keyof typeof D] as string}
                   contentPath={`${key}Content`}
@@ -144,19 +158,47 @@ function Section({
   );
 }
 
+function TableOfContents({
+  items,
+}: {
+  items: { id: string; label: string }[];
+}) {
+  return (
+    <div>
+      <h2 className="text-xl lg:text-2xl font-bold text-[#D09947] mb-4">
+        TABLE OF CONTENTS
+      </h2>
+      <ol className="space-y-2 text-sm lg:text-base">
+        {items.map((item, i) => (
+          <li key={item.id}>
+            <a
+              href={`#${item.id}`}
+              className="text-white/80 hover:text-[#D09947] transition-colors"
+            >
+              {i + 1}. {item.label}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 function SectionWithTitle({
+  id,
   titlePath,
   titleDefault,
   contentPath,
   contentDefault,
 }: {
+  id?: string;
   titlePath: string;
   titleDefault: string;
   contentPath: string;
   contentDefault: string;
 }) {
   return (
-    <div>
+    <div id={id} className={id ? "scroll-mt-24" : undefined}>
       <h2 className="text-xl lg:text-2xl font-bold text-[#D09947] mb-4">
         <EditableText path={titlePath} defaultValue={titleDefault} />
       </h2>
