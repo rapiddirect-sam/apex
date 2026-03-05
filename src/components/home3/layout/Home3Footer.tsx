@@ -182,13 +182,13 @@ export function Home3Footer() {
             </p>
             <div className="flex gap-4 lg:gap-8 text-xs lg:text-sm">
               <Link
-                href="/privacy"
+                href="/privacy-policy"
                 className="text-[#000000]/70 hover:text-[#000000] transition-colors"
               >
                 Privacy
               </Link>
               <Link
-                href="/terms"
+                href="/terms-and-conditions"
                 className="text-[#000000]/70 hover:text-[#000000] transition-colors"
               >
                 Terms
