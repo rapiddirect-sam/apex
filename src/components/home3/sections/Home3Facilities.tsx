@@ -193,7 +193,7 @@ export function Home3Facilities() {
           className="grid lg:grid-cols-2 items-center"
           style={{ gap: "64px" }}
         >
-          {/* Left - Narrative Panel and Metrics */}
+          {/* Left - Narrative Panel */}
           <div>
             {/* Description Panel - quiet, no heavy borders */}
             <motion.div
@@ -268,23 +268,6 @@ export function Home3Facilities() {
                 />
               </div>
             </motion.div>
-
-            {/* Metrics Grid - 2x2 with corner brackets only */}
-            <div
-              className="grid grid-cols-2"
-              style={{
-                marginTop: "32px",
-                gap: "24px 32px",
-              }}
-            >
-              {DEFAULTS.stats.map((_, index) => (
-                <Metric
-                  key={index}
-                  index={index}
-                  delay={index * 0.1}
-                />
-              ))}
-            </div>
           </div>
 
           {/* Right - Image Carousel (window feel, not component) */}
@@ -355,6 +338,23 @@ export function Home3Facilities() {
               ))}
             </div>
           </motion.div>
+        </div>
+
+        {/* Metrics - full width, aligns with text+image above */}
+        <div
+          className="grid grid-cols-2 min-[640px]:grid-cols-4"
+          style={{
+            marginTop: "48px",
+            gap: "20px 32px",
+          }}
+        >
+          {DEFAULTS.stats.map((_, index) => (
+            <Metric
+              key={index}
+              index={index}
+              delay={index * 0.1}
+            />
+          ))}
         </div>
       </div>
     </section>
