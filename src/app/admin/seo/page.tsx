@@ -17,16 +17,6 @@ interface PageMetaForm {
   isDirty: boolean;
 }
 
-const PAGES = [
-  { slug: "/", name: "Home" },
-  { slug: "/about", name: "About" },
-  { slug: "/contact", name: "Contact" },
-  { slug: "/quality", name: "Quality" },
-  { slug: "/cnc-machining", name: "CNC Machining" },
-  { slug: "/reviews", name: "Reviews" },
-  { slug: "/blog", name: "Blog" },
-];
-
 export default function SEOSettingsPage() {
   const [forms, setForms] = useState<PageMetaForm[]>([]);
   const [loading, setLoading] = useState(true);
@@ -39,10 +29,14 @@ export default function SEOSettingsPage() {
   const loadPageMeta = async () => {
     setLoading(true);
     try {
+      // Auto-discover all routes from the filesystem
+      const routesRes = await fetch("/api/admin/routes");
+      const pages: { slug: string; name: string }[] = await routesRes.json();
+
       const existingMeta = await getAllPageMeta();
       const metaMap = new Map(existingMeta.map((m) => [m.pageSlug, m]));
 
-      const initialForms: PageMetaForm[] = PAGES.map((page) => {
+      const initialForms: PageMetaForm[] = pages.map((page) => {
         const existing = metaMap.get(page.slug);
         const defaults = DEFAULT_PAGE_META[page.slug] || { title: "", description: "" };
 

@@ -42,4 +42,36 @@ export const DEFAULT_PAGE_META: Record<string, { title: string; description: str
     title: "ApexBatch Blog - Manufacturing Insights & Updates",
     description: "Stay updated with the latest manufacturing insights, industry news, and technical articles from ApexBatch.",
   },
+  "/injection-molding": {
+    title: "Injection Molding Services - ApexBatch Manufacturing",
+    description: "Professional injection molding services for medium-to-large batch production. General, engineering, and high-performance plastics with tight tolerances.",
+  },
+  "/die-casting": {
+    title: "Die Casting Services - ApexBatch Manufacturing",
+    description: "High pressure and gravity die casting services for aluminum and zinc parts. Tight tolerances, complex geometries, and integrated post-machining & finishing.",
+  },
+  "/extrusion-services": {
+    title: "Extrusion Services - ApexBatch Manufacturing",
+    description: "Custom aluminum and plastic extrusion services. Standard and complex profiles with tight tolerances and secondary operations.",
+  },
+  "/sheet-metal-fabrication": {
+    title: "Sheet Metal Fabrication Services - ApexBatch Manufacturing",
+    description: "Precision sheet metal fabrication services including laser cutting, bending, stamping, and welding. Aluminum, stainless steel, and carbon steel.",
+  },
+  "/surface-finish": {
+    title: "Surface Finishing Services - ApexBatch Manufacturing",
+    description: "Comprehensive surface finishing services including anodizing, powder coating, plating, painting, and polishing for all materials.",
+  },
+  "/materials": {
+    title: "Manufacturing Materials - ApexBatch",
+    description: "Explore our wide range of manufacturing materials including metals, plastics, and composites for CNC machining, injection molding, and more.",
+  },
+  "/privacy-policy": {
+    title: "Privacy Policy - ApexBatch",
+    description: "ApexBatch privacy policy. Learn how we collect, use, and protect your personal information.",
+  },
+  "/terms-and-conditions": {
+    title: "Terms & Conditions - ApexBatch",
+    description: "ApexBatch terms and conditions for using our website and manufacturing services.",
+  },
 };
