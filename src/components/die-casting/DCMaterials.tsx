@@ -170,14 +170,16 @@ export function DCMaterials() {
               </div>
 
               {/* Note */}
-              <div style={{ marginTop: "24px", borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "16px" }}>
-                <div className="flex items-center gap-2">
-                  <span style={{ fontSize: "14px", flexShrink: 0 }}>⚠️</span>
-                  <p style={{ fontSize: "13px", lineHeight: 1.5, color: "#7A7A7C" }}>
-                    <EditableText path={`materials.items.${activeTab}.note`} defaultValue={DEFAULTS.materials[activeTab].note} />
-                  </p>
+              {DEFAULTS.materials[activeTab].note && (
+                <div style={{ marginTop: "24px", borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "16px" }}>
+                  <div className="flex items-center gap-2">
+                    <span style={{ fontSize: "14px", flexShrink: 0 }}>⚠️</span>
+                    <p style={{ fontSize: "13px", lineHeight: 1.5, color: "#7A7A7C" }}>
+                      <EditableText path={`materials.items.${activeTab}.note`} defaultValue={DEFAULTS.materials[activeTab].note} />
+                    </p>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Right Column - Image */}
