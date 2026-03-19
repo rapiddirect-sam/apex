@@ -6,7 +6,7 @@ import Link from "next/link";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  backgroundImage: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1600&q=80",
+  backgroundImage: "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773380863212-1773380863212-qy3uzfbf.webp",
   heading: "Start your precision manufacturing project",
   description: "Upload your design files and get a detailed quote and free DFM analysis within 24 hours",
   primaryCta: "Upload files for an instant quote",
@@ -50,7 +50,7 @@ export function CNCCTA() {
 
           <div className="flex flex-wrap gap-4 justify-center">
             <Link
-              href="/contact"
+              href="https://app.apexbatch.com/"
               className="inline-flex items-center gap-2 bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group"
             >
               <EditableText path="cta.primaryCta" defaultValue={DEFAULTS.primaryCta} />

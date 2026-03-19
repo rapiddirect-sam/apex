@@ -9,33 +9,24 @@ import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
   badge: "Precision Engineering",
-  headingLine1: "Precision",
-  headingLine2: "Manufacturing,",
-  headingLine3: "Built to Last",
+  headingLine1: "Every industrial challenge",
+  headingLine2: "an apex solution",
   description:
     "Your Partner for High-Precision Batch Manufacturing. Industrial-grade quality with rapid turnaround times.",
   ctaPrimary: "Get Instant Quote",
   ctaSecondary: "View Capabilities",
-  socialProofCount: "25M+",
-  socialProofLabel: "Parts Created",
-  socialProofReviews: "22,500+ Happy Customers",
   backgroundImage: getImageUrl("home/1-homepage-banner.webp"),
   features: [
     { highlight: "30-60", text: "Minute quote response" },
     { highlight: "±0.01-0.05mm", text: "Precision control" },
     { highlight: "ISO-certified", text: "Quality system" },
+    { highlight: "End-to-End", text: "Turnkey Solutions" },
     { highlight: "Free", text: "Technical Support" },
   ],
   stats: [
     { value: "15+", label: "Years Experience" },
     { value: "50K+", label: "Projects Done" },
     { value: "99.8%", label: "Accuracy Rate" },
-  ],
-  testimonialFaces: [
-    "https://randomuser.me/api/portraits/men/32.jpg",
-    "https://randomuser.me/api/portraits/women/44.jpg",
-    "https://randomuser.me/api/portraits/men/67.jpg",
-    "https://randomuser.me/api/portraits/women/28.jpg",
   ],
 };
 
@@ -61,6 +52,7 @@ export function Home3Hero() {
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Manufacturing background"
           fill
+          priority
           style={{ objectFit: "cover" }}
         />
       </div>
@@ -94,22 +86,16 @@ export function Home3Hero() {
               </span>
             </div>
 
-            <h1 className="text-[42px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-extrabold text-white leading-[0.95] tracking-tight uppercase mb-2">
+            <h1 className="text-[34px] sm:text-[40px] md:text-[56px] lg:text-[68px] font-extrabold text-white leading-[0.9] tracking-tight uppercase mb-1">
               <EditableText
                 path="hero.headingLine1"
                 defaultValue={DEFAULTS.headingLine1}
               />
             </h1>
-            <h1 className="text-[42px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-extrabold text-white leading-[0.95] tracking-tight uppercase mb-2">
+            <h1 className="text-[34px] sm:text-[40px] md:text-[56px] lg:text-[68px] font-extrabold text-[#D09947] leading-[0.9] tracking-tight uppercase mb-6">
               <EditableText
                 path="hero.headingLine2"
                 defaultValue={DEFAULTS.headingLine2}
-              />
-            </h1>
-            <h1 className="text-[42px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-extrabold text-[#D09947] leading-[0.95] tracking-tight uppercase mb-8">
-              <EditableText
-                path="hero.headingLine3"
-                defaultValue={DEFAULTS.headingLine3}
               />
             </h1>
 
@@ -145,49 +131,7 @@ export function Home3Hero() {
               </Link>
             </div>
 
-            {/* Social Proof */}
-            <div className="flex items-center gap-6">
-              <div className="flex -space-x-3">
-                {DEFAULTS.testimonialFaces.map((face, i) => (
-                  <div
-                    key={i}
-                    className="w-10 h-10 rounded-full border-2 border-[#000000] overflow-hidden relative"
-                  >
-                    <Image
-                      src={face}
-                      alt={`Customer ${i + 1}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-              <div>
-                <p className="text-white text-sm">
-                  <span className="font-bold text-[#D09947]">
-                    <EditableText
-                      path="hero.socialProofCount"
-                      defaultValue={DEFAULTS.socialProofCount}
-                    />
-                  </span>{" "}
-                  <EditableText
-                    path="hero.socialProofLabel"
-                    defaultValue={DEFAULTS.socialProofLabel}
-                  />
-                </p>
-                <div className="flex items-center gap-1">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Star key={i} className="w-3 h-3 fill-[#D09947] text-[#D09947]" />
-                  ))}
-                  <span className="text-[#7A7A7C] text-xs ml-2">
-                    <EditableText
-                      path="hero.socialProofReviews"
-                      defaultValue={DEFAULTS.socialProofReviews}
-                    />
-                  </span>
-                </div>
-              </div>
-            </div>
+            {/* Social Proof section removed per request */}
           </motion.div>
 
           {/* Right Column - Feature Card (spans 4 cols, offset) */}

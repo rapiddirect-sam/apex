@@ -6,7 +6,7 @@ import Link from "next/link";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  backgroundImage: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/injection-molding-footer.webp",
+  backgroundImage: "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773380863212-1773380863212-qy3uzfbf.webp",
   heading: "Start Your Extrusion Project Today",
   description: "Upload your design files and get a detailed quote and free DFM analysis within 24 hours",
   primaryCta: "Upload files for an instant quote",

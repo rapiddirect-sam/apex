@@ -31,6 +31,14 @@ const DEFAULTS = {
       src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/2-cnc-machining-factory-3.webp",
       alt: "CNC Machining Factory",
     },
+    {
+      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/3-cnc-milling-machining-service.webp",
+      alt: "CNC Milling Machining Service",
+    },
+    {
+      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/cnc-turning.webp",
+      alt: "CNC Turning / Mill-Turn",
+    },
   ],
 };
 
@@ -171,13 +179,23 @@ export function CNCSupplier() {
               <div className="absolute bottom-3 right-3 z-10" style={{ width: "24px", height: "24px", borderBottom: "2px solid #7F4D0F", borderRight: "2px solid #7F4D0F" }} />
 
               <div className="relative aspect-[4/3]">
-                <EditableImage
-                  path={`supplier.images.${currentImage}.src`}
-                  defaultSrc={DEFAULTS.images[currentImage].src}
-                  alt={DEFAULTS.images[currentImage].alt}
-                  fill
-                  className="object-cover transition-opacity duration-500"
-                />
+                {DEFAULTS.images.map((img, index) => (
+                  <EditableImage
+                    key={img.src}
+                    path={`supplier.images.${index}.src`}
+                    defaultSrc={img.src}
+                    alt={img.alt}
+                    fill
+                    priority={index === 0}
+                    sizes="(max-width: 1024px) 100vw, 520px"
+                    className="object-cover transition-opacity duration-300 ease-out"
+                    style={{
+                      opacity: index === currentImage ? 1 : 0,
+                      willChange: "opacity",
+                      pointerEvents: index === currentImage ? "auto" : "none",
+                    }}
+                  />
+                ))}
 
                 {/* Navigation arrows */}
                 <button

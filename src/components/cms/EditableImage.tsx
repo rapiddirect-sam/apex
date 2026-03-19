@@ -16,6 +16,7 @@ interface EditableImageProps {
   height?: number;
   fill?: boolean;
   priority?: boolean;
+  sizes?: string;
 }
 
 export function EditableImage({
@@ -29,6 +30,7 @@ export function EditableImage({
   height,
   fill,
   priority,
+  sizes,
 }: EditableImageProps) {
   const { isEditMode, getContentValue, updateContent } = useCMS();
   const [isUploading, setIsUploading] = useState(false);
@@ -72,8 +74,8 @@ export function EditableImage({
     e.target.value = "";
   };
 
-  // Determine if we need to use <img> for external URLs
-  const isExternal = currentSrc.startsWith("http") || currentSrc.includes(".gif");
+  // Use <img> only for GIFs (Next/Image doesn't optimize animated GIFs well)
+  const isGif = currentSrc.toLowerCase().includes(".gif");
 
   // Image props for Next/Image
   const imageProps = fill
@@ -82,7 +84,7 @@ export function EditableImage({
 
   // Non-edit mode - render image normally (no wrapper div)
   if (!isEditMode) {
-    if (isExternal) {
+    if (isGif) {
       const imgStyle: CSSProperties = fill
         ? { position: "absolute" as const, width: "100%", height: "100%", objectFit: "cover", ...style }
         : style || {};
@@ -103,6 +105,7 @@ export function EditableImage({
         alt={alt}
         className={className}
         priority={priority}
+        sizes={sizes}
         {...imageProps}
       />
     );
@@ -122,7 +125,7 @@ export function EditableImage({
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image */}
-      {isExternal ? (
+      {isGif ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={currentSrc}
@@ -136,6 +139,7 @@ export function EditableImage({
           alt={alt}
           className={className}
           priority={priority}
+          sizes={sizes}
           {...imageProps}
         />
       )}

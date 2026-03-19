@@ -25,17 +25,24 @@ const DEFAULTS = {
       image: getImageUrl("home/5-industries-aerospace.webp"),
     },
     {
-      title: "Automotive",
+      title: "Electronic Components",
       description:
-        "IATF 16949 quality management for OEM and aftermarket components. High-volume production with consistent precision.",
-      image:
-        "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80",
+        "High-precision components for electronics and hardware applications. Supporting miniaturization, tight tolerances, and reliable performance.",
+      image: getImageUrl("home/5-industries-consumer-electronics.webp"),
     },
     {
-      title: "Consumer Electronics",
+      title: "Automation",
       description:
-        "Production of precision metal and plastic components for enclosures, internal frames, and functional assemblies in consumer electronics.",
-      image: getImageUrl("home/5-industries-consumer-electronics.webp"),
+        "Precision parts and assemblies for industrial automation systems. Ideal for low-volume, high-mix production and modular equipment integration.",
+      image:
+        "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773380937388-1773380937388-hau0tcjc.webp",
+    },
+    {
+      title: "Renewable Energy",
+      description:
+        "Durable components for renewable energy systems. Designed to withstand harsh environments with long-term reliability and performance.",
+      image:
+        "https://images.unsplash.com/photo-1584270354949-c26b0d5b4a0c?w=600&q=80",
     },
   ],
 };
@@ -108,143 +115,268 @@ export function Home3Industries() {
           </p>
         </motion.div>
 
-        {/* Industries Grid - 2x2 */}
+        {/* Industries Grid - 2 on top, 3 on bottom */}
         <div
-          className="grid grid-cols-1 md:grid-cols-2"
+          className="space-y-8"
           style={{
-            gap: "32px",
             marginTop: "64px",
           }}
         >
-          {DEFAULTS.industries.map((industry, index) => {
-            const isExpanded = expandedIndex === index;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative group cursor-pointer transition-transform duration-300 hover:-translate-y-1"
-                style={{
-                  background: "#000000",
-                  borderRadius: "18px",
-                  border: "1px solid rgba(208,153,71,0.18)",
-                  overflow: "hidden",
-                  minHeight: "300px",
-                }}
-                onClick={() => toggleExpand(index)}
-              >
-                {/* Background image */}
-                <div className="relative w-full h-full" style={{ minHeight: "300px" }}>
-                  <EditableImage
-                    path={`industries.items.${index}.image`}
-                    defaultSrc={industry.image}
-                    alt={industry.title}
-                    fill
-                    style={{ objectFit: "cover" }}
-                  />
-
-                  {/* Gradient overlay */}
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background: "linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.15) 65%)",
-                    }}
-                  />
-
-                  {/* Title - bottom left */}
-                  <div
-                    className="absolute bottom-0 left-0 right-0"
-                    style={{ padding: "24px" }}
-                  >
-                    <h3
-                      className="text-white"
+          {/* Top row: first 2 industries */}
+          <div
+            className="grid grid-cols-1 md:grid-cols-2"
+            style={{ gap: "32px" }}
+          >
+            {DEFAULTS.industries.slice(0, 2).map((industry, index) => {
+              const actualIndex = index;
+              const isExpanded = expandedIndex === actualIndex;
+              return (
+                <motion.div
+                  key={actualIndex}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: actualIndex * 0.1 }}
+                  className="relative group cursor-pointer transition-transform duration-300 hover:-translate-y-1"
+                  style={{
+                    background: "#000000",
+                    borderRadius: "18px",
+                    border: "1px solid rgba(208,153,71,0.18)",
+                    overflow: "hidden",
+                    minHeight: "300px",
+                  }}
+                  onClick={() => toggleExpand(actualIndex)}
+                >
+                  <div className="relative w-full h-full" style={{ minHeight: "300px" }}>
+                    <EditableImage
+                      path={`industries.items.${actualIndex}.image`}
+                      defaultSrc={industry.image}
+                      alt={industry.title}
+                      fill
+                      style={{ objectFit: "cover" }}
+                    />
+                    <div
+                      className="absolute inset-0"
                       style={{
-                        fontSize: "22px",
-                        fontWeight: 600,
-                      }}
-                    >
-                      <EditableText
-                        path={`industries.items.${index}.title`}
-                        defaultValue={industry.title}
-                      />
-                    </h3>
-                  </div>
-
-                  {/* Expand/Collapse Button - engineered style */}
-                  <button
-                    className="absolute top-5 right-5 flex items-center justify-center transition-all duration-300 hover:brightness-95"
-                    style={{
-                      width: "43px",
-                      height: "43px",
-                      borderRadius: "50%",
-                      background: "#FFFFFF",
-                      border: "none",
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleExpand(index);
-                    }}
-                  >
-                    <ChevronDown
-                      className="w-6 h-6 transition-transform duration-300"
-                      style={{
-                        color: "#D09947",
-                        transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
+                        background: "linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.15) 65%)",
                       }}
                     />
-                  </button>
-
-                  {/* Expanded Description Panel */}
-                  <AnimatePresence>
-                    {isExpanded && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 20 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute bottom-0 left-0 right-0"
+                    <div
+                      className="absolute bottom-0 left-0 right-0"
+                      style={{ padding: "24px" }}
+                    >
+                      <h3
+                        className="text-white"
                         style={{
-                          background: "rgba(0,0,0,0.75)",
-                          backdropFilter: "blur(6px)",
-                          padding: "20px 24px",
-                          borderTop: "1px solid rgba(208,153,71,0.25)",
+                          fontSize: "22px",
+                          fontWeight: 600,
                         }}
                       >
-                        <h3
-                          className="text-white mb-3"
+                        <EditableText
+                          path={`industries.items.${actualIndex}.title`}
+                          defaultValue={industry.title}
+                        />
+                      </h3>
+                    </div>
+                    <button
+                      className="absolute top-5 right-5 flex items-center justify-center transition-all duration-300 hover:brightness-95"
+                      style={{
+                        width: "43px",
+                        height: "43px",
+                        borderRadius: "50%",
+                        background: "#FFFFFF",
+                        border: "none",
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleExpand(actualIndex);
+                      }}
+                    >
+                      <ChevronDown
+                        className="w-6 h-6 transition-transform duration-300"
+                        style={{
+                          color: "#D09947",
+                          transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
+                        }}
+                      />
+                    </button>
+                    <AnimatePresence>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 20 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute bottom-0 left-0 right-0"
                           style={{
-                            fontSize: "20px",
-                            fontWeight: 600,
+                            background: "rgba(0,0,0,0.75)",
+                            backdropFilter: "blur(6px)",
+                            padding: "20px 24px",
+                            borderTop: "1px solid rgba(208,153,71,0.25)",
                           }}
                         >
-                          <EditableText
-                            path={`industries.items.${index}.title`}
-                            defaultValue={industry.title}
-                          />
-                        </h3>
-                        <p
+                          <h3
+                            className="text-white mb-3"
+                            style={{
+                              fontSize: "20px",
+                              fontWeight: 600,
+                            }}
+                          >
+                            <EditableText
+                              path={`industries.items.${actualIndex}.title`}
+                              defaultValue={industry.title}
+                            />
+                          </h3>
+                          <p
+                            style={{
+                              fontSize: "15px",
+                              lineHeight: 1.65,
+                              color: "#C5C6C9",
+                              maxWidth: "90%",
+                            }}
+                          >
+                            <EditableText
+                              path={`industries.items.${actualIndex}.description`}
+                              defaultValue={industry.description}
+                              multiline
+                            />
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Bottom row: remaining industries (3 columns on large screens) */}
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+            style={{ gap: "32px" }}
+          >
+            {DEFAULTS.industries.slice(2).map((industry, index) => {
+              const actualIndex = index + 2;
+              const isExpanded = expandedIndex === actualIndex;
+              return (
+                <motion.div
+                  key={actualIndex}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: actualIndex * 0.1 }}
+                  className="relative group cursor-pointer transition-transform duration-300 hover:-translate-y-1"
+                  style={{
+                    background: "#000000",
+                    borderRadius: "18px",
+                    border: "1px solid rgba(208,153,71,0.18)",
+                    overflow: "hidden",
+                    minHeight: "300px",
+                  }}
+                  onClick={() => toggleExpand(actualIndex)}
+                >
+                  <div className="relative w-full h-full" style={{ minHeight: "300px" }}>
+                    <EditableImage
+                      path={`industries.items.${actualIndex}.image`}
+                      defaultSrc={industry.image}
+                      alt={industry.title}
+                      fill
+                      style={{ objectFit: "cover" }}
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background: "linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.15) 65%)",
+                      }}
+                    />
+                    <div
+                      className="absolute bottom-0 left-0 right-0"
+                      style={{ padding: "24px" }}
+                    >
+                      <h3
+                        className="text-white"
+                        style={{
+                          fontSize: "22px",
+                          fontWeight: 600,
+                        }}
+                      >
+                        <EditableText
+                          path={`industries.items.${actualIndex}.title`}
+                          defaultValue={industry.title}
+                        />
+                      </h3>
+                    </div>
+                    <button
+                      className="absolute top-5 right-5 flex items-center justify-center transition-all duration-300 hover:brightness-95"
+                      style={{
+                        width: "43px",
+                        height: "43px",
+                        borderRadius: "50%",
+                        background: "#FFFFFF",
+                        border: "none",
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleExpand(actualIndex);
+                      }}
+                    >
+                      <ChevronDown
+                        className="w-6 h-6 transition-transform duration-300"
+                        style={{
+                          color: "#D09947",
+                          transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
+                        }}
+                      />
+                    </button>
+                    <AnimatePresence>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 20 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute bottom-0 left-0 right-0"
                           style={{
-                            fontSize: "15px",
-                            lineHeight: 1.65,
-                            color: "#C5C6C9",
-                            maxWidth: "90%",
+                            background: "rgba(0,0,0,0.75)",
+                            backdropFilter: "blur(6px)",
+                            padding: "20px 24px",
+                            borderTop: "1px solid rgba(208,153,71,0.25)",
                           }}
                         >
-                          <EditableText
-                            path={`industries.items.${index}.description`}
-                            defaultValue={industry.description}
-                            multiline
-                          />
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </motion.div>
-            );
-          })}
+                          <h3
+                            className="text-white mb-3"
+                            style={{
+                              fontSize: "20px",
+                              fontWeight: 600,
+                            }}
+                          >
+                            <EditableText
+                              path={`industries.items.${actualIndex}.title`}
+                              defaultValue={industry.title}
+                            />
+                          </h3>
+                          <p
+                            style={{
+                              fontSize: "15px",
+                              lineHeight: 1.65,
+                              color: "#C5C6C9",
+                              maxWidth: "90%",
+                            }}
+                          >
+                            <EditableText
+                              path={`industries.items.${actualIndex}.description`}
+                              defaultValue={industry.description}
+                              multiline
+                            />
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

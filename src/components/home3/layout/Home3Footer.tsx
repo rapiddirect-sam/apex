@@ -3,10 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getImageUrl } from "@/lib/utils";
-import { Linkedin, Twitter, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Linkedin, Instagram, Youtube, X, Mail, Phone, MapPin } from "lucide-react";
 
 const quickLinks = [
-  { href: "/home3", label: "Home" },
+  { href: "/", label: "Home" },
   { href: "#services", label: "Services" },
   { href: "#capabilities", label: "Capabilities" },
   { href: "/#industries", label: "Industries" },
@@ -19,8 +19,11 @@ const aboutLinks = [
 ];
 
 const socialLinks = [
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+  { icon: Facebook, href: "https://www.facebook.com/profile.php?id=61587352472100", label: "Facebook" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/apexbatch/", label: "LinkedIn" },
+  { icon: Youtube, href: "https://www.youtube.com/@apexbatch_official", label: "YouTube" },
+  { icon: Instagram, href: "https://www.instagram.com/apexbatch/", label: "Instagram" },
+  { icon: X, href: "https://x.com/ApexBatch", label: "X" },
 ];
 
 export function Home3Footer() {
@@ -42,7 +45,7 @@ export function Home3Footer() {
 
           {/* Logo Section - full width on mobile */}
           <div className="lg:hidden mb-8">
-            <Link href="/home3" className="flex items-center justify-center mb-4">
+            <Link href="/" className="flex items-center justify-center mb-4">
               <Image
                 src={getImageUrl("apexbatch-logo2.png")}
                 alt="Apex Batch"
@@ -76,7 +79,7 @@ export function Home3Footer() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-12">
             {/* Company Info - hidden on mobile, shown in desktop grid */}
             <div className="hidden lg:block">
-              <Link href="/home3" className="flex items-center mb-6">
+              <Link href="/" className="flex items-center mb-6">
                 <Image
                   src={getImageUrl("apexbatch-logo2.png")}
                   alt="Apex Batch"
@@ -192,12 +195,6 @@ export function Home3Footer() {
                 className="text-[#000000]/70 hover:text-[#000000] transition-colors"
               >
                 Terms
-              </Link>
-              <Link
-                href="/cookies"
-                className="text-[#000000]/70 hover:text-[#000000] transition-colors"
-              >
-                Cookies
               </Link>
             </div>
           </div>

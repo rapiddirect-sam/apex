@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { revalidateTag } from "next/cache";
 import { upsertPageContent, getPageContent } from "@/lib/pageContent";
 import { isUserAdmin } from "@/lib/admin";
 import { verifyIdToken } from "@/lib/firebaseAdmin";
@@ -112,6 +113,9 @@ export async function PUT(request: NextRequest) {
     if (!result.success) {
       return NextResponse.json({ error: result.error || "Failed to save" }, { status: 500 });
     }
+
+    // Bust cached SSR content for this page
+    revalidateTag(`page-content:${pageSlug}`, "default");
 
     return NextResponse.json({ success: true, newVersion: result.version });
   } catch (error) {

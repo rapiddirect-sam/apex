@@ -5,9 +5,9 @@ import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
   logos: [
-    { name: "Microsoft" },
-    { name: "EMERSON" },
-    { name: "Nikon" },
+    { name: "Rockwell Automation" },
+    { name: "Honeywell" },
+    { name: "DJI" },
     { name: "TOYOTA" },
     { name: "FESTO" },
   ],

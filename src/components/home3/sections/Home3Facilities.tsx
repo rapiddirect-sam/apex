@@ -25,6 +25,8 @@ const DEFAULTS = {
     getImageUrl("home/2-our-facilities-cnc.webp"),
     getImageUrl("home/2-our-facilities-injection-molding.webp"),
     getImageUrl("home/2-our-facilities-sheet-metal.webp"),
+    getImageUrl("home/3-our-services-extrusion.webp"),
+    getImageUrl("home/3-our-services-die-casting.webp"),
   ],
 };
 
@@ -286,13 +288,26 @@ export function Home3Facilities() {
                 outline: "1px solid rgba(208,153,71,0.25)",
               }}
             >
-              <EditableImage
-                path={`facilities.images.${currentImage}`}
-                defaultSrc={DEFAULTS.facilityImages[currentImage]}
-                alt="Manufacturing facility"
-                fill
-                style={{ objectFit: "cover" }}
-              />
+              {/* Pre-render all slides for smooth switching */}
+              <div className="absolute inset-0">
+                {DEFAULTS.facilityImages.map((src, index) => (
+                  <EditableImage
+                    key={src}
+                    path={`facilities.images.${index}`}
+                    defaultSrc={src}
+                    alt="Manufacturing facility"
+                    fill
+                    priority={index === 0}
+                    sizes="(max-width: 1024px) 100vw, 560px"
+                    className="object-cover transition-opacity duration-300 ease-out"
+                    style={{
+                      opacity: index === currentImage ? 1 : 0,
+                      willChange: "opacity",
+                      pointerEvents: index === currentImage ? "auto" : "none",
+                    }}
+                  />
+                ))}
+              </div>
 
               {/* Navigation Arrows - subtle industrial style */}
               <button

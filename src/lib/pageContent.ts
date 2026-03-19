@@ -1,4 +1,5 @@
 import { supabase, isSupabaseConfigured } from "./supabase";
+import { unstable_cache } from "next/cache";
 
 const TABLE_NAME = "page_content";
 
@@ -22,11 +23,24 @@ export async function getPageContent<T = Record<string, unknown>>(
     return { content: null, version: 1 };
   }
 
-  const { data, error } = await supabase
-    .from(TABLE_NAME)
-    .select("content, version")
-    .eq("page_slug", pageSlug)
-    .single();
+  const cachedFetch = unstable_cache(
+    async (slug: string) => {
+      const { data, error } = await supabase
+        .from(TABLE_NAME)
+        .select("content, version")
+        .eq("page_slug", slug)
+        .single();
+
+      return { data, error };
+    },
+    ["page-content", pageSlug],
+    {
+      revalidate: 300,
+      tags: [`page-content:${pageSlug}`],
+    }
+  );
+
+  const { data, error } = await cachedFetch(pageSlug);
 
   if (error) {
     if (error.code === "PGRST116") {

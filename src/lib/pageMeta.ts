@@ -1,4 +1,4 @@
-import { unstable_noStore as noStore } from "next/cache";
+import { unstable_cache } from "next/cache";
 import { supabase, isSupabaseConfigured } from "./supabase";
 import { PageMeta, PageMetaInput, DEFAULT_PAGE_META } from "@/types/pageMeta";
 
@@ -39,11 +39,21 @@ export async function getPageMeta(pageSlug: string): Promise<PageMeta | null> {
     return null;
   }
 
-  const { data, error } = await supabase
-    .from(TABLE_NAME)
-    .select("*")
-    .eq("page_slug", pageSlug)
-    .single();
+  const cachedFetch = unstable_cache(
+    async (slug: string) => {
+      const { data, error } = await supabase
+        .from(TABLE_NAME)
+        .select("*")
+        .eq("page_slug", slug)
+        .single();
+
+      return { data, error };
+    },
+    ["page-meta", pageSlug],
+    { revalidate: 60, tags: [`page-meta:${pageSlug}`] }
+  );
+
+  const { data, error } = await cachedFetch(pageSlug);
 
   if (error) {
     if (error.code === "PGRST116") {
@@ -100,9 +110,6 @@ export async function deletePageMeta(pageSlug: string): Promise<void> {
 
 // Helper to get meta for a page, falling back to defaults
 export async function getPageMetaWithDefaults(pageSlug: string): Promise<{ title: string; description: string }> {
-  // Disable caching so meta updates are reflected immediately
-  noStore();
-
   const defaults = DEFAULT_PAGE_META[pageSlug] || {
     title: "ApexBatch - Precision Manufacturing",
     description: "ApexBatch delivers high-precision CNC machining and manufacturing services.",

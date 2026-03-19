@@ -211,13 +211,23 @@ export function IMSupplier() {
               />
 
               <div className="relative aspect-[4/3]">
-                <EditableImage
-                  path={`supplier.images.${currentImage}.src`}
-                  defaultSrc={DEFAULTS.images[currentImage].src}
-                  alt={DEFAULTS.images[currentImage].alt}
-                  fill
-                  className="object-cover transition-opacity duration-500"
-                />
+                {DEFAULTS.images.map((img, index) => (
+                  <EditableImage
+                    key={img.src}
+                    path={`supplier.images.${index}.src`}
+                    defaultSrc={img.src}
+                    alt={img.alt}
+                    fill
+                    priority={index === 0}
+                    sizes="(max-width: 1024px) 100vw, 520px"
+                    className="object-cover transition-opacity duration-300 ease-out"
+                    style={{
+                      opacity: index === currentImage ? 1 : 0,
+                      willChange: "opacity",
+                      pointerEvents: index === currentImage ? "auto" : "none",
+                    }}
+                  />
+                ))}
 
                 {/* Navigation arrows */}
                 <button
