@@ -36,6 +36,8 @@ export function EditableImage({
   const [isUploading, setIsUploading] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+  const MAX_UPLOAD_SIZE = 10 * 1024 * 1024;
 
   const currentSrc = getContentValue(path, defaultSrc);
 
@@ -51,8 +53,14 @@ export function EditableImage({
       });
 
       if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Upload failed");
+        let errorMessage = "Upload failed";
+        try {
+          const data = await response.json();
+          errorMessage = data.error || errorMessage;
+        } catch {
+          // ignore JSON parse errors and keep fallback message
+        }
+        throw new Error(errorMessage);
       }
 
       const { url } = await response.json();
@@ -68,6 +76,16 @@ export function EditableImage({
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+        alert("Unsupported format. Please upload JPG, PNG, GIF, or WebP.");
+        e.target.value = "";
+        return;
+      }
+      if (file.size > MAX_UPLOAD_SIZE) {
+        alert("Image is too large. Maximum upload size is 10MB.");
+        e.target.value = "";
+        return;
+      }
       handleUpload(file);
     }
     // Reset input so same file can be selected again
@@ -183,6 +201,45 @@ export function EditableImage({
           )}
         </div>
       )}
+
+      {/* Always visible quick upload trigger in edit mode */}
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          if (!isUploading) inputRef.current?.click();
+        }}
+        style={{
+          position: "absolute",
+          top: "8px",
+          right: "8px",
+          zIndex: 12,
+          border: "1px solid rgba(208, 153, 71, 0.7)",
+          background: "rgba(0, 0, 0, 0.65)",
+          color: "#D09947",
+          fontSize: "11px",
+          fontWeight: 600,
+          padding: "6px 10px",
+          borderRadius: "999px",
+          cursor: isUploading ? "wait" : "pointer",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "6px",
+        }}
+        aria-label="Upload image"
+      >
+        {isUploading ? (
+          <>
+            <Loader2 size={12} className="animate-spin" />
+            Uploading
+          </>
+        ) : (
+          <>
+            <Upload size={12} />
+            Upload
+          </>
+        )}
+      </button>
 
       {/* Hidden file input */}
       <input

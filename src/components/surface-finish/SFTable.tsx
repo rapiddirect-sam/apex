@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { EditableText, EditableImage } from "@/components/cms";
 
@@ -239,6 +240,12 @@ const PLACEHOLDER_IMAGE =
   "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/5-Injection-Molding-Material-General-Plastics.webp";
 
 export function SFTable() {
+  const [previewImage, setPreviewImage] = useState<{
+    path: string;
+    defaultSrc: string;
+    alt: string;
+  } | null>(null);
+
   return (
     <section style={{ padding: "80px 0", background: "#0A0A0A" }}>
       <div className="max-w-[1200px] mx-auto px-6">
@@ -335,14 +342,24 @@ export function SFTable() {
                 >
                   <td style={{ padding: "16px" }}>
                     <div className="flex items-center gap-3">
-                      <div
+                      <button
+                        type="button"
                         className="shrink-0 relative overflow-hidden"
                         style={{
                           width: "60px",
                           height: "45px",
                           borderRadius: "6px",
                           border: "1px solid rgba(255,255,255,0.1)",
+                          cursor: "zoom-in",
                         }}
+                        onClick={() =>
+                          setPreviewImage({
+                            path: `table.processes.${index}.image`,
+                            defaultSrc: process.image || PLACEHOLDER_IMAGE,
+                            alt: process.name,
+                          })
+                        }
+                        aria-label={`Preview ${process.name} image`}
                       >
                         <EditableImage
                           path={`table.processes.${index}.image`}
@@ -351,7 +368,7 @@ export function SFTable() {
                           fill
                           className="object-cover"
                         />
-                      </div>
+                      </button>
                       <span
                         style={{
                           fontSize: "14px",
@@ -514,14 +531,24 @@ export function SFTable() {
                 >
                   <td style={{ padding: "16px" }}>
                     <div className="flex items-center gap-3">
-                      <div
+                      <button
+                        type="button"
                         className="shrink-0 relative overflow-hidden"
                         style={{
                           width: "60px",
                           height: "45px",
                           borderRadius: "6px",
                           border: "1px solid rgba(255,255,255,0.1)",
+                          cursor: "zoom-in",
                         }}
+                        onClick={() =>
+                          setPreviewImage({
+                            path: `table.advanced.${index}.image`,
+                            defaultSrc: process.image || PLACEHOLDER_IMAGE,
+                            alt: process.name,
+                          })
+                        }
+                        aria-label={`Preview ${process.name} image`}
                       >
                         <EditableImage
                           path={`table.advanced.${index}.image`}
@@ -530,7 +557,7 @@ export function SFTable() {
                           fill
                           className="object-cover"
                         />
-                      </div>
+                      </button>
                       <span
                         style={{
                           fontSize: "14px",
@@ -603,6 +630,67 @@ export function SFTable() {
           </table>
         </motion.div>
       </div>
+
+      {previewImage && (
+        <div
+          onClick={() => setPreviewImage(null)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0, 0, 0, 0.85)",
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "24px",
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: "relative",
+              width: "min(1000px, 92vw)",
+              height: "min(680px, 80vh)",
+              borderRadius: "8px",
+              overflow: "hidden",
+              border: "1px solid rgba(238,197,105,0.35)",
+              background: "#111111",
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setPreviewImage(null)}
+              aria-label="Close image preview"
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                width: "32px",
+                height: "32px",
+                borderRadius: "999px",
+                border: "1px solid rgba(255,255,255,0.35)",
+                background: "rgba(0,0,0,0.55)",
+                color: "#FFFFFF",
+                cursor: "pointer",
+                zIndex: 2,
+                fontSize: "20px",
+                lineHeight: 1,
+              }}
+            >
+              ×
+            </button>
+            <div style={{ position: "relative", width: "100%", height: "100%" }}>
+              <EditableImage
+                path={previewImage.path}
+                defaultSrc={previewImage.defaultSrc}
+                alt={previewImage.alt}
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

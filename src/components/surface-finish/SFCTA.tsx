@@ -7,7 +7,7 @@ import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
   backgroundImage:
-    "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1600&q=80",
+    "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773908143132-1773908143132-0zqk1ggm.webp",
   heading:
     "Need more surface treatment options? Contact us for custom solutions.",
   primaryCta: "Get a Custom Surface Finishing Quote",
@@ -19,7 +19,7 @@ export function SFCTA() {
     <section className="relative overflow-hidden" style={{ padding: "120px 0" }}>
       <div className="absolute inset-0">
         <EditableImage
-          path="cta.backgroundImage"
+          path="surfaceFinishCta.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Surface finishing CTA"
           fill
@@ -50,7 +50,7 @@ export function SFCTA() {
               marginBottom: "48px",
             }}
           >
-            <EditableText path="cta.heading" defaultValue={DEFAULTS.heading} />
+            <EditableText path="surfaceFinishCta.heading" defaultValue={DEFAULTS.heading} />
           </h2>
 
           <div className="flex flex-wrap gap-4 justify-center">
@@ -58,14 +58,14 @@ export function SFCTA() {
               href="https://app.apexbatch.com/"
               className="inline-flex items-center gap-2 bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group"
             >
-              <EditableText path="cta.primaryCta" defaultValue={DEFAULTS.primaryCta} />
+              <EditableText path="surfaceFinishCta.primaryCta" defaultValue={DEFAULTS.primaryCta} />
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="https://app.apexbatch.com/"
               className="inline-flex items-center gap-2 border border-[#4A4A48] hover:border-[#D09947] text-white hover:text-[#D09947] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider"
             >
-              <EditableText path="cta.secondaryCta" defaultValue={DEFAULTS.secondaryCta} />
+              <EditableText path="surfaceFinishCta.secondaryCta" defaultValue={DEFAULTS.secondaryCta} />
             </Link>
           </div>
         </motion.div>

@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  backgroundImage: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1920&q=80",
+  backgroundImage: "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773908143132-1773908143132-0zqk1ggm.webp",
   heading: "Ready to Scale Your Production?",
   subheading: "Join 500+ global innovators who rely on ApexBatch for high-precision manufacturing solutions.",
   buttonText: "Request A Free Quote",

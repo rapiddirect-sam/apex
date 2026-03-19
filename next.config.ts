@@ -15,6 +15,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "randomuser.me",
       },
+      {
+        protocol: "https",
+        hostname: "apexbatch.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.apexbatch.com",
+      },
     ],
   },
 };

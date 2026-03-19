@@ -43,7 +43,7 @@ const DEFAULTS = {
     {
       title: "Automation Module",
       description: "Custom automation solutions for flexible and efficient production.",
-      image: getImageUrl("home/3-our-services-automation.webp"),
+      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773909609833-1773909609833-6c96x6rn.webp",
       tags: ["Low-Volume", "High-Mix", "Modular Assembly"],
     },
     {

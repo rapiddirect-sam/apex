@@ -35,14 +35,14 @@ const DEFAULTS = {
       description:
         "Precision parts and assemblies for industrial automation systems. Ideal for low-volume, high-mix production and modular equipment integration.",
       image:
-        "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773380937388-1773380937388-hau0tcjc.webp",
+        "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773907611822-1773907611822-omi960dl.webp",
     },
     {
       title: "Renewable Energy",
       description:
         "Durable components for renewable energy systems. Designed to withstand harsh environments with long-term reliability and performance.",
       image:
-        "https://images.unsplash.com/photo-1584270354949-c26b0d5b4a0c?w=600&q=80",
+        "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773907774429-1773907774429-diu1rdze.webp",
     },
   ],
 };

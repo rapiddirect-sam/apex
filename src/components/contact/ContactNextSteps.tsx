@@ -23,10 +23,6 @@ const DEFAULTS = {
   card3Description:
     "Receive a customized proposal and timeline. Once approved, we kick off your project immediately.",
   card3Time: "1 week",
-  // Bottom CTA
-  ctaHeading:
-    "Ready to get started? Fill out the form above and let's begin your journey to success.",
-  ctaSubtext: "Our team is standing by to help bring your vision to life.",
 };
 
 export function ContactNextSteps() {
@@ -653,66 +649,6 @@ export function ContactNextSteps() {
           </div>
         </div>
 
-        {/* Bottom CTA box */}
-        <div
-          className="transition-all duration-300 hover:-translate-y-1"
-          style={{
-            marginTop: "60px",
-            background: `
-              radial-gradient(
-                60% 50% at 50% 0%,
-                rgba(249,235,188,0.08),
-                rgba(0,0,0,0) 65%
-              ),
-              #0D0D0D
-            `,
-            border: "1px solid #EEC569",
-            borderRadius: "0",
-            padding: "clamp(24px, 4vw, 40px)",
-            textAlign: "center",
-            maxWidth: "600px",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-          onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
-            e.currentTarget.style.border = "2px solid #D09947";
-            e.currentTarget.style.boxShadow = "0 0 30px rgba(208,153,71,0.5)";
-          }}
-          onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
-            e.currentTarget.style.border = "1px solid #EEC569";
-            e.currentTarget.style.boxShadow = "none";
-          }}
-        >
-          <p
-            style={{
-              color: "#F9EBBC",
-              fontSize: "21px",
-              lineHeight: 1.6,
-              margin: "0 0 12px 0",
-              fontWeight: 500,
-            }}
-          >
-            <EditableText
-              path="nextSteps.ctaHeading"
-              defaultValue={DEFAULTS.ctaHeading}
-              multiline
-            />
-          </p>
-          <p
-            style={{
-              color: "#C5C6C9",
-              fontSize: "15px",
-              margin: "0",
-              fontWeight: 400,
-            }}
-          >
-            <EditableText
-              path="nextSteps.ctaSubtext"
-              defaultValue={DEFAULTS.ctaSubtext}
-              multiline
-            />
-          </p>
-        </div>
       </div>
     </section>
   );
