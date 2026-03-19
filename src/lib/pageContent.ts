@@ -19,13 +19,14 @@ export interface PageContentRecord {
 export async function getPageContent<T = Record<string, unknown>>(
   pageSlug: string
 ): Promise<{ content: T | null; version: number }> {
-  if (!isSupabaseConfigured || !supabase) {
+  const supabaseClient = supabase;
+  if (!isSupabaseConfigured || !supabaseClient) {
     return { content: null, version: 1 };
   }
 
   const cachedFetch = unstable_cache(
     async (slug: string) => {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from(TABLE_NAME)
         .select("content, version")
         .eq("page_slug", slug)
