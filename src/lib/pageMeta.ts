@@ -34,14 +34,15 @@ export async function getAllPageMeta(): Promise<PageMeta[]> {
 }
 
 export async function getPageMeta(pageSlug: string): Promise<PageMeta | null> {
-  if (!isSupabaseConfigured || !supabase) {
+  const supabaseClient = supabase;
+  if (!isSupabaseConfigured || !supabaseClient) {
     console.warn("Supabase is not configured");
     return null;
   }
 
   const cachedFetch = unstable_cache(
     async (slug: string) => {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from(TABLE_NAME)
         .select("*")
         .eq("page_slug", slug)
