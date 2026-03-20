@@ -154,3 +154,9 @@
 .home3-root .h3-faq-item.active {
   border-color: var(--h3-gold);
 }
+
+/* Mobile performance: skip expensive rendering/layout for offscreen sections. */
+.home3-root main > section:not(:first-of-type) {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}

@@ -1,15 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { EditableText } from "@/components/cms";
+import { EditableImage } from "@/components/cms";
+
+function createLogoPlaceholder(label: string): string {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="260" height="72" viewBox="0 0 260 72">
+    <rect width="260" height="72" rx="10" fill="#1f1f1f"/>
+    <text x="130" y="43" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#b9b9b9">${label}</text>
+  </svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
 
 const DEFAULTS = {
   logos: [
-    { name: "Rockwell Automation" },
-    { name: "Honeywell" },
-    { name: "DJI" },
-    { name: "TOYOTA" },
-    { name: "FESTO" },
+    { alt: "Rockwell Automation", src: createLogoPlaceholder("ROCKWELL") },
+    { alt: "Honeywell", src: createLogoPlaceholder("HONEYWELL") },
+    { alt: "DJI", src: createLogoPlaceholder("DJI") },
+    { alt: "TOYOTA", src: createLogoPlaceholder("TOYOTA") },
+    { alt: "FESTO", src: createLogoPlaceholder("FESTO") },
   ],
 };
 
@@ -21,68 +29,30 @@ export function Home3TrustedLogos() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="flex flex-wrap items-center justify-between gap-8 md:gap-12"
+          className="grid grid-cols-5 items-center gap-4 md:gap-6"
         >
-          {/* Microsoft */}
-          <div className="flex items-center gap-2 text-[#888888] hover:text-[#AAAAAA] transition-colors">
-            <div className="grid grid-cols-2 gap-0.5 w-5 h-5">
-              <div className="bg-current" />
-              <div className="bg-current" />
-              <div className="bg-current" />
-              <div className="bg-current" />
+          {DEFAULTS.logos.map((logo, index) => (
+            <div
+              key={logo.alt}
+              style={{
+                width: "100%",
+                height: "56px",
+                position: "relative",
+                opacity: 0.85,
+              }}
+            >
+              <EditableImage
+                path={`trustedLogos.items.${index}.src`}
+                defaultSrc={logo.src}
+                alt={logo.alt}
+                fill
+                sizes="(max-width: 768px) 42vw, 220px"
+                quality={90}
+                unoptimized
+                style={{ objectFit: "contain" }}
+              />
             </div>
-            <span className="text-lg font-semibold tracking-wide">
-              <EditableText
-                path="trustedLogos.items.0.name"
-                defaultValue={DEFAULTS.logos[0].name}
-              />
-            </span>
-          </div>
-
-          {/* Emerson */}
-          <div className="text-[#888888] hover:text-[#AAAAAA] transition-colors">
-            <span className="text-xl font-bold tracking-wider" style={{ fontFamily: 'serif' }}>
-              <EditableText
-                path="trustedLogos.items.1.name"
-                defaultValue={DEFAULTS.logos[1].name}
-              />
-            </span>
-          </div>
-
-          {/* Nikon */}
-          <div className="text-[#888888] hover:text-[#AAAAAA] transition-colors">
-            <span className="text-2xl font-bold italic tracking-tight" style={{ fontFamily: 'serif' }}>
-              <EditableText
-                path="trustedLogos.items.2.name"
-                defaultValue={DEFAULTS.logos[2].name}
-              />
-            </span>
-          </div>
-
-          {/* Toyota */}
-          <div className="flex items-center gap-2 text-[#888888] hover:text-[#AAAAAA] transition-colors">
-            <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
-              <ellipse cx="12" cy="12" rx="10" ry="6" fill="none" stroke="currentColor" strokeWidth="1.5" />
-              <ellipse cx="12" cy="12" rx="4" ry="10" fill="none" stroke="currentColor" strokeWidth="1.5" />
-              <ellipse cx="12" cy="12" rx="10" ry="10" fill="none" stroke="currentColor" strokeWidth="1.5" />
-            </svg>
-            <span className="text-lg font-bold tracking-widest">
-              <EditableText
-                path="trustedLogos.items.3.name"
-                defaultValue={DEFAULTS.logos[3].name}
-              />
-            </span>
-          </div>
-
-          {/* Festo */}
-          <div className="text-[#888888] hover:text-[#AAAAAA] transition-colors">
-            <span className="text-xl font-bold tracking-widest">
-              <EditableText
-                path="trustedLogos.items.4.name"
-                defaultValue={DEFAULTS.logos[4].name}
-              />
-            </span>
-          </div>
+          ))}
         </motion.div>
       </div>
     </section>

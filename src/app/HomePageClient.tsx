@@ -1,11 +1,15 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { Home3Hero } from "@/components/home3/sections/Home3Hero";
 import { CMSProvider } from "@/contexts/CMSContext";
-import { CMSToolbar } from "@/components/cms";
+const CMSToolbar = dynamic(
+  () => import("@/components/cms").then((m) => ({ default: m.CMSToolbar })),
+  { ssr: false }
+);
 
 /** Below-the-fold sections code-split to reduce main-thread JS (TBT) on mobile. */
 const Home3TrustedLogos = dynamic(() =>
@@ -60,20 +64,32 @@ interface HomePageClientProps {
 }
 
 export function HomePageClient({ initialContent, initialVersion }: HomePageClientProps) {
+  const [showBelowFold, setShowBelowFold] = useState(false);
+
+  useEffect(() => {
+    // Defer below-the-fold rendering until after first paint.
+    const id = window.setTimeout(() => setShowBelowFold(true), 250);
+    return () => window.clearTimeout(id);
+  }, []);
+
   return (
     <CMSProvider pageSlug="/" initialContent={initialContent} initialVersion={initialVersion}>
       <Home3Header />
       <main>
         <Home3Hero />
-        <Home3TrustedLogos />
-        <Home3Facilities />
-        <Home3Services />
-        <Home3Process />
-        <Home3WhyChoose />
-        <Home3Industries />
-        <Home3Portfolio />
-        <Home3Certifications />
-        <Home3FAQ />
+        {showBelowFold ? (
+          <>
+            <Home3TrustedLogos />
+            <Home3Facilities />
+            <Home3Services />
+            <Home3Process />
+            <Home3WhyChoose />
+            <Home3Industries />
+            <Home3Portfolio />
+            <Home3Certifications />
+            <Home3FAQ />
+          </>
+        ) : null}
       </main>
       <Home3Footer />
       <CMSToolbar />

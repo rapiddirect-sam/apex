@@ -66,6 +66,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${instrumentSerif.variable} ${geistMono.variable} ${spaceMono.variable} ${inter.variable} ${playfair.variable}`}>
       <head>
+        <link rel="preconnect" href="https://apex-batch-images.s3.us-east-1.amazonaws.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://apex-batch-images.s3.us-east-1.amazonaws.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         {/* Defer GTM to reduce main-thread work on mobile (helps TBT / INP); loads after page is interactive */}
         <Script id="gtm" strategy="lazyOnload">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

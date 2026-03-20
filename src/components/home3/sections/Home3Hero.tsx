@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { getImageUrl } from "@/lib/utils";
@@ -72,13 +71,7 @@ export function Home3Hero() {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 min-h-[calc(100vh-80px)] flex items-center">
         <div className="grid grid-cols-12 gap-8 w-full py-20">
           {/* Left Column - Headlines (spans 7 cols) */}
-          <motion.div
-            /* Avoid opacity:0 on first paint — it delays LCP / largest text paint on mobile */
-            initial={{ opacity: 1, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-            className="col-span-12 lg:col-span-7"
-          >
+          <div className="col-span-12 lg:col-span-7">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 border border-[#D09947]/30 rounded mb-8">
               <div className="w-2 h-2 bg-[#D09947] rounded-full animate-pulse" />
@@ -136,15 +129,10 @@ export function Home3Hero() {
             </div>
 
             {/* Social Proof section removed per request */}
-          </motion.div>
+          </div>
 
-          {/* Right Column - Feature Card (spans 4 cols, offset) */}
-          <motion.div
-            initial={{ opacity: 1, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.45, delay: 0.08 }}
-            className="col-span-12 lg:col-span-4 lg:col-start-9 flex items-center"
-          >
+          {/* Right Column - Feature Card (desktop only to reduce mobile first-load cost) */}
+          <div className="hidden lg:flex lg:col-span-4 lg:col-start-9 items-center">
             <div className="bg-[#4A4A48]/40 backdrop-blur-md rounded-lg p-8 w-full border border-[#D09947]/20 relative overflow-hidden">
               {/* Gold glow effect */}
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#D09947]/20 rounded-full blur-3xl" />
@@ -192,7 +180,7 @@ export function Home3Hero() {
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
