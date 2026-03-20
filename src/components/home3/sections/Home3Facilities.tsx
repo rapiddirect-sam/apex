@@ -25,8 +25,9 @@ const DEFAULTS = {
     getImageUrl("home/2-our-facilities-cnc.webp"),
     getImageUrl("home/2-our-facilities-injection-molding.webp"),
     getImageUrl("home/2-our-facilities-sheet-metal.webp"),
-    getImageUrl("home/3-our-services-extrusion.webp"),
-    getImageUrl("home/3-our-services-die-casting.webp"),
+    // CMS 上传图：用 S3 直链或相对路径，不要用 /_next/image?...（那是优化器地址，不能当原始 src 拼进 getImageUrl）
+    getImageUrl("cms/1773972168149-1773972168149-qx8na8s4.webp"),
+    getImageUrl("cms/1773972129878-1773972129878-dd8ddilq.webp"),
   ],
 };
 
