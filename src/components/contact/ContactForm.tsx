@@ -41,14 +41,23 @@ const DEFAULTS = {
   emailSupport: "Support: support@apexbatch.com",
   // Right column - Location
   locationPill: "LOCATION",
-  locationHeadingPrefix: "Our ",
-  locationHeadingHighlight: "Headquarters",
-  addressLabel: "Address",
-  addressValue: "2nd Floor, Building F, 52 Huangpu Road, Shangliao Community, Xinqiao Street",
-  cityLabel: "City, State",
-  cityValue: "Shenzhen, Guangdong, China",
-  directionsButton: "Get Directions",
+  // Hong Kong office
+  headOfficeTitle: "HongKong Office",
+  headOfficeCompany: "APEX BATCH LIMITED",
+  headOfficeAddress:
+    "Unit 1111, 11/F, Hollywood Plaza\n610 Nathan Rd, Mong Kok, Hong Kong",
+  headOfficeDirectionsLabel: "Directions — Hong Kong",
+  // Section title above Shenzhen map/address card
+  facilityCaption: "Head Office",
+  addressLabel: "Head Office",
+  addressValue: "2nd Floor, Building F, 52 Huangpu Road, Shangliao Community, Xinqiao Street, Baoan District, Shenzhen, China",
 };
+
+/** Google Maps URL (stable; not CMS-editable to avoid broken links) */
+const MAPS_URL_HEAD_OFFICE_HK =
+  "https://www.google.com/maps/search/?api=1&query=Hollywood+Plaza%20610+Nathan+Road+Mong+Kok+Hong+Kong";
+const MAPS_URL_SHENZHEN =
+  "https://www.google.com/maps/search/?api=1&query=52+Huangpu+Road+Shangliao+Community+Xinqiao+Street+Baoan+District+Shenzhen+Guangdong+China";
 
 const businessNeedsOptions = [
   "CNC Machining",
@@ -710,6 +719,7 @@ export function ContactForm() {
               padding: "24px",
               display: "flex",
               flexDirection: "column",
+              alignSelf: "start",
             }}
           >
             {/* Reach Us Directly Section */}
@@ -949,52 +959,6 @@ export function ContactForm() {
                 </span>
               </div>
 
-              <h3
-                style={{
-                  fontSize: "26px",
-                  fontWeight: 700,
-                  color: "#FFFFFF",
-                  marginBottom: "20px",
-                }}
-              >
-                <EditableText
-                  path="sidebar.locationHeadingPrefix"
-                  defaultValue={DEFAULTS.locationHeadingPrefix}
-                />
-                <span style={{ color: "#EEC569" }}>
-                  <EditableText
-                    path="sidebar.locationHeadingHighlight"
-                    defaultValue={DEFAULTS.locationHeadingHighlight}
-                  />
-                </span>
-              </h3>
-
-              {/* Map Placeholder with gold border */}
-              <div
-                style={{
-                  borderRadius: "8px",
-                  height: "180px",
-                  marginBottom: "16px",
-                  background: "#0A0A0A",
-                  border: "1px solid #D09947",
-                  overflow: "hidden",
-                }}
-              >
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.5!2d113.82!3d22.75!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDQ1JzAwLjAiTiAxMTPCsDQ5JzEyLjAiRQ!5e0!3m2!1sen!2scn!4v1234567890&q=52+Huangpu+Road,+Xinqiao+Street,+Baoan+District,+Shenzhen,+China"
-                  width="100%"
-                  height="100%"
-                  style={{
-                    border: 0,
-                    filter:
-                      "grayscale(100%) sepia(25%) brightness(0.4) contrast(1.1)",
-                  }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-
               {/* Address Container */}
               <div
                 style={{
@@ -1002,10 +966,11 @@ export function ContactForm() {
                   borderRadius: "10px",
                   border: "1px solid rgba(208,153,71,0.15)",
                   padding: "16px 20px",
+                  marginBottom: "20px",
                 }}
               >
                 {/* Address Row */}
-                <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "16px", marginBottom: "16px" }}>
+                <div className="grid grid-cols-1" style={{ gap: "16px", marginBottom: "16px" }}>
                   <div>
                     <p
                       style={{
@@ -1028,39 +993,81 @@ export function ContactForm() {
                       />
                     </p>
                   </div>
-                  <div>
-                    <p
-                      style={{
-                        fontSize: "14px",
-                        fontWeight: 600,
-                        color: "#FFFFFF",
-                        marginBottom: "4px",
-                      }}
-                    >
-                      <EditableText
-                        path="sidebar.cityLabel"
-                        defaultValue={DEFAULTS.cityLabel}
-                      />
-                    </p>
-                    <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
-                      <EditableText
-                        path="sidebar.cityValue"
-                        defaultValue={DEFAULTS.cityValue}
-                      />
-                    </p>
-                  </div>
                 </div>
+                <a
+                  href={MAPS_URL_SHENZHEN}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded bg-[#D09947] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[#000000] transition-all hover:bg-[#EEC569]"
+                >
+                  Directions — Shen Zhen
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
 
-                {/* Get Directions Button */}
-                <button
-                  className="w-full bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center justify-center gap-2 group"
+              {/* HongKong Office */}
+              <div
+                style={{
+                  background: "#2A2624",
+                  borderRadius: "10px",
+                  border: "1px solid rgba(208, 153, 71, 0.35)",
+                  padding: "16px 20px",
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: "14px",
+                    fontWeight: 600,
+                    color: "#FFFFFF",
+                    marginBottom: "4px",
+                  }}
                 >
                   <EditableText
-                    path="sidebar.directionsButton"
-                    defaultValue={DEFAULTS.directionsButton}
+                    path="sidebar.headOfficeTitle"
+                    defaultValue={DEFAULTS.headOfficeTitle}
                   />
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
+                </p>
+                <p
+                  style={{
+                    fontSize: "12px",
+                    color: "#EEC569",
+                    lineHeight: 1.65,
+                    marginBottom: "14px",
+                    whiteSpace: "pre-line",
+                  }}
+                >
+                  <EditableText
+                    path="sidebar.headOfficeCompany"
+                    defaultValue={DEFAULTS.headOfficeCompany}
+                  />
+                </p>
+                <p
+                  style={{
+                    fontSize: "12px",
+                    color: "#EEC569",
+                    lineHeight: 1.65,
+                    marginBottom: "14px",
+                    whiteSpace: "pre-line",
+                  }}
+                >
+                  <EditableText
+                    path="sidebar.headOfficeAddress"
+                    defaultValue={DEFAULTS.headOfficeAddress}
+                    multiline
+                  />
+                </p>
+                <a
+                  href={MAPS_URL_HEAD_OFFICE_HK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded bg-[#D09947] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[#000000] transition-all hover:bg-[#EEC569]"
+                >
+                  <EditableText
+                    path="sidebar.headOfficeDirectionsLabel"
+                    defaultValue={DEFAULTS.headOfficeDirectionsLabel}
+                  />
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </a>
               </div>
             </div>
           </motion.div>

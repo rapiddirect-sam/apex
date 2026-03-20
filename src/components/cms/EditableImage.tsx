@@ -17,6 +17,9 @@ interface EditableImageProps {
   fill?: boolean;
   priority?: boolean;
   sizes?: string;
+  quality?: number;
+  /** Skip Next.js optimizer (larger payloads; use only when you need pixel-identical CMS assets). */
+  unoptimized?: boolean;
 }
 
 export function EditableImage({
@@ -31,6 +34,8 @@ export function EditableImage({
   fill,
   priority,
   sizes,
+  quality,
+  unoptimized = false,
 }: EditableImageProps) {
   const { isEditMode, getContentValue, updateContent } = useCMS();
   const [isUploading, setIsUploading] = useState(false);
@@ -40,6 +45,9 @@ export function EditableImage({
   const MAX_UPLOAD_SIZE = 10 * 1024 * 1024;
 
   const currentSrc = getContentValue(path, defaultSrc);
+  // Default 90 balances sharpness vs LCP; override with quality={100} where needed.
+  const imageQuality = quality ?? 90;
+  const imageSizes = sizes ?? (fill ? "100vw" : undefined);
 
   const handleUpload = async (file: File) => {
     setIsUploading(true);
@@ -123,7 +131,9 @@ export function EditableImage({
         alt={alt}
         className={className}
         priority={priority}
-        sizes={sizes}
+        sizes={imageSizes}
+        quality={imageQuality}
+        unoptimized={unoptimized}
         {...imageProps}
       />
     );
@@ -157,7 +167,9 @@ export function EditableImage({
           alt={alt}
           className={className}
           priority={priority}
-          sizes={sizes}
+          sizes={imageSizes}
+          quality={imageQuality}
+          unoptimized={unoptimized}
           {...imageProps}
         />
       )}

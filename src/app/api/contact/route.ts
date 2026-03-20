@@ -205,7 +205,8 @@ export async function POST(request: NextRequest) {
           <div style="background: #0d0d0d; padding: 16px; text-align: center;">
             <p style="color: #666; margin: 0; font-size: 12px;">
               ApexBatch - Precision Manufacturing Excellence<br>
-              Shenzhen, Guangdong, China
+              Head Office: APEX BATCH LIMITED, Unit 1111, 11/F, Hollywood Plaza, 610 Nathan Rd, Mong Kok, Hong Kong<br>
+              Manufacturing: Shenzhen, Guangdong, China
             </p>
           </div>
         </div>

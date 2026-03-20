@@ -1,9 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, Star, ArrowRight } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { getImageUrl } from "@/lib/utils";
 import { EditableText, EditableImage } from "@/components/cms";
 
@@ -47,12 +46,14 @@ export function Home3Hero() {
       <div
         className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block overflow-hidden"
       >
+        {/* No priority: hidden on mobile — priority was pulling a large hero asset on mobile and hurting LCP */}
         <EditableImage
           path="hero.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Manufacturing background"
           fill
-          priority
+          sizes="(max-width: 1023px) 1px, 50vw"
+          quality={88}
           style={{ objectFit: "cover" }}
         />
       </div>
@@ -70,9 +71,10 @@ export function Home3Hero() {
         <div className="grid grid-cols-12 gap-8 w-full py-20">
           {/* Left Column - Headlines (spans 7 cols) */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            /* Avoid opacity:0 on first paint — it delays LCP / largest text paint on mobile */
+            initial={{ opacity: 1, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.45 }}
             className="col-span-12 lg:col-span-7"
           >
             {/* Badge */}
@@ -136,9 +138,9 @@ export function Home3Hero() {
 
           {/* Right Column - Feature Card (spans 4 cols, offset) */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 1, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.08 }}
             className="col-span-12 lg:col-span-4 lg:col-start-9 flex items-center"
           >
             <div className="bg-[#4A4A48]/40 backdrop-blur-md rounded-lg p-8 w-full border border-[#D09947]/20 relative overflow-hidden">

@@ -106,6 +106,7 @@ export function ImageUpload({ value, onChange, label = "Featured Image" }: Image
             alt="Featured"
             width={800}
             height={400}
+            quality={90}
             style={{
               width: "100%",
               height: "auto",
