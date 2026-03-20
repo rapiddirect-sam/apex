@@ -46,12 +46,14 @@ export function Home3Hero() {
       <div
         className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block overflow-hidden"
       >
-        {/* No priority: hidden on mobile — priority was pulling a large hero asset on mobile and hurting LCP */}
+        {/* sizes 在移动端为 1px，priority 不会拉全宽大图；桌面端配合 fetchPriority 改善 LCP */}
         <EditableImage
           path="hero.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Manufacturing background"
           fill
+          priority
+          fetchPriority="high"
           sizes="(max-width: 1023px) 1px, 50vw"
           quality={88}
           style={{ objectFit: "cover" }}

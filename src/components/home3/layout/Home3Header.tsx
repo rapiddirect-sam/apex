@@ -41,7 +41,7 @@ const navItems: NavItem[] = [
       },
       {
         heading: "Molding",
-        href: "/injection-molding",
+        href: "/molding-services",
         links: [
           { href: "/injection-molding", label: "Injection Molding" },
           { href: "/extrusion-services", label: "Extrusion Services" },
@@ -203,6 +203,7 @@ export function Home3Header() {
               className="h-12 w-auto"
               sizes="180px"
               priority
+              fetchPriority="high"
             />
           </Link>
 

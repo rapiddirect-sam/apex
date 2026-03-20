@@ -4,6 +4,8 @@ import { useState, useRef, CSSProperties } from "react";
 import Image from "next/image";
 import { Upload, Loader2 } from "lucide-react";
 import { useCMS } from "@/contexts/CMSContext";
+import { auth } from "@/lib/firebase";
+import { setAuthSessionCookie } from "@/lib/authSessionCookie";
 
 interface EditableImageProps {
   path: string;
@@ -20,6 +22,8 @@ interface EditableImageProps {
   quality?: number;
   /** Skip Next.js optimizer (larger payloads; use only when you need pixel-identical CMS assets). */
   unoptimized?: boolean;
+  /** Hint LCP image loading (pass `"high"` on above-the-fold hero). */
+  fetchPriority?: "high" | "low" | "auto";
 }
 
 export function EditableImage({
@@ -36,6 +40,7 @@ export function EditableImage({
   sizes,
   quality,
   unoptimized = false,
+  fetchPriority,
 }: EditableImageProps) {
   const { isEditMode, getContentValue, updateContent } = useCMS();
   const [isUploading, setIsUploading] = useState(false);
@@ -52,6 +57,16 @@ export function EditableImage({
   const handleUpload = async (file: File) => {
     setIsUploading(true);
     try {
+      // Stale auth-session cookie causes "Unauthorized - invalid session" after ~1h; refresh before upload.
+      if (auth?.currentUser) {
+        try {
+          const fresh = await auth.currentUser.getIdToken(true);
+          setAuthSessionCookie(fresh);
+        } catch {
+          // ignore; server will 401 if still invalid
+        }
+      }
+
       const formData = new FormData();
       formData.append("file", file);
 
@@ -131,6 +146,7 @@ export function EditableImage({
         alt={alt}
         className={className}
         priority={priority}
+        fetchPriority={fetchPriority}
         sizes={imageSizes}
         quality={imageQuality}
         unoptimized={unoptimized}
@@ -167,6 +183,7 @@ export function EditableImage({
           alt={alt}
           className={className}
           priority={priority}
+          fetchPriority={fetchPriority}
           sizes={imageSizes}
           quality={imageQuality}
           unoptimized={unoptimized}

@@ -1,10 +1,20 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { User, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut as firebaseSignOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  User,
+  onAuthStateChanged,
+  onIdTokenChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut as firebaseSignOut,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth, isFirebaseConfigured } from "@/lib/firebase";
 import { isUserAdmin } from "@/lib/admin";
 import { syncUserFromAuth } from "@/lib/users";
+import { setAuthSessionCookie } from "@/lib/authSessionCookie";
 
 interface AuthContextType {
   user: User | null;
@@ -40,6 +50,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
+    // Refresh auth-session whenever the ID token rotates (fixes CMS image upload 401 after ~1 hour).
+    const unsubToken = onIdTokenChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const token = await user.getIdToken();
+          setAuthSessionCookie(token);
+        } catch {
+          setAuthSessionCookie(null);
+        }
+      } else {
+        setAuthSessionCookie(null);
+      }
+    });
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
 
@@ -54,17 +78,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       setLoading(false);
-
-      // Set/clear auth session cookie for middleware
-      if (user) {
-        const token = await user.getIdToken();
-        document.cookie = `auth-session=${token}; path=/; max-age=3600; SameSite=Strict; Secure`;
-      } else {
-        document.cookie = "auth-session=; path=/; max-age=0";
-      }
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubToken();
+      unsubscribe();
+    };
   }, []);
 
   const signIn = async (email: string, password: string) => {
@@ -85,8 +104,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = async () => {
     if (!auth) throw new Error("Firebase not configured");
-    // Clear auth cookie
-    document.cookie = "auth-session=; path=/; max-age=0";
+    setAuthSessionCookie(null);
     setIsAdmin(false);
     await firebaseSignOut(auth);
   };

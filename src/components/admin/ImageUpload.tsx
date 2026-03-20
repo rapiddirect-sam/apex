@@ -3,6 +3,8 @@
 import { useState, useRef } from "react";
 import { Upload, X, Loader2 } from "lucide-react";
 import Image from "next/image";
+import { auth } from "@/lib/firebase";
+import { setAuthSessionCookie } from "@/lib/authSessionCookie";
 
 interface ImageUploadProps {
   value: string;
@@ -21,6 +23,14 @@ export function ImageUpload({ value, onChange, label = "Featured Image" }: Image
     setUploading(true);
 
     try {
+      if (auth?.currentUser) {
+        try {
+          setAuthSessionCookie(await auth.currentUser.getIdToken(true));
+        } catch {
+          // ignore
+        }
+      }
+
       const formData = new FormData();
       formData.append("file", file);
 

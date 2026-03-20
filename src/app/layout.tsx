@@ -12,12 +12,14 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
   variable: "--font-instrument",
   style: ["normal", "italic"],
+  preload: false,
 });
 
 const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-geist-mono",
+  preload: false,
 });
 
 const spaceMono = Space_Mono({
@@ -25,19 +27,23 @@ const spaceMono = Space_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-space-mono",
+  preload: false,
 });
 
 const inter = Inter({
   subsets: ["latin"],
+  display: "swap",
   variable: "--font-inter",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
+  display: "swap",
   variable: "--font-playfair",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   style: ["normal", "italic"],
+  preload: false,
 });
 
 export const metadata: Metadata = {
