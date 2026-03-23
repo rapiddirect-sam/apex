@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { z } from "zod";
 
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+const RATE_LIMIT_MAX_REQUESTS = 5;
+const ipRateLimit = new Map<string, number[]>();
+
 // Input validation schema
 const contactSchema = z.object({
   firstName: z.string().min(1).max(100).trim(),
@@ -23,6 +27,9 @@ const contactSchema = z.object({
       timestamp: z.string(),
     })),
   }).nullable().optional(),
+  recaptchaToken: z.string().min(1),
+  website: z.string().max(200).optional().default(""),
+  formStartedAt: z.number().int().positive(),
 });
 
 // Sanitize string for HTML email (prevent injection)
@@ -33,6 +40,44 @@ function sanitizeForHTML(str: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+function getClientIp(request: NextRequest): string {
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  if (forwardedFor) {
+    return forwardedFor.split(",")[0]?.trim() || "unknown";
+  }
+  return request.headers.get("x-real-ip") || "unknown";
+}
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const recent = (ipRateLimit.get(ip) || []).filter((ts) => now - ts <= RATE_LIMIT_WINDOW_MS);
+  recent.push(now);
+  ipRateLimit.set(ip, recent);
+  return recent.length > RATE_LIMIT_MAX_REQUESTS;
+}
+
+async function verifyRecaptcha(token: string, ip: string): Promise<boolean> {
+  if (!process.env.RECAPTCHA_SECRET_KEY) return false;
+
+  const params = new URLSearchParams({
+    secret: process.env.RECAPTCHA_SECRET_KEY,
+    response: token,
+    remoteip: ip,
+  });
+
+  const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: params.toString(),
+  });
+
+  if (!verifyRes.ok) return false;
+  const data = await verifyRes.json();
+  return Boolean(data?.success);
 }
 
 export async function POST(request: NextRequest) {
@@ -46,6 +91,14 @@ export async function POST(request: NextRequest) {
 
     const resend = new Resend(process.env.RESEND_API_KEY);
     const body = await request.json();
+    const clientIp = getClientIp(request);
+
+    if (isRateLimited(clientIp)) {
+      return NextResponse.json(
+        { error: "Too many submissions. Please try again later." },
+        { status: 429 }
+      );
+    }
 
     // Validate and parse input
     const parseResult = contactSchema.safeParse(body);
@@ -56,7 +109,47 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { firstName, companyName, email, phone, businessNeeds, projectDescription, attachments, tracking } = parseResult.data;
+    const {
+      firstName,
+      companyName,
+      email,
+      phone,
+      businessNeeds,
+      projectDescription,
+      attachments,
+      tracking,
+      recaptchaToken,
+      website,
+      formStartedAt,
+    } = parseResult.data;
+
+    // Honeypot trap: silently accept but do nothing for bots.
+    if (website.trim().length > 0) {
+      return NextResponse.json({ success: true });
+    }
+
+    if (!process.env.RECAPTCHA_SECRET_KEY) {
+      return NextResponse.json(
+        { error: "Captcha service not configured" },
+        { status: 500 }
+      );
+    }
+
+    const submitDurationMs = Date.now() - formStartedAt;
+    if (submitDurationMs < 3000) {
+      return NextResponse.json(
+        { error: "Submission blocked. Please retry." },
+        { status: 400 }
+      );
+    }
+
+    const recaptchaOk = await verifyRecaptcha(recaptchaToken, clientIp);
+    if (!recaptchaOk) {
+      return NextResponse.json(
+        { error: "Captcha verification failed. Please retry." },
+        { status: 400 }
+      );
+    }
 
     // Sanitize all user input for HTML email
     const safeFirstName = sanitizeForHTML(firstName);

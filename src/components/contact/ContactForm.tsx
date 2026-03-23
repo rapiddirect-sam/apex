@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
+import Script from "next/script";
 import { getVisitData } from "@/hooks/useVisitTracking";
 import { EditableText } from "@/components/cms";
 import {
@@ -14,6 +15,15 @@ import {
   MessageSquare,
   ArrowRight,
 } from "lucide-react";
+
+declare global {
+  interface Window {
+    grecaptcha?: {
+      getResponse: () => string;
+      reset: () => void;
+    };
+  }
+}
 
 const DEFAULTS = {
   // Left column - Form header
@@ -70,6 +80,7 @@ const businessNeedsOptions = [
 ];
 
 export function ContactForm() {
+  const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
   const [formData, setFormData] = useState({
     firstName: "",
     companyName: "",
@@ -77,13 +88,16 @@ export function ContactForm() {
     phone: "",
     businessNeeds: "",
     projectDescription: "",
+    website: "",
   });
   const [files, setFiles] = useState<File[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [errorText, setErrorText] = useState<string>(DEFAULTS.errorMessage);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const formStartAtRef = useRef<number>(Date.now());
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,12 +106,21 @@ export function ContactForm() {
     if (!formData.firstName.trim() ||
         !formData.email.trim() || !formData.businessNeeds ||
         formData.projectDescription.trim().length < 10) {
+      setErrorText(DEFAULTS.errorMessage);
+      setSubmitStatus("error");
+      return;
+    }
+
+    const recaptchaToken = typeof window !== "undefined" ? window.grecaptcha?.getResponse() : "";
+    if (!recaptchaSiteKey || !recaptchaToken) {
+      setErrorText("Please complete the reCAPTCHA verification before submitting.");
       setSubmitStatus("error");
       return;
     }
 
     setIsSubmitting(true);
     setSubmitStatus("idle");
+    setErrorText(DEFAULTS.errorMessage);
 
     try {
       // Upload files to S3 first
@@ -139,6 +162,9 @@ export function ContactForm() {
             referrer: visitData.referrer,
             visitPath: visitData.visitPath,
           } : null,
+          recaptchaToken,
+          website: formData.website,
+          formStartedAt: formStartAtRef.current,
         }),
       });
 
@@ -151,12 +177,18 @@ export function ContactForm() {
           phone: "",
           businessNeeds: "",
           projectDescription: "",
+          website: "",
         });
         setFiles([]);
+        formStartAtRef.current = Date.now();
+        window.grecaptcha?.reset();
       } else {
+        const data = await response.json().catch(() => ({}));
+        setErrorText(data?.error || DEFAULTS.errorMessage);
         setSubmitStatus("error");
       }
     } catch {
+      setErrorText(DEFAULTS.errorMessage);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -332,6 +364,18 @@ export function ContactForm() {
 
             {/* Form */}
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              {/* Honeypot field: hidden for users, visible for bots */}
+              <input
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={handleInputChange}
+                autoComplete="off"
+                tabIndex={-1}
+                style={{ display: "none" }}
+                aria-hidden="true"
+              />
+
               {/* First Name & Company Name Row */}
               <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: "20px" }}>
                 <div>
@@ -645,6 +689,20 @@ export function ContactForm() {
                 )}
               </div>
 
+              {/* reCAPTCHA */}
+              <div>
+                <div
+                  className="g-recaptcha"
+                  data-sitekey={recaptchaSiteKey}
+                  style={{ transformOrigin: "left top" }}
+                />
+                {!recaptchaSiteKey && (
+                  <p style={{ marginTop: "8px", fontSize: "12px", color: "#ef4444" }}>
+                    reCAPTCHA is not configured. Please add NEXT_PUBLIC_RECAPTCHA_SITE_KEY.
+                  </p>
+                )}
+              </div>
+
               {/* Submit Status Messages */}
               {submitStatus === "success" && (
                 <div
@@ -676,11 +734,7 @@ export function ContactForm() {
                     fontSize: "14px",
                   }}
                 >
-                  <EditableText
-                    path="form.errorMessage"
-                    defaultValue={DEFAULTS.errorMessage}
-                    multiline
-                  />
+                  {errorText}
                 </div>
               )}
 
@@ -1080,6 +1134,12 @@ export function ContactForm() {
           color: rgba(208, 153, 71, 0.6);
         }
       `}</style>
+      {recaptchaSiteKey && (
+        <Script
+          src="https://www.google.com/recaptcha/api.js"
+          strategy="afterInteractive"
+        />
+      )}
     </section>
   );
 }
