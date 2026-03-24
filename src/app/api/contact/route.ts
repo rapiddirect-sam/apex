@@ -22,6 +22,10 @@ const contactSchema = z.object({
     landingPage: z.string(),
     landingTime: z.string(),
     referrer: z.string(),
+    lastVisitPage: z.string().optional().default(""),
+    trafficChannel: z.string().optional().default(""),
+    adKeyword: z.string().optional().default(""),
+    extraInfo: z.string().optional().default(""),
     visitPath: z.array(z.object({
       page: z.string(),
       timestamp: z.string(),
@@ -228,6 +232,22 @@ export async function POST(request: NextRequest) {
                 <tr>
                   <td style="padding: 6px 0; color: #888;">Landing Time:</td>
                   <td style="padding: 6px 0; color: #C5C6C9;">${new Date(tracking.landingTime).toLocaleString()}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; color: #888;">Last Visit Page:</td>
+                  <td style="padding: 6px 0; color: #C5C6C9;">${sanitizeForHTML(tracking.lastVisitPage || "-")}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; color: #888;">Traffic Channel:</td>
+                  <td style="padding: 6px 0; color: #C5C6C9;">${sanitizeForHTML(tracking.trafficChannel || "-")}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; color: #888;">Ad Keyword:</td>
+                  <td style="padding: 6px 0; color: #C5C6C9;">${sanitizeForHTML(tracking.adKeyword || "-")}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; color: #888;">Extra Info:</td>
+                  <td style="padding: 6px 0; color: #C5C6C9;">${sanitizeForHTML(tracking.extraInfo || "-")}</td>
                 </tr>
               </table>
               <p style="color: #888; margin: 16px 0 8px 0; font-size: 13px;">Pages Visited (${tracking.visitPath.length}):</p>
