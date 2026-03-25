@@ -1,41 +1,30 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Check, Star, ArrowRight } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { getImageUrl } from "@/lib/utils";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
   badge: "Precision Engineering",
-  headingLine1: "Precision",
-  headingLine2: "Manufacturing,",
-  headingLine3: "Built to Last",
+  headingLine1: "Every industrial challenge",
+  headingLine2: "an apex solution",
   description:
     "Your Partner for High-Precision Batch Manufacturing. Industrial-grade quality with rapid turnaround times.",
   ctaPrimary: "Get Instant Quote",
   ctaSecondary: "View Capabilities",
-  socialProofCount: "25M+",
-  socialProofLabel: "Parts Created",
-  socialProofReviews: "22,500+ Happy Customers",
   backgroundImage: getImageUrl("home/1-homepage-banner.webp"),
   features: [
     { highlight: "30-60", text: "Minute quote response" },
     { highlight: "±0.01-0.05mm", text: "Precision control" },
     { highlight: "ISO-certified", text: "Quality system" },
+    { highlight: "End-to-End", text: "Turnkey Solutions" },
     { highlight: "Free", text: "Technical Support" },
   ],
   stats: [
     { value: "15+", label: "Years Experience" },
     { value: "50K+", label: "Projects Done" },
     { value: "99.8%", label: "Accuracy Rate" },
-  ],
-  testimonialFaces: [
-    "https://randomuser.me/api/portraits/men/32.jpg",
-    "https://randomuser.me/api/portraits/women/44.jpg",
-    "https://randomuser.me/api/portraits/men/67.jpg",
-    "https://randomuser.me/api/portraits/women/28.jpg",
   ],
 };
 
@@ -56,12 +45,16 @@ export function Home3Hero() {
       <div
         className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block overflow-hidden"
       >
+        {/* sizes 在移动端为 1px，priority 不会拉全宽大图；桌面端配合 fetchPriority 改善 LCP */}
         <EditableImage
           path="hero.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Manufacturing background"
           fill
+          priority
+          fetchPriority="high"
           sizes="(max-width: 1023px) 1px, 50vw"
+          quality={88}
           style={{ objectFit: "cover" }}
         />
       </div>
@@ -78,12 +71,7 @@ export function Home3Hero() {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 min-h-[calc(100vh-80px)] flex items-center">
         <div className="grid grid-cols-12 gap-8 w-full py-20">
           {/* Left Column - Headlines (spans 7 cols) */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="col-span-12 lg:col-span-7"
-          >
+          <div className="col-span-12 lg:col-span-7">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 border border-[#D09947]/30 rounded mb-8">
               <div className="w-2 h-2 bg-[#D09947] rounded-full animate-pulse" />
@@ -95,22 +83,16 @@ export function Home3Hero() {
               </span>
             </div>
 
-            <h1 className="text-[42px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-extrabold text-white leading-[0.95] tracking-tight uppercase mb-2">
+            <h1 className="text-[34px] sm:text-[40px] md:text-[56px] lg:text-[68px] font-extrabold text-white leading-[0.9] tracking-tight uppercase mb-1">
               <EditableText
                 path="hero.headingLine1"
                 defaultValue={DEFAULTS.headingLine1}
               />
             </h1>
-            <h1 className="text-[42px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-extrabold text-white leading-[0.95] tracking-tight uppercase mb-2">
+            <h1 className="text-[34px] sm:text-[40px] md:text-[56px] lg:text-[68px] font-extrabold text-[#D09947] leading-[0.9] tracking-tight uppercase mb-6">
               <EditableText
                 path="hero.headingLine2"
                 defaultValue={DEFAULTS.headingLine2}
-              />
-            </h1>
-            <h1 className="text-[42px] sm:text-[48px] md:text-[64px] lg:text-[80px] font-extrabold text-[#D09947] leading-[0.95] tracking-tight uppercase mb-8">
-              <EditableText
-                path="hero.headingLine3"
-                defaultValue={DEFAULTS.headingLine3}
               />
             </h1>
 
@@ -146,59 +128,11 @@ export function Home3Hero() {
               </Link>
             </div>
 
-            {/* Social Proof */}
-            <div className="flex items-center gap-6">
-              <div className="flex -space-x-3">
-                {DEFAULTS.testimonialFaces.map((face, i) => (
-                  <div
-                    key={i}
-                    className="w-10 h-10 rounded-full border-2 border-[#000000] overflow-hidden relative"
-                  >
-                    <Image
-                      src={face}
-                      alt={`Customer ${i + 1}`}
-                      fill
-                      sizes="40px"
-                      className="object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-              <div>
-                <p className="text-white text-sm">
-                  <span className="font-bold text-[#D09947]">
-                    <EditableText
-                      path="hero.socialProofCount"
-                      defaultValue={DEFAULTS.socialProofCount}
-                    />
-                  </span>{" "}
-                  <EditableText
-                    path="hero.socialProofLabel"
-                    defaultValue={DEFAULTS.socialProofLabel}
-                  />
-                </p>
-                <div className="flex items-center gap-1">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Star key={i} className="w-3 h-3 fill-[#D09947] text-[#D09947]" />
-                  ))}
-                  <span className="text-[#7A7A7C] text-xs ml-2">
-                    <EditableText
-                      path="hero.socialProofReviews"
-                      defaultValue={DEFAULTS.socialProofReviews}
-                    />
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+            {/* Social Proof section removed per request */}
+          </div>
 
-          {/* Right Column - Feature Card (spans 4 cols, offset) */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="col-span-12 lg:col-span-4 lg:col-start-9 flex items-center"
-          >
+          {/* Right Column - Feature Card (desktop only to reduce mobile first-load cost) */}
+          <div className="hidden lg:flex lg:col-span-4 lg:col-start-9 items-center">
             <div className="bg-[#4A4A48]/40 backdrop-blur-md rounded-lg p-8 w-full border border-[#D09947]/20 relative overflow-hidden">
               {/* Gold glow effect */}
               <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#D09947]/20 rounded-full blur-3xl" />
@@ -246,7 +180,7 @@ export function Home3Hero() {
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
