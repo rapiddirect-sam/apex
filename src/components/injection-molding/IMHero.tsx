@@ -24,6 +24,7 @@ export function IMHero() {
           defaultSrc={DEFAULTS.heroImage}
           alt="Plastic Injection Molding Manufacturer"
           fill
+          sizes="100vw"
           style={{ objectFit: "cover" }}
         />
 

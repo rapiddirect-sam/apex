@@ -24,6 +24,7 @@ export function SMHero() {
           defaultSrc={DEFAULTS.heroImage}
           alt="Sheet Metal Fabrication Services"
           fill
+          sizes="100vw"
           style={{ objectFit: "cover" }}
         />
 

@@ -52,7 +52,8 @@ export function EditableImage({
   const currentSrc = getContentValue(path, defaultSrc);
   // Default 90 balances sharpness vs LCP; override with quality={100} where needed.
   const imageQuality = quality ?? 90;
-  const imageSizes = sizes ?? (fill ? "100vw" : undefined);
+  // Smart default: use provided sizes, or a responsive default that limits generated variants
+  const imageSizes = sizes ?? (fill ? "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" : undefined);
 
   const handleUpload = async (file: File) => {
     setIsUploading(true);

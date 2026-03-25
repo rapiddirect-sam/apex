@@ -23,6 +23,7 @@ export function EXCTA() {
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Extrusion Manufacturing"
           fill
+          sizes="100vw"
         />
         <div
           className="absolute inset-0"

@@ -28,6 +28,7 @@ export function QualityHero() {
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Quality background"
           fill
+          sizes="100vw"
           style={{ objectFit: "cover" }}
         />
 

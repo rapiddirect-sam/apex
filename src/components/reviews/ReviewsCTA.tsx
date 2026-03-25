@@ -29,6 +29,7 @@ export function ReviewsCTA() {
           defaultSrc={DEFAULTS.backgroundImage}
           alt="CTA background"
           fill
+          sizes="100vw"
           style={{ objectFit: "cover" }}
         />
         <div

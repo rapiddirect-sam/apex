@@ -23,6 +23,7 @@ export function SFCTA() {
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Surface finishing CTA"
           fill
+          sizes="100vw"
           style={{ objectFit: "cover" }}
         />
         <div

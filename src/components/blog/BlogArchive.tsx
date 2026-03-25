@@ -83,6 +83,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
             src={getImageUrl("home/3-our-services-cnc-machining.webp")}
             alt=""
             fill
+            sizes="100vw"
             style={{ objectFit: "cover" }}
             priority
           />
@@ -310,6 +311,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                         src={featuredPost.featuredImage}
                         alt={featuredPost.title}
                         fill
+                        sizes="(max-width: 768px) 100vw, 60vw"
                         style={{ objectFit: "cover", transition: "transform 0.5s" }}
                         className="group-hover:scale-105"
                       />
@@ -396,7 +398,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                           background: "#F5F5F5",
                         }}>
                           {post.featuredImage ? (
-                            <Image src={post.featuredImage} alt={post.title} fill style={{ objectFit: "cover" }} />
+                            <Image src={post.featuredImage} alt={post.title} fill sizes="64px" style={{ objectFit: "cover" }} />
                           ) : (
                             <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
                               <FileText size={16} style={{ color: "#D4D4D4" }} />
@@ -622,6 +624,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                               src={post.featuredImage}
                               alt={post.title}
                               fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                               style={{ objectFit: "cover", transition: "transform 0.5s" }}
                               className="group-hover:scale-105"
                             />

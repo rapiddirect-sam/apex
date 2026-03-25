@@ -271,6 +271,7 @@ export function BlogPostContent({
                   src={post.featuredImage}
                   alt={post.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   style={{ objectFit: "cover" }}
                   priority
                 />
@@ -795,6 +796,7 @@ export function BlogPostContent({
                                 src={rp.featuredImage}
                                 alt={rp.title}
                                 fill
+                                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                 style={{ objectFit: "cover", transition: "transform 0.5s" }}
                                 className="group-hover:scale-105"
                               />
@@ -907,7 +909,7 @@ export function BlogPostContent({
                       }}
                     >
                       {p.featuredImage ? (
-                        <Image src={p.featuredImage} alt={p.title} fill style={{ objectFit: "cover" }} />
+                        <Image src={p.featuredImage} alt={p.title} fill sizes="64px" style={{ objectFit: "cover" }} />
                       ) : (
                         <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <FileText size={16} style={{ color: "#D4D4D4" }} />

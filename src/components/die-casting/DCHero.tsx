@@ -29,6 +29,7 @@ export function DCHero() {
           defaultSrc={DEFAULTS.heroImage}
           alt="Die Casting Services"
           fill
+          sizes="100vw"
           style={{ objectFit: "cover" }}
         />
 

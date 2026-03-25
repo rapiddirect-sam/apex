@@ -30,6 +30,7 @@ export function EXHero() {
           defaultSrc={DEFAULTS.heroImage}
           alt="Plastic Extrusion Services"
           fill
+          sizes="100vw"
           style={{ objectFit: "cover" }}
         />
 

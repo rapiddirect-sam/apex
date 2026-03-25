@@ -24,6 +24,7 @@ export function CNCHero() {
           defaultSrc={DEFAULTS.heroImage}
           alt="Custom CNC Machining Services"
           fill
+          sizes="100vw"
           style={{ objectFit: "cover" }}
         />
 

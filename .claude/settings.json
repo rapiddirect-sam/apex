@@ -3,5 +3,10 @@
     "enabled": [
       "frontend-design@claude-code-plugins"
     ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git rebase:*)"
+    ]
   }
 }

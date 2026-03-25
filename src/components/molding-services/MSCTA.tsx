@@ -17,7 +17,7 @@ export function MSCTA() {
   return (
     <section className="relative overflow-hidden" style={{ padding: "120px 0" }}>
       <div className="absolute inset-0">
-        <EditableImage path="cta.backgroundImage" defaultSrc={DEFAULTS.backgroundImage} alt="Molding Services Fabrication" fill />
+        <EditableImage path="cta.backgroundImage" defaultSrc={DEFAULTS.backgroundImage} alt="Molding Services Fabrication" fill sizes="100vw" />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.6) 100%)" }} />
       </div>
       <div className="relative max-w-[1200px] mx-auto px-6">

@@ -37,6 +37,7 @@ export function AboutCTA() {
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Manufacturing background"
           fill
+          sizes="100vw"
           style={{
             objectFit: "cover",
           }}

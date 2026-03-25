@@ -23,6 +23,7 @@ export function SFHero() {
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Surface finishing hero background"
           fill
+          sizes="100vw"
           style={{ objectFit: "cover" }}
         />
 

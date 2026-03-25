@@ -44,6 +44,7 @@ export function MaterialsCTA() {
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Custom Materials"
           fill
+          sizes="100vw"
         />
         <div
           className="absolute inset-0"

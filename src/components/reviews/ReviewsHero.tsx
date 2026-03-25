@@ -26,6 +26,7 @@ export function ReviewsHero() {
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Reviews hero background"
           fill
+          sizes="100vw"
           style={{ objectFit: "cover" }}
         />
 

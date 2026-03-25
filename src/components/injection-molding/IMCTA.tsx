@@ -23,6 +23,7 @@ export function IMCTA() {
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Injection Molding Manufacturing"
           fill
+          sizes="100vw"
         />
         <div
           className="absolute inset-0"

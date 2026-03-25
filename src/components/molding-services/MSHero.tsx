@@ -24,6 +24,7 @@ export function MSHero() {
           defaultSrc={DEFAULTS.heroImage}
           alt="Molding Services Fabrication Services"
           fill
+          sizes="100vw"
           style={{ objectFit: "cover" }}
         />
 

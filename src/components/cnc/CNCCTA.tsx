@@ -22,6 +22,7 @@ export function CNCCTA() {
           defaultSrc={DEFAULTS.backgroundImage}
           alt="CNC Manufacturing"
           fill
+          sizes="100vw"
         />
         <div
           className="absolute inset-0"

@@ -28,6 +28,7 @@ export function MaterialsHero() {
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Materials library hero background"
           fill
+          sizes="100vw"
           style={{ objectFit: "cover" }}
         />
 

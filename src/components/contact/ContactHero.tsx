@@ -33,6 +33,7 @@ export function ContactHero() {
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Contact banner"
           fill
+          sizes="100vw"
           style={{
             objectFit: "cover",
             objectPosition: "center",

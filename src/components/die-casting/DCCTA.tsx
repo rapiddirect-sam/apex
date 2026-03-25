@@ -22,6 +22,7 @@ export function DCCTA() {
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Die Casting Manufacturing"
           fill
+          sizes="100vw"
         />
         <div
           className="absolute inset-0"
