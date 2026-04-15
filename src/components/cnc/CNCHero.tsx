@@ -56,14 +56,14 @@ export function CNCHero() {
         />
       </div>
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
             "linear-gradient(92deg, rgba(8,8,8,0.72) 0%, rgba(8,8,8,0.58) 42%, rgba(8,8,8,0.35) 70%, rgba(8,8,8,0.55) 100%)",
         }}
       />
       <div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 pointer-events-none opacity-30"
         style={{
           background:
             "radial-gradient(circle at 68% 28%, rgba(238,197,105,0.1), rgba(0,0,0,0) 38%)",

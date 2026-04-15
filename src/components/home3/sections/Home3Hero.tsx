@@ -65,13 +65,16 @@ export function Home3Hero() {
         />
       </div>
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
             "linear-gradient(92deg, rgba(6,6,6,0.92) 0%, rgba(6,6,6,0.82) 36%, rgba(6,6,6,0.56) 62%, rgba(6,6,6,0.7) 100%)",
         }}
       />
-      <div className="absolute inset-0 opacity-35" style={{ background: "radial-gradient(circle at 68% 14%, rgba(238,197,105,0.2), rgba(0,0,0,0) 34%)" }} />
+      <div
+        className="absolute inset-0 pointer-events-none opacity-35"
+        style={{ background: "radial-gradient(circle at 68% 14%, rgba(238,197,105,0.2), rgba(0,0,0,0) 34%)" }}
+      />
 
       <div className="relative max-w-[1240px] mx-auto px-6 lg:px-8 min-h-[calc(84vh-80px)] flex items-center">
         <div className="grid grid-cols-12 gap-6 lg:gap-8 w-full py-14 lg:py-16">
@@ -236,15 +239,15 @@ export function Home3Hero() {
                 <div
                   key={`${logo.alt}-${index}`}
                   className="shrink-0 flex items-center justify-center"
-                  style={{ width: "16.6667%", minWidth: "170px", paddingInline: "14px" }}
+                  style={{ width: "16.6667%", minWidth: "132px", paddingInline: "10px" }}
                 >
-                  <div className="relative w-full h-9 opacity-95">
+                  <div className="relative mx-auto w-full max-w-[112px] h-7 opacity-95">
                     <EditableImage
                       path={`hero.logos.${editableIndex}.src`}
                       defaultSrc={logo.src}
                       alt={logo.alt}
                       fill
-                      sizes="170px"
+                      sizes="112px"
                       quality={90}
                       unoptimized
                       style={{ objectFit: "contain" }}
