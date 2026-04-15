@@ -2,50 +2,56 @@
 
 import { Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { getImageUrl } from "@/lib/utils";
 import { EditableText, EditableImage } from "@/components/cms";
 
+function createLogoPlaceholder(label: string): string {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="240" height="64" viewBox="0 0 240 64">
+    <rect width="240" height="64" rx="10" fill="#131313"/>
+    <text x="120" y="39" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#ececec">${label}</text>
+  </svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
+
 const DEFAULTS = {
   badge: "Precision Engineering",
-  headingLine1: "Every industrial challenge",
-  headingLine2: "an apex solution",
+  headingLine1: "EVERY INDUSTRIAL CHALLENGE,",
+  headingLine2: "AN APEX SOLUTION",
   description:
-    "Your Partner for High-Precision Batch Manufacturing. Industrial-grade quality with rapid turnaround times.",
-  ctaPrimary: "Get Instant Quote",
-  ctaSecondary: "View Capabilities",
+    "We are a precision manufacturing partner from prototype to production, delivering fast, reliable parts you can trust.",
+  ctaPrimary: "Get Free Instant Quote",
+  ctaSecondary: "Upload Your Design",
   backgroundImage: getImageUrl("home/1-homepage-banner.webp"),
+  certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 4001:2015"],
   features: [
-    { highlight: "30-60", text: "Minute quote response" },
+    { highlight: "Fast Quotes:", text: "2-Hour Response Time" },
     { highlight: "±0.01-0.05mm", text: "Precision control" },
     { highlight: "ISO-certified", text: "Quality system" },
     { highlight: "End-to-End", text: "Turnkey Solutions" },
-    { highlight: "Free", text: "Technical Support" },
+    { highlight: "Free Expert", text: "Technical Support for All Projects" },
   ],
   stats: [
-    { value: "15+", label: "Years Experience" },
-    { value: "50K+", label: "Projects Done" },
-    { value: "99.8%", label: "Accuracy Rate" },
+    { value: "15+", label: "Years of Precision Manufacturing Experience" },
+    { value: "50K", label: "SKU Projects Delivered for Global Clients" },
+    { value: "99.8%", label: "First-time Accuracy Rate (Global Benchmark)" },
+  ],
+  logos: [
+    { alt: "Stryker", src: createLogoPlaceholder("stryker") },
+    { alt: "Rockwell Automation", src: createLogoPlaceholder("Rockwell") },
+    { alt: "Honeywell", src: createLogoPlaceholder("Honeywell") },
+    { alt: "DJI", src: createLogoPlaceholder("DJI") },
+    { alt: "Tesla", src: createLogoPlaceholder("TESLA") },
+    { alt: "Festo", src: createLogoPlaceholder("FESTO") },
   ],
 };
 
 export function Home3Hero() {
-  return (
-    <section className="relative min-h-screen bg-[#000000] pt-20 overflow-hidden">
-      {/* Grid pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(208, 153, 71, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(208, 153, 71, 0.05) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
+  const marqueeLogos = [...DEFAULTS.logos, ...DEFAULTS.logos];
 
-      {/* Background image - right side only */}
-      <div
-        className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block overflow-hidden"
-      >
-        {/* sizes 在移动端为 1px，priority 不会拉全宽大图；桌面端配合 fetchPriority 改善 LCP */}
+  return (
+    <section className="relative min-h-[84vh] bg-[#060606] pt-20 overflow-hidden">
+      <div className="absolute inset-0">
         <EditableImage
           path="hero.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
@@ -53,29 +59,25 @@ export function Home3Hero() {
           fill
           priority
           fetchPriority="high"
-          sizes="(max-width: 1023px) 1px, 50vw"
+          sizes="100vw"
           quality={88}
           style={{ objectFit: "cover" }}
         />
       </div>
-      {/* Diagonal gradient overlay on image */}
-      <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-gradient-to-r from-[#000000] via-[#000000]/80 to-transparent hidden lg:block" />
-
-      {/* Diagonal gold accent line */}
       <div
-        className="absolute top-40 left-0 w-[200px] h-[2px] bg-gradient-to-r from-[#D09947] to-transparent hidden lg:block"
-        style={{ transform: "rotate(-45deg) translateX(-50px)" }}
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(92deg, rgba(6,6,6,0.92) 0%, rgba(6,6,6,0.82) 36%, rgba(6,6,6,0.56) 62%, rgba(6,6,6,0.7) 100%)",
+        }}
       />
+      <div className="absolute inset-0 opacity-35" style={{ background: "radial-gradient(circle at 68% 14%, rgba(238,197,105,0.2), rgba(0,0,0,0) 34%)" }} />
 
-      {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 min-h-[calc(100vh-80px)] flex items-center">
-        <div className="grid grid-cols-12 gap-8 w-full py-20">
-          {/* Left Column - Headlines (spans 7 cols) */}
+      <div className="relative max-w-[1240px] mx-auto px-6 lg:px-8 min-h-[calc(84vh-80px)] flex items-center">
+        <div className="grid grid-cols-12 gap-6 lg:gap-8 w-full py-14 lg:py-16">
           <div className="col-span-12 lg:col-span-7">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 border border-[#D09947]/30 rounded mb-8">
-              <div className="w-2 h-2 bg-[#D09947] rounded-full animate-pulse" />
-              <span className="text-[#D09947] text-xs font-medium uppercase tracking-[0.2em]">
+            <div className="inline-flex items-center px-3 py-1.5 border border-[#D09947]/35 rounded-md mb-5 bg-black/35">
+              <span className="text-[#D09947] text-[10px] font-semibold uppercase tracking-[0.2em]">
                 <EditableText
                   path="hero.badge"
                   defaultValue={DEFAULTS.badge}
@@ -83,20 +85,20 @@ export function Home3Hero() {
               </span>
             </div>
 
-            <h1 className="text-[34px] sm:text-[40px] md:text-[56px] lg:text-[68px] font-extrabold text-white leading-[0.9] tracking-tight uppercase mb-1">
+            <h1 className="text-[36px] sm:text-[42px] md:text-[54px] lg:text-[56px] font-extrabold text-white leading-[0.98] tracking-tight uppercase mb-1">
               <EditableText
                 path="hero.headingLine1"
                 defaultValue={DEFAULTS.headingLine1}
               />
             </h1>
-            <h1 className="text-[34px] sm:text-[40px] md:text-[56px] lg:text-[68px] font-extrabold text-[#D09947] leading-[0.9] tracking-tight uppercase mb-6">
+            <h1 className="text-[36px] sm:text-[42px] md:text-[54px] lg:text-[56px] font-extrabold text-[#E2B45A] leading-[0.98] tracking-tight uppercase mb-5">
               <EditableText
                 path="hero.headingLine2"
                 defaultValue={DEFAULTS.headingLine2}
               />
             </h1>
 
-            <p className="text-[#7A7A7C] text-lg max-w-xl mb-10 leading-relaxed">
+            <p className="text-[#D1D1D1] text-[15px] lg:text-base max-w-xl mb-7 leading-relaxed">
               <EditableText
                 path="hero.description"
                 defaultValue={DEFAULTS.description}
@@ -104,12 +106,50 @@ export function Home3Hero() {
               />
             </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4 mb-12">
+            <div className="flex flex-wrap items-center gap-3 mb-5 text-[11px] text-[#E4E4E4]">
+              {DEFAULTS.certifications.map((cert, index) => (
+                <div key={cert} className="inline-flex items-center gap-2">
+                  <span
+                    className="inline-flex items-center justify-center"
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                    }}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M12 3.2 5.4 6.1v5.2c0 4.2 2.9 8 6.6 9.1 3.7-1.1 6.6-4.9 6.6-9.1V6.1L12 3.2Z"
+                        stroke="#EEC569"
+                        strokeWidth="2"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="m9.1 12.2 1.9 1.9 3.8-3.8"
+                        stroke="#EEC569"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <span className="uppercase tracking-[0.08em]">
+                    <EditableText
+                      path={`hero.certifications.${index}`}
+                      defaultValue={cert}
+                    />
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap gap-3">
               <Link
                 href="https://app.apexbatch.com/"
                 rel="nofollow"
-                className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider flex items-center gap-2 group"
+                className="text-[#1A1A1A] font-bold py-3.5 px-6 rounded-md text-xs transition-all uppercase tracking-[0.11em] flex items-center gap-2 group shadow-[0_8px_22px_rgba(238,197,105,0.4)]"
+                style={{
+                  background: "linear-gradient(90deg, #D8AC4E 0%, #F1DB9A 100%)",
+                }}
               >
                 <EditableText
                   path="hero.ctaPrimary"
@@ -119,7 +159,7 @@ export function Home3Hero() {
               </Link>
               <Link
                 href="#services"
-                className="border border-[#4A4A48] hover:border-[#D09947] text-white font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider"
+                className="border border-white/30 hover:border-[#D09947] bg-[#181818]/72 text-white font-bold py-3.5 px-6 rounded-md text-xs transition-all uppercase tracking-[0.11em] shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
               >
                 <EditableText
                   path="hero.ctaSecondary"
@@ -127,25 +167,19 @@ export function Home3Hero() {
                 />
               </Link>
             </div>
-
-            {/* Social Proof section removed per request */}
           </div>
 
-          {/* Right Column - Feature Card (desktop only to reduce mobile first-load cost) */}
-          <div className="hidden lg:flex lg:col-span-4 lg:col-start-9 items-center">
-            <div className="bg-[#4A4A48]/40 backdrop-blur-md rounded-lg p-8 w-full border border-[#D09947]/20 relative overflow-hidden">
-              {/* Gold glow effect */}
-              <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#D09947]/20 rounded-full blur-3xl" />
-
-              {/* Feature List */}
-              <ul className="space-y-5 mb-8 relative">
+          <div className="hidden lg:flex lg:col-span-5 lg:col-start-8 items-center">
+            <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 w-full border border-white/24 relative overflow-hidden">
+              <div className="absolute -top-16 -right-16 w-40 h-40 bg-[#D09947]/15 rounded-full blur-3xl" />
+              <ul className="space-y-3.5 mb-6 relative">
                 {DEFAULTS.features.map((feature, index) => (
-                  <li key={index} className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-[#D09947]/10 border border-[#D09947]/30 rounded flex items-center justify-center flex-shrink-0">
-                      <Check className="w-4 h-4 text-[#D09947]" />
+                  <li key={index} className="flex items-center gap-2.5">
+                    <div className="w-5 h-5 rounded-full bg-[#EEC569] flex items-center justify-center flex-shrink-0">
+                      <Check className="w-3 h-3 text-[#191919]" strokeWidth={3} />
                     </div>
-                    <span className="text-white text-sm">
-                      <span className="text-[#D09947] font-semibold">
+                    <span className="text-[#E5E5E5] text-[14px] leading-tight">
+                      <span className="text-[#E2B45A] font-semibold">
                         <EditableText
                           path={`hero.features.${index}.highlight`}
                           defaultValue={feature.highlight}
@@ -160,17 +194,16 @@ export function Home3Hero() {
                 ))}
               </ul>
 
-              {/* Stats Row */}
-              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-[#D09947]/20">
+              <div className="grid grid-cols-3 gap-3 pt-5 border-t border-white/15">
                 {DEFAULTS.stats.map((stat, index) => (
                   <div key={index} className="text-center">
-                    <div className="text-[#D09947] text-2xl font-bold">
+                    <div className="text-[#E2B45A] text-[32px] font-bold leading-none">
                       <EditableText
                         path={`hero.stats.${index}.value`}
                         defaultValue={stat.value}
                       />
                     </div>
-                    <div className="text-[#7A7A7C] text-[10px] uppercase tracking-wider">
+                    <div className="text-[#B3B3B3] text-[10px] mt-1 leading-tight">
                       <EditableText
                         path={`hero.stats.${index}.label`}
                         defaultValue={stat.label}
@@ -184,8 +217,45 @@ export function Home3Hero() {
         </div>
       </div>
 
-      {/* Bottom diagonal accent */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D09947]/50 to-transparent" />
+      <div
+        className="relative border-t border-white/10"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(32,32,32,0.62) 0%, rgba(20,20,20,0.78) 100%)",
+        }}
+      >
+        <div className="max-w-[1240px] mx-auto px-6 lg:px-8 overflow-hidden">
+          <motion.div
+            className="flex items-center py-5"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+          >
+            {marqueeLogos.map((logo, index) => {
+              const editableIndex = index % DEFAULTS.logos.length;
+              return (
+                <div
+                  key={`${logo.alt}-${index}`}
+                  className="shrink-0 flex items-center justify-center"
+                  style={{ width: "16.6667%", minWidth: "170px", paddingInline: "14px" }}
+                >
+                  <div className="relative w-full h-9 opacity-95">
+                    <EditableImage
+                      path={`hero.logos.${editableIndex}.src`}
+                      defaultSrc={logo.src}
+                      alt={logo.alt}
+                      fill
+                      sizes="170px"
+                      quality={90}
+                      unoptimized
+                      style={{ objectFit: "contain" }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 }

@@ -101,6 +101,45 @@ export function CNCTolerance() {
             </table>
           </div>
         </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mx-auto mt-8 flex max-w-[1200px] items-center justify-center gap-3"
+        >
+          <span
+            className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full"
+            style={{ background: "#D09947" }}
+            aria-hidden="true"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M9 18H15M9.5 21H14.5M12 3C8.68629 3 6 5.68629 6 9C6 11.0902 7.07097 12.9303 8.69409 14.0027C9.12042 14.2844 9.33358 14.4252 9.44643 14.5665C9.55813 14.7065 9.61059 14.8202 9.67383 15C9.73765 15.1815 9.73765 15.4078 9.73765 15.8605V16H14.2623V15.8605C14.2623 15.4078 14.2623 15.1815 14.3262 15C14.3894 14.8202 14.4419 14.7065 14.5536 14.5665C14.6664 14.4252 14.8796 14.2844 15.3059 14.0027C16.929 12.9303 18 11.0902 18 9C18 5.68629 15.3137 3 12 3Z"
+                stroke="#FFFFFF"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+          <p className="text-center" style={{ color: "#F3F3F3", fontSize: "16px", lineHeight: 1.6 }}>
+            Check Your Design for Manufacturability, Get tolerance review and pricing in minutes.{" "}
+            <a
+              href="https://app.apexbatch.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "#EEC569",
+                textDecoration: "underline",
+                textUnderlineOffset: "3px",
+                fontWeight: 700,
+              }}
+            >
+              Upload your design
+            </a>
+          </p>
+        </motion.div>
       </div>
     </section>
   );

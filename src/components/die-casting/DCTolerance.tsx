@@ -144,7 +144,6 @@ export function DCTolerance() {
             </table>
           </div>
         </motion.div>
-
         {/* Footnote */}
         <motion.div
           initial={{ opacity: 0 }}

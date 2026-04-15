@@ -30,12 +30,12 @@ export function CNCPageClient({ initialContent, initialVersion }: CNCPageClientP
       <Home3Header />
       <main>
         <CNCHero />
-        <CNCSupplier />
         <CNCServices />
         <CNCParts />
+        <CNCTolerance />
+        <CNCSupplier />
         <CNCWhyChoose />
         <CNCProcess />
-        <CNCTolerance />
         <CNCMaterials />
         <CNCSurfaceFinishes />
         <CNCCTA />

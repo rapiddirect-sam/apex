@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, X } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { EditableText, EditableImage } from "@/components/cms";
+import { useCMS } from "@/contexts/CMSContext";
 
 const DEFAULTS = {
   heading: "Die Casting Parts ",
@@ -63,9 +64,19 @@ const DEFAULTS = {
 };
 
 export function DCParts() {
+  const { getContentValue } = useCMS();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxIndex(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   const checkScroll = () => {
     const el = scrollRef.current;
@@ -168,9 +179,15 @@ export function DCParts() {
                 onMouseEnter={(e) => { e.currentTarget.style.border = "1px solid rgba(208,153,71,0.3)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.4)"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.border = "1px solid rgba(255,255,255,0.08)"; e.currentTarget.style.boxShadow = "none"; }}
               >
-                <div className="relative mx-auto overflow-hidden" style={{ width: "74px", height: "74px", borderRadius: "12px", background: "#2A2A2A", marginBottom: "16px" }}>
+                <button
+                  type="button"
+                  className="relative mx-auto block cursor-zoom-in overflow-hidden border-0 p-0"
+                  style={{ width: "74px", height: "74px", borderRadius: "12px", background: "#2A2A2A", marginBottom: "16px" }}
+                  onClick={() => setLightboxIndex(index)}
+                  aria-label={`Enlarge image: ${part.title}`}
+                >
                   <EditableImage path={`parts.items.${index}.image`} defaultSrc={part.image} alt={part.title} fill className="object-cover" />
-                </div>
+                </button>
                 <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#FFFFFF", marginBottom: "10px", lineHeight: 1.3 }}>
                   <EditableText path={`parts.items.${index}.title`} defaultValue={part.title} />
                 </h3>
@@ -206,6 +223,33 @@ export function DCParts() {
           </Link>
         </motion.div>
       </div>
+
+      {lightboxIndex !== null && DEFAULTS.parts[lightboxIndex] && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Enlarged part image"
+          onClick={() => setLightboxIndex(null)}
+        >
+          <button
+            type="button"
+            className="absolute right-4 top-4 z-[101] flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white transition-colors hover:bg-black/80"
+            onClick={() => setLightboxIndex(null)}
+            aria-label="Close"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          <div className="max-h-[90vh] max-w-[95vw]" onClick={(e) => e.stopPropagation()}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={String(getContentValue(`parts.items.${lightboxIndex}.image`, DEFAULTS.parts[lightboxIndex].image))}
+              alt={DEFAULTS.parts[lightboxIndex].title}
+              className="max-h-[90vh] max-w-[95vw] object-contain"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

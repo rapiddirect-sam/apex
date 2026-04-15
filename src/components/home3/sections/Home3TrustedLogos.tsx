@@ -22,37 +22,57 @@ const DEFAULTS = {
 };
 
 export function Home3TrustedLogos() {
+  const marqueeLogos = [...DEFAULTS.logos, ...DEFAULTS.logos];
+
   return (
-    <section className="py-10 bg-[#1A1A1A]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="py-5 bg-[#151515] border-y border-white/5">
+      <div className="max-w-[1240px] mx-auto px-6 lg:px-8 overflow-hidden">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="grid grid-cols-5 items-center gap-4 md:gap-6"
+          className="relative"
         >
-          {DEFAULTS.logos.map((logo, index) => (
-            <div
-              key={logo.alt}
-              style={{
-                width: "100%",
-                height: "56px",
-                position: "relative",
-                opacity: 0.85,
-              }}
-            >
-              <EditableImage
-                path={`trustedLogos.items.${index}.src`}
-                defaultSrc={logo.src}
-                alt={logo.alt}
-                fill
-                sizes="(max-width: 768px) 42vw, 220px"
-                quality={90}
-                unoptimized
-                style={{ objectFit: "contain" }}
-              />
-            </div>
-          ))}
+          <motion.div
+            className="flex items-center"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+          >
+            {marqueeLogos.map((logo, index) => {
+              const editableIndex = index % DEFAULTS.logos.length;
+              return (
+                <div
+                  key={`${logo.alt}-${index}`}
+                  className="shrink-0 flex items-center justify-center"
+                  style={{
+                    width: "20%",
+                    minWidth: "180px",
+                    paddingInline: "20px",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "48px",
+                      position: "relative",
+                      opacity: 0.92,
+                    }}
+                  >
+                    <EditableImage
+                      path={`trustedLogos.items.${editableIndex}.src`}
+                      defaultSrc={logo.src}
+                      alt={logo.alt}
+                      fill
+                      sizes="200px"
+                      quality={90}
+                      unoptimized
+                      style={{ objectFit: "contain" }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </motion.div>
         </motion.div>
       </div>
     </section>

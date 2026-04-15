@@ -180,6 +180,31 @@ export function IMServices() {
             ))}
           </div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex justify-center"
+          style={{ marginTop: "40px" }}
+        >
+          <a
+            href="https://app.apexbatch.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-xl transition-colors duration-200 hover:bg-[#E3B95F]"
+            style={{
+              padding: "16px 36px",
+              background: "#D09947",
+              color: "#111111",
+              fontSize: "18px",
+              fontWeight: 800,
+              textDecoration: "none",
+            }}
+          >
+            Upload Your Design
+          </a>
+        </motion.div>
       </div>
     </section>
   );

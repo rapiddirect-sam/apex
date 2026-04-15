@@ -30,10 +30,9 @@ export function DCPageClient({ initialContent, initialVersion }: DCPageClientPro
       <main>
         <DCHero />
         <DCServices />
-        <DCSupplier />
-        <DCTolerance />
         <DCParts />
-
+        <DCTolerance />
+        <DCSupplier />
         <DCWhyChoose />
         <DCMaterials />
         <DCSurfaceFinishes />

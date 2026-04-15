@@ -28,11 +28,11 @@ export function EXPageClient({ initialContent, initialVersion }: EXPageClientPro
       <main>
         <EXHero />
         <EXServices />
-        <EXSupplier />
-        <EXTolerance />
         <EXParts />
-        <EXProcess />
+        <EXTolerance />
+        <EXSupplier />
         <EXWhyChoose />
+        <EXProcess />
         <EXMaterials />
         <EXSurfaceFinishes />
         <Home3Certifications />

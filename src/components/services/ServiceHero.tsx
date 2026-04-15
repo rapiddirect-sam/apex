@@ -13,13 +13,23 @@ function createLogoPlaceholder(label: string): string {
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 }
 
-const DEFAULTS = {
-  titlePrefix: "Precision ",
-  titleHighlight: "CNC Machining Services",
-  description:
-    "From rapid prototyping to batch production, we ensure tolerances are strictly controlled within \u00B10.005 mm and offer global shipping services with delivery as fast as 3 days.",
-  heroImage:
-    "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp",
+type ServiceHeroMetric = {
+  value: string;
+  label: string;
+};
+
+type ServiceHeroDefaults = {
+  title: string;
+  description: string;
+  heroImage: string;
+  ctaPrimary?: string;
+  ctaSecondary?: string;
+  certifications?: string[];
+  logos?: { alt: string; src: string }[];
+  metrics?: ServiceHeroMetric[];
+};
+
+const SHARED_DEFAULTS = {
   ctaPrimary: "Start Free Quote",
   ctaSecondary: "Upload Your Design",
   certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 4001:2015"],
@@ -39,16 +49,22 @@ const DEFAULTS = {
   ],
 };
 
-export function CNCHero() {
-  const marqueeLogos = [...DEFAULTS.logos, ...DEFAULTS.logos];
+export function ServiceHero({ defaults }: { defaults: ServiceHeroDefaults }) {
+  const merged = {
+    ...SHARED_DEFAULTS,
+    ...defaults,
+  };
+  const marqueeLogos = [...merged.logos, ...merged.logos];
+  const [firstWord, ...restWords] = merged.title.trim().split(/\s+/);
+  const restTitle = restWords.join(" ");
 
   return (
     <section className="relative bg-[#060606] pt-16 overflow-hidden">
       <div className="absolute inset-0">
         <EditableImage
           path="hero.image"
-          defaultSrc={DEFAULTS.heroImage}
-          alt="Custom CNC Machining Services"
+          defaultSrc={merged.heroImage}
+          alt={merged.title}
           fill
           priority
           sizes="100vw"
@@ -79,20 +95,22 @@ export function CNCHero() {
             className="max-w-[920px]"
           >
             <h1
-              className="text-[#F5F5F5] font-extrabold tracking-tight leading-[1.08]"
+              className="font-extrabold tracking-tight leading-[1.08]"
               style={{
                 fontSize: "clamp(36px, 4.5vw, 56px)",
                 marginBottom: "18px",
                 maxWidth: "920px",
               }}
             >
-              <EditableText path="hero.titlePrefix" defaultValue={DEFAULTS.titlePrefix} />
-              <span className="text-[#E7C56F]">
-                <EditableText
-                  path="hero.titleHighlight"
-                  defaultValue={DEFAULTS.titleHighlight}
-                />
+              <span className="text-[#F5F5F5]">
+                <EditableText path="hero.titlePrefix" defaultValue={firstWord} />
               </span>
+              {restTitle ? (
+                <span className="text-[#E7C56F]">
+                  {" "}
+                  <EditableText path="hero.titleHighlight" defaultValue={restTitle} />
+                </span>
+              ) : null}
             </h1>
 
             <p
@@ -104,20 +122,13 @@ export function CNCHero() {
                 maxWidth: "860px",
               }}
             >
-              <EditableText
-                path="hero.description"
-                defaultValue={DEFAULTS.description}
-                multiline
-              />
+              <EditableText path="hero.description" defaultValue={merged.description} multiline />
             </p>
 
             <div className="flex flex-wrap items-center gap-6 mb-7 text-[13px] text-[#ECECEC]">
-              {DEFAULTS.certifications.map((cert, index) => (
+              {merged.certifications.map((cert, index) => (
                 <div key={cert} className="inline-flex items-center gap-2">
-                  <span
-                    className="inline-flex items-center justify-center"
-                    style={{ width: "18px", height: "18px" }}
-                  >
+                  <span className="inline-flex items-center justify-center" style={{ width: "18px", height: "18px" }}>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                       <path
                         d="M12 3.2 5.4 6.1v5.2c0 4.2 2.9 8 6.6 9.1 3.7-1.1 6.6-4.9 6.6-9.1V6.1L12 3.2Z"
@@ -148,7 +159,7 @@ export function CNCHero() {
                 className="text-[#1A1A1A] font-bold py-3.5 px-7 rounded-md text-xs transition-all uppercase tracking-[0.11em] flex items-center gap-2 group shadow-[0_8px_22px_rgba(238,197,105,0.4)]"
                 style={{ background: "linear-gradient(90deg, #D8AC4E 0%, #F1DB9A 100%)" }}
               >
-                <EditableText path="hero.ctaPrimary" defaultValue={DEFAULTS.ctaPrimary} />
+                <EditableText path="hero.ctaPrimary" defaultValue={merged.ctaPrimary} />
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
@@ -156,7 +167,7 @@ export function CNCHero() {
                 rel="nofollow"
                 className="border border-[#D6B56E]/40 hover:border-[#D6B56E] bg-[#1A1A1A]/72 text-white font-bold py-3.5 px-7 rounded-md text-xs transition-all uppercase tracking-[0.11em] shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
               >
-                <EditableText path="hero.ctaSecondary" defaultValue={DEFAULTS.ctaSecondary} />
+                <EditableText path="hero.ctaSecondary" defaultValue={merged.ctaSecondary} />
               </Link>
             </div>
 
@@ -167,7 +178,7 @@ export function CNCHero() {
                 transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
               >
                 {marqueeLogos.map((logo, index) => {
-                  const editableIndex = index % DEFAULTS.logos.length;
+                  const editableIndex = index % merged.logos.length;
                   return (
                     <div
                       key={`${logo.alt}-${index}`}
@@ -191,7 +202,6 @@ export function CNCHero() {
                 })}
               </motion.div>
             </div>
-
           </motion.div>
         </div>
       </div>
@@ -206,7 +216,7 @@ export function CNCHero() {
         >
           <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-5 py-5">
-              {DEFAULTS.metrics.map((item, index) => (
+              {merged.metrics.map((item, index) => (
                 <div key={index} className="text-center">
                   <div className="text-[#D7AE5A] text-[16px] md:text-[18px] font-semibold leading-snug">
                     <EditableText path={`hero.metrics.${index}.value`} defaultValue={item.value} />

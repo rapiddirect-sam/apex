@@ -200,7 +200,6 @@ export function EXTolerance() {
             </table>
           </div>
         </motion.div>
-
         {/* Footnote */}
         <motion.p
           initial={{ opacity: 0 }}

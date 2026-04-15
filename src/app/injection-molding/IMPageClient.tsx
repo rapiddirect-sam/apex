@@ -26,12 +26,12 @@ export function IMPageClient({ initialContent, initialVersion }: IMPageClientPro
       <Home3Header />
       <main>
         <IMHero />
-        <IMSupplier />
         <IMServices />
         <IMParts />
+        <IMTolerance />
+        <IMSupplier />
         <IMWhyChoose />
         <IMProcess />
-        <IMTolerance />
         <IMMaterials />
         <IMSurfaceFinishes />
         <IMCTA />

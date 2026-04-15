@@ -26,12 +26,12 @@ export function SMPageClient({ initialContent, initialVersion }: SMPageClientPro
       <Home3Header />
       <main>
         <SMHero />
-        <SMSupplier />
         <SMServices />
         <SMParts />
+        <SMTolerance />
+        <SMSupplier />
         <SMWhyChoose />
         <SMProcess />
-        <SMTolerance />
         <SMMaterials />
         <SMSurfaceFinishes />
         <SMCTA />

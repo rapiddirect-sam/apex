@@ -62,7 +62,7 @@ export function Home3Services() {
       id="services"
       className="relative overflow-hidden"
       style={{
-        padding: "76px 0 112px",
+        padding: "76px 0 76px",
         background: "#34312F",
       }}
     >
@@ -266,13 +266,15 @@ export function Home3Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center"
-          style={{ marginTop: "64px" }}
+          style={{
+            marginTop: "56px",
+          }}
         >
           <p
             style={{
-              color: "#7A7A7C",
-              fontSize: "15px",
-              marginBottom: "16px",
+              color: "#A5A5A8",
+              fontSize: "17px",
+              marginBottom: "18px",
             }}
           >
             <EditableText
@@ -280,17 +282,22 @@ export function Home3Services() {
               defaultValue={DEFAULTS.ctaText}
             />
           </p>
-          <Link
-            href="https://app.apexbatch.com/"
-            rel="nofollow"
-            className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
-          >
-            <EditableText
-              path="services.ctaButton"
-              defaultValue={DEFAULTS.ctaButton}
-            />
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <div className="inline-block">
+            <Link
+              href="https://app.apexbatch.com/"
+              rel="nofollow"
+              className="bg-[#E2B45A] hover:bg-[#F3C86D] text-[#111111] font-semibold py-5 px-12 rounded-xl text-base transition-all uppercase tracking-[0.16em] inline-flex items-center gap-2.5 group"
+              style={{
+                boxShadow: "0 8px 24px rgba(226,180,90,0.5)",
+              }}
+            >
+              <EditableText
+                path="services.ctaButton"
+                defaultValue={DEFAULTS.ctaButton}
+              />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -26,12 +26,12 @@ export function MSPageClient({ initialContent, initialVersion }: MSPageClientPro
       <Home3Header />
       <main>
         <MSHero />
-        <MSSupplier />
         <MSServices />
         <MSParts />
+        <MSTolerance />
+        <MSSupplier />
         <MSWhyChoose />
         <MSProcess />
-        <MSTolerance />
         <MSMaterials />
         <MSSurfaceFinishes />
         <MSCTA />

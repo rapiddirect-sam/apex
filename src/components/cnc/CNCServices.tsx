@@ -110,6 +110,23 @@ export function CNCServices() {
                     </li>
                   ))}
                 </ul>
+                <a
+                  href="https://app.apexbatch.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block mt-6 border transition-colors duration-200 hover:bg-[#E8C97A] hover:text-[#1A1A1A]"
+                  style={{
+                    padding: "12px 22px",
+                    background: "transparent",
+                    borderColor: "#E8C97A",
+                    color: "#E8C97A",
+                    fontSize: "14px",
+                    fontWeight: 700,
+                    textDecoration: "none",
+                  }}
+                >
+                  Get Instant Quote
+                </a>
               </div>
             </motion.div>
           ))}

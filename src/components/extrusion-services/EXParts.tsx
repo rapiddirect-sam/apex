@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, X } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { EditableText, EditableImage } from "@/components/cms";
+import { useCMS } from "@/contexts/CMSContext";
 
 const DEFAULTS = {
   heading: "Extrusion Parts ",
@@ -51,9 +52,19 @@ const DEFAULTS = {
 };
 
 export function EXParts() {
+  const { getContentValue } = useCMS();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxIndex(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   const checkScroll = () => {
     const el = scrollRef.current;
@@ -192,8 +203,9 @@ export function EXParts() {
                 }}
               >
                 {/* Image */}
-                <div
-                  className="relative mx-auto overflow-hidden"
+                <button
+                  type="button"
+                  className="relative mx-auto block cursor-zoom-in overflow-hidden border-0 p-0"
                   style={{
                     width: "74px",
                     height: "74px",
@@ -201,6 +213,8 @@ export function EXParts() {
                     background: "#2A2A2A",
                     marginBottom: "16px",
                   }}
+                  onClick={() => setLightboxIndex(index)}
+                  aria-label={`Enlarge image: ${part.title}`}
                 >
                   <EditableImage
                     path={`parts.items.${index}.image`}
@@ -209,7 +223,7 @@ export function EXParts() {
                     fill
                     className="object-cover"
                   />
-                </div>
+                </button>
 
                 {/* Title */}
                 <h3
@@ -264,6 +278,33 @@ export function EXParts() {
           </Link>
         </motion.div>
       </div>
+
+      {lightboxIndex !== null && DEFAULTS.parts[lightboxIndex] && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Enlarged part image"
+          onClick={() => setLightboxIndex(null)}
+        >
+          <button
+            type="button"
+            className="absolute right-4 top-4 z-[101] flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white transition-colors hover:bg-black/80"
+            onClick={() => setLightboxIndex(null)}
+            aria-label="Close"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          <div className="max-h-[90vh] max-w-[95vw]" onClick={(e) => e.stopPropagation()}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={String(getContentValue(`parts.items.${lightboxIndex}.image`, DEFAULTS.parts[lightboxIndex].image))}
+              alt={DEFAULTS.parts[lightboxIndex].title}
+              className="max-h-[90vh] max-w-[95vw] object-contain"
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

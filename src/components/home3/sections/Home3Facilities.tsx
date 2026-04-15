@@ -125,7 +125,7 @@ export function Home3Facilities() {
     <section
       className="relative overflow-hidden"
       style={{
-        padding: "120px 0 130px",
+        padding: "88px 0 130px",
         background: "#34312F",
       }}
     >

@@ -12,11 +12,6 @@ const CMSToolbar = dynamic(
 );
 
 /** Below-the-fold sections code-split to reduce main-thread JS (TBT) on mobile. */
-const Home3TrustedLogos = dynamic(() =>
-  import("@/components/home3/sections/Home3TrustedLogos").then((m) => ({
-    default: m.Home3TrustedLogos,
-  }))
-);
 const Home3Facilities = dynamic(() =>
   import("@/components/home3/sections/Home3Facilities").then((m) => ({
     default: m.Home3Facilities,
@@ -79,11 +74,10 @@ export function HomePageClient({ initialContent, initialVersion }: HomePageClien
         <Home3Hero />
         {showBelowFold ? (
           <>
-            <Home3TrustedLogos />
-            <Home3Facilities />
             <Home3Services />
-            <Home3Process />
+            <Home3Facilities />
             <Home3WhyChoose />
+            <Home3Process />
             <Home3Industries />
             <Home3Portfolio />
             <Home3Certifications />

@@ -196,7 +196,6 @@ export function SMTolerance() {
             </table>
           </div>
         </motion.div>
-
         {/* CTA Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
