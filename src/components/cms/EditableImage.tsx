@@ -4,7 +4,6 @@ import { useState, useRef, CSSProperties } from "react";
 import Image from "next/image";
 import { Upload, Loader2 } from "lucide-react";
 import { useCMS } from "@/contexts/CMSContext";
-import { auth } from "@/lib/firebase";
 import { setAuthSessionCookie } from "@/lib/authSessionCookie";
 
 interface EditableImageProps {
@@ -58,6 +57,7 @@ export function EditableImage({
     setIsUploading(true);
     try {
       // Stale auth-session cookie causes "Unauthorized - invalid session" after ~1h; refresh before upload.
+      const { auth } = await import("@/lib/firebaseClient");
       if (auth?.currentUser) {
         try {
           const fresh = await auth.currentUser.getIdToken(true);

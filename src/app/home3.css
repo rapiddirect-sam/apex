@@ -1,5 +1,22 @@
 /* Home3 Theme - Based on Frame 1.jpg design */
+/* Home hero logo strip — pure CSS marquee (avoids framer-motion on critical path / TBT). */
+@keyframes h3-hero-logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.h3-hero-logo-marquee {
+  width: max-content;
+  animation: h3-hero-logo-marquee 40s linear infinite;
+}
+
 .home3-root {
+  /* Avoid rare horizontal reflow from full-bleed sections (helps CLS). */
+  overflow-x: clip;
   /* Colors from design */
   --h3-gold: #D4A03A;
   --h3-gold-light: #E8C068;

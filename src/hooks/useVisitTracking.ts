@@ -8,6 +8,7 @@ import {
   trackVisitorVisit,
   type VisitData,
 } from "@/lib/visitorTracking";
+import { scheduleIdleTask } from "@/lib/scheduleIdleTask";
 
 const TRACKING_CONFIG = {
   ...defaultVisitorTrackingConfig,
@@ -21,7 +22,11 @@ export function useVisitTracking() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    trackVisitorVisit(pathname || "/", window.location.search, TRACKING_CONFIG);
+    // Defer cookie work to idle time so it does not extend the main-thread busy window (TBT).
+    const cancel = scheduleIdleTask(() => {
+      trackVisitorVisit(pathname || "/", window.location.search, TRACKING_CONFIG);
+    }, 2500);
+    return cancel;
   }, [pathname]);
 }
 

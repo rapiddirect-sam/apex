@@ -2,8 +2,8 @@
 
 import { Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { getImageUrl } from "@/lib/utils";
+import { HOME_HERO_IMAGE_QUALITY, HOME_HERO_IMAGE_SIZES } from "@/lib/heroImageDefaults";
 import { EditableText, EditableImage } from "@/components/cms";
 
 function createLogoPlaceholder(label: string): string {
@@ -59,8 +59,8 @@ export function Home3Hero() {
           fill
           priority
           fetchPriority="high"
-          sizes="100vw"
-          quality={88}
+          sizes={HOME_HERO_IMAGE_SIZES}
+          quality={HOME_HERO_IMAGE_QUALITY}
           style={{ objectFit: "cover" }}
         />
       </div>
@@ -228,11 +228,7 @@ export function Home3Hero() {
         }}
       >
         <div className="max-w-[1240px] mx-auto px-6 lg:px-8 overflow-hidden">
-          <motion.div
-            className="flex items-center py-5"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
-          >
+          <div className="h3-hero-logo-marquee flex items-center py-5">
             {marqueeLogos.map((logo, index) => {
               const editableIndex = index % DEFAULTS.logos.length;
               return (
@@ -248,7 +244,7 @@ export function Home3Hero() {
                       alt={logo.alt}
                       fill
                       sizes="112px"
-                      quality={90}
+                      quality={85}
                       unoptimized
                       style={{ objectFit: "contain" }}
                     />
@@ -256,7 +252,7 @@ export function Home3Hero() {
                 </div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

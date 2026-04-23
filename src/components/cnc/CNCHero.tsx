@@ -1,9 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { EditableText, EditableImage } from "@/components/cms";
+import {
+  CNC_HERO_DEFAULT_SRC,
+  CNC_HERO_IMAGE_QUALITY,
+  CNC_HERO_IMAGE_SIZES,
+} from "@/lib/heroImageDefaults";
 
 function createLogoPlaceholder(label: string): string {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="220" height="56" viewBox="0 0 220 56">
@@ -18,8 +22,7 @@ const DEFAULTS = {
   titleHighlight: "CNC Machining Services",
   description:
     "From rapid prototyping to batch production, we ensure tolerances are strictly controlled within \u00B10.005 mm and offer global shipping services with delivery as fast as 3 days.",
-  heroImage:
-    "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp",
+  heroImage: CNC_HERO_DEFAULT_SRC,
   ctaPrimary: "Start Free Quote",
   ctaSecondary: "Upload Your Design",
   certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 4001:2015"],
@@ -40,8 +43,6 @@ const DEFAULTS = {
 };
 
 export function CNCHero() {
-  const marqueeLogos = [...DEFAULTS.logos, ...DEFAULTS.logos];
-
   return (
     <section className="relative bg-[#060606] pt-16 overflow-hidden">
       <div className="absolute inset-0">
@@ -51,7 +52,9 @@ export function CNCHero() {
           alt="Custom CNC Machining Services"
           fill
           priority
-          sizes="100vw"
+          fetchPriority="high"
+          sizes={CNC_HERO_IMAGE_SIZES}
+          quality={CNC_HERO_IMAGE_QUALITY}
           style={{ objectFit: "cover", objectPosition: "center" }}
         />
       </div>
@@ -72,12 +75,7 @@ export function CNCHero() {
 
       <div className="relative max-w-[1240px] mx-auto px-6 lg:px-8 min-h-[620px] flex items-center">
         <div className="w-full pt-14 pb-5 lg:pt-16 lg:pb-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-[920px]"
-          >
+          <div className="max-w-[920px]">
             <h1
               className="text-[#F5F5F5] font-extrabold tracking-tight leading-[1.08]"
               style={{
@@ -161,38 +159,30 @@ export function CNCHero() {
             </div>
 
             <div className="mt-6 overflow-hidden max-w-[760px] pt-2">
-              <motion.div
-                className="flex items-center"
-                animate={{ x: ["0%", "-50%"] }}
-                transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
-              >
-                {marqueeLogos.map((logo, index) => {
-                  const editableIndex = index % DEFAULTS.logos.length;
-                  return (
-                    <div
-                      key={`${logo.alt}-${index}`}
-                      className="shrink-0 flex items-center justify-center"
-                      style={{ width: "16.6667%", minWidth: "140px", paddingInline: "10px" }}
-                    >
-                      <div className="relative w-full h-7 opacity-90">
-                        <EditableImage
-                          path={`hero.logos.${editableIndex}.src`}
-                          defaultSrc={logo.src}
-                          alt={logo.alt}
-                          fill
-                          sizes="140px"
-                          quality={90}
-                          unoptimized
-                          style={{ objectFit: "contain" }}
-                        />
-                      </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-3">
+                {DEFAULTS.logos.map((logo, index) => (
+                  <div
+                    key={`${logo.alt}-${index}`}
+                    className="flex items-center justify-center"
+                    style={{ minWidth: "120px" }}
+                  >
+                    <div className="relative w-full h-7 opacity-90">
+                      <EditableImage
+                        path={`hero.logos.${index}.src`}
+                        defaultSrc={logo.src}
+                        alt={logo.alt}
+                        fill
+                        sizes="140px"
+                        quality={85}
+                        unoptimized
+                        style={{ objectFit: "contain" }}
+                      />
                     </div>
-                  );
-                })}
-              </motion.div>
+                  </div>
+                ))}
+              </div>
             </div>
-
-          </motion.div>
+          </div>
         </div>
       </div>
 

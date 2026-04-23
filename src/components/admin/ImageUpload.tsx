@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { Upload, X, Loader2 } from "lucide-react";
 import Image from "next/image";
-import { auth } from "@/lib/firebase";
+import { auth } from "@/lib/firebaseClient";
 import { setAuthSessionCookie } from "@/lib/authSessionCookie";
 
 interface ImageUploadProps {

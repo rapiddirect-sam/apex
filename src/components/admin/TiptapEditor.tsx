@@ -106,7 +106,7 @@ import {
   Code2,
   Loader2,
 } from "lucide-react";
-import { auth } from "@/lib/firebase";
+import { auth } from "@/lib/firebaseClient";
 import { setAuthSessionCookie } from "@/lib/authSessionCookie";
 
 interface TiptapEditorProps {
