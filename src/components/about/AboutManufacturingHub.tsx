@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Building2, Settings, BarChart3, Users } from "lucide-react";
+import Link from "next/link";
+import { ChevronLeft, ChevronRight, ArrowRight, Building2, Settings, BarChart3, Users } from "lucide-react";
 import { getImageUrl } from "@/lib/utils";
 import { EditableText, EditableImage } from "@/components/cms";
 
@@ -17,6 +18,8 @@ const DEFAULTS = {
     paragraph3:
       "Each production shop is equipped with industry-leading machinery operated by experienced technicians, ensuring every production phase meets the highest standards. Our facilities comply with international quality management systems and are certified to ISO 9001:2015 and ISO 13485:2016.",
     certifications: ["ISO 9001:2015", "ISO 13485:2016"],
+    ctaQuote: "Get Free Instant Quote",
+    ctaInquiry: "Get Free Instant Quote",
     images: {
       main: getImageUrl("about/5-Advanced-Manufacturing-Hub-1.webp"),
       small1: getImageUrl("about/5-Advanced-Manufacturing-Hub-2.webp"),
@@ -241,7 +244,7 @@ export function AboutManufacturingHub() {
             </p>
 
             {/* ISO Certification Buttons */}
-            <div style={{ display: "flex", gap: "12px" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
               {DEFAULTS.hero.certifications.map((cert, index) => (
                 <button
                   key={index}
@@ -259,6 +262,22 @@ export function AboutManufacturingHub() {
                   <EditableText path={`manufacturingHub.hero.certifications.${index}`} defaultValue={cert} />
                 </button>
               ))}
+            </div>
+
+            {/* Inquiry CTA — visible in hero without scrolling past gallery */}
+            <div style={{ marginTop: "24px" }}>
+              <Link
+                href="https://app.apexbatch.com/"
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+                className="text-[#1A1A1A] font-bold py-3.5 px-6 rounded-md text-xs transition-all uppercase tracking-[0.11em] inline-flex items-center gap-2 group shadow-[0_8px_22px_rgba(238,197,105,0.4)]"
+                style={{
+                  background: "linear-gradient(90deg, #D8AC4E 0%, #F1DB9A 100%)",
+                }}
+              >
+                <EditableText path="manufacturingHub.hero.ctaInquiry" defaultValue={DEFAULTS.hero.ctaInquiry} />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </motion.div>
 
@@ -688,6 +707,27 @@ export function AboutManufacturingHub() {
               />
             ))}
           </div>
+        </div>
+
+        {/* Quote CTA */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "clamp(40px, 6vw, 56px)",
+          }}
+        >
+          <Link
+            href="https://app.apexbatch.com/"
+            rel="nofollow"
+            className="text-[#1A1A1A] font-bold py-3.5 px-6 rounded-md text-xs transition-all uppercase tracking-[0.11em] flex items-center gap-2 group shadow-[0_8px_22px_rgba(238,197,105,0.4)]"
+            style={{
+              background: "linear-gradient(90deg, #D8AC4E 0%, #F1DB9A 100%)",
+            }}
+          >
+            <EditableText path="manufacturingHub.hero.ctaQuote" defaultValue={DEFAULTS.hero.ctaQuote} />
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
       </div>
     </section>
