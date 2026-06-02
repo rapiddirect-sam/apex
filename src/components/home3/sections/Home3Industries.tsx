@@ -25,13 +25,13 @@ const DEFAULTS = {
       image: getImageUrl("home/5-industries-aerospace.webp"),
     },
     {
-      title: "Electronic Components",
+      title: "Automative",
       description:
         "High-precision components for electronics and hardware applications. Supporting miniaturization, tight tolerances, and reliable performance.",
       image: getImageUrl("home/5-industries-consumer-electronics.webp"),
     },
     {
-      title: "Automation",
+      title: "Automation & Robotics",
       description:
         "Precision parts and assemblies for industrial automation systems. Ideal for low-volume, high-mix production and modular equipment integration.",
       image:

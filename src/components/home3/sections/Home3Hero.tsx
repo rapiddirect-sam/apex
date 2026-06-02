@@ -19,9 +19,9 @@ const DEFAULTS = {
   headingLine1: "EVERY INDUSTRIAL CHALLENGE,",
   headingLine2: "AN APEX SOLUTION",
   description:
-    "We are a precision manufacturing partner from prototype to production, delivering fast, reliable parts you can trust.",
-  ctaPrimary: "Get Free Instant Quote",
-  ctaSecondary: "Upload Your Design",
+    "We're your full-service manufacturing partner. With in-house CNC machining, sheet metal fabrication and extensive multi-molding capabilities, from pre-production prototyping to full-scale manufacturing.",
+  ctaPrimary: "Get Sample Quote",
+  ctaSecondary: "Get Production Quote",
   backgroundImage: getImageUrl("home/1-homepage-banner.webp"),
   certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 4001:2015"],
   features: [
