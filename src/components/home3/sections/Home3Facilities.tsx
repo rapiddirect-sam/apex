@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { getImageUrl } from "@/lib/utils";
 import { EditableText, EditableImage } from "@/components/cms";
+import { useCMS } from "@/contexts/CMSContext";
 
 const DEFAULTS = {
   eyebrow: "State-of-the-Art Manufacturing Environment",
@@ -112,6 +113,7 @@ function Metric({ index, delay }: { index: number; delay: number }) {
 
 export function Home3Facilities() {
   const [currentImage, setCurrentImage] = useState(0);
+  const { isEditMode } = useCMS();
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % DEFAULTS.facilityImages.length);
@@ -289,26 +291,40 @@ export function Home3Facilities() {
                 outline: "1px solid rgba(208,153,71,0.25)",
               }}
             >
-              {/* Pre-render all slides for smooth switching */}
-              <div className="absolute inset-0">
-                {DEFAULTS.facilityImages.map((src, index) => (
-                  <EditableImage
-                    key={src}
-                    path={`facilities.images.${index}`}
-                    defaultSrc={src}
-                    alt="Manufacturing facility"
-                    fill
-                    priority={index === 0}
-                    sizes="(max-width: 1024px) 100vw, 560px"
-                    className="object-cover transition-opacity duration-300 ease-out"
-                    style={{
-                      opacity: index === currentImage ? 1 : 0,
-                      willChange: "opacity",
-                      pointerEvents: index === currentImage ? "auto" : "none",
-                    }}
-                  />
-                ))}
-              </div>
+              {/* In edit mode render only the active slide so uploads map to the selected index. */}
+              {isEditMode ? (
+                <EditableImage
+                  key={`edit-${currentImage}`}
+                  path={`facilities.images.${currentImage}`}
+                  defaultSrc={DEFAULTS.facilityImages[currentImage]}
+                  alt="Manufacturing facility"
+                  fill
+                  priority={currentImage === 0}
+                  sizes="(max-width: 1024px) 100vw, 560px"
+                  className="object-cover"
+                />
+              ) : (
+                /* Pre-render all slides for smooth switching in view mode */
+                <div className="absolute inset-0">
+                  {DEFAULTS.facilityImages.map((src, index) => (
+                    <EditableImage
+                      key={src}
+                      path={`facilities.images.${index}`}
+                      defaultSrc={src}
+                      alt="Manufacturing facility"
+                      fill
+                      priority={index === 0}
+                      sizes="(max-width: 1024px) 100vw, 560px"
+                      className="object-cover transition-opacity duration-300 ease-out"
+                      style={{
+                        opacity: index === currentImage ? 1 : 0,
+                        willChange: "opacity",
+                        pointerEvents: index === currentImage ? "auto" : "none",
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
 
               {/* Navigation Arrows - subtle industrial style */}
               <button
