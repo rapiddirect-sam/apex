@@ -161,7 +161,7 @@ export function Home3Hero() {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                href="#services"
+                href="/contact"
                 className="border border-white/30 hover:border-[#D09947] bg-[#181818]/72 text-white font-bold py-3.5 px-6 rounded-md text-xs transition-all uppercase tracking-[0.11em] shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
               >
                 <EditableText

@@ -65,9 +65,9 @@ const navItems: NavItem[] = [
       { href: "/about", label: "About ApexBatch" },
       { href: "/quality", label: "Quality Assurance" },
       { href: "/reviews", label: "Customer Reviews" },
-      { href: "/contact", label: "Contact Us" },
     ],
   },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 function DropdownMenu({

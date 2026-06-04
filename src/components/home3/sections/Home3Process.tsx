@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Upload, FileSearch, Settings, Truck } from "lucide-react";
+import Link from "next/link";
+import { Upload, FileSearch, Settings, Truck, ArrowRight } from "lucide-react";
 import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
@@ -9,6 +10,9 @@ const DEFAULTS = {
   titleHighlight: "With ApexBatch",
   subtitle:
     "A clear, guided process that takes you from design to delivery — without unnecessary complexity.",
+  ctaText: "Turn Your Vision into Reality Right Now.",
+  ctaPrimary: "Get Sample Quote",
+  ctaSecondary: "Get Production Quote",
   steps: [
     {
       number: "01",
@@ -203,6 +207,53 @@ export function Home3Process() {
             );
           })}
         </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+          style={{
+            marginTop: "56px",
+          }}
+        >
+          <p
+            style={{
+              color: "#A5A5A8",
+              fontSize: "17px",
+              marginBottom: "18px",
+            }}
+          >
+            <EditableText
+              path="process.ctaText"
+              defaultValue={DEFAULTS.ctaText}
+            />
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="https://app.apexbatch.com/"
+              rel="nofollow"
+              className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
+            >
+              <EditableText
+                path="process.ctaPrimary"
+                defaultValue={DEFAULTS.ctaPrimary}
+              />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link
+              href="/contact"
+              className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
+            >
+              <EditableText
+                path="process.ctaSecondary"
+                defaultValue={DEFAULTS.ctaSecondary}
+              />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
