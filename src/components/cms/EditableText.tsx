@@ -38,6 +38,20 @@ export function EditableText({
   const currentValue = getContentValue(path, defaultValue);
   const isDeleted = currentValue === "" || currentValue === "__deleted__";
 
+  const navigateParentLink = (target: EventTarget) => {
+    const anchor = (target as HTMLElement).closest("a[href]");
+    if (!anchor) return;
+
+    const href = anchor.getAttribute("href");
+    if (!href) return;
+
+    if (anchor.getAttribute("target") === "_blank" || href.startsWith("http")) {
+      window.open(href, "_blank", "noopener,noreferrer");
+      return;
+    }
+
+    window.location.assign(href);
+  };
   const handleDelete = () => {
     updateContent(path, "__deleted__");
     onDelete?.();
@@ -147,26 +161,43 @@ export function EditableText({
   // Edit mode - not actively editing, show clickable state
   const editableStyle: CSSProperties = {
     ...style,
-    cursor: "pointer",
+    cursor: "text",
     outline: "2px dashed rgba(208, 153, 71, 0.4)",
     outlineOffset: "2px",
     borderRadius: "2px",
     transition: "outline-color 0.2s",
   };
 
+  const handleEditClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsEditing(true);
+  };
+
+  const handleEditDoubleClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (e.currentTarget.closest("a[href]")) {
+      navigateParentLink(e.currentTarget);
+    }
+  };
+
   return (
     <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
       <Component
+        data-editable-text
         className={className}
         style={editableStyle}
-        onClick={() => setIsEditing(true)}
+        onClick={handleEditClick}
+        onDoubleClick={handleEditDoubleClick}
         onMouseEnter={(e: React.MouseEvent<HTMLElement>) => {
           e.currentTarget.style.outlineColor = "#D09947";
         }}
         onMouseLeave={(e: React.MouseEvent<HTMLElement>) => {
           e.currentTarget.style.outlineColor = "rgba(208, 153, 71, 0.4)";
         }}
-        title="Click to edit"
+        title="Single-click to edit text. Double-click to open link."
       >
         {currentValue}
       </Component>

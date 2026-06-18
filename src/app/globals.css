@@ -230,3 +230,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-gold-dark);
 }
+
+/* CMS edit mode: single-click edits text inside links; double-click opens the link */
+html.cms-edit-mode a:has([data-editable-text]) {
+  cursor: pointer;
+}

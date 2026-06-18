@@ -5,6 +5,7 @@ import {
   useContext,
   useState,
   useCallback,
+  useEffect,
   ReactNode,
 } from "react";
 import { useAuth } from "./AuthContext";
@@ -32,6 +33,28 @@ interface CMSContextType {
 }
 
 const CMSContext = createContext<CMSContextType | undefined>(undefined);
+
+function findEditableLinkAnchor(target: EventTarget | null): HTMLAnchorElement | null {
+  const element = target as HTMLElement | null;
+  if (!element) return null;
+
+  const anchor = element.closest("a[href]");
+  if (!anchor || !anchor.querySelector("[data-editable-text]")) return null;
+
+  return anchor as HTMLAnchorElement;
+}
+
+function navigateEditableLink(anchor: HTMLAnchorElement) {
+  const href = anchor.getAttribute("href");
+  if (!href) return;
+
+  if (anchor.getAttribute("target") === "_blank" || href.startsWith("http")) {
+    window.open(href, "_blank", "noopener,noreferrer");
+    return;
+  }
+
+  window.location.assign(href);
+}
 
 interface CMSProviderProps {
   children: ReactNode;
@@ -139,8 +162,44 @@ export function CMSProvider({
     setPendingChanges(new Map());
   }, []);
 
+  const editModeActive = isAdmin && isEditMode;
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("cms-edit-mode", editModeActive);
+
+    if (!editModeActive) return;
+
+    const onClickCapture = (event: MouseEvent) => {
+      const anchor = findEditableLinkAnchor(event.target);
+      if (!anchor) return;
+
+      // Single click on CMS buttons: edit text, do not follow the link.
+      if (event.detail === 1) {
+        event.preventDefault();
+      }
+    };
+
+    const onDoubleClickCapture = (event: MouseEvent) => {
+      const anchor = findEditableLinkAnchor(event.target);
+      if (!anchor) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      navigateEditableLink(anchor);
+    };
+
+    document.addEventListener("click", onClickCapture, true);
+    document.addEventListener("dblclick", onDoubleClickCapture, true);
+
+    return () => {
+      document.documentElement.classList.remove("cms-edit-mode");
+      document.removeEventListener("click", onClickCapture, true);
+      document.removeEventListener("dblclick", onDoubleClickCapture, true);
+    };
+  }, [editModeActive]);
+
   const value: CMSContextType = {
-    isEditMode: isAdmin && isEditMode,
+    isEditMode: editModeActive,
     toggleEditMode,
     pageContent,
     pendingChanges,
