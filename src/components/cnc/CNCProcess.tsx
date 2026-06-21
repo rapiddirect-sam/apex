@@ -89,7 +89,7 @@ export function CNCProcess() {
           style={{ marginTop: "48px" }}
         >
           <Link
-            href="/contact"
+            href="https://app.apexbatch.com/"
             className="inline-flex items-center gap-2 bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group"
           >
             <EditableText path="process.ctaText" defaultValue={DEFAULTS.ctaText} />

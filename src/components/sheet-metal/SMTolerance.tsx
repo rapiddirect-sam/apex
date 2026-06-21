@@ -205,11 +205,11 @@ export function SMTolerance() {
           style={{ marginTop: "48px" }}
         >
           <Link
-            href="https://app.apexbatch.com/"
+            href="/contact"
             rel="nofollow"
             className="inline-flex items-center gap-2 bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group"
           >
-            Get Instant Quote
+            Get Production Quote
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>

@@ -101,7 +101,7 @@ export function MaterialsCTA() {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
-              href="https://app.apexbatch.com/"
+              href="/contact"
               className="inline-flex items-center justify-center gap-2 border border-[#4A4A48] hover:border-[#D09947] text-white hover:text-[#D09947] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider"
             >
               <EditableText

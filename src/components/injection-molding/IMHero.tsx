@@ -8,6 +8,7 @@ const DEFAULTS = {
     "Your end-to-end injection molding partner. We deliver precision plastic parts with 100+ material options, fast turnaround, and competitive pricing.",
   heroImage:
     "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp",
+  ctaSecondaryHref: "/contact",
 };
 
 export function IMHero() {

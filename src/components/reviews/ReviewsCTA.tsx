@@ -10,7 +10,7 @@ const DEFAULTS = {
   headingHighlight: "Build with Precision",
   description:
     "Apexbatch delivers manufacturing solutions for engineering teams that demand quality, reliability, and technical partnership.",
-  primaryButton: "Request a Quote",
+  primaryButton: "Start Your Project",
   secondaryButton: "Contact Engineering Team",
 };
 
@@ -84,7 +84,7 @@ export function ReviewsCTA() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link
-            href="/contact"
+            href="https://app.apexbatch.com/"
             className="transition-all duration-300 hover:-translate-y-0.5"
             style={{
               padding: "18px 40px",

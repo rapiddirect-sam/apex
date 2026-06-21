@@ -125,7 +125,7 @@ export function CNCServices() {
                     textDecoration: "none",
                   }}
                 >
-                  Get Instant Quote
+                  Start Your Project
                 </a>
               </div>
             </motion.div>

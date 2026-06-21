@@ -124,7 +124,7 @@ export function CNCTolerance() {
             </svg>
           </span>
           <p className="text-center" style={{ color: "#F3F3F3", fontSize: "16px", lineHeight: 1.6 }}>
-            Check Your Design for Manufacturability, Get tolerance review and pricing in minutes.{" "}
+            Check your Design for Manufacturability, get tolerance review and pricing in minutes.{" "}
             <a
               href="https://app.apexbatch.com/"
               target="_blank"
@@ -136,7 +136,7 @@ export function CNCTolerance() {
                 fontWeight: 700,
               }}
             >
-              Upload your design
+              Upload Your Design
             </a>
           </p>
         </motion.div>

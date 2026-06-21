@@ -108,7 +108,7 @@ export function CNCWhyChoose() {
               <EditableText path="whychoose.ctaDescription" defaultValue={DEFAULTS.ctaDescription} multiline />
             </p>
             <Link
-              href="/contact"
+              href="https://app.apexbatch.com/"
               className="inline-flex items-center justify-center gap-2 w-full bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group"
             >
               <EditableText path="whychoose.ctaButton" defaultValue={DEFAULTS.ctaButton} />
