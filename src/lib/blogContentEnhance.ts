@@ -4,9 +4,37 @@ export interface BlogTocItem {
   level: number;
 }
 
+/** Turn heading text into a URL-friendly slug (matches common CMS anchor patterns). */
+export function slugifyHeadingText(text: string): string {
+  return text
+    .replace(/<[^>]*>/g, "")
+    .trim()
+    .replace(/^[\d.]+\s*/, "")
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function uniqueHeadingId(baseId: string, usedIds: Set<string>): string {
+  if (!baseId) return baseId;
+  if (!usedIds.has(baseId)) {
+    usedIds.add(baseId);
+    return baseId;
+  }
+
+  let suffix = 2;
+  while (usedIds.has(`${baseId}-${suffix}`)) suffix++;
+  const uniqueId = `${baseId}-${suffix}`;
+  usedIds.add(uniqueId);
+  return uniqueId;
+}
+
 /** Assign stable ids to h2/h3 for TOC and in-page anchors. */
 export function injectHeadingIds(html: string): { html: string; tocItems: BlogTocItem[] } {
   const tocItems: BlogTocItem[] = [];
+  const usedIds = new Set<string>();
   let counter = 0;
 
   const enhancedHtml = html.replace(
@@ -17,12 +45,16 @@ export function injectHeadingIds(html: string): { html: string; tocItems: BlogTo
 
       counter++;
       const existingId = String(attrs).match(/\bid="([^"]*)"/)?.[1];
-      const id = existingId || `heading-${counter}`;
+      const slugId = slugifyHeadingText(text);
+      const id = existingId || uniqueHeadingId(slugId || `heading-${counter}`, usedIds);
       const levelNum = parseInt(String(level), 10);
 
       tocItems.push({ id, text, level: levelNum });
 
-      if (existingId) return fullMatch;
+      if (existingId) {
+        usedIds.add(existingId);
+        return fullMatch;
+      }
 
       const cleanAttrs = String(attrs).replace(/\s+id="[^"]*"/, "");
       return `<h${level} id="${id}"${cleanAttrs}>${inner}</h${level}>`;
@@ -289,12 +321,48 @@ export function prepareBlogContentHtml(html: string): { html: string; tocItems: 
 
 export const BLOG_HEADER_SCROLL_OFFSET = 96;
 
-export function scrollToBlogHash(hash: string, behavior: ScrollBehavior = "smooth") {
-  if (!hash || hash === "#") return;
+function findBlogAnchorTarget(id: string, root?: ParentNode | null): HTMLElement | null {
+  const byId = document.getElementById(id);
+  if (byId) return byId;
+
+  const scope = root ?? document;
+  const headings = scope.querySelectorAll<HTMLElement>(".blog-content h2, .blog-content h3");
+  const normalizedId = id.toLowerCase();
+
+  for (const heading of headings) {
+    const headingId = heading.id.toLowerCase();
+    if (headingId === normalizedId) return heading;
+
+    const slug = slugifyHeadingText(heading.textContent || "");
+    if (slug === normalizedId || slug.startsWith(`${normalizedId}-`)) return heading;
+
+    // Short anchors like #matrix on long headings ("...Solutions Matrix")
+    if (
+      normalizedId.length >= 4 &&
+      (slug.endsWith(`-${normalizedId}`) || slug.split("-").includes(normalizedId))
+    ) {
+      return heading;
+    }
+  }
+
+  return null;
+}
+
+export function resolveBlogHashTarget(hash: string, root?: ParentNode | null): HTMLElement | null {
+  if (!hash || hash === "#") return null;
   const id = decodeURIComponent(hash.replace(/^#/, ""));
-  const target = document.getElementById(id);
-  if (!target) return;
+  return findBlogAnchorTarget(id, root);
+}
+
+export function scrollToBlogHash(
+  hash: string,
+  behavior: ScrollBehavior = "smooth",
+  root?: ParentNode | null
+): boolean {
+  const target = resolveBlogHashTarget(hash, root);
+  if (!target) return false;
 
   const top = target.getBoundingClientRect().top + window.scrollY - BLOG_HEADER_SCROLL_OFFSET;
   window.scrollTo({ top: Math.max(0, top), behavior });
+  return true;
 }

@@ -8,6 +8,7 @@ import { SanitizedHTML } from "./SanitizedHTML";
 import {
   prepareBlogContentHtml,
   scrollToBlogHash,
+  resolveBlogHashTarget,
   initBlogTableScrollBars,
 } from "@/lib/blogContentEnhance";
 import {
@@ -56,17 +57,28 @@ export function BlogPostContent({
 
     const onHashClick = (event: MouseEvent) => {
       const target = event.target as HTMLElement | null;
-      const anchor = target?.closest("a[href^='#']") as HTMLAnchorElement | null;
+      const anchor = target?.closest("a[href*='#']") as HTMLAnchorElement | null;
       if (!anchor) return;
 
-      const hash = anchor.getAttribute("href");
-      if (!hash || hash === "#") return;
+      const href = anchor.getAttribute("href");
+      if (!href || !href.includes("#")) return;
 
-      const id = decodeURIComponent(hash.slice(1));
-      if (!document.getElementById(id)) return;
+      const hashIndex = href.indexOf("#");
+      const hash = href.slice(hashIndex);
+      if (hash === "#") return;
+
+      const isSamePage =
+        hashIndex === 0 ||
+        href.startsWith(`${window.location.origin}${window.location.pathname}`) ||
+        href.startsWith(window.location.pathname);
+
+      if (!isSamePage) return;
+
+      const blogRoot = document.querySelector(".blog-content");
+      if (!resolveBlogHashTarget(hash, blogRoot)) return;
 
       event.preventDefault();
-      scrollToBlogHash(hash);
+      scrollToBlogHash(hash, "smooth", blogRoot);
       window.history.pushState(null, "", hash);
     };
 
