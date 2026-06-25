@@ -1,10 +1,15 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BlogPost, Category, Author } from "@/types/blog";
 import { SanitizedHTML } from "./SanitizedHTML";
+import {
+  prepareBlogContentHtml,
+  scrollToBlogHash,
+  initBlogTableScrollBars,
+} from "@/lib/blogContentEnhance";
 import {
   Calendar,
   Clock,
@@ -19,30 +24,6 @@ function estimateReadTime(content: string): number {
   const words = text.split(/\s+/).filter(Boolean).length;
   const minutes = Math.ceil(words / 200);
   return Math.max(1, minutes);
-}
-
-interface TocItem {
-  id: string;
-  text: string;
-  level: number;
-}
-
-function extractTocFromHTML(html: string): TocItem[] {
-  const items: TocItem[] = [];
-  const regex = /<h([2-3])[^>]*(?:id="([^"]*)")?[^>]*>(.*?)<\/h[2-3]>/gi;
-  let match;
-  let counter = 0;
-  while ((match = regex.exec(html)) !== null) {
-    counter++;
-    const level = parseInt(match[1]);
-    const existingId = match[2];
-    const text = match[3].replace(/<[^>]*>/g, "").trim();
-    const id = existingId || `heading-${counter}`;
-    if (text) {
-      items.push({ id, text, level });
-    }
-  }
-  return items;
 }
 
 interface BlogPostContentProps {
@@ -63,24 +44,45 @@ export function BlogPostContent({
   categories,
 }: BlogPostContentProps) {
   const readTime = estimateReadTime(post.content);
-  const tocItems = useMemo(() => extractTocFromHTML(post.content), [post.content]);
+  const { html: preparedContent, tocItems } = useMemo(
+    () => prepareBlogContentHtml(post.content),
+    [post.content]
+  );
 
-  // Inject IDs into headings for anchor links
-  const contentWithIds = useMemo(() => {
-    let counter = 0;
-    return post.content.replace(
-      /<h([2-3])([^>]*)>(.*?)<\/h[2-3]>/gi,
-      (fullMatch, level, attrs, inner) => {
-        counter++;
-        const text = inner.replace(/<[^>]*>/g, "").trim();
-        if (!text) return fullMatch;
-        const hasId = /id="/.test(attrs);
-        const id = hasId ? attrs.match(/id="([^"]*)"/)?.[1] : `heading-${counter}`;
-        if (hasId) return fullMatch;
-        return `<h${level} id="heading-${counter}"${attrs}>${inner}</h${level}>`;
-      }
-    );
-  }, [post.content]);
+  useEffect(() => {
+    if (window.location.hash) {
+      scrollToBlogHash(window.location.hash, "auto");
+    }
+
+    const onHashClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement | null;
+      const anchor = target?.closest("a[href^='#']") as HTMLAnchorElement | null;
+      if (!anchor) return;
+
+      const hash = anchor.getAttribute("href");
+      if (!hash || hash === "#") return;
+
+      const id = decodeURIComponent(hash.slice(1));
+      if (!document.getElementById(id)) return;
+
+      event.preventDefault();
+      scrollToBlogHash(hash);
+      window.history.pushState(null, "", hash);
+    };
+
+    document.addEventListener("click", onHashClick);
+
+    const initTables = () => {
+      initBlogTableScrollBars(document.querySelector(".blog-content"));
+    };
+    initTables();
+    const timer = window.setTimeout(initTables, 0);
+
+    return () => {
+      document.removeEventListener("click", onHashClick);
+      window.clearTimeout(timer);
+    };
+  }, [preparedContent]);
 
   const getCategoryName = (categoryId: string | null) => {
     if (!categoryId) return null;
@@ -111,12 +113,6 @@ export function BlogPostContent({
             <Link href="/blog" style={{ color: "#D09947", textDecoration: "none" }}>
               Blog
             </Link>
-            {category && (
-              <>
-                <ChevronRight size={14} style={{ color: "#555" }} />
-                <span style={{ color: "#D09947" }}>{category.name}</span>
-              </>
-            )}
             <ChevronRight size={14} style={{ color: "#555" }} />
             <span style={{ color: "#FFFFFF", fontWeight: 500 }}>{post.title}</span>
           </nav>
@@ -229,11 +225,6 @@ export function BlogPostContent({
                   <div>
                     <div style={{ color: "#FFFFFF", fontWeight: 600, fontSize: "14px" }}>
                       {author?.name || post.authorEmail?.split("@")[0] || "Author"}
-                    </div>
-                    <div style={{ color: "#999", fontSize: "13px" }}>
-                      {author?.bio
-                        ? author.bio.replace(/<[^>]*>/g, "").substring(0, 50) + (author.bio.replace(/<[^>]*>/g, "").length > 50 ? "..." : "")
-                        : "ApexBatch Team"}
                     </div>
                   </div>
                 </div>
@@ -413,7 +404,7 @@ export function BlogPostContent({
 
           {/* Center: Blog Content */}
           <div style={{ minWidth: 0 }}>
-            <SanitizedHTML html={contentWithIds} className="blog-content" />
+            <SanitizedHTML html={preparedContent} className="blog-content" />
 
             <style>{`
               .blog-content {
@@ -437,12 +428,14 @@ export function BlogPostContent({
                 margin-top: 2em;
                 padding-bottom: 8px;
                 border-bottom: 2px solid #F0F0F0;
+                scroll-margin-top: 96px;
               }
               .blog-content h3 {
                 font-size: 1.25em;
                 font-weight: 600;
                 color: #1E1E1E;
                 margin-top: 1.5em;
+                scroll-margin-top: 96px;
               }
               .blog-content p {
                 color: #333333;
@@ -475,6 +468,179 @@ export function BlogPostContent({
               }
               .blog-content blockquote p {
                 color: #555;
+              }
+              .blog-content .blog-cta:not(.blog-cta-banner),
+              .blog-content blockquote.blog-cta:not(.blog-cta-banner),
+              .blog-content blockquote:has(.blog-cta-actions):not(.blog-cta-banner) {
+                border: 1px solid #E8E8E8;
+                border-left: 4px solid #D09947;
+                padding: 28px 32px;
+                margin: 2em 0;
+                background: linear-gradient(180deg, #FFFDF7 0%, #FEFBF0 100%);
+                border-radius: 12px;
+                font-style: normal;
+                text-align: center;
+              }
+              .blog-content .blog-cta-banner,
+              .blog-content .blog-cta.blog-cta-banner,
+              .blog-content blockquote.blog-cta.blog-cta-banner {
+                position: relative;
+                overflow: hidden;
+                border: 1px solid #E2E6EC;
+                border-left: 1px solid #E2E6EC;
+                border-radius: 4px;
+                padding: 52px 40px;
+                margin: 2.5em 0;
+                background: linear-gradient(180deg, #F8F9FB 0%, #EEF1F5 100%);
+                text-align: center;
+              }
+              .blog-content .blog-cta-banner::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background-image:
+                  linear-gradient(30deg, rgba(120, 130, 145, 0.07) 12%, transparent 12.5%, transparent 87%, rgba(120, 130, 145, 0.07) 87.5%, rgba(120, 130, 145, 0.07)),
+                  linear-gradient(150deg, rgba(120, 130, 145, 0.07) 12%, transparent 12.5%, transparent 87%, rgba(120, 130, 145, 0.07) 87.5%, rgba(120, 130, 145, 0.07)),
+                  linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+                  linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+                background-size: 48px 84px, 48px 84px, 24px 24px, 24px 24px;
+                pointer-events: none;
+              }
+              .blog-content .blog-cta-banner::after {
+                content: "";
+                position: absolute;
+                right: 4%;
+                bottom: -12px;
+                width: 160px;
+                height: 160px;
+                border-radius: 18px;
+                background: linear-gradient(135deg, rgba(160, 170, 185, 0.18), rgba(200, 210, 220, 0.08));
+                transform: rotate(12deg);
+                pointer-events: none;
+              }
+              .blog-content .blog-cta-banner > * {
+                position: relative;
+                z-index: 1;
+              }
+              .blog-content .blog-cta-banner > p:first-child,
+              .blog-content .blog-cta-banner .blog-cta-banner__title {
+                margin: 0 0 12px;
+                font-size: 1.1em;
+                font-weight: 700;
+                line-height: 1.35;
+                color: #111111;
+                font-style: normal;
+              }
+              .blog-content .blog-cta-banner > p:nth-child(2):not(:last-child),
+              .blog-content .blog-cta-banner .blog-cta-banner__subtitle {
+                max-width: 640px;
+                margin: 0 auto 28px;
+                font-size: 16px;
+                line-height: 1.65;
+                color: #5C6570;
+                font-style: normal;
+              }
+              .blog-content .blog-cta-banner .blog-cta-actions {
+                margin-top: 8px;
+                gap: 16px;
+              }
+              .blog-content .blog-cta-banner a.blog-cta-button:not(.blog-cta-button-outline):not([href*="/contact"]),
+              .blog-content .blog-cta-banner .blog-cta-actions a:not(.blog-cta-button-outline):not([href*="/contact"]) {
+                min-width: 168px;
+                padding: 14px 42px;
+                border-radius: 4px;
+                font-size: 15px;
+                font-weight: 600;
+                letter-spacing: 0;
+                text-transform: none;
+                background: linear-gradient(180deg, #D09947 0%, #B8832E 100%);
+                border: 2px solid transparent;
+                box-shadow: 0 6px 18px rgba(208, 153, 71, 0.28);
+              }
+              .blog-content .blog-cta-banner a.blog-cta-button:not(.blog-cta-button-outline):not([href*="/contact"]):hover,
+              .blog-content .blog-cta-banner .blog-cta-actions a:not(.blog-cta-button-outline):not([href*="/contact"]):hover {
+                background: linear-gradient(180deg, #E8B45A 0%, #D09947 100%);
+                filter: none;
+              }
+              .blog-content .blog-cta-banner a.blog-cta-button-outline,
+              .blog-content .blog-cta-banner a[href*="/contact"] {
+                min-width: 168px;
+                padding: 12px 40px;
+                border-radius: 4px;
+                font-size: 15px;
+                font-weight: 600;
+                letter-spacing: 0;
+                text-transform: none;
+                background: #FFFFFF !important;
+                color: #D09947 !important;
+                border: 2px solid #D09947 !important;
+                box-shadow: none !important;
+                text-decoration: none !important;
+              }
+              .blog-content .blog-cta-banner a.blog-cta-button-outline:hover,
+              .blog-content .blog-cta-banner a[href*="/contact"]:hover {
+                color: #FFFFFF !important;
+                background: #D09947 !important;
+                transform: none;
+              }
+              .blog-content .blog-cta p,
+              .blog-content blockquote.blog-cta p,
+              .blog-content blockquote:has(.blog-cta-actions) p {
+                color: #333333;
+                font-style: normal;
+              }
+              .blog-content .blog-cta p:last-child,
+              .blog-content blockquote.blog-cta p:last-child,
+              .blog-content blockquote:has(.blog-cta-actions) p:last-child {
+                margin-bottom: 0;
+              }
+              .blog-content a.blog-cta-button,
+              .blog-content .blog-cta-actions a,
+              .blog-content .blog-cta a {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                margin-top: 8px;
+                padding: 14px 32px;
+                background: linear-gradient(180deg, #D09947 0%, #B8832E 100%);
+                color: #FFFFFF !important;
+                text-decoration: none !important;
+                border-radius: 8px;
+                font-size: 15px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+                transition: filter 0.2s ease, transform 0.2s ease;
+                box-shadow: 0 4px 14px rgba(208, 153, 71, 0.35);
+              }
+              .blog-content a.blog-cta-button:hover,
+              .blog-content .blog-cta-actions a:hover,
+              .blog-content .blog-cta a:hover {
+                color: #FFFFFF !important;
+                filter: brightness(1.08);
+                transform: translateY(-1px);
+              }
+              .blog-content .blog-cta-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                justify-content: center;
+                margin-top: 16px;
+              }
+              .blog-content a.blog-cta-button.blog-cta-button-outline,
+              .blog-content .blog-cta-actions a[href*="/contact"],
+              .blog-content .blog-cta a[href*="/contact"] {
+                background: #FFFFFF;
+                color: #D09947 !important;
+                border: 2px solid #D09947;
+                box-shadow: none;
+              }
+              .blog-content a.blog-cta-button.blog-cta-button-outline:hover,
+              .blog-content .blog-cta-actions a[href*="/contact"]:hover,
+              .blog-content .blog-cta a[href*="/contact"]:hover {
+                color: #FFFFFF !important;
+                background: #D09947;
               }
               .blog-content code {
                 background: #F5F5F5;
@@ -511,6 +677,71 @@ export function BlogPostContent({
               .blog-content strong {
                 color: #1E1E1E;
                 font-weight: 600;
+              }
+              .blog-content .blog-table-scroll {
+                max-width: 100%;
+                margin: 1.5em 0;
+                border-radius: 12px;
+                border: 1px solid #E8E8E8;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+                background: #FFFFFF;
+              }
+              .blog-content .blog-table-scroll-top {
+                overflow-x: auto;
+                overflow-y: hidden;
+                height: 14px;
+                border-bottom: 1px solid #EBEBEB;
+                scrollbar-width: thin;
+                scrollbar-color: #D09947 #F3F4F6;
+              }
+              .blog-content .blog-table-scroll-top-inner {
+                height: 1px;
+              }
+              .blog-content .blog-table-scroll-body {
+                overflow: auto;
+                max-height: min(65vh, 520px);
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+                scrollbar-color: #D09947 #F3F4F6;
+              }
+              .blog-content .blog-table-scroll-body table {
+                table-layout: fixed;
+                width: max(100%, 640px);
+                margin: 0;
+                border: none;
+                box-shadow: none;
+                border-radius: 0;
+              }
+              .blog-content .blog-table-scroll th,
+              .blog-content .blog-table-scroll td {
+                max-width: 11rem;
+                width: 11rem;
+                min-width: 7rem;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+                vertical-align: top;
+                white-space: normal;
+              }
+              .blog-content .blog-table-scroll thead th {
+                position: sticky;
+                top: 0;
+                z-index: 2;
+              }
+              @media (max-width: 768px) {
+                .blog-content .blog-table-scroll-top {
+                  display: none;
+                }
+                .blog-content .blog-table-scroll-body {
+                  max-height: none;
+                }
+                .blog-content .blog-table-scroll th,
+                .blog-content .blog-table-scroll td {
+                  max-width: 9rem;
+                  width: 9rem;
+                  min-width: 6rem;
+                  font-size: 14px;
+                  padding: 14px 16px;
+                }
               }
               .blog-content table {
                 width: 100%;
@@ -965,10 +1196,10 @@ export function BlogPostContent({
                 }}
               >
                 <p style={{ color: "#FFFFFF", fontSize: "15px", fontWeight: 600, fontStyle: "italic", margin: 0, letterSpacing: "0.5px" }}>
-                  GET AN INSTANT
+                  Turn Your Design Into
                 </p>
                 <h3 style={{ color: "#FFFFFF", fontSize: "28px", fontWeight: 800, fontStyle: "italic", margin: "2px 0 0", letterSpacing: "1px" }}>
-                  QUOTE
+                  Parts
                 </h3>
                 {/* Triangle pointer */}
                 <div
@@ -989,7 +1220,7 @@ export function BlogPostContent({
               {/* White body with checklist */}
               <div style={{ padding: "28px 24px 20px" }}>
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "20px" }}>
-                  {["Fast", "Free", "Easy!"].map((item) => (
+                  {["Get Quotations in 24 Hours", "Free DFM from Engineers", "One-Stop Design to Production"].map((item) => (
                     <div key={item} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <path d="M4 10.5L8 14.5L16 6.5" stroke="#D09947" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
@@ -1001,7 +1232,7 @@ export function BlogPostContent({
 
                 {/* Get Started button */}
                 <Link
-                  href="/contact"
+                  href="https://app.apexbatch.com/"
                   style={{
                     display: "flex",
                     alignItems: "center",

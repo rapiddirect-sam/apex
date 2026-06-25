@@ -6,6 +6,25 @@ import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
+
+const BlogLink = Link.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      class: {
+        default: null,
+        parseHTML: (element) => element.getAttribute("class"),
+        renderHTML: (attributes) => {
+          if (!attributes.class) {
+            return { class: "blog-link" };
+          }
+          return { class: attributes.class };
+        },
+      },
+    };
+  },
+});
+
 // Preserve tables as raw HTML blocks so TipTap doesn't mangle the structure
 const RawTableNode = Node.create({
   name: "rawTable",
@@ -42,6 +61,58 @@ const RawTableNode = Node.create({
     return ({ node }) => {
       const wrapper = document.createElement("div");
       wrapper.classList.add("raw-table-wrapper");
+      wrapper.contentEditable = "false";
+      wrapper.innerHTML = node.attrs.rawHtml || "";
+      return { dom: wrapper };
+    };
+  },
+});
+
+// Preserve CTA blocks (blog-cta) as raw HTML so classes and button styles survive Visual mode
+const RawCtaNode = Node.create({
+  name: "rawCta",
+  group: "block",
+  atom: true,
+  draggable: false,
+  addAttributes() {
+    return {
+      rawHtml: { default: "" },
+    };
+  },
+  parseHTML() {
+    return [
+      {
+        tag: "div.blog-cta",
+        getAttrs(node: HTMLElement) {
+          return { rawHtml: node.outerHTML };
+        },
+      },
+      {
+        tag: "blockquote.blog-cta",
+        getAttrs(node: HTMLElement) {
+          return { rawHtml: node.outerHTML };
+        },
+      },
+      {
+        tag: "div[data-raw-cta]",
+        getAttrs(node: HTMLElement) {
+          const encoded = node.getAttribute("data-raw-cta") || "";
+          try {
+            return { rawHtml: decodeURIComponent(encoded) };
+          } catch {
+            return { rawHtml: "" };
+          }
+        },
+      },
+    ];
+  },
+  renderHTML({ node }) {
+    return ["div", { "data-raw-cta": encodeURIComponent(node.attrs.rawHtml || "") }];
+  },
+  addNodeView() {
+    return ({ node }) => {
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("raw-cta-wrapper");
       wrapper.contentEditable = "false";
       wrapper.innerHTML = node.attrs.rawHtml || "";
       return { dom: wrapper };
@@ -115,7 +186,7 @@ interface TiptapEditorProps {
   placeholder?: string;
 }
 
-// Restore raw table HTML from data-raw-table divs in getHTML() output
+// Restore raw table/CTA HTML from encoded placeholder divs in getHTML() output
 function restoreRawTables(html: string): string {
   return html.replace(/<div data-raw-table="([^"]+)"[^>]*><\/div>/g, (_, encoded) => {
     try {
@@ -124,6 +195,20 @@ function restoreRawTables(html: string): string {
       return "";
     }
   });
+}
+
+function restoreRawCtas(html: string): string {
+  return html.replace(/<div data-raw-cta="([^"]+)"[^>]*><\/div>/g, (_, encoded) => {
+    try {
+      return decodeURIComponent(encoded);
+    } catch {
+      return "";
+    }
+  });
+}
+
+function restoreRawBlocks(html: string): string {
+  return restoreRawCtas(restoreRawTables(html));
 }
 
 export function TiptapEditor({ content, onChange, placeholder = "Write your content..." }: TiptapEditorProps) {
@@ -140,16 +225,14 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
           class: "blog-image",
         },
       }),
-      Link.configure({
+      BlogLink.configure({
         openOnClick: false,
-        HTMLAttributes: {
-          class: "blog-link",
-        },
       }),
       Placeholder.configure({
         placeholder,
       }),
       RawTableNode,
+      RawCtaNode,
       DetailsNode,
       DetailsSummaryNode,
       DetailsContentNode,
@@ -157,7 +240,7 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
     content,
     immediatelyRender: false,
     onUpdate: ({ editor }) => {
-      const html = restoreRawTables(editor.getHTML());
+      const html = restoreRawBlocks(editor.getHTML());
       onChange(html);
       setHtmlContent(html);
     },
@@ -397,7 +480,7 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
             if (showHtml && editor) {
               editor.commands.setContent(htmlContent);
             } else if (!showHtml && editor) {
-              setHtmlContent(restoreRawTables(editor.getHTML()));
+              setHtmlContent(restoreRawBlocks(editor.getHTML()));
             }
             setShowHtml(!showHtml);
           }}
@@ -563,6 +646,81 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
               color: #999;
               font-size: 14px;
               line-height: 1.6;
+            }
+            .tiptap-editor-content .blog-cta-banner {
+              position: relative;
+              overflow: hidden;
+              border: 1px solid #444;
+              border-radius: 4px;
+              padding: 40px 28px;
+              margin: 1.5em 0;
+              background: linear-gradient(180deg, #2a2d32 0%, #1f2226 100%);
+              text-align: center;
+            }
+            .tiptap-editor-content .blog-cta-banner > p:first-child {
+              font-size: 1.1em;
+              font-weight: 700;
+              color: #fff;
+              margin-bottom: 10px;
+            }
+            .tiptap-editor-content .blog-cta-banner > p:nth-child(2) {
+              color: #b8bec8;
+              max-width: 560px;
+              margin: 0 auto 20px;
+            }
+            .tiptap-editor-content .raw-cta-wrapper .blog-cta-banner a:not([href*="/contact"]):not(.blog-cta-button-outline) {
+              background: linear-gradient(180deg, #D09947 0%, #B8832E 100%);
+              text-transform: none;
+            }
+            .tiptap-editor-content .raw-cta-wrapper .blog-cta-banner a.blog-cta-button-outline,
+            .tiptap-editor-content .raw-cta-wrapper .blog-cta-banner a[href*="/contact"] {
+              background: transparent;
+              color: #D09947;
+              border: 2px solid #D09947;
+              text-transform: none;
+            }
+            .tiptap-editor-content .blog-cta,
+            .tiptap-editor-content blockquote.blog-cta {
+              border: 1px solid #444;
+              border-left: 4px solid #D09947;
+              padding: 24px 28px;
+              margin: 1.5em 0;
+              background: #2f2a22;
+              border-radius: 12px;
+              font-style: normal;
+              text-align: center;
+            }
+            .tiptap-editor-content .raw-cta-wrapper {
+              margin: 1.5em 0;
+            }
+            .tiptap-editor-content .blog-cta-actions {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 12px;
+              justify-content: center;
+              margin-top: 16px;
+            }
+            .tiptap-editor-content a.blog-cta-button {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+              margin-top: 8px;
+              padding: 12px 28px;
+              background: linear-gradient(180deg, #D09947 0%, #B8832E 100%);
+              color: #FFFFFF !important;
+              text-decoration: none !important;
+              border-radius: 8px;
+              font-size: 14px;
+              font-weight: 700;
+              letter-spacing: 0.5px;
+              text-transform: uppercase;
+            }
+            .tiptap-editor-content a.blog-cta-button.blog-cta-button-outline {
+              background: transparent;
+              color: #D09947 !important;
+              border: 2px solid #D09947;
+              box-shadow: none;
             }
             @keyframes spin {
               from { transform: rotate(0deg); }
