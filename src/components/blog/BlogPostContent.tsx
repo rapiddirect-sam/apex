@@ -1252,7 +1252,7 @@ export function BlogPostContent({
               {/* White body with checklist */}
               <div style={{ padding: "18px 20px 16px" }}>
                 <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "14px" }}>
-                  {["Get A Quote in 24 Hours", "Free DFM from Engineers", "One-Stop Design to Production"].map((item) => (
+                  {["Get A Quote within 24 Hours", "Free DFM from Engineers", "One-Stop Design to Production"].map((item) => (
                     <div key={item} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <svg width="16" height="16" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0 }}>
                         <path d="M4 10.5L8 14.5L16 6.5" stroke="#D09947" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
