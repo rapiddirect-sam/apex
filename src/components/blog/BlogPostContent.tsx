@@ -298,6 +298,25 @@ export function BlogPostContent({
             align-self: start;
             max-height: calc(100vh - 120px);
             overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #D8D8D8 transparent;
+          }
+          .blog-sidebar-left::-webkit-scrollbar,
+          .blog-sidebar-right::-webkit-scrollbar {
+            width: 3px;
+          }
+          .blog-sidebar-left::-webkit-scrollbar-track,
+          .blog-sidebar-right::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          .blog-sidebar-left::-webkit-scrollbar-thumb,
+          .blog-sidebar-right::-webkit-scrollbar-thumb {
+            background: #D0D0D0;
+            border-radius: 3px;
+          }
+          .blog-sidebar-left::-webkit-scrollbar-thumb:hover,
+          .blog-sidebar-right::-webkit-scrollbar-thumb:hover {
+            background: #B8B8B8;
           }
           @media (max-width: 1024px) {
             .blog-layout {
@@ -328,16 +347,14 @@ export function BlogPostContent({
                 <div style={{ width: "40px", height: "3px", background: "#D09947", borderRadius: "2px", marginBottom: "20px" }} />
 
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  {tocItems.map((item, index) => (
+                  {tocItems.map((item) => (
                     <a
                       key={item.id}
                       href={`#${item.id}`}
                       style={{
-                        display: "flex",
-                        gap: "10px",
-                        alignItems: "flex-start",
+                        display: "block",
                         padding: "12px 0",
-                        borderBottom: "1px solid #F0F0F0",
+                        borderBottom: "0.5px solid #E8E8E8",
                         textDecoration: "none",
                         color: "#1E1E1E",
                         fontSize: "14px",
@@ -352,10 +369,7 @@ export function BlogPostContent({
                         e.currentTarget.style.color = "#1E1E1E";
                       }}
                     >
-                      <span style={{ color: "#D09947", fontWeight: 600, flexShrink: 0 }}>
-                        {index + 1}
-                      </span>
-                      <span>{item.text}</span>
+                      {item.text}
                     </a>
                   ))}
                 </div>
@@ -1198,51 +1212,56 @@ export function BlogPostContent({
                 background: "#FFFFFF",
               }}
             >
-              {/* Gold header */}
+              {/* Gold header — compact single line, height balanced with white body */}
               <div
                 style={{
                   background: "linear-gradient(180deg, #D09947 0%, #B8832E 100%)",
-                  padding: "20px 20px 28px",
+                  padding: "14px 16px 18px",
                   textAlign: "center",
                   position: "relative",
                 }}
               >
-                <p style={{ color: "#FFFFFF", fontSize: "15px", fontWeight: 600, fontStyle: "italic", margin: 0, letterSpacing: "0.5px" }}>
-                  Turn Your Design Into
+                <p
+                  style={{
+                    color: "#FFFFFF",
+                    fontSize: "16px",
+                    fontWeight: 700,
+                    fontStyle: "italic",
+                    margin: 0,
+                    lineHeight: 1.35,
+                    letterSpacing: "0.3px",
+                  }}
+                >
+                  Send Us Your Drawings
                 </p>
-                <h3 style={{ color: "#FFFFFF", fontSize: "28px", fontWeight: 800, fontStyle: "italic", margin: "2px 0 0", letterSpacing: "1px" }}>
-                  Parts
-                </h3>
-                {/* Triangle pointer */}
                 <div
                   style={{
                     position: "absolute",
-                    bottom: "-12px",
+                    bottom: "-8px",
                     left: "50%",
                     transform: "translateX(-50%)",
                     width: 0,
                     height: 0,
-                    borderLeft: "14px solid transparent",
-                    borderRight: "14px solid transparent",
-                    borderTop: "14px solid #B8832E",
+                    borderLeft: "10px solid transparent",
+                    borderRight: "10px solid transparent",
+                    borderTop: "10px solid #B8832E",
                   }}
                 />
               </div>
 
               {/* White body with checklist */}
-              <div style={{ padding: "28px 24px 20px" }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "20px" }}>
-                  {["Get Quotations in 24 Hours", "Free DFM from Engineers", "One-Stop Design to Production"].map((item) => (
-                    <div key={item} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <div style={{ padding: "18px 20px 16px" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "14px" }}>
+                  {["Get A Quote in 24 Hours", "Free DFM from Engineers", "One-Stop Design to Production"].map((item) => (
+                    <div key={item} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <svg width="16" height="16" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0 }}>
                         <path d="M4 10.5L8 14.5L16 6.5" stroke="#D09947" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                      <span style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E" }}>{item}</span>
+                      <span style={{ fontSize: "14px", fontWeight: 600, color: "#1E1E1E", lineHeight: 1.4 }}>{item}</span>
                     </div>
                   ))}
                 </div>
 
-                {/* Get Started button */}
                 <Link
                   href="https://app.apexbatch.com/"
                   style={{
@@ -1250,21 +1269,21 @@ export function BlogPostContent({
                     alignItems: "center",
                     justifyContent: "center",
                     gap: "8px",
-                    padding: "12px 20px",
+                    padding: "10px 16px",
                     background: "linear-gradient(180deg, #D09947 0%, #B8832E 100%)",
                     color: "#FFFFFF",
                     border: "none",
                     borderRadius: "8px",
-                    fontSize: "15px",
+                    fontSize: "14px",
                     fontWeight: 700,
                     textDecoration: "none",
                     cursor: "pointer",
-                    letterSpacing: "1px",
+                    letterSpacing: "0.5px",
                     textTransform: "uppercase",
                   }}
                 >
                   GET STARTED
-                  <ArrowRight size={16} />
+                  <ArrowRight size={15} />
                 </Link>
               </div>
             </div>
