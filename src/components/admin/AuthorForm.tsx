@@ -207,6 +207,7 @@ export function AuthorForm({ author, isEditing = false }: AuthorFormProps) {
             <TiptapEditor
               content={bio}
               onChange={setBio}
+              postSlug={slug ? `authors/${slug}` : ""}
               placeholder="Write the author bio..."
             />
           </div>

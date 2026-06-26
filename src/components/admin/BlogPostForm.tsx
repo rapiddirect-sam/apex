@@ -254,6 +254,7 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
             <TiptapEditor
               content={content}
               onChange={setContent}
+              postSlug={slug}
               placeholder="Write your blog post content..."
             />
           </div>

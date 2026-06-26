@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { uploadToS3 } from "@/lib/s3";
+import { uploadToS3AtKey, resolveUniqueS3Key } from "@/lib/s3";
+import {
+  buildCmsImageObjectKey,
+  normalizeCmsUploadSlug,
+} from "@/lib/cmsImageUpload";
 import { verifyIdToken } from "@/lib/firebaseAdmin";
 import { isUserAdmin } from "@/lib/admin";
 
@@ -25,14 +29,6 @@ function verifyFileSignature(buffer: Buffer, mimeType: string): boolean {
   );
 }
 
-// Generate safe filename with timestamp and random suffix
-function generateSafeFilename(mimeType: string): string {
-  const ext = mimeType.split("/")[1] === "jpeg" ? "jpg" : mimeType.split("/")[1];
-  const timestamp = Date.now();
-  const random = Math.random().toString(36).substring(2, 10);
-  return `${timestamp}-${random}.${ext}`;
-}
-
 export async function POST(request: NextRequest) {
   try {
     // Authenticate the request
@@ -55,9 +51,34 @@ export async function POST(request: NextRequest) {
 
     const formData = await request.formData();
     const file = formData.get("file") as File;
+    const postSlug = normalizeCmsUploadSlug(String(formData.get("slug") || ""));
+    const description = String(formData.get("description") || "").trim();
+    const alt = String(formData.get("alt") || "").trim();
 
     if (!file) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
+    }
+
+    if (!postSlug) {
+      return NextResponse.json(
+        { error: "Post slug is required before uploading images (save or fill in the URL slug field)." },
+        { status: 400 }
+      );
+    }
+
+    if (!description) {
+      return NextResponse.json({ error: "Image description is required." }, { status: 400 });
+    }
+
+    if (!/[a-z0-9]/i.test(description)) {
+      return NextResponse.json(
+        { error: "Description must include letters or numbers (used as the filename)." },
+        { status: 400 }
+      );
+    }
+
+    if (alt.length > 500) {
+      return NextResponse.json({ error: "Alt text must be 500 characters or less." }, { status: 400 });
     }
 
     // Validate MIME type
@@ -88,11 +109,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate safe filename and upload to S3 cms folder
-    const safeFilename = generateSafeFilename(file.type);
-    const url = await uploadToS3(buffer, safeFilename, file.type, "cms");
+    const baseKey = buildCmsImageObjectKey(postSlug, description, file.type);
+    const key = await resolveUniqueS3Key(baseKey);
+    const url = await uploadToS3AtKey(buffer, key, file.type);
 
-    return NextResponse.json({ url });
+    return NextResponse.json({
+      url,
+      alt: alt || description,
+      key,
+    });
   } catch (error) {
     if (process.env.NODE_ENV === "development") {
       console.error("Upload error:", error);

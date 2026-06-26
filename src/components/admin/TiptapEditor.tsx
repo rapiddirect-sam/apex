@@ -179,11 +179,14 @@ import {
 } from "lucide-react";
 import { auth } from "@/lib/firebaseClient";
 import { setAuthSessionCookie } from "@/lib/authSessionCookie";
+import { defaultImageDescriptionFromFilename } from "@/lib/cmsImageUpload";
 
 interface TiptapEditorProps {
   content: string;
   onChange: (content: string) => void;
   placeholder?: string;
+  /** Blog post (or author) URL slug — used as cms/{slug}/ folder on S3 */
+  postSlug?: string;
 }
 
 // Restore raw table/CTA HTML from encoded placeholder divs in getHTML() output
@@ -211,10 +214,19 @@ function restoreRawBlocks(html: string): string {
   return restoreRawCtas(restoreRawTables(html));
 }
 
-export function TiptapEditor({ content, onChange, placeholder = "Write your content..." }: TiptapEditorProps) {
+export function TiptapEditor({
+  content,
+  onChange,
+  placeholder = "Write your content...",
+  postSlug = "",
+}: TiptapEditorProps) {
   const [showHtml, setShowHtml] = useState(false);
   const [htmlContent, setHtmlContent] = useState(content);
   const [imageUploading, setImageUploading] = useState(false);
+  const [showImageModal, setShowImageModal] = useState(false);
+  const [pendingImageFile, setPendingImageFile] = useState<File | null>(null);
+  const [imageDescription, setImageDescription] = useState("");
+  const [imageAlt, setImageAlt] = useState("");
   const imageInputRef = useRef<HTMLInputElement>(null);
 
   const editor = useEditor({
@@ -251,8 +263,28 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
     },
   });
 
-  const handleImageUpload = useCallback(async (file: File) => {
-    if (!editor) return;
+  const closeImageModal = useCallback(() => {
+    setShowImageModal(false);
+    setPendingImageFile(null);
+    setImageDescription("");
+    setImageAlt("");
+    if (imageInputRef.current) imageInputRef.current.value = "";
+  }, []);
+
+  const handleImageUpload = useCallback(async () => {
+    if (!editor || !pendingImageFile) return;
+
+    if (!postSlug.trim()) {
+      alert("Please set the URL slug before uploading images.");
+      return;
+    }
+
+    const description = imageDescription.trim();
+    if (!description || !/[a-z0-9]/i.test(description)) {
+      alert("Please enter an image description (letters or numbers) — it becomes the filename.");
+      return;
+    }
+
     setImageUploading(true);
     try {
       if (auth?.currentUser) {
@@ -264,7 +296,11 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
       }
 
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("file", pendingImageFile);
+      formData.append("slug", postSlug.trim());
+      formData.append("description", description);
+      formData.append("alt", imageAlt.trim() || description);
+
       const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
@@ -273,14 +309,30 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
       if (!response.ok) {
         throw new Error(data.error || "Upload failed");
       }
-      editor.chain().focus().setImage({ src: data.url }).run();
+
+      const altText = String(data.alt || imageAlt.trim() || description);
+      editor.chain().focus().setImage({ src: data.url, alt: altText }).run();
+      closeImageModal();
     } catch (err) {
       alert(err instanceof Error ? err.message : "Image upload failed");
     } finally {
       setImageUploading(false);
-      if (imageInputRef.current) imageInputRef.current.value = "";
     }
-  }, [editor]);
+  }, [editor, pendingImageFile, postSlug, imageDescription, imageAlt, closeImageModal]);
+
+  const handleImageFileSelected = useCallback((file: File) => {
+    if (!postSlug.trim()) {
+      alert("Please set the URL slug before uploading images.");
+      if (imageInputRef.current) imageInputRef.current.value = "";
+      return;
+    }
+
+    const defaultDescription = defaultImageDescriptionFromFilename(file.name);
+    setPendingImageFile(file);
+    setImageDescription(defaultDescription === "image" ? "" : defaultDescription);
+    setImageAlt("");
+    setShowImageModal(true);
+  }, [postSlug]);
 
   const addImage = useCallback(() => {
     imageInputRef.current?.click();
@@ -452,7 +504,7 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
           accept="image/jpeg,image/png,image/gif,image/webp"
           onChange={(e) => {
             const file = e.target.files?.[0];
-            if (file) handleImageUpload(file);
+            if (file) handleImageFileSelected(file);
           }}
           style={{ display: "none" }}
         />
@@ -728,6 +780,139 @@ export function TiptapEditor({ content, onChange, placeholder = "Write your cont
             }
           `}</style>
           <EditorContent editor={editor} />
+        </div>
+      )}
+
+      {showImageModal && pendingImageFile && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="image-upload-title"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 10000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0, 0, 0, 0.65)",
+            padding: "24px",
+          }}
+          onClick={closeImageModal}
+        >
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "440px",
+              background: "#1a1a1a",
+              border: "1px solid #444",
+              borderRadius: "12px",
+              padding: "24px",
+              boxShadow: "0 16px 48px rgba(0,0,0,0.45)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3
+              id="image-upload-title"
+              style={{ margin: "0 0 8px", color: "#fff", fontSize: "18px", fontWeight: 700 }}
+            >
+              Upload image
+            </h3>
+            <p style={{ margin: "0 0 20px", color: "#999", fontSize: "13px", lineHeight: 1.5 }}>
+              Saved as{" "}
+              <code style={{ color: "#D09947" }}>
+                cms/{postSlug}/{"{description}"}.jpg
+              </code>
+            </p>
+
+            <label style={{ display: "block", color: "#C5C6C9", fontSize: "13px", marginBottom: "6px" }}>
+              Description (filename)
+            </label>
+            <input
+              type="text"
+              value={imageDescription}
+              onChange={(e) => setImageDescription(e.target.value)}
+              placeholder="e.g. sink-marks-diagram"
+              style={{
+                width: "100%",
+                padding: "10px 12px",
+                marginBottom: "16px",
+                background: "#2a2a2a",
+                border: "1px solid #444",
+                borderRadius: "8px",
+                color: "#fff",
+                fontSize: "14px",
+                outline: "none",
+              }}
+            />
+
+            <label style={{ display: "block", color: "#C5C6C9", fontSize: "13px", marginBottom: "6px" }}>
+              Alt text (accessibility)
+            </label>
+            <input
+              type="text"
+              value={imageAlt}
+              onChange={(e) => setImageAlt(e.target.value)}
+              placeholder="Describe the image for screen readers"
+              style={{
+                width: "100%",
+                padding: "10px 12px",
+                marginBottom: "20px",
+                background: "#2a2a2a",
+                border: "1px solid #444",
+                borderRadius: "8px",
+                color: "#fff",
+                fontSize: "14px",
+                outline: "none",
+              }}
+            />
+
+            <p style={{ margin: "0 0 20px", color: "#777", fontSize: "12px" }}>
+              File: {pendingImageFile.name}
+            </p>
+
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
+              <button
+                type="button"
+                onClick={closeImageModal}
+                disabled={imageUploading}
+                style={{
+                  padding: "10px 16px",
+                  background: "#333",
+                  color: "#C5C6C9",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: imageUploading ? "not-allowed" : "pointer",
+                  fontSize: "14px",
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleImageUpload}
+                disabled={imageUploading}
+                style={{
+                  padding: "10px 20px",
+                  background: imageUploading ? "#666" : "#D09947",
+                  color: "#000",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: imageUploading ? "not-allowed" : "pointer",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                {imageUploading && (
+                  <Loader2 size={16} style={{ animation: "spin 1s linear infinite" }} />
+                )}
+                Upload
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
