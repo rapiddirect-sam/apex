@@ -383,7 +383,12 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
               border: "1px solid #333",
             }}
           >
-            <ImageUpload value={featuredImage} onChange={setFeaturedImage} />
+            <ImageUpload
+              value={featuredImage}
+              onChange={setFeaturedImage}
+              postSlug={slug}
+              defaultDescription="featured"
+            />
           </div>
 
           {/* SEO Settings */}

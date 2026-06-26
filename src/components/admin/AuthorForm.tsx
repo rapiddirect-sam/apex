@@ -217,8 +217,14 @@ export function AuthorForm({ author, isEditing = false }: AuthorFormProps) {
         <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
           {/* Avatar */}
           <div style={panelStyle}>
-            <label style={labelStyle}>Avatar</label>
-            <ImageUpload value={avatarUrl} onChange={setAvatarUrl} />
+            <ImageUpload
+              value={avatarUrl}
+              onChange={setAvatarUrl}
+              label="Avatar"
+              postSlug={slug ? `authors/${slug}` : ""}
+              defaultDescription="avatar"
+              slugRequiredMessage="Please set the author URL slug before uploading an avatar."
+            />
           </div>
 
           {/* Contact Info */}
