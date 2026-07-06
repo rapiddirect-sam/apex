@@ -6,6 +6,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
+import { isInternalSiteHref } from "@/lib/blogContentEnhance";
 
 const BlogLink = Link.extend({
   addAttributes() {
@@ -19,6 +20,24 @@ const BlogLink = Link.extend({
             return { class: "blog-link" };
           }
           return { class: attributes.class };
+        },
+      },
+      rel: {
+        default: null,
+        parseHTML: (element) => element.getAttribute("rel"),
+        renderHTML: (attributes) => {
+          const href = String(attributes.href || "");
+          if (!href || isInternalSiteHref(href)) return {};
+          return { rel: "noopener noreferrer nofollow" };
+        },
+      },
+      target: {
+        default: null,
+        parseHTML: (element) => element.getAttribute("target"),
+        renderHTML: (attributes) => {
+          const href = String(attributes.href || "");
+          if (!href || isInternalSiteHref(href)) return {};
+          return { target: "_blank" };
         },
       },
     };

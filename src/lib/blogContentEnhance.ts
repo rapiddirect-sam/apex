@@ -4,6 +4,59 @@ export interface BlogTocItem {
   level: number;
 }
 
+const SITE_HOSTS = new Set(["apexbatch.com", "www.apexbatch.com"]);
+
+/** True for same-site paths and in-page anchors; false for external URLs. */
+export function isInternalSiteHref(href: string): boolean {
+  const trimmed = href.trim();
+  if (!trimmed) return false;
+  if (trimmed.startsWith("#")) return true;
+  if (trimmed.startsWith("/") && !trimmed.startsWith("//")) return true;
+
+  try {
+    const url = new URL(trimmed, "https://apexbatch.com");
+    return SITE_HOSTS.has(url.hostname.toLowerCase());
+  } catch {
+    return false;
+  }
+}
+
+function buildLinkRelAttributes(href: string, existingRel = ""): { rel?: string; target?: string } {
+  if (isInternalSiteHref(href)) {
+    return {};
+  }
+
+  const relTokens = new Set(existingRel.split(/\s+/).filter(Boolean));
+  relTokens.add("noopener");
+  relTokens.add("noreferrer");
+  relTokens.add("nofollow");
+  return { rel: [...relTokens].join(" "), target: "_blank" };
+}
+
+/** Internal apexbatch.com links pass equity; external links keep nofollow. */
+export function normalizeBlogContentLinks(html: string): string {
+  return html.replace(/<a\b([^>]*)>/gi, (fullMatch, attrs) => {
+    const hrefMatch = String(attrs).match(/\bhref="([^"]*)"/i);
+    if (!hrefMatch) return fullMatch;
+
+    const href = hrefMatch[1];
+    const existingRel = String(attrs).match(/\brel="([^"]*)"/i)?.[1] || "";
+    const { rel, target } = buildLinkRelAttributes(href, existingRel);
+
+    let nextAttrs = String(attrs)
+      .replace(/\srel="[^"]*"/i, "")
+      .replace(/\starget="[^"]*"/i, "");
+
+    if (isInternalSiteHref(href)) {
+      return `<a${nextAttrs}>`;
+    }
+
+    if (rel) nextAttrs += ` rel="${rel}"`;
+    if (target) nextAttrs += ` target="${target}"`;
+    return `<a${nextAttrs}>`;
+  });
+}
+
 /** Turn heading text into a URL-friendly slug (matches common CMS anchor patterns). */
 export function slugifyHeadingText(text: string): string {
   return text
@@ -313,7 +366,8 @@ function enhanceCtaLinksInBlock(inner: string): string {
 
 export function prepareBlogContentHtml(html: string): { html: string; tocItems: BlogTocItem[] } {
   const decoded = restoreRawBlocks(html);
-  const withCta = applyCtaBannerClass(enhanceBlogCtaHtml(decoded));
+  const withLinks = normalizeBlogContentLinks(decoded);
+  const withCta = applyCtaBannerClass(enhanceBlogCtaHtml(withLinks));
   const withTables = wrapTablesForScroll(withCta);
   const { html: withIds, tocItems } = injectHeadingIds(withTables);
   return { html: withIds, tocItems };
