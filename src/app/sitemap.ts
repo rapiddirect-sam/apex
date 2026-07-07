@@ -10,7 +10,7 @@ const EXCLUDED_DIRS = new Set(["admin", "api", "blog"]);
 const EXCLUDED_ROUTES = new Set(["/cnc-milling"]);
 
 // Published blog posts to always include (fallback when Supabase is unavailable at build time)
-const PINNED_BLOG_SLUGS = ["injection-molding-defects"] as const;
+const PINNED_BLOG_SLUGS = ["injection-molding-defects", "injection-mold-components"] as const;
 
 // Per-route overrides for changeFrequency and priority
 const ROUTE_CONFIG: Record<
