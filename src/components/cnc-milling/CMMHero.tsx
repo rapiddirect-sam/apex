@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { EditableText, EditableImage } from "@/components/cms";
+import { useCMS } from "@/contexts/CMSContext";
 import {
   CNC_HERO_DEFAULT_SRC,
   CNC_HERO_IMAGE_QUALITY,
@@ -45,11 +46,12 @@ const DEFAULTS = {
 };
 
 export function CMMHero() {
+  const { isEditMode } = useCMS();
   const marqueeLogos = [...DEFAULTS.logos, ...DEFAULTS.logos];
 
   return (
     <section className="relative bg-[#060606] pt-16 overflow-hidden">
-      <div className="absolute inset-0">
+      <div className={`absolute inset-0${isEditMode ? " z-[1]" : ""}`}>
         <EditableImage
           path="hero.image"
           defaultSrc={DEFAULTS.heroImage}
@@ -77,7 +79,13 @@ export function CMMHero() {
         }}
       />
 
-      <div className="relative max-w-[1240px] mx-auto px-6 lg:px-8 min-h-[620px] flex items-center">
+      <div
+        className={`relative max-w-[1240px] mx-auto px-6 lg:px-8 min-h-[620px] flex items-center${
+          isEditMode
+            ? " z-[2] pointer-events-none [&_a]:pointer-events-auto [&_[data-editable-text]]:pointer-events-auto [&_.cms-editable-image]:pointer-events-auto"
+            : ""
+        }`}
+      >
         <div className="w-full pt-14 pb-5 lg:pt-16 lg:pb-4">
           <div className="max-w-[920px]">
             <div className="inline-flex items-center px-3 py-1.5 border border-[#D09947]/35 rounded-md mb-5 bg-black/35">

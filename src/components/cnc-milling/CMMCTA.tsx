@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { EditableText, EditableImage } from "@/components/cms";
+import { useCMS } from "@/contexts/CMSContext";
 
 const DEFAULTS = {
   backgroundImage: "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773380863212-1773380863212-qy3uzfbf.webp",
@@ -14,9 +15,11 @@ const DEFAULTS = {
 };
 
 export function CMMCTA() {
+  const { isEditMode } = useCMS();
+
   return (
     <section className="relative overflow-hidden" style={{ padding: "120px 0" }}>
-      <div className="absolute inset-0">
+      <div className={`absolute inset-0${isEditMode ? " z-[1]" : ""}`}>
         <EditableImage
           path="cta.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
@@ -25,14 +28,20 @@ export function CMMCTA() {
           sizes="100vw"
         />
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 pointer-events-none"
           style={{
             background: "linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.6) 100%)",
           }}
         />
       </div>
 
-      <div className="relative max-w-[1200px] mx-auto px-6">
+      <div
+        className={`relative max-w-[1200px] mx-auto px-6${
+          isEditMode
+            ? " z-[2] pointer-events-none [&_a]:pointer-events-auto [&_[data-editable-text]]:pointer-events-auto [&_.cms-editable-image]:pointer-events-auto"
+            : ""
+        }`}
+      >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
