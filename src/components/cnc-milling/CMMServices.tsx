@@ -93,13 +93,15 @@ export function CMMServices() {
               className="group h-full flex flex-col"
               style={{ background: "#1A1A1A", overflow: "hidden" }}
             >
-              <div className="relative overflow-hidden" style={{ height: "220px" }}>
+              <div className="relative w-full aspect-[1581/995] overflow-hidden bg-[#141414]">
                 <EditableImage
                   path={`services.items.${index}.image`}
                   defaultSrc={service.image}
                   alt={service.title}
                   fill
-                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-contain"
+                  style={{ objectFit: "contain" }}
                 />
               </div>
               <div className="flex flex-1 flex-col" style={{ padding: "24px" }}>
