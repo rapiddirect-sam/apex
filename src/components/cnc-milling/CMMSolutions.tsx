@@ -68,7 +68,7 @@ export function CMMSolutions() {
         </motion.div>
 
         <div
-          className="grid grid-cols-1 md:grid-cols-2"
+          className="grid grid-cols-1 md:grid-cols-2 md:items-stretch"
           style={{ gap: "24px", marginTop: "72px" }}
         >
           {DEFAULTS.solutions.map((solution, index) => (
@@ -78,10 +78,10 @@ export function CMMSolutions() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group flex flex-col"
+              className="group flex h-full flex-col"
               style={{ background: "#1A1A1A", overflow: "hidden" }}
             >
-              <div style={{ padding: "24px" }}>
+              <div className="flex flex-1 flex-col" style={{ padding: "24px" }}>
                 <h3 style={{ fontSize: "24px", fontWeight: 700, color: "#FFFFFF", marginBottom: "16px" }}>
                   <EditableText path={`solutions.items.${index}.title`} defaultValue={solution.title} />
                 </h3>
@@ -115,13 +115,15 @@ export function CMMSolutions() {
                   ))}
                 </ul>
               </div>
-              <div className="relative overflow-hidden mt-auto" style={{ height: "260px" }}>
+              <div className="relative mt-auto w-full shrink-0 aspect-[1581/995] overflow-hidden bg-[#1A1A1A]">
                 <EditableImage
                   path={`solutions.items.${index}.image`}
                   defaultSrc={solution.image}
                   alt={solution.title}
                   fill
-                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-contain"
+                  style={{ objectFit: "contain" }}
                 />
               </div>
             </motion.div>

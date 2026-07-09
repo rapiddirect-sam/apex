@@ -177,33 +177,66 @@ export function CMMHero() {
               </Link>
             </div>
 
-            <div className="mt-6 w-full max-w-[920px] overflow-hidden pt-2">
-              <div className="h3-hero-logo-marquee flex items-center">
-                {marqueeLogos.map((logo, index) => {
-                  const editableIndex = index % DEFAULTS.logos.length;
-
-                  return (
-                    <div
-                      key={`${logo.alt}-${index}`}
-                      className="flex shrink-0 items-center justify-center"
-                      style={{ width: "16.6667%", minWidth: "132px", paddingInline: "10px" }}
-                    >
-                      <div className="relative mx-auto h-7 w-full max-w-[112px] opacity-90">
-                        <EditableImage
-                          path={`hero.logos.${editableIndex}.src`}
-                          defaultSrc={logo.src}
-                          alt={logo.alt}
-                          fill
-                          sizes="112px"
-                          quality={85}
-                          unoptimized
-                          style={{ objectFit: "contain" }}
-                        />
+            <div
+              className={`mt-6 w-full max-w-[920px] pt-2${
+                isEditMode
+                  ? " pointer-events-auto rounded-lg border border-dashed border-[#D09947]/40 bg-black/50 p-4"
+                  : " overflow-hidden"
+              }`}
+            >
+              {isEditMode ? (
+                <>
+                  <p className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-[#D09947]">
+                    Client logos — click a logo or its Upload button to replace
+                  </p>
+                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                    {DEFAULTS.logos.map((logo, index) => (
+                      <div key={logo.alt} className="flex flex-col items-center gap-2">
+                        <span className="text-[10px] text-[#999]">{logo.alt}</span>
+                        <div className="relative mx-auto h-10 w-full max-w-[140px]">
+                          <EditableImage
+                            path={`hero.logos.${index}.src`}
+                            defaultSrc={logo.src}
+                            alt={logo.alt}
+                            fill
+                            sizes="140px"
+                            quality={85}
+                            unoptimized
+                            style={{ objectFit: "contain" }}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className="h3-hero-logo-marquee flex items-center">
+                  {marqueeLogos.map((logo, index) => {
+                    const editableIndex = index % DEFAULTS.logos.length;
+
+                    return (
+                      <div
+                        key={`${logo.alt}-${index}`}
+                        className="flex shrink-0 items-center justify-center"
+                        style={{ width: "16.6667%", minWidth: "132px", paddingInline: "10px" }}
+                      >
+                        <div className="relative mx-auto h-7 w-full max-w-[112px] opacity-90">
+                          <EditableImage
+                            path={`hero.logos.${editableIndex}.src`}
+                            defaultSrc={logo.src}
+                            alt={logo.alt}
+                            fill
+                            sizes="112px"
+                            quality={85}
+                            unoptimized
+                            style={{ objectFit: "contain" }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>
