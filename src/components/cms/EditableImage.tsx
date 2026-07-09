@@ -48,7 +48,14 @@ export function EditableImage({
   const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
   const MAX_UPLOAD_SIZE = 10 * 1024 * 1024;
 
-  const currentSrc = getContentValue(path, defaultSrc);
+  const rawSrc = getContentValue(path, defaultSrc);
+  const currentSrc =
+    typeof rawSrc === "string" && rawSrc.trim() === "" ? defaultSrc : rawSrc;
+  // Use <img> for GIFs and data URLs (Next/Image does not reliably render inline SVG/data URIs).
+  const isGif = currentSrc.toLowerCase().includes(".gif");
+  const isDataUrl = currentSrc.startsWith("data:");
+  const useNativeImg = isGif || isDataUrl;
+
   // Default 90 balances sharpness vs LCP; override with quality={100} where needed.
   const imageQuality = quality ?? 90;
   const imageSizes = sizes ?? (fill ? "100vw" : undefined);
@@ -115,9 +122,6 @@ export function EditableImage({
     e.target.value = "";
   };
 
-  // Use <img> only for GIFs (Next/Image doesn't optimize animated GIFs well)
-  const isGif = currentSrc.toLowerCase().includes(".gif");
-
   // Image props for Next/Image
   const imageProps = fill
     ? { fill: true as const, style: { objectFit: "cover" as const, ...style } }
@@ -125,7 +129,7 @@ export function EditableImage({
 
   // Non-edit mode - render image normally (no wrapper div)
   if (!isEditMode) {
-    if (isGif) {
+    if (useNativeImg) {
       const imgStyle: CSSProperties = fill
         ? { position: "absolute" as const, width: "100%", height: "100%", objectFit: "cover", ...style }
         : style || {};
@@ -169,7 +173,7 @@ export function EditableImage({
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image */}
-      {isGif ? (
+      {useNativeImg ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={currentSrc}

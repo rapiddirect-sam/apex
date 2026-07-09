@@ -34,6 +34,10 @@ export const DEFAULT_PAGE_META: Record<string, { title: string; description: str
     title: "CNC Machining Services - ApexBatch Precision Manufacturing",
     description: "Professional CNC machining services including milling, turning, and multi-axis machining. High-precision parts for aerospace, automotive, medical, and more.",
   },
+  "/cnc-milling": {
+    title: "CNC Milling Services - ApexBatch Precision Manufacturing",
+    description: "Professional CNC milling services for precision metal and plastic parts. 3-axis and 5-axis milling with tight tolerances for aerospace, automotive, medical, and more.",
+  },
   "/reviews": {
     title: "Customer Reviews - ApexBatch Client Testimonials",
     description: "Read what our clients say about ApexBatch's precision manufacturing services. Real testimonials from satisfied customers worldwide.",
