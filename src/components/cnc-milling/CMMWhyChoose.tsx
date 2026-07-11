@@ -81,14 +81,7 @@ export function CMMWhyChoose() {
       className="relative overflow-hidden"
       style={{
         padding: "112px 0 120px",
-        background: `
-          radial-gradient(
-            60% 50% at 50% 0%,
-            rgba(249,235,188,0.08),
-            rgba(0,0,0,0) 65%
-          ),
-          #000000
-        `,
+        background: "#34312F",
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
@@ -252,7 +245,7 @@ export function CMMWhyChoose() {
             <div
               className="mb-6"
               style={{
-                background: "linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
+                background: "#000000",
                 borderRadius: "16px",
                 border: "1px solid rgba(208,153,71,0.2)",
                 padding: "32px",
@@ -367,9 +360,9 @@ export function CMMWhyChoose() {
           <p
             className="mb-5"
             style={{
-              fontSize: "25px",
-              fontWeight: 700,
-              color: "#FFFFFF",
+              color: "#F3F3F3",
+              fontSize: "16px",
+              lineHeight: 1.6,
             }}
           >
             <EditableText path="whychoose.ctaText" defaultValue={DEFAULTS.ctaText} />

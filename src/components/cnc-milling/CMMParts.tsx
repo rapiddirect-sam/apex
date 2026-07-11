@@ -52,7 +52,7 @@ export function CMMParts() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ padding: "112px 0 120px", background: "#34312F" }}
+      style={{ padding: "112px 0 120px", background: "#000000" }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
         <motion.div

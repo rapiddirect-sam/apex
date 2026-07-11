@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
@@ -39,7 +40,13 @@ export function CMMSurfaceFinishes() {
             <EditableText path="finishes.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
           </h2>
           <p className="mx-auto w-[80%]" style={{ fontSize: "18px", lineHeight: 1.6, color: "#7A7A7C", marginTop: "18px" }}>
-            <EditableText path="finishes.subheading" defaultValue={DEFAULTS.subheading} />
+            <EditableText path="finishes.subheading" defaultValue={DEFAULTS.subheading} />{" "}
+            <Link
+              href="/surface-finish"
+              className="text-[#EEC569] underline underline-offset-2 transition-colors hover:text-[#D09947]"
+            >
+              Learn more.
+            </Link>
           </p>
         </motion.div>
 

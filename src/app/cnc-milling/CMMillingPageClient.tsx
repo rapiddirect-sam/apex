@@ -88,16 +88,16 @@ export function CMMillingPageClient({ initialContent, initialVersion }: CMMillin
             <CMMServices />
             <CMMSolutions />
             <CMMTolerance />
+            <CMMParts />
+            <CMMFacilities />
             <CMMMaterials />
             <CMMSurfaceFinishes />
             <CMMDesignGuidelines />
-            <CMMParts />
           </>
         ) : null}
         {!isMobile || phase >= 2 ? (
           <>
             <CMMWhyChoose />
-            <CMMFacilities />
             <CMMProcess />
             <CMMFAQ />
             <CMMCTA />

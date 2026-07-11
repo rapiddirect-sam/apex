@@ -9,8 +9,10 @@ const DEFAULTS = {
   heading: "Design",
   headingHighlight: " Guidelines",
   headingSuffix: " for CNC Milling",
-  subheading:
-    "Small design details such as internal radii, threaded holes, wall thickness, engraving, and hole depth can affect CNC milling cost, tolerance stability, and production risk. ApexBatch, as a CNC machining manufacturer, reviews CAD files and drawings before production to identify manufacturability issues early.",
+  subheadingBefore:
+    "Small design details such as internal radii, threaded holes, wall thickness, engraving, and hole depth can affect CNC milling cost, tolerance stability, and production risk. ApexBatch, as a ",
+  subheadingAfter:
+    " manufacturer, reviews CAD files and drawings before production to identify manufacturability issues early.",
   guidelinesData: [
     {
       element: "Internal Corner Radius",
@@ -87,7 +89,14 @@ export function CMMDesignGuidelines() {
               marginTop: "18px",
             }}
           >
-            <EditableText path="designGuidelines.subheading" defaultValue={DEFAULTS.subheading} multiline />
+            <EditableText path="designGuidelines.subheadingBefore" defaultValue={DEFAULTS.subheadingBefore} multiline />
+            <Link
+              href="/cnc-machining"
+              className="text-[#EEC569] underline underline-offset-2 transition-colors hover:text-[#D09947]"
+            >
+              CNC machining
+            </Link>
+            <EditableText path="designGuidelines.subheadingAfter" defaultValue={DEFAULTS.subheadingAfter} multiline />
           </p>
         </motion.div>
 
