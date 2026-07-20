@@ -7,10 +7,14 @@ import path from "path";
 const EXCLUDED_DIRS = new Set(["admin", "api", "blog"]);
 
 // Routes to exclude until ready for indexing (remove when page is live)
-const EXCLUDED_ROUTES = new Set(["/cnc-milling"]);
+const EXCLUDED_ROUTES = new Set(["/cnc-milling", "/cnc-turning"]);
 
 // Published blog posts to always include (fallback when Supabase is unavailable at build time)
-const PINNED_BLOG_SLUGS = ["injection-molding-defects", "injection-mold-components"] as const;
+const PINNED_BLOG_SLUGS = [
+  "injection-molding-defects",
+  "injection-mold-components",
+  "cnc-machining-tolerances",
+] as const;
 
 // Per-route overrides for changeFrequency and priority
 const ROUTE_CONFIG: Record<
