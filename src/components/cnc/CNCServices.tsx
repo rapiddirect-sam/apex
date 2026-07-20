@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
@@ -97,7 +98,16 @@ export function CNCServices() {
               </div>
               <div style={{ padding: "24px" }}>
                 <h3 style={{ fontSize: "24px", fontWeight: 700, color: "#FFFFFF", marginBottom: "16px" }}>
-                  <EditableText path={`services.items.${index}.title`} defaultValue={service.title} />
+                  {index === 0 ? (
+                    <Link
+                      href="/cnc-milling"
+                      className="text-[#EEC569] underline underline-offset-2 transition-colors hover:text-[#D09947]"
+                    >
+                      <EditableText path={`services.items.${index}.title`} defaultValue={service.title} />
+                    </Link>
+                  ) : (
+                    <EditableText path={`services.items.${index}.title`} defaultValue={service.title} />
+                  )}
                 </h3>
                 <p style={{ fontSize: "16px", lineHeight: 1.7, color: "#C5C6C9", marginBottom: "24px" }}>
                   <EditableText path={`services.items.${index}.description`} defaultValue={service.description} multiline />
