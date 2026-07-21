@@ -14,6 +14,8 @@ const PINNED_BLOG_SLUGS = [
   "injection-molding-defects",
   "injection-mold-components",
   "cnc-machining-tolerances",
+  "cnc-milling-vs-cnc-turning",
+  "cnc-machining-cost",
 ] as const;
 
 // Per-route overrides for changeFrequency and priority
