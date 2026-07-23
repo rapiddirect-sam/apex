@@ -14,3 +14,6 @@ export const CNC_HERO_IMAGE_QUALITY = 62;
 
 export const CNC_HERO_DEFAULT_SRC =
   "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp";
+
+export const CNC_TURNING_HERO_DEFAULT_SRC =
+  "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/cnc-turning.webp";
