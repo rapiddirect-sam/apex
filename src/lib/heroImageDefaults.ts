@@ -17,3 +17,6 @@ export const CNC_HERO_DEFAULT_SRC =
 
 export const CNC_TURNING_HERO_DEFAULT_SRC =
   "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/cnc-turning.webp";
+
+export const LASER_CUTTING_HERO_DEFAULT_SRC =
+  "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/2-cnc-machining-production-workshop-2.webp";

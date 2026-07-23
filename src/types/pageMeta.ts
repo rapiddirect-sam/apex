@@ -42,6 +42,10 @@ export const DEFAULT_PAGE_META: Record<string, { title: string; description: str
     title: "CNC Turning Services - ApexBatch Precision Manufacturing",
     description: "Professional CNC turning and lathe services for cylindrical precision parts. 2-axis, live-tool, and Swiss-type turning with tight tolerances for aerospace, automotive, medical, and more.",
   },
+  "/laser-cutting": {
+    title: "Laser Cutting Services - ApexBatch Precision Manufacturing",
+    description: "Professional fiber and CO2 laser cutting services for sheet metal parts. High-precision cutting for aluminum, stainless steel, and carbon steel with tight tolerances and fast turnaround.",
+  },
   "/reviews": {
     title: "Customer Reviews - ApexBatch Client Testimonials",
     description: "Read what our clients say about ApexBatch's precision manufacturing services. Real testimonials from satisfied customers worldwide.",
