@@ -33,7 +33,10 @@ const navItems: NavItem[] = [
       {
         heading: "CNC Machining",
         href: "/cnc-machining",
-        links: [{ href: "/cnc-milling", label: "CNC Milling" }],
+        links: [
+          { href: "/cnc-milling", label: "CNC Milling" },
+          { href: "/cnc-turning", label: "CNC Turning" },
+        ],
       },
       {
         heading: "Sheet Metal",

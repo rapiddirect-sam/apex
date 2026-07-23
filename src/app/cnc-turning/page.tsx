@@ -11,10 +11,6 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: "/cnc-turning",
     },
-    robots: {
-      index: false,
-      follow: true,
-    },
   };
 }
 
