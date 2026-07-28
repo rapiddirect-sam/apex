@@ -16,6 +16,8 @@ const PINNED_BLOG_SLUGS = [
   "cnc-machining-tolerances",
   "cnc-milling-vs-cnc-turning",
   "cnc-machining-cost",
+  "cnc-machining-vs-injection-molding",
+  "sheet-metal-fabrication-cost",
 ] as const;
 
 // Per-route overrides for changeFrequency and priority
