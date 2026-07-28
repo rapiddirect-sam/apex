@@ -971,7 +971,7 @@ export function BlogPostContent({
                           )}
                           {author.socialLinkedin && (
                             <a
-                              href={`https://linkedin.com/in/${author.socialLinkedin}`}
+                              href={`https://www.linkedin.com/in/${author.socialLinkedin}`}
                               target="_blank"
                               rel="noopener noreferrer nofollow"
                               title="LinkedIn"
