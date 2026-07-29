@@ -18,6 +18,9 @@ const LCCapabilities = dynamic(() =>
 const LCMaterials = dynamic(() =>
   import("@/components/laser-cutting/LCMaterials").then((m) => ({ default: m.LCMaterials }))
 );
+const LCWorkshop = dynamic(() =>
+  import("@/components/laser-cutting/LCWorkshop").then((m) => ({ default: m.LCWorkshop }))
+);
 const LCParts = dynamic(() =>
   import("@/components/laser-cutting/LCParts").then((m) => ({ default: m.LCParts }))
 );
@@ -72,6 +75,7 @@ export function LaserCuttingPageClient({ initialContent, initialVersion }: Laser
           <>
             <LCCapabilities />
             <LCMaterials />
+            <LCWorkshop />
             <LCParts />
             <LCWhyChoose />
           </>

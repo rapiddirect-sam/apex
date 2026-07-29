@@ -45,7 +45,7 @@ export function LCProcess() {
       className="relative overflow-hidden"
       style={{
         padding: "112px 0 120px",
-        background: "#34312F",
+        background: "#000000",
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
@@ -77,7 +77,7 @@ export function LCProcess() {
               transition={{ delay: index * 0.1 }}
               className="relative transition-all duration-300 hover:-translate-y-1"
               style={{
-                background: "#000000",
+                background: "#34312F",
                 borderRadius: "16px",
                 padding: "28px",
                 border: "1px solid rgba(208,153,71,0.2)",

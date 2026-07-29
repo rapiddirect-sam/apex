@@ -135,7 +135,7 @@ export function LCFAQ() {
       className="relative overflow-hidden"
       style={{
         padding: "112px 0 120px",
-        background: `radial-gradient(60% 50% at 50% 0%, rgba(249,235,188,0.08), rgba(0,0,0,0) 65%), #000000`,
+        background: `radial-gradient(60% 50% at 50% 0%, rgba(249,235,188,0.08), rgba(0,0,0,0) 65%), #34312F`,
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
