@@ -19,7 +19,6 @@ function createLogoPlaceholder(label: string): string {
 }
 
 const DEFAULTS = {
-  eyebrow: "Laser Cutting for Prototype and Batch Production",
   titlePrefix: "",
   titleHighlight: "Laser Cutting Services",
   titleSuffix: " for Custom Sheet Metal Parts",
@@ -88,12 +87,6 @@ export function LCHero() {
       >
         <div className="w-full pt-14 pb-5 lg:pt-16 lg:pb-4">
           <div className="max-w-[920px]">
-            <div className="inline-flex items-center px-3 py-1.5 border border-[#D09947]/35 rounded-md mb-5 bg-black/35">
-              <span className="text-[#D09947] text-[10px] font-semibold tracking-[0.2em]">
-                <EditableText path="hero.eyebrow" defaultValue={DEFAULTS.eyebrow} />
-              </span>
-            </div>
-
             <h1
               className="text-[#F5F5F5] font-extrabold tracking-tight leading-[1.08]"
               style={{
