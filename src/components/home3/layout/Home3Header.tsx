@@ -41,7 +41,7 @@ const navItems: NavItem[] = [
       {
         heading: "Sheet Metal",
         href: "/sheet-metal-fabrication",
-        links: [],
+        links: [{ href: "/laser-cutting", label: "Laser Cutting" }],
       },
       {
         heading: "Molding",

@@ -11,14 +11,6 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: "/laser-cutting",
     },
-    robots: {
-      index: false,
-      follow: false,
-      googleBot: {
-        index: false,
-        follow: false,
-      },
-    },
   };
 }
 

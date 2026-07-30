@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { EditableText, EditableImage } from "@/components/cms";
 
@@ -12,6 +13,7 @@ const DEFAULTS = {
   services: [
     {
       title: "Laser Cutting",
+      href: "/laser-cutting",
       description:
         "High-precision laser cutting for complex geometries and tight tolerances. Ideal for prototyping and production runs.",
       specs: [
@@ -119,7 +121,17 @@ export function SMServices() {
                 </div>
                 <div style={{ padding: "24px" }}>
                   <h3 style={{ fontSize: "20px", fontWeight: 700, color: "#FFFFFF", marginBottom: "12px" }}>
-                    <EditableText path={`services.items.${index}.title`} defaultValue={service.title} />
+                    {service.href ? (
+                      <Link
+                        href={service.href}
+                        className="transition-colors hover:text-[#EEC569]"
+                        style={{ color: "inherit", textDecoration: "none" }}
+                      >
+                        <EditableText path={`services.items.${index}.title`} defaultValue={service.title} />
+                      </Link>
+                    ) : (
+                      <EditableText path={`services.items.${index}.title`} defaultValue={service.title} />
+                    )}
                   </h3>
                   <p style={{ fontSize: "14px", lineHeight: 1.6, color: "#C5C6C9", marginBottom: "20px" }}>
                     <EditableText path={`services.items.${index}.description`} defaultValue={service.description} multiline />
