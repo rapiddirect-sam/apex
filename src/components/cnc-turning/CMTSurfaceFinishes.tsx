@@ -70,7 +70,7 @@ export function CMTSurfaceFinishes() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ padding: "104px 0 112px", background: "#34312F" }}
+      style={{ padding: "104px 0 112px", background: `radial-gradient(60% 50% at 50% 0%, rgba(249,235,188,0.08), rgba(0,0,0,0) 65%), #000000` }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
         <motion.div

@@ -142,14 +142,7 @@ export function CMTQualityControl() {
       className="relative overflow-hidden"
       style={{
         padding: "52px 0 112px",
-        background: `
-          radial-gradient(
-            60% 50% at 50% 0%,
-            rgba(249,235,188,0.08),
-            rgba(0,0,0,0) 65%
-          ),
-          #000000
-        `,
+        background: "#34312F",
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">

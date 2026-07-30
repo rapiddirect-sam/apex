@@ -243,7 +243,7 @@ export function CMTMaterials() {
       className="relative overflow-hidden"
       style={{
         padding: "52px 0 120px",
-        background: `radial-gradient(60% 50% at 50% 0%, rgba(249,235,188,0.08), rgba(0,0,0,0) 65%), #000000`,
+        background: "#34312F",
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
@@ -292,7 +292,7 @@ export function CMTMaterials() {
                     fontWeight: 600,
                     letterSpacing: "0.04em",
                     textTransform: "uppercase",
-                    background: isActive ? "#D09947" : "transparent",
+                    background: isActive ? "#D09947" : "#000000",
                     border: isActive ? "1px solid #D09947" : "1px solid rgba(255,255,255,0.2)",
                     color: isActive ? "#000000" : "#C5C6C9",
                   }}
@@ -318,7 +318,7 @@ export function CMTMaterials() {
                     borderRadius: "12px",
                     fontSize: "14px",
                     fontWeight: activeTab === material.index ? 600 : 500,
-                    background: activeTab === material.index ? "rgba(208,153,71,0.15)" : "transparent",
+                    background: activeTab === material.index ? "rgba(208,153,71,0.15)" : "#000000",
                     border:
                       activeTab === material.index
                         ? "1px solid rgba(208,153,71,0.5)"
@@ -342,7 +342,7 @@ export function CMTMaterials() {
             transition={{ duration: 0.3 }}
             className="lg:col-span-9"
             style={{
-              background: "linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
+              background: "#000000",
               borderRadius: "16px",
               padding: "36px",
               border: "1px solid rgba(208,153,71,0.2)",

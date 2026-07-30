@@ -182,7 +182,7 @@ export function CMTFacilities() {
       className="relative overflow-hidden"
       style={{
         padding: "112px 0 120px",
-        background: "#34312F",
+        background: `radial-gradient(60% 50% at 50% 0%, rgba(249,235,188,0.08), rgba(0,0,0,0) 65%), #000000`,
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">

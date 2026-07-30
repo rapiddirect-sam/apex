@@ -39,6 +39,9 @@ const CMTQualityControl = dynamic(() =>
 const CMTSurfaceFinishes = dynamic(() =>
   import("@/components/cnc-turning/CMTSurfaceFinishes").then((m) => ({ default: m.CMTSurfaceFinishes }))
 );
+const CMTFacilities = dynamic(() =>
+  import("@/components/cnc-turning/CMTFacilities").then((m) => ({ default: m.CMTFacilities }))
+);
 const CMTCTA = dynamic(() =>
   import("@/components/cnc-turning/CMTCTA").then((m) => ({ default: m.CMTCTA }))
 );
@@ -82,6 +85,7 @@ export function CNCTurningPageClient({ initialContent, initialVersion }: CNCTurn
             <CMTServices />
             <CMTTolerance />
             <CMTParts />
+            <CMTFacilities />
             <CMTMaterials />
             <CMTSurfaceFinishes />
             <CMTQualityControl />

@@ -40,7 +40,7 @@ export function CMTProcess() {
       className="relative overflow-hidden"
       style={{
         padding: "112px 0 120px",
-        background: `radial-gradient(60% 50% at 50% 0%, rgba(249,235,188,0.08), rgba(0,0,0,0) 65%), #000000`,
+        background: "#34312F",
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
@@ -72,7 +72,7 @@ export function CMTProcess() {
               transition={{ delay: index * 0.1 }}
               className="relative transition-all duration-300 hover:-translate-y-1"
               style={{
-                background: "linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
+                background: "#000000",
                 borderRadius: "16px",
                 padding: "28px",
                 border: "1px solid rgba(208,153,71,0.2)",
