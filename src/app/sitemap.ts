@@ -19,6 +19,8 @@ const PINNED_BLOG_SLUGS = [
   "cnc-machining-vs-injection-molding",
   "sheet-metal-fabrication-cost",
   "sheet-metal-finishing-types",
+  "sheet-metal-types",
+  "rapid-cnc-prototyping",
 ] as const;
 
 // Per-route overrides for changeFrequency and priority
