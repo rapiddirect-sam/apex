@@ -106,7 +106,7 @@ export function OMServices() {
               className="group h-full flex flex-col"
               style={{ background: "#1A1A1A", overflow: "hidden" }}
             >
-              <div className="relative overflow-hidden" style={{ height: "220px" }}>
+              <div className="relative aspect-[4/3] overflow-hidden">
                 <EditableImage
                   path={`services.items.${index}.image`}
                   defaultSrc={service.image}

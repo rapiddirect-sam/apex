@@ -109,7 +109,7 @@ export function OMParts() {
                 e.currentTarget.style.boxShadow = "0 14px 36px rgba(0,0,0,0.45)";
               }}
             >
-              <div className="relative overflow-hidden" style={{ height: "190px" }}>
+              <div className="relative aspect-[4/3] overflow-hidden">
                 <EditableImage
                   path={`parts.items.${index}.image`}
                   defaultSrc={part.image}
