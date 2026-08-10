@@ -48,6 +48,7 @@ const navItems: NavItem[] = [
         href: "/molding-services",
         links: [
           { href: "/injection-molding", label: "Injection Molding" },
+          { href: "/overmolding", label: "Overmolding" },
           { href: "/extrusion-services", label: "Extrusion Services" },
           { href: "/die-casting", label: "Die Casting" },
         ],
