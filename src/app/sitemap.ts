@@ -21,6 +21,7 @@ const PINNED_BLOG_SLUGS = [
   "sheet-metal-finishing-types",
   "sheet-metal-types",
   "rapid-cnc-prototyping",
+  "low-volume-cnc-machining",
 ] as const;
 
 // Per-route overrides for changeFrequency and priority
