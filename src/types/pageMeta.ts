@@ -62,6 +62,10 @@ export const DEFAULT_PAGE_META: Record<string, { title: string; description: str
     title: "Overmolding Services - ApexBatch Manufacturing",
     description: "Professional overmolding services for multi-material parts. Two-shot, insert, and elastomer overmolding with material compatibility review and bond strength control.",
   },
+  "/insert-molding": {
+    title: "Insert Molding Services - ApexBatch Manufacturing",
+    description: "Professional insert molding services for functional plastic parts. Metal and threaded inserts molded in place with DFM review, tooling, validation, and traceable production.",
+  },
   "/die-casting": {
     title: "Die Casting Services - ApexBatch Manufacturing",
     description: "High pressure and gravity die casting services for aluminum and zinc parts. Tight tolerances, complex geometries, and integrated post-machining & finishing.",
