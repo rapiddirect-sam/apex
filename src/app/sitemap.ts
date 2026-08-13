@@ -22,6 +22,7 @@ const PINNED_BLOG_SLUGS = [
   "sheet-metal-types",
   "rapid-cnc-prototyping",
   "low-volume-cnc-machining",
+  "plasma-cutting-vs-laser-cutting",
 ] as const;
 
 // Per-route overrides for changeFrequency and priority
