@@ -22,8 +22,8 @@ const DEFAULTS = {
     "Integrate threaded inserts, bushings, terminals, and other functional components directly into thermoplastic or silicone parts. ApexBatch supports insert sourcing, DFM, tooling, molding, and repeat batch production for reliable custom insert-molded parts.",
   heroImage:
     "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp",
-  ctaPrimary: "Upload Your Design",
-  ctaSecondary: "Talk to an Engineer",
+  ctaPrimary: "Start Your Project",
+  ctaSecondary: "Get Production Quote",
   certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 14001:2015"],
   logos: [
     { alt: "Stryker", src: createLogoPlaceholder("stryker") },
