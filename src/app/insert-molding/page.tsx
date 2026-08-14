@@ -8,10 +8,6 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: meta.title,
     description: meta.description,
-    robots: {
-      index: false,
-      follow: false,
-    },
     alternates: {
       canonical: "/insert-molding",
     },
