@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { cn, getImageUrl } from "@/lib/utils";
 import { Menu, X, ChevronRight, ChevronDown } from "lucide-react";
+import { Q4AnnouncementBar } from "./Q4AnnouncementBar";
 
 interface NavLink {
   href: string;
@@ -189,8 +190,11 @@ export function Home3Header() {
   }, [isMobileMenuOpen]);
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-gradient-to-r from-[#F9EBBC] via-[#EEC569] to-[#D09947] contain-[layout]"
+    <>
+      <Q4AnnouncementBar />
+      <header
+      className="home3-site-header fixed left-0 right-0 z-50 transition-all duration-300 bg-gradient-to-r from-[#F9EBBC] via-[#EEC569] to-[#D09947] contain-[layout]"
+      style={{ top: "var(--q4-announcement-height)" }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -353,6 +357,7 @@ export function Home3Header() {
           </nav>
         </div>
       </div>
-    </header>
+      </header>
+    </>
   );
 }

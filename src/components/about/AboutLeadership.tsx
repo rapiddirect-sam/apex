@@ -209,7 +209,7 @@ export function AboutLeadership() {
                   fontSize: "56px",
                   fontWeight: 700,
                   lineHeight: 1,
-                  fontFamily: "Georgia, serif",
+                  fontFamily: "var(--font-playfair), Georgia, serif",
                 }}
               >
                 "

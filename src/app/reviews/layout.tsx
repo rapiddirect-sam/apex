@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { inter, playfair } from "../fontDefinitions";
 import "../home3.css";
 
 export const metadata: Metadata = {
@@ -8,19 +8,6 @@ export const metadata: Metadata = {
     follow: false,
   },
 };
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-});
 
 export default function ReviewsLayout({
   children,

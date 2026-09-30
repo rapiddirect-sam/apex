@@ -672,7 +672,7 @@ export function BlogPostContent({
                 background: #F5F5F5;
                 padding: 0.2em 0.5em;
                 border-radius: 4px;
-                font-family: monospace;
+                font-family: var(--font-inter), system-ui, sans-serif;
                 font-size: 0.9em;
                 color: #D09947;
               }

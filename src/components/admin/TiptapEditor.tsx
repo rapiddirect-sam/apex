@@ -584,7 +584,7 @@ export function TiptapEditor({
             border: "none",
             outline: "none",
             resize: "vertical",
-            fontFamily: "monospace",
+            fontFamily: "var(--font-inter), system-ui, sans-serif",
             fontSize: "14px",
             lineHeight: 1.6,
           }}
@@ -643,7 +643,7 @@ export function TiptapEditor({
               background: #1a1a1a;
               padding: 0.2em 0.4em;
               border-radius: 4px;
-              font-family: monospace;
+              font-family: var(--font-inter), system-ui, sans-serif;
             }
             .tiptap-editor-content pre {
               background: #1a1a1a;

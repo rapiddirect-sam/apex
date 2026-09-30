@@ -319,7 +319,7 @@ export function AboutClientsAdvantages() {
                             color: "#FFFFFF",
                             fontSize: "16px",
                             fontStyle: "italic",
-                            fontFamily: "serif",
+                            fontFamily: "var(--font-playfair), Georgia, serif",
                           }}
                         >
                           Ford
@@ -372,7 +372,7 @@ export function AboutClientsAdvantages() {
                         color: "#BC0024",
                         fontSize: "32px",
                         fontWeight: 700,
-                        fontFamily: "serif",
+                        fontFamily: "var(--font-playfair), Georgia, serif",
                       }}
                     >
                       Canon

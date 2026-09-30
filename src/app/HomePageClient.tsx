@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { Home3Hero } from "@/components/home3/sections/Home3Hero";
+import { Home3Q4ProjectSupport } from "@/components/home3/sections/Home3Q4ProjectSupport";
 import { CMSProvider } from "@/contexts/CMSContext";
 import { scheduleIdleTask } from "@/lib/scheduleIdleTask";
 
@@ -85,6 +86,7 @@ export function HomePageClient({ initialContent, initialVersion }: HomePageClien
       <Home3Header />
       <main>
         <Home3Hero />
+        <Home3Q4ProjectSupport />
         {!isMobile || phase >= 1 ? (
           <>
             <Home3Services />
