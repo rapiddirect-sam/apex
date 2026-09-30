@@ -6,6 +6,8 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { VisitTracker } from "@/components/VisitTracker";
 import { getQ4AnnouncementBootstrapScript } from "@/components/home3/layout/q4AnnouncementConfig";
 import { inter, playfair } from "./fontDefinitions";
+import { SiteStructuredData } from "@/components/seo/SiteStructuredData";
+import { RouteStructuredData } from "@/components/seo/RouteStructuredData";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://apexbatch.com"),
@@ -44,6 +46,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </Script>
       </head>
       <body className="antialiased home3-root">
+        <SiteStructuredData />
+        <RouteStructuredData />
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-TSZLBQMG"

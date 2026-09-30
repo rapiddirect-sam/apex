@@ -88,17 +88,19 @@ export function Home3Hero() {
               </span>
             </div>
 
-            <h1 className="text-[36px] sm:text-[42px] md:text-[54px] lg:text-[56px] font-extrabold text-white leading-[0.98] tracking-tight uppercase mb-1">
-              <EditableText
-                path="hero.headingLine1"
-                defaultValue={DEFAULTS.headingLine1}
-              />
-            </h1>
-            <h1 className="text-[36px] sm:text-[42px] md:text-[54px] lg:text-[56px] font-extrabold text-[#E2B45A] leading-[0.98] tracking-tight uppercase mb-5">
-              <EditableText
-                path="hero.headingLine2"
-                defaultValue={DEFAULTS.headingLine2}
-              />
+            <h1 className="text-[36px] sm:text-[42px] md:text-[54px] lg:text-[56px] font-extrabold leading-[0.98] tracking-tight uppercase mb-5">
+              <span className="block text-white mb-1">
+                <EditableText
+                  path="hero.headingLine1"
+                  defaultValue={DEFAULTS.headingLine1}
+                />
+              </span>
+              <span className="block text-[#E2B45A]">
+                <EditableText
+                  path="hero.headingLine2"
+                  defaultValue={DEFAULTS.headingLine2}
+                />
+              </span>
             </h1>
 
             <p className="text-[#D1D1D1] text-[15px] lg:text-base max-w-xl mb-7 leading-relaxed">

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { cn, getImageUrl } from "@/lib/utils";
@@ -180,15 +179,6 @@ export function Home3Header() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!isMobileMenuOpen) return;
-    const { overflow } = document.body.style;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = overflow;
-    };
-  }, [isMobileMenuOpen]);
-
   return (
     <>
       <Q4AnnouncementBar />
@@ -249,33 +239,25 @@ export function Home3Header() {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="lg:hidden p-2 text-[#000000] hover:bg-black/10 rounded-lg transition-colors"
             aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu - Full Screen Overlay */}
+      {/* Mobile menu opens directly below the header so it remains anchored to the trigger. */}
       <div
+        id="mobile-navigation"
         className={cn(
-          "lg:hidden fixed inset-0 top-16 z-40 transition-all duration-300",
-          isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+          "lg:hidden absolute left-0 right-0 top-full z-40 origin-top transition-[max-height,opacity,visibility] duration-300",
+          isMobileMenuOpen ? "visible max-h-[calc(100dvh-4rem)] opacity-100" : "invisible max-h-0 opacity-0 pointer-events-none"
         )}
+        style={{ maxHeight: isMobileMenuOpen ? "calc(100dvh - 4rem - var(--q4-announcement-height))" : 0 }}
       >
-        {/* Backdrop */}
-        <div
-          className="absolute inset-0 bg-black/50"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-
-        {/* Menu Panel */}
-        <div
-          className={cn(
-            "absolute top-0 right-0 w-full max-w-sm h-full bg-gradient-to-br from-[#1A1A1A] to-[#2A2A2A] shadow-2xl transition-transform duration-300 overflow-y-auto",
-            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          )}
-        >
-          <nav className="flex flex-col p-6 pt-8">
+        <div className="overflow-y-auto border-t border-black/20 bg-gradient-to-br from-[#1A1A1A] to-[#2A2A2A] shadow-2xl" style={{ maxHeight: "inherit" }}>
+          <nav className="mx-auto flex max-w-7xl flex-col px-6 py-3">
             {navItems.map((item, index) =>
               item.href ? (
                 <Link
@@ -338,14 +320,14 @@ export function Home3Header() {
             <Link
               href="https://app.apexbatch.com/"
               rel="nofollow"
-              className="inline-flex items-center justify-center bg-gradient-to-r from-[#D09947] to-[#EEC569] hover:from-[#EEC569] hover:to-[#D09947] text-black font-semibold px-6 py-4 rounded-xl transition-all text-lg mt-8"
+              className="inline-flex items-center justify-center bg-gradient-to-r from-[#D09947] to-[#EEC569] hover:from-[#EEC569] hover:to-[#D09947] text-black font-semibold px-6 py-3.5 rounded-xl transition-all text-base mt-6"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Get Quote
             </Link>
 
             {/* Contact Info */}
-            <div className="mt-auto pt-8 border-t border-white/10 mt-8">
+            <div className="pt-6 border-t border-white/10 mt-6">
               <p className="text-white/60 text-sm mb-2">Need help?</p>
               <a
                 href="mailto:info@apexbatch.com"

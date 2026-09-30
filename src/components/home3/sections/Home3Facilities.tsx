@@ -40,9 +40,9 @@ function Metric({ index, delay }: { index: number; delay: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay }}
-      className="relative text-center"
+      className="relative min-w-0 text-center"
       style={{
-        padding: "18px 14px",
+        padding: "clamp(14px, 4vw, 18px) clamp(8px, 3vw, 14px)",
         background: `
           radial-gradient(
             60% 50% at 50% 0%,
@@ -82,10 +82,11 @@ function Metric({ index, delay }: { index: number; delay: number }) {
       {/* Value */}
       <div
         style={{
-          fontSize: "28px",
+          fontSize: "clamp(18px, 6vw, 24px)",
           fontWeight: 700,
           color: "#EEC569",
           lineHeight: 1.1,
+          letterSpacing: "-0.035em",
           whiteSpace: "nowrap",
         }}
       >
@@ -97,7 +98,7 @@ function Metric({ index, delay }: { index: number; delay: number }) {
       {/* Label */}
       <div
         style={{
-          fontSize: "13px",
+          fontSize: "clamp(10px, 3.5vw, 12px)",
           color: "#EEC569",
           marginTop: "4px",
         }}
@@ -127,22 +128,23 @@ export function Home3Facilities() {
     <section
       className="relative overflow-hidden"
       style={{
-        padding: "88px 0 130px",
+        padding: "clamp(56px, 12vw, 88px) 0 clamp(72px, 16vw, 130px)",
         background: "#34312F",
       }}
     >
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="max-w-[1200px] mx-auto px-4 min-[320px]:px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center"
-          style={{ marginBottom: "64px" }}
+          style={{ marginBottom: "clamp(40px, 10vw, 64px)" }}
         >
           {/* Eyebrow label with decorative lines */}
-          <div className="flex items-center justify-center gap-4 mb-4">
+          <div className="flex items-center justify-center gap-3 mb-4">
             <div
+              className="hidden min-[360px]:block"
               style={{
                 width: "48px",
                 height: "1px",
@@ -151,7 +153,7 @@ export function Home3Facilities() {
             />
             <span
               style={{
-                fontSize: "12px",
+                fontSize: "clamp(10px, 3.5vw, 12px)",
                 letterSpacing: "0.25em",
                 textTransform: "uppercase",
                 color: "rgba(208,153,71,0.65)",
@@ -163,6 +165,7 @@ export function Home3Facilities() {
               />
             </span>
             <div
+              className="hidden min-[360px]:block"
               style={{
                 width: "48px",
                 height: "1px",
@@ -175,7 +178,7 @@ export function Home3Facilities() {
           <h2
             className="text-white"
             style={{
-              fontSize: "48px",
+              fontSize: "clamp(32px, 11vw, 48px)",
               fontWeight: 700,
               letterSpacing: "-0.015em",
             }}
@@ -195,8 +198,7 @@ export function Home3Facilities() {
 
         {/* Content Grid */}
         <div
-          className="grid lg:grid-cols-2 items-center"
-          style={{ gap: "64px" }}
+          className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
         >
           {/* Left - Narrative Panel */}
           <div>
@@ -205,10 +207,10 @@ export function Home3Facilities() {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              className="p-5 min-[320px]:p-7 sm:px-8"
               style={{
                 background: "rgba(255,255,255,0.04)",
                 borderRadius: "16px",
-                padding: "28px 32px",
                 maxWidth: "520px",
               }}
             >
@@ -374,11 +376,8 @@ export function Home3Facilities() {
 
         {/* Metrics - full width, aligns with text+image above */}
         <div
-          className="grid grid-cols-2 min-[640px]:grid-cols-4"
-          style={{
-            marginTop: "48px",
-            gap: "20px 32px",
-          }}
+          className="grid grid-cols-2 gap-4 min-[640px]:grid-cols-4 min-[640px]:gap-x-8"
+          style={{ marginTop: "clamp(32px, 8vw, 48px)" }}
         >
           {DEFAULTS.stats.map((_, index) => (
             <Metric

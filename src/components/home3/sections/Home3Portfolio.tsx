@@ -171,7 +171,7 @@ export function Home3Portfolio() {
 
         {/* Portfolio Grid - Mobile: single column, Tablet: 2 columns, Desktop: asymmetric */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-6 mb-16">
-          {DEFAULTS.portfolioItems.slice(0, 6).map((_, index) => (
+          {DEFAULTS.portfolioItems.slice(0, 5).map((_, index) => (
             <PortfolioCard key={index} index={index} />
           ))}
         </div>
