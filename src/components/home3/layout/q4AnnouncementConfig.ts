@@ -4,8 +4,8 @@ export const DISMISS_DURATION_MS = 14 * 24 * 60 * 60 * 1000;
 export const STORAGE_KEY = "apexbatch:q4-sample-validation:dismissed-until:v1";
 export const EXCLUDED_PATHS = ["/contact", "/privacy-policy", "/terms-and-conditions"] as const;
 export const CAMPAIGN_LINK = "/#q4-project-support";
-export const DESKTOP_MESSAGE = "Q4 Sample Validation Support · Get Up to $500 for Eligible Projects · Apply by Dec 31 →";
-export const MOBILE_MESSAGE = "Up to $500 Sample Support · Apply by Dec 31 →";
+export const DESKTOP_MESSAGE = "New Customer Offer · Get Up to US$500 in Sample Support · Apply by Dec 31 →";
+export const MOBILE_MESSAGE = "New Customers: Up to US$500 Sample Support · Apply Now →";
 
 export function normalizePathname(pathname: string): string {
   if (!pathname || pathname === "/") return "/";
