@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: meta.title,
     description: meta.description,
     alternates: {
-      canonical: "/extrusion-services",
+      canonical: "/aluminum-extrusion",
     },
   };
 }

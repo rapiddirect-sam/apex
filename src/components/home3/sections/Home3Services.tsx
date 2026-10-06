@@ -51,7 +51,7 @@ const DEFAULTS = {
       description: "Professional surface treatment for enhanced durability.",
       image: getImageUrl("home/3-our-services-surface-finishing.webp"),
       tags: ["Anodizing", "Powder Coating", "Electroplating"],
-      href: "/surface-finish"
+      href: "/surface-finishing"
     },
   ],
 };

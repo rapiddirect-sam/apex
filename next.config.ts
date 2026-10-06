@@ -7,6 +7,20 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["framer-motion", "lucide-react"],
   },
+  async redirects() {
+    return [
+      {
+        source: "/extrusion-services",
+        destination: "/aluminum-extrusion",
+        statusCode: 301,
+      },
+      {
+        source: "/surface-finish",
+        destination: "/surface-finishing",
+        statusCode: 301,
+      },
+    ];
+  },
   images: {
     /* Smaller default widths for phones so `sizes: 100vw` picks a lighter LCP candidate. */
     deviceSizes: [360, 390, 414, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],

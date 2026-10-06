@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: meta.title,
     description: meta.description,
     alternates: {
-      canonical: "/surface-finish",
+      canonical: "/surface-finishing",
     },
   };
 }
