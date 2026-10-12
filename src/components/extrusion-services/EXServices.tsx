@@ -1,197 +1,206 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { EditableText, EditableImage } from "@/components/cms";
+import Link from "next/link";
+import { EditableImage, EditableText } from "@/components/cms";
+import { ServiceTable } from "@/components/ui/ServiceTable";
 
 const DEFAULTS = {
-  heading: "",
-  headingHighlight: "Extrusion",
-  headingSuffix: " Service",
-  subheading: "",
-  services: [
-    {
-      title: "Aluminum Extrusion",
-      description:
-        "Custom aluminum extrusion for precise cross-sections and scalable production.",
-      specs: [
-        "Custom aluminum extrusion profiles",
-        "8020 & 80/20 aluminum extrusion",
-        "Max size 300x200mm \u00B7 7m length",
-      ],
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-rapid-injection-molding-prototyping.webp",
-    },
-    {
-      title: "Post Machining & Finishing",
-      description:
-        "Integrated post-machining and finishing for ready-to-assemble components.",
-      specs: [
-        "CNC finishing \u00B10.2 mm",
-        "Anodizing (5\u201325 \u03BCm), powder coating (60\u2013120 \u03BCm)",
-        "Surface: brushed, sandblasting, mirror polish",
-      ],
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-high-volume-injection-molding-production.webp",
-    },
+  heading: "Custom Aluminum Extrusion ",
+  headingHighlight: "Profiles and Fabrication",
+  profileHeading: "Custom Extrusion Profile Capabilities",
+  introduction:
+    "Each aluminum extrusion profile is reviewed for geometry, wall thickness, cavities, alloy, tolerances and post-processing requirements before production.",
+  applications:
+    "We produce solid, hollow, semi-hollow, multi-cavity and irregular custom aluminum shapes for industrial structures, enclosures, equipment components, guides, mounting systems and appearance-critical products.",
+  profileImage: "/images/services/aluminum-extrusion/custom-aluminum-extrusion-profiles-production.avif",
+  machiningImage: "/images/services/aluminum-extrusion/cnc-machining-aluminum-extrusion-parts.avif",
+  capabilities: [
+    ["Maximum profile size", "Up to 300 × 200 mm"],
+    ["Maximum extrusion length", "Up to 7 m"],
+    ["Minimum wall thickness", "Down to 0.8 mm"],
+    ["Profile complexity", "Medium to high complexity"],
+    ["Drilling and tapping", "Available"],
+    ["Cut-to-length", "CNC sawing and CNC cutting"],
+  ],
+  fabricationLead:
+    "For aluminum extrusion fabrication, profiles can be supplied as raw lengths or finished components. Our",
+  fabricationTail:
+    "for aluminum extrusions include drilling, tapping, end-face machining, deburring, inspection and project-specific packaging.",
+  fabricationItems: [
+    "Drilling",
+    "Tapping",
+    "End-face machining",
+    "Deburring",
+    "Inspection & packaging",
   ],
 };
 
+function EvidenceImage({
+  path,
+  src,
+  alt,
+}: {
+  path: string;
+  src: string;
+  alt: string;
+}) {
+  return (
+    <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
+      <EditableImage
+        path={path}
+        defaultSrc={src}
+        alt={alt}
+        fill
+        sizes="(max-width: 1023px) 100vw, 45vw"
+        className="object-cover"
+      />
+    </div>
+  );
+}
+
 export function EXServices() {
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{
-        padding: "104px 0 112px",
-        background: "#34312F",
-      }}
-    >
-      <div className="max-w-[1200px] mx-auto px-6">
-        {/* Section Header */}
+    <section className="relative overflow-hidden bg-[#34312F] py-20 lg:py-28">
+      <div className="mx-auto max-w-[1200px] px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center"
-          style={{ marginBottom: "64px" }}
+          className="mb-12 lg:mb-16"
         >
-          <h2
-            className="text-white"
-            style={{
-              fontSize: "46px",
-              fontWeight: 700,
-              letterSpacing: "-0.015em",
-            }}
-          >
-            <EditableText path="services.heading" defaultValue={DEFAULTS.heading} />
-            <span style={{ color: "#EEC569" }}>
-              <EditableText path="services.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+          <h2 className="service-section-title max-w-none text-left xl:whitespace-nowrap xl:text-[44px]">
+            <EditableText path="profileFabrication.heading" defaultValue={DEFAULTS.heading} />
+            <span className="service-title-accent">
+              <EditableText
+                path="profileFabrication.headingHighlight"
+                defaultValue={DEFAULTS.headingHighlight}
+              />
             </span>
-            <EditableText path="services.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
           </h2>
-          <p
-            className="mx-auto"
-            style={{
-              fontSize: "18px",
-              lineHeight: 1.6,
-              color: "#7A7A7C",
-              maxWidth: "700px",
-              marginTop: "18px",
-            }}
-          >
-            <EditableText path="services.subheading" defaultValue={DEFAULTS.subheading} multiline />
-          </p>
+          <div className="service-section-copy mt-5 max-w-[980px] space-y-4 text-left">
+            <p>
+              <EditableText
+                path="profileFabrication.introduction"
+                defaultValue={DEFAULTS.introduction}
+                multiline
+              />
+            </p>
+            <p>
+              <EditableText
+                path="profileFabrication.applications"
+                defaultValue={DEFAULTS.applications}
+                multiline
+              />
+            </p>
+          </div>
         </motion.div>
 
-        {/* Services Grid - 2 columns */}
-        <div className="max-w-[1000px] mx-auto">
-          <div
-            className="grid grid-cols-1 md:grid-cols-2"
-            style={{ gap: "24px" }}
+        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,55fr)_minmax(0,45fr)] lg:gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="order-2 lg:order-1"
           >
-            {DEFAULTS.services.map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="overflow-hidden"
-                style={{
-                  background: "#1A1A1A",
-                  borderRadius: "12px",
-                }}
-              >
-                {/* Image */}
-                <div className="relative" style={{ height: "200px" }}>
-                  <EditableImage
-                    path={`services.items.${index}.image`}
-                    defaultSrc={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+            <h3 className="service-subsection-title mb-5">
+              <EditableText
+                path="profileFabrication.profileHeading"
+                defaultValue={DEFAULTS.profileHeading}
+              />
+            </h3>
+            <ServiceTable
+              variant="compact"
+              caption="Custom aluminum extrusion profile capabilities"
+              columns={[
+                { header: "Item", width: "46%" },
+                { header: "Typical Specification" },
+              ]}
+              rows={DEFAULTS.capabilities.map(([capability, value], index) => [
+                <EditableText
+                  key="name"
+                  path={`profileFabrication.capabilities.${index}.name`}
+                  defaultValue={capability}
+                />,
+                <EditableText
+                  key="value"
+                  path={`profileFabrication.capabilities.${index}.value`}
+                  defaultValue={value}
+                />,
+              ])}
+            />
+          </motion.div>
 
-                {/* Content */}
-                <div style={{ padding: "28px" }}>
-                  <h3
-                    style={{
-                      fontSize: "20px",
-                      fontWeight: 700,
-                      color: "#FFFFFF",
-                      marginBottom: "12px",
-                    }}
-                  >
-                    <EditableText path={`services.items.${index}.title`} defaultValue={service.title} />
-                  </h3>
-
-                  <p
-                    style={{
-                      fontSize: "14px",
-                      lineHeight: 1.6,
-                      color: "#C5C6C9",
-                      marginBottom: "20px",
-                    }}
-                  >
-                    <EditableText path={`services.items.${index}.description`} defaultValue={service.description} multiline />
-                  </p>
-
-                  {/* Specs as bullet points */}
-                  <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                    {service.specs.map((spec, specIndex) => (
-                      <li
-                        key={spec}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "12px",
-                          color: "#C5C6C9",
-                          fontSize: "14px",
-                          marginBottom: "8px",
-                        }}
-                      >
-                        <span
-                          style={{
-                            color: "#D09947",
-                            flexShrink: 0,
-                            fontSize: "16px",
-                            fontWeight: 700,
-                          }}
-                        >
-                          ✓
-                        </span>
-                        <EditableText path={`services.items.${index}.specs.${specIndex}`} defaultValue={spec} />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="order-1 lg:order-2"
+          >
+            <EvidenceImage
+              path="profileFabrication.profileImage"
+              src={DEFAULTS.profileImage}
+              alt="Custom aluminum extrusion profiles during production"
+            />
+          </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex justify-center"
-          style={{ marginTop: "40px" }}
-        >
-          <a
-            href="https://app.apexbatch.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-xl transition-colors duration-200 hover:bg-[#E3B95F]"
-            style={{
-              padding: "16px 36px",
-              background: "#D09947",
-              color: "#111111",
-              fontSize: "18px",
-              fontWeight: 800,
-              textDecoration: "none",
-            }}
+        <div className="my-14 h-px bg-gradient-to-r from-transparent via-[#D09947]/70 to-transparent lg:my-20" />
+
+        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,45fr)_minmax(0,55fr)] lg:gap-14">
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
           >
-            Upload Your Design
-          </a>
-        </motion.div>
+            <EvidenceImage
+              path="profileFabrication.machiningImage"
+              src={DEFAULTS.machiningImage}
+              alt="CNC machining for custom aluminum extrusion parts"
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="service-subsection-title mb-5">
+              Finished Extrusion Components
+            </h3>
+            <p className="service-section-copy max-w-[620px]">
+              <EditableText
+                path="profileFabrication.fabricationLead"
+                defaultValue={DEFAULTS.fabricationLead}
+              />{" "}
+              <Link
+                href="/cnc-machining"
+                className="body-text-link body-text-link--dark"
+              >
+                CNC machining services
+              </Link>{" "}
+              <EditableText
+                path="profileFabrication.fabricationTail"
+                defaultValue={DEFAULTS.fabricationTail}
+              />
+            </p>
+
+            <ul className="mt-7 grid gap-3 sm:grid-cols-2">
+              {DEFAULTS.fabricationItems.map((item, index) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-3 rounded-lg border border-white/[0.08] bg-[#1A1A1A] px-4 py-3 text-[14px] text-[#F0F0F0]"
+                >
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#D09947]" />
+                  <EditableText
+                    path={`profileFabrication.fabricationItems.${index}`}
+                    defaultValue={item}
+                  />
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

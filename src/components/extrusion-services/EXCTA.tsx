@@ -7,8 +7,12 @@ import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
   backgroundImage: "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773380863212-1773380863212-qy3uzfbf.webp",
-  heading: "Start Your Extrusion Project Today",
-  description: "Upload your design files and get a detailed quote and free DFM analysis within 24 hours",
+  heading: "Ready to Review Your ",
+  headingHighlight: "Extrusion Design?",
+  headingSuffix: "",
+  descriptionPrimary: "Have a drawing or profile sketch ready? Get an instant quote online.",
+  descriptionSecondary:
+    "Still defining material, tolerances or tooling? Talk to an extrusion specialist.",
   primaryCta: "Upload files for an instant quote",
   secondaryCta: "Contact our engineers",
 };
@@ -41,28 +45,29 @@ export function EXCTA() {
           viewport={{ once: true }}
           className="max-w-2xl mx-auto text-center"
         >
-          <h2
-            className="text-white"
-            style={{
-              fontSize: "46px",
-              fontWeight: 700,
-              letterSpacing: "-0.015em",
-              lineHeight: 1.1,
-              marginBottom: "18px",
-            }}
-          >
+          <h2 className="service-section-title mb-[18px]">
             <EditableText path="cta.heading" defaultValue={DEFAULTS.heading} />
+            <span className="service-title-accent">
+              <EditableText path="cta.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+            </span>
+            <EditableText path="cta.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
           </h2>
-          <p
-            style={{
-              fontSize: "18px",
-              lineHeight: 1.6,
-              color: "#C5C6C9",
-              marginBottom: "36px",
-            }}
-          >
-            <EditableText path="cta.description" defaultValue={DEFAULTS.description} multiline />
-          </p>
+          <div className="service-section-copy mb-9 space-y-2">
+            <p>
+              <EditableText
+                path="cta.descriptionPrimary"
+                defaultValue={DEFAULTS.descriptionPrimary}
+                multiline
+              />
+            </p>
+            <p>
+              <EditableText
+                path="cta.descriptionSecondary"
+                defaultValue={DEFAULTS.descriptionSecondary}
+                multiline
+              />
+            </p>
+          </div>
 
           <div className="flex flex-wrap gap-4 justify-center">
             <Link

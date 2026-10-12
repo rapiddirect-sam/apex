@@ -53,7 +53,7 @@ export function CMMServices() {
           className="text-right"
         >
           <h2
-            className="text-white"
+            className="service-section-title text-white"
             style={{
               fontSize: "46px",
               fontWeight: 700,
@@ -61,7 +61,7 @@ export function CMMServices() {
             }}
           >
             <EditableText path="services.heading" defaultValue={DEFAULTS.heading} />
-            <span style={{ color: "#EEC569" }}>
+            <span className="service-title-accent">
               <EditableText path="services.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
             </span>
             <EditableText path="services.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />

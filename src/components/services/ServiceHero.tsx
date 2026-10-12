@@ -33,7 +33,7 @@ type ServiceHeroDefaults = {
 const SHARED_DEFAULTS = {
   ctaPrimary: "Start Free Quote",
   ctaSecondary: "Upload Your Design",
-  certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 4001:2015"],
+  certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 14001:2015"],
   logos: [
     { alt: "Stryker", src: createLogoPlaceholder("stryker") },
     { alt: "Rockwell Automation", src: createLogoPlaceholder("Rockwell") },

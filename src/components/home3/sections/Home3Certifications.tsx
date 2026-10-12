@@ -36,7 +36,7 @@ const DEFAULTS = {
   certificates: [
     {
       name: "ISO 9001",
-      image: getImageUrl("home/6-quality-ISO9001.webp"),
+      image: "/quality/apexbatch-iso9001-certified-quality-management-system.avif",
     },
     {
       name: "ISO 13485",
@@ -74,19 +74,22 @@ export function Home3Certifications() {
               </span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl text-white mb-2 tracking-[-0.02em]" style={{ fontWeight: 800 }}>
-              <EditableText
-                path="certifications.titleWhiteLine1"
-                defaultValue={DEFAULTS.titleWhiteLine1}
-              />
+            <h2 className="mb-6 text-3xl font-extrabold tracking-[-0.02em] text-white sm:text-4xl md:text-5xl">
+              <span className="mb-2 block">
+                <EditableText
+                  path="certifications.titleWhiteLine1"
+                  defaultValue={DEFAULTS.titleWhiteLine1}
+                />
+              </span>
+              {" "}
+              <span className="block text-[#EEC569]">
+                <EditableText
+                  path="certifications.titleHighlightLine2"
+                  defaultValue={DEFAULTS.titleHighlightLine2}
+                />
+              </span>
             </h2>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl text-[#EEC569] mb-6 tracking-[-0.02em]" style={{ fontWeight: 800 }}>
-              <EditableText
-                path="certifications.titleHighlightLine2"
-                defaultValue={DEFAULTS.titleHighlightLine2}
-              />
-            </h2>
-            <p className="text-[#888888] text-base max-w-lg leading-relaxed">
+            <p className="max-w-lg text-base leading-relaxed text-[#888888]">
               <EditableText
                 path="certifications.description"
                 defaultValue={DEFAULTS.description}
@@ -120,6 +123,7 @@ export function Home3Certifications() {
                     defaultSrc={cert.image}
                     alt={cert.name}
                     fill
+                    sizes="(max-width: 639px) 96px, (max-width: 767px) 128px, 160px"
                     style={{ objectFit: "cover" }}
                   />
                 </motion.div>
@@ -160,26 +164,20 @@ export function Home3Certifications() {
                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
-                {/* Icon and Value Row */}
-                <div className="flex items-center gap-3 mb-4">
+                {/* Icon */}
+                <div className="mb-4 flex items-center">
                   <div className="w-10 h-10 rounded-lg bg-[#3A3A3A] flex items-center justify-center">
                     <Icon className="w-5 h-5 text-[#D09947]" />
                   </div>
-                  <span className="text-2xl font-bold text-white">
-                    <EditableText
-                      path={`certifications.metrics.${index}.value`}
-                      defaultValue={metric.value}
-                    />
-                  </span>
                 </div>
 
                 {/* Label */}
-                <h4 style={{ color: "#EEC569", fontWeight: 700, fontSize: "18px", marginBottom: "8px" }}>
+                <h3 style={{ color: "#EEC569", fontWeight: 700, fontSize: "18px", marginBottom: "8px" }}>
                   <EditableText
                     path={`certifications.metrics.${index}.label`}
                     defaultValue={metric.label}
                   />
-                </h4>
+                </h3>
 
                 {/* Description */}
                 <p style={{ color: "#C5C6C9", fontSize: "14px", lineHeight: 1.5 }}>

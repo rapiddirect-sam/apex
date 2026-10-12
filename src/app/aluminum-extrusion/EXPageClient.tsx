@@ -3,14 +3,13 @@
 import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { EXHero } from "@/components/extrusion-services/EXHero";
-import { EXSupplier } from "@/components/extrusion-services/EXSupplier";
 import { EXServices } from "@/components/extrusion-services/EXServices";
 import { EXParts } from "@/components/extrusion-services/EXParts";
-import { EXWhyChoose } from "@/components/extrusion-services/EXWhyChoose";
 import { EXProcess } from "@/components/extrusion-services/EXProcess";
-import { EXTolerance } from "@/components/extrusion-services/EXTolerance";
-import { EXMaterials } from "@/components/extrusion-services/EXMaterials";
-import { EXSurfaceFinishes } from "@/components/extrusion-services/EXSurfaceFinishes";
+import { EXAlloysFinishes } from "@/components/extrusion-services/EXAlloysFinishes";
+import { EXTolerancesQuality } from "@/components/extrusion-services/EXTolerancesQuality";
+import { EXToolingQuote } from "@/components/extrusion-services/EXToolingQuote";
+import { EXFAQ } from "@/components/extrusion-services/EXFAQ";
 import { EXCTA } from "@/components/extrusion-services/EXCTA";
 import { Home3Certifications } from "@/components/home3/sections/Home3Certifications";
 import { CMSProvider } from "@/contexts/CMSContext";
@@ -29,12 +28,11 @@ export function EXPageClient({ initialContent, initialVersion }: EXPageClientPro
         <EXHero />
         <EXServices />
         <EXParts />
-        <EXTolerance />
-        <EXSupplier />
-        <EXWhyChoose />
+        <EXAlloysFinishes />
+        <EXTolerancesQuality />
         <EXProcess />
-        <EXMaterials />
-        <EXSurfaceFinishes />
+        <EXToolingQuote />
+        <EXFAQ />
         <Home3Certifications />
         <EXCTA />
       </main>

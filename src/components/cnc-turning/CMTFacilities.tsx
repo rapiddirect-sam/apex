@@ -194,7 +194,7 @@ export function CMTFacilities() {
           style={{ marginBottom: "56px" }}
         >
           <h2
-            className="text-white"
+            className="service-section-title text-white"
             style={{
               fontSize: "46px",
               fontWeight: 700,
@@ -203,7 +203,7 @@ export function CMTFacilities() {
             }}
           >
             <EditableText path="facilities.heading" defaultValue={DEFAULTS.heading} />
-            <span style={{ color: "#EEC569" }}>
+            <span className="service-title-accent">
               <EditableText path="facilities.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
             </span>
           </h2>

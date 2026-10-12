@@ -108,9 +108,9 @@ export function SMSurfaceFinishes() {
     >
       <div className="max-w-[1200px] mx-auto px-6">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <h2 className="text-white" style={{ fontSize: "46px", fontWeight: 700, letterSpacing: "-0.015em", marginBottom: "18px" }}>
+          <h2 className="service-section-title text-white" style={{ fontSize: "46px", fontWeight: 700, letterSpacing: "-0.015em", marginBottom: "18px" }}>
             <EditableText path="finishes.heading" defaultValue={DEFAULTS.heading} />
-            <span style={{ color: "#EEC569" }}><EditableText path="finishes.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
+            <span className="service-title-accent"><EditableText path="finishes.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
           </h2>
           <p style={{ fontSize: "18px", lineHeight: 1.6, color: "#7A7A7C", maxWidth: "700px", marginBottom: "72px" }}>
             <EditableText path="finishes.subheading" defaultValue={DEFAULTS.subheading} multiline />

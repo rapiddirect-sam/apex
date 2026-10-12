@@ -59,7 +59,7 @@ export function IMWhyChoose() {
           style={{ marginBottom: "64px" }}
         >
           <h2
-            className="text-white"
+            className="service-section-title text-white"
             style={{
               fontSize: "46px",
               fontWeight: 700,
@@ -67,7 +67,7 @@ export function IMWhyChoose() {
             }}
           >
             <EditableText path="whychoose.heading" defaultValue={DEFAULTS.heading} />
-            <span style={{ color: "#EEC569" }}>
+            <span className="service-title-accent">
               <EditableText path="whychoose.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
             </span>
           </h2>

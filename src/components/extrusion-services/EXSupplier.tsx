@@ -76,34 +76,16 @@ export function EXSupplier() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2
-              className="font-bold"
-              style={{
-                fontSize: "46px",
-                fontWeight: 700,
-                letterSpacing: "-0.015em",
-                lineHeight: 1.1,
-                marginTop: "10px",
-                marginBottom: "34px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              <span style={{ color: "#EEC569" }}>
+            <h2 className="service-section-title mb-[34px] mt-[10px] xl:whitespace-nowrap">
+              <span className="service-title-accent">
                 <EditableText path="supplier.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
               </span>
-              <span style={{ color: "#FFFFFF" }}>
+              <span>
                 <EditableText path="supplier.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
               </span>
             </h2>
 
-            <div
-              style={{
-                fontSize: "15px",
-                lineHeight: 1.7,
-                color: "#C5C6C9",
-                marginBottom: "32px",
-              }}
-            >
+            <div className="service-section-copy mb-8">
               <p>
                 <EditableText path="supplier.description1" defaultValue={DEFAULTS.description1} multiline />
               </p>

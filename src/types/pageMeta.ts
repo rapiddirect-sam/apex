@@ -70,9 +70,9 @@ export const DEFAULT_PAGE_META: Record<string, { title: string; description: str
     title: "Die Casting Services - ApexBatch Manufacturing",
     description: "High pressure and gravity die casting services for aluminum and zinc parts. Tight tolerances, complex geometries, and integrated post-machining & finishing.",
   },
-  "/extrusion-services": {
-    title: "Extrusion Services - ApexBatch Manufacturing",
-    description: "Custom aluminum and plastic extrusion services. Standard and complex profiles with tight tolerances and secondary operations.",
+  "/aluminum-extrusion": {
+    title: "Custom Aluminum Extrusions | Profiles, CNC Machining & Finishing | ApexBatch",
+    description: "Custom aluminum extrusion services for complex profiles and finished components. Support 6063, 6061 and 6060 alloys, profiles up to 300 × 200 mm, lengths up to 7 m, CNC machining, anodizing and powder coating.",
   },
   "/sheet-metal-fabrication": {
     title: "Sheet Metal Fabrication Services - ApexBatch Manufacturing",

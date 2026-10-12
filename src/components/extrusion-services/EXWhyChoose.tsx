@@ -58,16 +58,9 @@ export function EXWhyChoose() {
           className="text-center"
           style={{ marginBottom: "64px" }}
         >
-          <h2
-            className="text-white"
-            style={{
-              fontSize: "46px",
-              fontWeight: 700,
-              letterSpacing: "-0.015em",
-            }}
-          >
+          <h2 className="service-section-title">
             <EditableText path="whychoose.heading" defaultValue={DEFAULTS.heading} />
-            <span style={{ color: "#EEC569" }}>
+            <span className="service-title-accent">
               <EditableText path="whychoose.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
             </span>
           </h2>
@@ -96,7 +89,7 @@ export function EXWhyChoose() {
               <h3 style={{ fontSize: "18px", fontWeight: 600, color: "#FFFFFF", marginBottom: "8px" }}>
                 <EditableText path={`whychoose.reasons.${index}.title`} defaultValue={reason.title} />
               </h3>
-              <p style={{ fontSize: "13px", lineHeight: 1.6, color: "#FFFFFF" }}>
+              <p className="service-card-copy">
                 <EditableText path={`whychoose.reasons.${index}.description`} defaultValue={reason.description} multiline />
               </p>
             </motion.div>
@@ -125,14 +118,7 @@ export function EXWhyChoose() {
             >
               <EditableText path="whychoose.ctaTitle" defaultValue={DEFAULTS.ctaTitle} />
             </h3>
-            <p
-              style={{
-                fontSize: "14px",
-                lineHeight: 1.6,
-                color: "#FFFFFF",
-                marginBottom: "28px",
-              }}
-            >
+            <p className="service-card-copy mb-7">
               <EditableText path="whychoose.ctaDescription" defaultValue={DEFAULTS.ctaDescription} multiline />
             </p>
             <Link
@@ -176,7 +162,7 @@ export function EXWhyChoose() {
                 <h3 style={{ fontSize: "18px", fontWeight: 600, color: "#FFFFFF", marginBottom: "8px" }}>
                   <EditableText path={`whychoose.reasons.${index}.title`} defaultValue={reason.title} />
                 </h3>
-                <p style={{ fontSize: "13px", lineHeight: 1.6, color: "#FFFFFF" }}>
+                <p className="service-card-copy">
                   <EditableText path={`whychoose.reasons.${index}.description`} defaultValue={reason.description} multiline />
                 </p>
               </motion.div>

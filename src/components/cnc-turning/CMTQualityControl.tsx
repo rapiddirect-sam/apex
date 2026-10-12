@@ -154,7 +154,7 @@ export function CMTQualityControl() {
           style={{ marginBottom: "56px" }}
         >
           <h2
-            className="text-white"
+            className="service-section-title text-white"
             style={{
               fontSize: "46px",
               fontWeight: 700,
@@ -162,7 +162,7 @@ export function CMTQualityControl() {
               marginBottom: "18px",
             }}
           >
-            <span style={{ color: "#EEC569" }}>
+            <span className="service-title-accent">
               <EditableText path="quality.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
             </span>
             <EditableText path="quality.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />

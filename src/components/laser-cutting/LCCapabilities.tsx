@@ -97,7 +97,7 @@ export function LCCapabilities() {
           className="text-center"
         >
           <h2
-            className="text-white"
+            className="service-section-title text-white"
             style={{
               fontSize: "46px",
               fontWeight: 700,
@@ -105,7 +105,7 @@ export function LCCapabilities() {
             }}
           >
             <EditableText path="capabilities.heading" defaultValue={DEFAULTS.heading} />
-            <span style={{ color: "#EEC569" }}>
+            <span className="service-title-accent">
               <EditableText path="capabilities.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
             </span>
             <EditableText path="capabilities.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />

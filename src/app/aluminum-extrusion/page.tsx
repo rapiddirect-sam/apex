@@ -4,7 +4,7 @@ import { getPageContent } from "@/lib/pageContent";
 import { EXPageClient } from "./EXPageClient";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const meta = await getPageMetaWithDefaults("/extrusion-services");
+  const meta = await getPageMetaWithDefaults("/aluminum-extrusion");
   return {
     title: meta.title,
     description: meta.description,
@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function ExtrusionServicesPage() {
+export default async function AluminumExtrusionPage() {
   const { content, version } = await getPageContent("/extrusion-services");
 
   return (

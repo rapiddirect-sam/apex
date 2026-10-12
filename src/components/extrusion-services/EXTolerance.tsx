@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { EditableText } from "@/components/cms";
+import { ServiceTable } from "@/components/ui/ServiceTable";
 
 const DEFAULTS = {
   heading: "Aluminum Extrusion Capabilities & ",
@@ -84,121 +85,38 @@ export function EXTolerance() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="overflow-x-auto"
+          className="w-full"
         >
-          <div
-            style={{
-              borderRadius: "16px",
-              border: "2px solid #7F4D0F",
-              boxShadow: "inset 0 0 0 1px rgba(208,153,71,0.15), 0 24px 48px rgba(0,0,0,0.6)",
-              overflow: "hidden",
-              width: "100%",
-            }}
-          >
-            <table
-              className="w-full"
-              style={{
-                borderCollapse: "collapse",
-              }}
-            >
-              {/* Header */}
-              <thead>
-                <tr>
-                  {DEFAULTS.columns.map((col) => (
-                    <th
-                      key={col}
-                      style={{
-                        background: "rgba(208,153,71,0.15)",
-                        borderBottom: "1px solid rgba(208,153,71,0.3)",
-                        padding: "20px 28px",
-                        textAlign: "left",
-                        color: "#EEC569",
-                        fontWeight: 700,
-                        fontSize: "13px",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.08em",
-                      }}
-                    >
-                      {col}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-
-              {/* Body */}
-              <tbody>
-                {DEFAULTS.toleranceData.map((row, index) => (
-                  <tr
-                    key={index}
-                    style={{
-                      background:
-                        index % 2 === 0
-                          ? "rgba(255,255,255,0.02)"
-                          : "rgba(255,255,255,0.04)",
-                    }}
-                  >
-                    <td
-                      style={{
-                        borderBottom:
-                          index < DEFAULTS.toleranceData.length - 1
-                            ? "1px solid rgba(255,255,255,0.08)"
-                            : "none",
-                        padding: "18px 28px",
-                        textAlign: "left",
-                        color: "#FFFFFF",
-                        fontWeight: 700,
-                        fontSize: "15px",
-                      }}
-                    >
-                      <EditableText path={`tolerance.data.${index}.dimension`} defaultValue={row.dimension} />
-                    </td>
-                    <td
-                      style={{
-                        borderBottom:
-                          index < DEFAULTS.toleranceData.length - 1
-                            ? "1px solid rgba(255,255,255,0.08)"
-                            : "none",
-                        padding: "18px 28px",
-                        textAlign: "left",
-                        color: "#C5C6C9",
-                        fontSize: "15px",
-                      }}
-                    >
-                      <EditableText path={`tolerance.data.${index}.standard`} defaultValue={row.standard} />
-                    </td>
-                    <td
-                      style={{
-                        borderBottom:
-                          index < DEFAULTS.toleranceData.length - 1
-                            ? "1px solid rgba(255,255,255,0.08)"
-                            : "none",
-                        padding: "18px 28px",
-                        textAlign: "left",
-                        color: "#C5C6C9",
-                        fontSize: "15px",
-                      }}
-                    >
-                      <EditableText path={`tolerance.data.${index}.typical`} defaultValue={row.typical} />
-                    </td>
-                    <td
-                      style={{
-                        borderBottom:
-                          index < DEFAULTS.toleranceData.length - 1
-                            ? "1px solid rgba(255,255,255,0.08)"
-                            : "none",
-                        padding: "18px 28px",
-                        textAlign: "left",
-                        color: "#EEC569",
-                        fontSize: "15px",
-                      }}
-                    >
-                      <EditableText path={`tolerance.data.${index}.reference`} defaultValue={row.reference} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <ServiceTable
+            variant="standard"
+            caption="Aluminum extrusion capabilities and tolerances"
+            columns={DEFAULTS.columns.map((column, index) => ({
+              header: column,
+              tone: index === DEFAULTS.columns.length - 1 ? ("accent" as const) : undefined,
+            }))}
+            rows={DEFAULTS.toleranceData.map((row, index) => [
+              <EditableText
+                key="dimension"
+                path={`tolerance.data.${index}.dimension`}
+                defaultValue={row.dimension}
+              />,
+              <EditableText
+                key="standard"
+                path={`tolerance.data.${index}.standard`}
+                defaultValue={row.standard}
+              />,
+              <EditableText
+                key="typical"
+                path={`tolerance.data.${index}.typical`}
+                defaultValue={row.typical}
+              />,
+              <EditableText
+                key="reference"
+                path={`tolerance.data.${index}.reference`}
+                defaultValue={row.reference}
+              />,
+            ])}
+          />
         </motion.div>
         {/* Footnote */}
         <motion.p

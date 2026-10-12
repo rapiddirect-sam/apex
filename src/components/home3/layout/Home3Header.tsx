@@ -338,7 +338,7 @@ export function Home3Header() {
                     id={`mobile-submenu-${item.label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                     className={cn(
                       "flex flex-col gap-1 overflow-hidden pl-4 transition-[max-height,opacity,padding]",
-                      openMobileDropdown === item.label ? "max-h-[70vh] pb-3 opacity-100" : "max-h-0 pb-0 opacity-0"
+                      openMobileDropdown === item.label ? "max-h-[1400px] pb-3 opacity-100" : "max-h-0 pb-0 opacity-0"
                     )}
                     aria-hidden={openMobileDropdown !== item.label}
                   >

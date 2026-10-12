@@ -661,8 +661,12 @@ export function TiptapEditor({
               border-radius: 8px;
             }
             .tiptap-editor-content a.blog-link {
-              color: #D09947;
-              text-decoration: underline;
+              color: #986116;
+              font-weight: 600;
+              text-decoration-line: underline;
+              text-decoration-color: rgba(152, 97, 22, 0.55);
+              text-decoration-thickness: 1px;
+              text-underline-offset: 3px;
             }
             .tiptap-editor-content table {
               width: 100%;

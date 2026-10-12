@@ -255,11 +255,11 @@ export function CMTMaterials() {
           style={{ marginBottom: "48px" }}
         >
           <h2
-            className="text-white"
+            className="service-section-title text-white"
             style={{ fontSize: "46px", fontWeight: 700, letterSpacing: "-0.015em", marginBottom: "18px" }}
           >
             <EditableText path="materials.heading" defaultValue={DEFAULTS.heading} />
-            <span style={{ color: "#EEC569" }}>
+            <span className="service-title-accent">
               <EditableText path="materials.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
             </span>
             <EditableText path="materials.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />

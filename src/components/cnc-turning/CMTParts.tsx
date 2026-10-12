@@ -82,9 +82,9 @@ export function CMTParts() {
           className="text-center"
           style={{ marginBottom: "64px" }}
         >
-          <h2 className="text-white" style={{ fontSize: "46px", fontWeight: 700, letterSpacing: "-0.015em" }}>
+          <h2 className="service-section-title text-white" style={{ fontSize: "46px", fontWeight: 700, letterSpacing: "-0.015em" }}>
             <EditableText path="parts.heading" defaultValue={DEFAULTS.heading} />
-            <span style={{ color: "#EEC569" }}>
+            <span className="service-title-accent">
               <EditableText path="parts.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
             </span>
             <EditableText path="parts.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />

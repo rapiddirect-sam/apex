@@ -360,3 +360,85 @@ body {
 html.cms-edit-mode a:has([data-editable-text]) {
   cursor: pointer;
 }
+
+/* Unified inline links used inside service-page and blog body copy. */
+.body-text-link,
+.blog-content a,
+.author-bio a {
+  color: #986116;
+  font-weight: 600;
+  text-decoration-line: underline;
+  text-decoration-color: rgba(152, 97, 22, 0.55);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.body-text-link:hover,
+.blog-content a:hover,
+.author-bio a:hover {
+  color: #74470c;
+  text-decoration-color: currentColor;
+}
+
+.body-text-link--dark {
+  color: #eec569;
+  text-decoration-color: rgba(238, 197, 105, 0.55);
+}
+
+.body-text-link--dark:hover {
+  color: #f4d98f;
+  text-decoration-color: currentColor;
+}
+
+.body-text-link:focus-visible,
+.blog-content a:focus-visible,
+.author-bio a:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Shared typography for manufacturing service pages. */
+.service-section-title {
+  color: #ffffff !important;
+  font-size: clamp(2rem, 3.2vw, 2.875rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.015em !important;
+  line-height: 1.15 !important;
+}
+
+.service-title-accent {
+  color: #eec569 !important;
+}
+
+.service-subsection-title {
+  color: #ffffff;
+  font-size: clamp(1.625rem, 2.2vw, 1.875rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.service-section-copy {
+  color: #c5c6c9;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.service-card-copy {
+  color: #c5c6c9;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.service-support-copy {
+  color: #999997;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 767px) {
+  .service-section-copy {
+    font-size: 0.9375rem;
+  }
+}

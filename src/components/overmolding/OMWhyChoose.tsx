@@ -77,9 +77,9 @@ export function OMWhyChoose() {
           className="text-center"
           style={{ marginBottom: "64px" }}
         >
-          <h2 className="text-white" style={{ fontSize: "46px", fontWeight: 700, letterSpacing: "-0.015em" }}>
+          <h2 className="service-section-title text-white" style={{ fontSize: "46px", fontWeight: 700, letterSpacing: "-0.015em" }}>
             <EditableText path="whychoose.titleWhite" defaultValue={DEFAULTS.titleWhite} />
-            <span style={{ color: "#EEC569" }}>
+            <span className="service-title-accent">
               <EditableText path="whychoose.titleHighlight" defaultValue={DEFAULTS.titleHighlight} />
             </span>
           </h2>

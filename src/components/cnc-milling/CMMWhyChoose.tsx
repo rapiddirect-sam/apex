@@ -93,7 +93,7 @@ export function CMMWhyChoose() {
           style={{ marginBottom: "64px" }}
         >
           <h2
-            className="text-white"
+            className="service-section-title text-white"
             style={{
               fontSize: "46px",
               fontWeight: 700,
@@ -101,7 +101,7 @@ export function CMMWhyChoose() {
             }}
           >
             <EditableText path="whychoose.titleWhite" defaultValue={DEFAULTS.titleWhite} />
-            <span style={{ color: "#EEC569" }}>
+            <span className="service-title-accent">
               <EditableText path="whychoose.titleHighlight" defaultValue={DEFAULTS.titleHighlight} />
             </span>
           </h2>

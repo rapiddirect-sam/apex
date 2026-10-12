@@ -71,9 +71,9 @@ export function SMMaterials() {
     >
       <div className="max-w-[1200px] mx-auto px-6">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center" style={{ marginBottom: "48px" }}>
-          <h2 className="text-white" style={{ fontSize: "46px", fontWeight: 700, letterSpacing: "-0.015em" }}>
+          <h2 className="service-section-title text-white" style={{ fontSize: "46px", fontWeight: 700, letterSpacing: "-0.015em" }}>
             <EditableText path="materials.heading" defaultValue={DEFAULTS.heading} />
-            <span style={{ color: "#EEC569" }}><EditableText path="materials.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
+            <span className="service-title-accent"><EditableText path="materials.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
           </h2>
         </motion.div>
 

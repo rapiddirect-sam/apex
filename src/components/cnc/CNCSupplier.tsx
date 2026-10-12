@@ -77,7 +77,7 @@ export function CNCSupplier() {
             viewport={{ once: true }}
           >
             <h2
-              className="font-bold"
+              className="service-section-title font-bold"
               style={{
                 fontSize: "46px",
                 fontWeight: 700,
@@ -88,7 +88,7 @@ export function CNCSupplier() {
                 whiteSpace: "nowrap",
               }}
             >
-              <span style={{ color: "#EEC569" }}>
+              <span className="service-title-accent">
                 <EditableText path="supplier.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
               </span>
               <span style={{ color: "#FFFFFF" }}>

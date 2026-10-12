@@ -2,60 +2,58 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, ArrowRight, X } from "lucide-react";
-import { useRef, useState, useEffect } from "react";
+import { ArrowRight, X } from "lucide-react";
+import { useState, useEffect } from "react";
 import { EditableText, EditableImage } from "@/components/cms";
 import { useCMS } from "@/contexts/CMSContext";
 
 const DEFAULTS = {
-  heading: "Extrusion Parts ",
-  headingHighlight: "Made By Us",
-  subtitle: "Real components, real applications \u2013 precision extruded and finished in our ISO 9001 facility.",
+  heading: "Applications of ",
+  headingHighlight: "Custom Aluminum Extrusions",
+  subtitle:
+    "Custom extruded aluminum components for thermal management, equipment frames, transportation, architectural systems, solar mounting and display assemblies.",
   parts: [
     {
-      title: "LED heat sinks",
+      title: "LED Heat Sinks",
       description:
-        "Multi-fin design, 0.9mm wall, black anodized. Thermal conductivity optimized.",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-rapid-injection-molding-prototyping.webp",
+        "0.9 mm multi-fin profile with black anodizing, optimized for efficient thermal dissipation.",
+      image: "/images/services/aluminum-extrusion/applications/led-heat-sinks.avif",
     },
     {
-      title: "EV battery frames",
+      title: "EV Battery Frames",
       description:
-        "6061-T6, \u00B10.15mm flatness, CNC drilled, silver anodized. Structural integrity.",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-rapid-injection-molding-prototyping.webp",
+        "6061-T6 aluminum frame extrusion, CNC-drilled and silver anodized, with \u00B10.15 mm flatness for structural assemblies.",
+      image: "/images/services/aluminum-extrusion/applications/ev-battery-frames.avif",
     },
     {
-      title: "Curtain wall mullions",
+      title: "Curtain Wall Mullions",
       description:
-        "7m length, 6063-T5, powder coated RAL 7016. Thermal break ready.",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-rapid-injection-molding-prototyping.webp",
+        "7 m 6063-T5 architectural aluminum extrusion with RAL 7016 powder coating, designed for thermal-break-ready curtain wall systems.",
+      image: "/images/services/aluminum-extrusion/applications/curtain-wall-mullions.avif",
     },
     {
-      title: "Robotic rail guides",
+      title: "Robotic Rail Guides",
       description:
-        "Complex cavity, 0.8mm wall, precision cut \u00B10.1mm, hard anodized.",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-rapid-injection-molding-prototyping.webp",
+        "Complex-cavity extruded aluminum rail with 0.8 mm walls, hard anodizing and \u00B10.1 mm precision cutting.",
+      image: "/images/services/aluminum-extrusion/applications/robotic-rail-guides.avif",
     },
     {
-      title: "Solar frame profiles",
+      title: "Solar Frame Profiles",
       description:
-        "6063-T5, silver anodizing 15\u03BCm, corner brackets pre-machined.",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-rapid-injection-molding-prototyping.webp",
+        "6063-T5 solar frame profile with 15 \u03BCm silver anodizing and pre-machined corner-bracket features.",
+      image: "/images/services/aluminum-extrusion/applications/solar-frame-profiles.avif",
     },
     {
-      title: "Display bezels",
+      title: "Display Bezels",
       description:
-        "Brushed + anodized, 0.8mm thin wall, tight 45\u00B0 miter cutting.",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-rapid-injection-molding-prototyping.webp",
+        "Brushed and anodized 0.8 mm profile with tightly controlled 45\u00B0 miter cuts for display bezels.",
+      image: "/images/services/aluminum-extrusion/applications/display-bezels.avif",
     },
   ],
 };
 
 export function EXParts() {
   const { getContentValue } = useCMS();
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   useEffect(() => {
@@ -65,27 +63,6 @@ export function EXParts() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
-
-  const checkScroll = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    setCanScrollLeft(el.scrollLeft > 0);
-    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 1);
-  };
-
-  useEffect(() => {
-    checkScroll();
-  }, []);
-
-  const scroll = (direction: "left" | "right") => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const cardWidth = 220;
-    el.scrollBy({
-      left: direction === "left" ? -cardWidth * 2 : cardWidth * 2,
-      behavior: "smooth",
-    });
-  };
 
   return (
     <section
@@ -103,79 +80,22 @@ export function EXParts() {
           viewport={{ once: true }}
           style={{ marginBottom: "64px" }}
         >
-          <h2
-            className="text-white"
-            style={{
-              fontSize: "46px",
-              fontWeight: 700,
-              letterSpacing: "-0.015em",
-            }}
-          >
-            <EditableText path="parts.heading" defaultValue={DEFAULTS.heading} />
-            <span style={{ color: "#EEC569" }}>
-              <EditableText path="parts.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+          <h2 className="service-section-title">
+            <EditableText path="extrusionApplications.heading" defaultValue={DEFAULTS.heading} />
+            <span className="service-title-accent">
+              <EditableText
+                path="extrusionApplications.headingHighlight"
+                defaultValue={DEFAULTS.headingHighlight}
+              />
             </span>
           </h2>
-          <p
-            style={{
-              fontSize: "18px",
-              lineHeight: 1.6,
-              color: "#7A7A7C",
-              marginTop: "18px",
-            }}
-          >
-            <EditableText path="parts.subtitle" defaultValue={DEFAULTS.subtitle} />
+          <p className="service-section-copy mt-[18px] max-w-[900px]">
+            <EditableText path="extrusionApplications.subtitle" defaultValue={DEFAULTS.subtitle} />
           </p>
         </motion.div>
 
-        {/* Slider */}
-        <div className="relative">
-          {/* Navigation Arrows */}
-          {canScrollLeft && (
-            <button
-              onClick={() => scroll("left")}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center transition-all duration-300 hover:bg-[rgba(208,153,71,0.15)]"
-              style={{
-                width: "40px",
-                height: "40px",
-                borderRadius: "50%",
-                background: "rgba(0,0,0,0.8)",
-                border: "1px solid rgba(208,153,71,0.4)",
-                marginLeft: "-4px",
-              }}
-            >
-              <ChevronLeft className="w-5 h-5" style={{ color: "#D09947" }} />
-            </button>
-          )}
-          {canScrollRight && (
-            <button
-              onClick={() => scroll("right")}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center transition-all duration-300 hover:bg-[rgba(208,153,71,0.15)]"
-              style={{
-                width: "40px",
-                height: "40px",
-                borderRadius: "50%",
-                background: "rgba(0,0,0,0.8)",
-                border: "1px solid rgba(208,153,71,0.4)",
-                marginRight: "-4px",
-              }}
-            >
-              <ChevronRight className="w-5 h-5" style={{ color: "#D09947" }} />
-            </button>
-          )}
-
-          {/* Scrollable Container */}
-          <div
-            ref={scrollRef}
-            onScroll={checkScroll}
-            className="flex gap-5 overflow-x-auto"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-              scrollSnapType: "x mandatory",
-              paddingBottom: "8px",
-            }}
-          >
+        {/* Applications Grid */}
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {DEFAULTS.parts.map((part, index) => (
               <motion.div
                 key={part.title}
@@ -183,13 +103,11 @@ export function EXParts() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.08 }}
-                className="flex-shrink-0 group transition-all duration-300 hover:-translate-y-1"
+                className="group h-full transition-all duration-300 hover:-translate-y-1"
                 style={{
-                  width: "200px",
                   borderRadius: "12px",
                   background: "#1A1A1A",
                   border: "1px solid rgba(255,255,255,0.08)",
-                  scrollSnapAlign: "start",
                   padding: "20px",
                   textAlign: "center",
                 }}
@@ -217,10 +135,11 @@ export function EXParts() {
                   aria-label={`Enlarge image: ${part.title}`}
                 >
                   <EditableImage
-                    path={`parts.items.${index}.image`}
+                    path={`extrusionApplications.items.${index}.image`}
                     defaultSrc={part.image}
                     alt={part.title}
                     fill
+                    sizes="74px"
                     className="object-cover"
                   />
                 </button>
@@ -235,45 +154,41 @@ export function EXParts() {
                     lineHeight: 1.3,
                   }}
                 >
-                  <EditableText path={`parts.items.${index}.title`} defaultValue={part.title} />
+                  <EditableText
+                    path={`extrusionApplications.items.${index}.title`}
+                    defaultValue={part.title}
+                  />
                 </h3>
 
                 {/* Description */}
-                <p
-                  style={{
-                    fontSize: "13px",
-                    lineHeight: 1.5,
-                    color: "#7A7A7C",
-                  }}
-                >
-                  <EditableText path={`parts.items.${index}.description`} defaultValue={part.description} multiline />
+                <p className="service-support-copy">
+                  <EditableText
+                    path={`extrusionApplications.items.${index}.description`}
+                    defaultValue={part.description}
+                    multiline
+                  />
                 </p>
               </motion.div>
             ))}
-          </div>
-
-          {/* Hide scrollbar with CSS */}
-          <style jsx>{`
-            div::-webkit-scrollbar {
-              display: none;
-            }
-          `}</style>
         </div>
 
-        {/* CTA Button */}
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex justify-center"
+          className="flex flex-col items-center justify-center"
           style={{ marginTop: "48px" }}
         >
+          <p className="mb-5 text-center text-[18px] font-medium text-white">
+            Have a profile application in mind?
+          </p>
           <Link
             href="https://app.apexbatch.com/"
             rel="nofollow"
             className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider flex items-center justify-center gap-2 group"
           >
-            Start Your Project
+            Discuss Your Profile Application
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>
@@ -298,7 +213,12 @@ export function EXParts() {
           <div className="max-h-[90vh] max-w-[95vw]" onClick={(e) => e.stopPropagation()}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={String(getContentValue(`parts.items.${lightboxIndex}.image`, DEFAULTS.parts[lightboxIndex].image))}
+              src={String(
+                getContentValue(
+                  `extrusionApplications.items.${lightboxIndex}.image`,
+                  DEFAULTS.parts[lightboxIndex].image,
+                ),
+              )}
               alt={DEFAULTS.parts[lightboxIndex].title}
               className="max-h-[90vh] max-w-[95vw] object-contain"
             />

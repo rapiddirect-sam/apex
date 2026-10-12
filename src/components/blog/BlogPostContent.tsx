@@ -466,13 +466,6 @@ export function BlogPostContent({
               .blog-content p {
                 color: #333333;
               }
-              .blog-content a {
-                color: #D09947;
-                text-decoration: underline;
-              }
-              .blog-content a:hover {
-                color: #B07D2F;
-              }
               .blog-content ul,
               .blog-content ol {
                 padding-left: 1.5em;
@@ -918,10 +911,6 @@ export function BlogPostContent({
                         }
                         .author-bio p {
                           margin-bottom: 12px;
-                        }
-                        .author-bio a {
-                          color: #D09947;
-                          text-decoration: underline;
                         }
                       `}</style>
 

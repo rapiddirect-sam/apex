@@ -10,12 +10,13 @@ const capabilitiesLinks = [
   { href: "/injection-molding", label: "Injection Molding" },
   { href: "/sheet-metal-fabrication", label: "Sheet Metal Fabrication" },
   { href: "/die-casting", label: "Die Casting" },
+  { href: "/surface-finishing", label: "Surface Finishing" },
 ];
 
 const resourceLinks = [
   { href: "/blog", label: "Blog" },
   { href: "/materials", label: "Materials" },
-  { href: "/surface-finishing", label: "Surface Finishing" },
+  { href: "/reviews", label: "Customer Reviews" },
 ];
 
 const aboutLinks = [
@@ -97,7 +98,7 @@ function FooterLinkColumn({
 }) {
   return (
     <div>
-      <h4 className="mb-4 text-sm font-bold text-[#000000] lg:mb-6 lg:text-base">{title}</h4>
+      <p className="mb-4 text-sm font-bold text-[#000000] lg:mb-6 lg:text-base">{title}</p>
       <ul className="space-y-2 lg:space-y-3">
         {links.map((link) => (
           <li key={link.label}>
