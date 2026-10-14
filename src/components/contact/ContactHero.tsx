@@ -1,17 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { getImageUrl } from "@/lib/utils";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  backgroundImage: getImageUrl("contact/1-contact-banner.webp"),
+  backgroundImage: "/contact/apexbatch-contact-office-reception-hero.avif",
   pillLabel: "GET IN TOUCH",
   eyebrow: "ApexBatch is the answer to your challenge",
   headingPrefix: "Get in Touch with ",
   headingHighlight: "ApexBatch",
   subheadline:
-    "Let's Bring Your Project To Life. Whether you're moving from prototype to batch production or need a high-precision manufacturing partner, our engineering team is ready.",
+    "Let's bring your project to life. Whether you're moving from prototype to batch production or need a high-precision manufacturing partner, our engineering team is ready.",
 };
 
 export function ContactHero() {
@@ -29,9 +28,10 @@ export function ContactHero() {
         style={{ overflow: "hidden" }}
       >
         <EditableImage
+          className="contact-hero-background"
           path="hero.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
-          alt="Contact banner"
+          alt="ApexBatch office reception and brand wall"
           fill
           sizes="100vw"
           style={{
@@ -40,6 +40,14 @@ export function ContactHero() {
           }}
         />
       </div>
+
+      <style jsx global>{`
+        @media (max-width: 767px) {
+          .contact-hero-background {
+            object-position: 78% 42% !important;
+          }
+        }
+      `}</style>
 
       {/* Multi-layer cinematic overlay - matching home3 */}
       <div
@@ -56,7 +64,7 @@ export function ContactHero() {
       />
 
       {/* Content */}
-      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 py-16">
+      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 pt-52 pb-16 md:py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

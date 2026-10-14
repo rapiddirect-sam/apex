@@ -23,12 +23,12 @@ export const DEFAULT_PAGE_META: Record<string, { title: string; description: str
     description: "Learn about ApexBatch's journey, our expert team, and our commitment to precision manufacturing. Inherited expertise from the world's pioneer in digital manufacturing.",
   },
   "/contact": {
-    title: "Contact ApexBatch - Get a Quote for Your Project",
-    description: "Contact ApexBatch for precision CNC machining quotes. Our team responds within 24 hours. Located in Shenzhen, China.",
+    title: "Contact ApexBatch | Manufacturing Project Support",
+    description: "Contact ApexBatch for CNC machining, sheet metal, molding, die casting, extrusion and repeat production. Upload drawings and receive a response within 24 hours.",
   },
   "/quality": {
-    title: "Quality Assurance - ApexBatch's Precision Standards",
-    description: "Discover ApexBatch's comprehensive three-phase quality assurance system. ISO certified with 100% traceability and ±0.01-0.05mm tolerance control.",
+    title: "Precision Quality Assurance & Inspection | ApexBatch",
+    description: "From material verification and first-article approval to in-process inspection, final release and traceability, ApexBatch plans quality control around your drawing.",
   },
   "/cnc-machining": {
     title: "CNC Machining Services - ApexBatch Precision Manufacturing",

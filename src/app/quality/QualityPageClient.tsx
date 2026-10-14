@@ -4,8 +4,11 @@ import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { QualityHero } from "@/components/quality/QualityHero";
 import { QualityProcess } from "@/components/quality/QualityProcess";
+import { QualityProductionControl } from "@/components/quality/QualityProductionControl";
 import { QualityConsistency } from "@/components/quality/QualityConsistency";
 import { QualityEquipment } from "@/components/quality/QualityEquipment";
+import { QualityTraceability } from "@/components/quality/QualityTraceability";
+import { QualityFAQ } from "@/components/quality/QualityFAQ";
 import { QualityCertifications } from "@/components/quality/QualityCertifications";
 import { QualityCTA } from "@/components/quality/QualityCTA";
 import { CMSProvider } from "@/contexts/CMSContext";
@@ -26,10 +29,13 @@ export function QualityPageClient({ initialContent, initialVersion }: QualityPag
       <Home3Header />
       <main className="bg-[#000000] min-h-screen">
         <QualityHero />
+        <QualityCertifications />
         <QualityProcess />
+        <QualityProductionControl />
         <QualityConsistency />
         <QualityEquipment />
-        <QualityCertifications />
+        <QualityTraceability />
+        <QualityFAQ />
         <QualityCTA />
       </main>
       <Home3Footer />

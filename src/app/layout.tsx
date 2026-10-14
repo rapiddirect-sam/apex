@@ -45,7 +45,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           {getQ4AnnouncementBootstrapScript()}
         </Script>
       </head>
-      <body className="antialiased home3-root">
+      <body className="antialiased home3-root" suppressHydrationWarning>
         <SiteStructuredData />
         <RouteStructuredData />
         <noscript>

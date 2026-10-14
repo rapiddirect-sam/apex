@@ -7,21 +7,21 @@ const DEFAULTS = {
   headingPrefix: "What Happens ",
   headingHighlight: "Next?",
   subheading:
-    "Our streamlined process ensures you get the attention and results you deserve",
+    "A clear review process from your initial inquiry to an approved production plan.",
   // Card 1
-  card1Title: "Quick Response",
+  card1Title: "Project Review",
   card1Description:
-    "We review your inquiry and respond within 24 hours with initial feedback and next steps.",
-  card1Time: "Within 24 hours",
+    "We review your files, requirements and project scope, then confirm any information needed for quotation.",
+  card1Time: "Initial response within 24 hours",
   // Card 2
-  card2Title: "Consultation Call",
+  card2Title: "Engineering Feedback and Quotation",
   card2Description:
-    "Schedule a detailed consultation with our experts to discuss your requirements and project scope.",
+    "Our team evaluates manufacturability, process options, inspection needs, pricing and lead-time requirements.",
   card2Time: "2-3 business days",
   // Card 3
-  card3Title: "Project Launch",
+  card3Title: "Confirmation and Production Planning",
   card3Description:
-    "Receive a customized proposal and timeline. Once approved, we kick off your project immediately.",
+    "Production planning begins after technical requirements, commercial terms and required approvals are confirmed.",
   card3Time: "1 week",
 };
 

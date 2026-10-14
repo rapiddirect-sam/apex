@@ -1,153 +1,92 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { getImageUrl } from "@/lib/utils";
-import { EditableText, EditableImage } from "@/components/cms";
+import { EditableText } from "@/components/cms";
 
-const DEFAULTS = {
-  sectionTitle: "Advanced Quality Control ",
-  sectionTitleHighlight: "Equipment",
-  sectionDescription: "State-of-the-art inspection technology ensuring precision at every measurement",
-  equipment: [
-    {
-      name: "ZEISS CMM",
-      description: "Measures complex surfaces and geometric profiles to ensure precise component fit and assembly accuracy.",
-      image: getImageUrl("quality/qc-equipment-1.png"),
-    },
-    {
-      name: "2.5D Image Measuring",
-      description: "Performs non-contact optical inspection, ideal for delicate or reflective components requiring accurate measurement without surface contact.",
-      image: getImageUrl("quality/qc-equipment-2.png"),
-    },
-    {
-      name: "Spectrometer",
-      description: "Identifies material alloy composition within seconds, preventing material mix-up and ensuring correct material specifications.",
-      image: getImageUrl("quality/qc-equipment-2.png"),
-    },
-    {
-      name: "Roughness Tester",
-      description: "Quantifies surface finish characteristics critical for friction, wear resistance, and sealing performance in moving components.",
-      image: getImageUrl("quality/qc-equipment-2.png"),
-    },
-  ],
-};
+const EQUIPMENT = [
+  {
+    name: "ZEISS CMM Precision Inspection",
+    description: "Measures complex geometries, multi-surface relationships and applicable GD&T features, including position, profile, perpendicularity, concentricity and datum relationships.",
+    image: "/quality/apexbatch-zeiss-cmm-probe-precision-dimensional-inspection.avif",
+    alt: "ApexBatch ZEISS CMM probe performing precision dimensional inspection",
+  },
+  {
+    name: "IM-X Series Image Dimension Measurement System",
+    description: "Supports rapid and repeatable image-based measurement of multiple dimensions and features, making it suitable for production inspection and repeated part verification.",
+    image: "/quality/apexbatch-im-x-image-dimension-measurement-system.avif",
+    alt: "ApexBatch IM-X Series image dimension measurement system",
+  },
+  {
+    name: "Automatic Optical Measuring Instrument",
+    description: "Provides automatic, non-contact measurement of profiles, hole diameters, hole spacing, edge features and small two-dimensional characteristics.",
+    image: "/quality/apexbatch-automatic-optical-measuring-instrument-part-inspection.avif",
+    alt: "ApexBatch automatic optical measuring instrument inspecting part features",
+  },
+  {
+    name: "Surface Roughness Tester",
+    description: "Measures specified surface roughness characteristics such as Ra to verify functional, sealing, friction and appearance requirements.",
+    image: "/quality/apexbatch-surface-roughness-tester-machined-surface-finish.avif",
+    alt: "ApexBatch surface roughness tester verifying a machined surface finish",
+  },
+];
 
 export function QualityEquipment() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{
-        padding: "80px 0",
-        background: `
-          radial-gradient(
-            70% 50% at 50% 0%,
-            rgba(249,235,188,0.06),
-            rgba(0,0,0,0) 65%
-          ),
-          #000000
-        `,
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section Header */}
+    <section className="bg-black py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="relative flex min-h-[280px] items-center overflow-hidden rounded-xl border border-white/10 bg-[#171717] sm:min-h-[300px] lg:min-h-[320px]"
         >
-          <h2
-            style={{
-              fontSize: "46px",
-              fontWeight: 700,
-              color: "#FFFFFF",
-              letterSpacing: "-0.015em",
-            }}
-          >
-            <EditableText path="equipment.sectionTitle" defaultValue={DEFAULTS.sectionTitle} />
-            <span style={{ color: "#EEC569" }}>
-              <EditableText path="equipment.sectionTitleHighlight" defaultValue={DEFAULTS.sectionTitleHighlight} />
-            </span>
-          </h2>
-          <p
-            style={{
-              color: "#C5C6C9",
-              fontSize: "18px",
-              lineHeight: 1.6,
-              maxWidth: "640px",
-              margin: "16px auto 0",
-            }}
-          >
-            <EditableText
-              path="equipment.sectionDescription"
-              defaultValue={DEFAULTS.sectionDescription}
-              multiline
-            />
-          </p>
+          <Image
+            src="/quality/apexbatch-zeiss-cmm-quality-inspection-lab-with-two-operators.webp"
+            alt="ApexBatch ZEISS CMM quality inspection lab with two operators"
+            fill
+            unoptimized
+            className="object-cover object-center"
+            sizes="(max-width: 1279px) 100vw, 1280px"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/5" aria-hidden="true" />
+          <div className="relative z-10 max-w-3xl px-6 py-12 sm:px-10 lg:px-14">
+            <h2 className="text-[clamp(2rem,4.5vw,3rem)] font-bold leading-tight tracking-[-0.015em] text-white">
+              <EditableText path="equipment.title" defaultValue="Our Precision Measurement and " />
+              <span className="text-[#EEC569]"><EditableText path="equipment.titleHighlight" defaultValue="Inspection Equipment" /></span>
+            </h2>
+          </div>
         </motion.div>
 
-        {/* Equipment Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {DEFAULTS.equipment.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
+        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+          {EQUIPMENT.map((item, index) => (
+            <motion.article
+              key={item.name}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group transition-all duration-300 hover:-translate-y-1"
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              style={{
-                background: "#4A4A48",
-                borderRadius: "18px",
-                overflow: "hidden",
-                border: hoveredIndex === index ? "2px solid #D09947" : "1px solid rgba(208,153,71,0.18)",
-                boxShadow: hoveredIndex === index ? "0 0 30px rgba(208,153,71,0.5)" : "0 12px 32px rgba(0,0,0,0.45)",
-                transition: "border 0.3s ease, box-shadow 0.3s ease",
-                display: "flex",
-                flexDirection: "column",
-              }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ delay: index * 0.05 }}
+              className="group grid overflow-hidden rounded-xl border border-[#D09947]/25 bg-[#171717] transition duration-300 hover:-translate-y-1 hover:border-[#D09947]/70 sm:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)]"
             >
-              {/* Image */}
-              <div className="relative h-48 overflow-hidden" style={{ background: "#3A3A3A" }}>
-                <EditableImage
-                  path={`equipment.items.${index}.image`}
-                  defaultSrc={item.image}
-                  alt={item.name}
+              <div className="relative aspect-[4/3] overflow-hidden bg-[#222] sm:aspect-auto sm:min-h-[230px]">
+                <Image
+                  src={item.image}
+                  alt={item.alt}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  unoptimized
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  sizes="(max-width: 639px) 100vw, (max-width: 1023px) 38vw, 19vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#34312F] to-transparent opacity-60 pointer-events-none" />
               </div>
-
-              {/* Content */}
-              <div style={{ padding: "20px", background: "#34312F", flex: 1 }}>
-                <h3
-                  style={{
-                    fontSize: "17px",
-                    fontWeight: 700,
-                    color: "#FFFFFF",
-                    marginBottom: "8px",
-                  }}
-                >
-                  <EditableText
-                    path={`equipment.items.${index}.name`}
-                    defaultValue={item.name}
-                  />
+              <div className="flex flex-col justify-center p-5 sm:p-6">
+                <h3 className="text-lg font-bold leading-snug text-white sm:text-xl">
+                  <EditableText path={`equipment.items.${index}.name`} defaultValue={item.name} />
                 </h3>
-                <p style={{ color: "#C5C6C9", fontSize: "14px", lineHeight: 1.6 }}>
-                  <EditableText
-                    path={`equipment.items.${index}.description`}
-                    defaultValue={item.description}
-                    multiline
-                  />
+                <p className="mt-3 text-[14px] leading-6 text-[#D4D4D6] sm:text-[15px]">
+                  <EditableText path={`equipment.items.${index}.description`} defaultValue={item.description} multiline />
                 </p>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
       </div>

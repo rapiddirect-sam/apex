@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { EditableText, EditableImage } from "@/components/cms";
 import { getImageUrl } from "@/lib/utils";
 
@@ -8,14 +10,16 @@ const DEFAULTS = {
   backgroundImage: getImageUrl("quality/servicebg.png"),
   titlePart1: "Precision ",
   titleHighlight: "Quality Assurance",
-  titlePart2: " System",
+  titlePart2: " for Repeatable Production",
   description:
-    "At ApexBatch, quality is not just a department\u2014it\u2019s embedded in every stage of our manufacturing process. Our comprehensive three-phase quality assurance system ensures every component meets the highest standards of precision, reliability, and consistency.",
+    "From material verification and first-article approval to in-process control and final release, we plan inspection around your drawing, critical features and production requirements.",
   stats: [
-    { value: "\u00B10.01-0.05mm", label: "Tolerance Control" },
-    { value: "100%", label: "Traceability" },
+    { value: "\u00B10.01\u20130.05 mm", label: "Tolerance Control" },
+    { value: "100%", label: "Controlled Traceability" },
     { value: "ISO Certified", label: "Quality Management" },
   ],
+  ctaPrimary: "Upload Your Drawing",
+  ctaSecondary: "Discuss Your Quality Requirements",
 };
 
 export function QualityHero() {
@@ -120,6 +124,25 @@ export function QualityHero() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Calls to action use the shared service-hero button treatment. */}
+            <div className="flex flex-wrap justify-center gap-3 mt-5">
+              <Link
+                href="https://app.apexbatch.com/"
+                rel="nofollow"
+                className="text-[#1A1A1A] font-bold py-3.5 px-7 rounded-md text-xs transition-all uppercase tracking-[0.11em] flex items-center gap-2 group shadow-[0_8px_22px_rgba(238,197,105,0.4)]"
+                style={{ background: "linear-gradient(90deg, #D8AC4E 0%, #F1DB9A 100%)" }}
+              >
+                <EditableText path="hero.ctaPrimary" defaultValue={DEFAULTS.ctaPrimary} />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link
+                href="/contact"
+                className="border border-[#D6B56E]/40 hover:border-[#D6B56E] bg-[#1A1A1A]/72 text-white font-bold py-3.5 px-7 rounded-md text-xs transition-all uppercase tracking-[0.11em] shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
+              >
+                <EditableText path="hero.ctaSecondary" defaultValue={DEFAULTS.ctaSecondary} />
+              </Link>
             </div>
           </motion.div>
         </div>

@@ -1,9 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Shield, Target, TrendingUp, CheckCircle, Award } from "lucide-react";
-import { getImageUrl } from "@/lib/utils";
-import { EditableText, EditableImage } from "@/components/cms";
+import { EditableText } from "@/components/cms";
+import { QUALITY_CERTIFICATE_IMAGES } from "@/lib/qualityCertificates";
 
 const DEFAULTS = {
   badge: "Quality Assurance",
@@ -36,15 +37,15 @@ const DEFAULTS = {
   certificates: [
     {
       name: "ISO 9001",
-      image: "/quality/apexbatch-iso9001-certified-quality-management-system.avif",
+      image: QUALITY_CERTIFICATE_IMAGES.iso9001,
     },
     {
       name: "ISO 13485",
-      image: getImageUrl("home/6-quality-ISO13485.webp"),
+      image: QUALITY_CERTIFICATE_IMAGES.iso13485,
     },
     {
       name: "ISO 14001",
-      image: getImageUrl("home/6-quality-ISO14001.webp"),
+      image: QUALITY_CERTIFICATE_IMAGES.iso14001,
     },
   ],
 };
@@ -118,13 +119,12 @@ export function Home3Certifications() {
                     transform: `rotate(${index === 0 ? -3 : index === 2 ? 3 : 0}deg)`,
                   }}
                 >
-                  <EditableImage
-                    path={`certifications.certificates.${index}.image`}
-                    defaultSrc={cert.image}
-                    alt={cert.name}
+                  <Image
+                    src={cert.image}
+                    alt={`${cert.name} certificate`}
                     fill
                     sizes="(max-width: 639px) 96px, (max-width: 767px) 128px, 160px"
-                    style={{ objectFit: "cover" }}
+                    style={{ objectFit: "contain" }}
                   />
                 </motion.div>
               ))}

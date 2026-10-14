@@ -1,17 +1,36 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { getImageUrl } from "@/lib/utils";
-import { EditableText, EditableImage } from "@/components/cms";
+import { EditableText } from "@/components/cms";
+import { QUALITY_CERTIFICATE_IMAGES } from "@/lib/qualityCertificates";
 
 const DEFAULTS = {
-  sectionTitle: "Quality ",
-  sectionTitleHighlight: "Certifications",
-  sectionDescription: "Our Certified systems ensure consistent quality, compliance, and traceability throughout production.",
+  sectionTitle: "Certified Quality ",
+  sectionTitleHighlight: "Management Systems",
+  sectionDescription:
+    "Defined procedures connect engineering review, material control, production inspection, final release and corrective action.",
   certifications: [
-    { src: getImageUrl("home/6-quality-ISO9001.webp"), alt: "ISO 9001:2015 Certification" },
-    { src: getImageUrl("home/6-quality-ISO13485.webp"), alt: "ISO 13485:2016 Certification" },
-    { src: getImageUrl("home/6-quality-ISO14001.webp"), alt: "ISO 14001:2015 Certification" },
+    {
+      title: "ISO 9001:2015",
+      description: "Quality management for controlled and consistent manufacturing processes.",
+      src: QUALITY_CERTIFICATE_IMAGES.iso9001,
+      alt: "ApexBatch ISO 9001:2015 quality management system certificate",
+    },
+    {
+      title: "ISO 13485:2016",
+      description:
+        "Quality management requirements supporting applicable medical-device manufacturing programs.",
+      src: QUALITY_CERTIFICATE_IMAGES.iso13485,
+      alt: "ApexBatch ISO 13485:2016 quality management system certificate",
+    },
+    {
+      title: "ISO 14001:2015",
+      description:
+        "Environmental management controls supporting responsible manufacturing operations.",
+      src: QUALITY_CERTIFICATE_IMAGES.iso14001,
+      alt: "ApexBatch ISO 14001:2015 environmental management system certificate",
+    },
   ],
 };
 
@@ -21,45 +40,41 @@ export function QualityCertifications() {
       id="certifications"
       className="relative overflow-hidden"
       style={{
-        padding: "80px 0",
-        background: `
-          radial-gradient(
-            70% 50% at 50% 50%,
-            rgba(249,235,188,0.08),
-            rgba(0,0,0,0) 65%
-          ),
-          #4A4A48
-        `,
+        padding: "72px 0",
+
       }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
           <h2
             style={{
-              fontSize: "46px",
+              fontSize: "clamp(34px, 4vw, 46px)",
               fontWeight: 700,
               color: "#FFFFFF",
+              lineHeight: 1.15,
               letterSpacing: "-0.015em",
             }}
           >
             <EditableText path="certifications.sectionTitle" defaultValue={DEFAULTS.sectionTitle} />
             <span style={{ color: "#EEC569" }}>
-              <EditableText path="certifications.sectionTitleHighlight" defaultValue={DEFAULTS.sectionTitleHighlight} />
+              <EditableText
+                path="certifications.sectionTitleHighlight"
+                defaultValue={DEFAULTS.sectionTitleHighlight}
+              />
             </span>
           </h2>
           <p
             style={{
-              color: "#C5C6C9",
-              fontSize: "18px",
-              lineHeight: 1.6,
-              maxWidth: "720px",
-              margin: "16px auto 0",
+              color: "#E2E2E2",
+              fontSize: "17px",
+              lineHeight: 1.7,
+              maxWidth: "780px",
+              margin: "18px auto 0",
             }}
           >
             <EditableText
@@ -70,30 +85,44 @@ export function QualityCertifications() {
           </p>
         </motion.div>
 
-        {/* Certifications Images */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3">
           {DEFAULTS.certifications.map((cert, index) => (
-            <motion.div
-              key={index}
+            <motion.article
+              key={cert.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="relative"
-              style={{ borderRadius: "18px", overflow: "hidden" }}
+              className="overflow-hidden bg-[#171717] border border-[#EEC569]/30"
+              style={{ borderRadius: "16px" }}
             >
-              <EditableImage
-                path={`certifications.items.${index}.image`}
-                defaultSrc={cert.src}
-                alt={cert.alt}
-                width={400}
-                height={300}
-                className="w-full h-auto"
-              />
-            </motion.div>
+              <div className="flex items-center justify-center bg-[#101010] px-6 py-5">
+                <Image
+                  src={cert.src}
+                  alt={cert.alt}
+                  width={160}
+                  height={214}
+                  className="h-auto w-full max-w-[145px]"
+                />
+              </div>
+              <div className="p-6 text-left">
+                <h3 className="text-white text-xl font-bold mb-3">
+                  <EditableText
+                    path={`certifications.items.${index}.title`}
+                    defaultValue={cert.title}
+                  />
+                </h3>
+                <p className="text-[#C5C6C9] text-base leading-7">
+                  <EditableText
+                    path={`certifications.items.${index}.description`}
+                    defaultValue={cert.description}
+                    multiline
+                  />
+                </p>
+              </div>
+            </motion.article>
           ))}
         </div>
-
       </div>
     </section>
   );

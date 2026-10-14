@@ -6,10 +6,10 @@ import { TermsAndConditionsClient } from "./TermsAndConditionsClient";
 export async function generateMetadata(): Promise<Metadata> {
   const meta = await getPageMetaWithDefaults("/terms-and-conditions");
   return {
-    title: meta.title ?? "Terms and Conditions | Apex Batch",
+    title: meta.title ?? "Terms and Conditions | ApexBatch",
     description:
       meta.description ??
-      "Terms and conditions for using Apex Batch services.",
+      "Terms and conditions for using ApexBatch services.",
     alternates: {
       canonical: "/terms-and-conditions",
     },

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import Script from "next/script";
+import Link from "next/link";
 import { getVisitData } from "@/hooks/useVisitTracking";
 import { EditableText } from "@/components/cms";
 import {
@@ -35,7 +36,9 @@ const DEFAULTS = {
   uploadTitle: "Drag & Drop Your Files Here",
   uploadOr: "or",
   uploadBrowse: "Browse Files",
-  uploadFormats: "Available: stp, step, stl, igs, iges, sldprt, x_t, jpg, png, pdf, zip, rar",
+  uploadFormats: "Accepted: STEP, STL, IGES, SLDPRT, X_T, JPG, PNG, PDF, ZIP and RAR. Maximum 25 MB per file.",
+  privacyNotice: "Your files and project information are used only to review and respond to your inquiry. See our",
+  privacyPolicyLabel: "Privacy Policy",
   // Success/error messages
   successMessage: "Thank you! Your message has been sent successfully. We'll get back to you within 24 hours.",
   errorMessage: "Please fill in all required fields. Project description must be at least 10 characters.",
@@ -52,14 +55,13 @@ const DEFAULTS = {
   // Right column - Location
   locationPill: "LOCATION",
   // Hong Kong office
-  headOfficeTitle: "HongKong Office",
-  headOfficeCompany: "APEX BATCH LIMITED",
+  headOfficeTitle: "Hong Kong Office",
   headOfficeAddress:
     "Unit 1111, 11/F, Hollywood Plaza\n610 Nathan Rd, Mong Kok, Hong Kong",
   headOfficeDirectionsLabel: "Directions — Hong Kong",
   // Section title above Shenzhen map/address card
-  facilityCaption: "Head Office",
-  addressLabel: "Head Office",
+  facilityCaption: "Shenzhen Manufacturing Facility",
+  addressLabel: "Shenzhen Manufacturing Facility",
   addressValue: "2nd Floor, Building F, 52 Huangpu Road, Shangliao Community, Xinqiao Street, Baoan District, Shenzhen, China",
 };
 
@@ -74,6 +76,7 @@ const businessNeedsOptions = [
   "Sheet Metal Fabrication",
   "Injection Molding",
   "Die Casting",
+  "Extrusion",
   "Surface Finishing",
   "Assembly Services",
   "Multiple Services",
@@ -97,7 +100,11 @@ export function ContactForm() {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorText, setErrorText] = useState<string>(DEFAULTS.errorMessage);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const formStartAtRef = useRef<number>(Date.now());
+  const formStartAtRef = useRef<number>(0);
+
+  useEffect(() => {
+    formStartAtRef.current = Date.now();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -755,6 +762,13 @@ export function ContactForm() {
                 {isUploading ? "Uploading files..." : isSubmitting ? "Sending..." : "Send Message"}
                 {!isSubmitting && !isUploading && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
               </button>
+              <p className="text-center text-xs leading-relaxed text-[#8F8F91]">
+                <EditableText path="form.privacyNotice" defaultValue={DEFAULTS.privacyNotice} />{" "}
+                <Link href="/privacy-policy" className="text-[#C9A25D] underline decoration-[#C9A25D]/50 underline-offset-2 transition-colors hover:text-[#EEC569]">
+                  <EditableText path="form.privacyPolicyLabel" defaultValue={DEFAULTS.privacyPolicyLabel} />
+                </Link>
+                .
+              </p>
             </form>
           </motion.div>
 
@@ -884,12 +898,15 @@ export function ContactForm() {
                         defaultValue={DEFAULTS.callUsTitle}
                       />
                     </p>
-                    <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
+                    <a
+                      href="tel:+8613302480516"
+                      className="block text-xs leading-relaxed text-[#EEC569] transition-colors hover:text-white hover:underline"
+                    >
                       <EditableText
                         path="sidebar.callUsDetail"
                         defaultValue={DEFAULTS.callUsDetail}
                       />
-                    </p>
+                    </a>
                   </div>
                 </div>
 
@@ -939,24 +956,33 @@ export function ContactForm() {
                         defaultValue={DEFAULTS.emailUsTitle}
                       />
                     </p>
-                    <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
+                    <a
+                      href="mailto:info@apexbatch.com"
+                      className="block text-xs leading-relaxed text-[#EEC569] transition-colors hover:text-white hover:underline"
+                    >
                       <EditableText
                         path="sidebar.emailGeneral"
                         defaultValue={DEFAULTS.emailGeneral}
                       />
-                    </p>
-                    <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
+                    </a>
+                    <a
+                      href="mailto:quotes@apexbatch.com"
+                      className="block text-xs leading-relaxed text-[#EEC569] transition-colors hover:text-white hover:underline"
+                    >
                       <EditableText
                         path="sidebar.emailQuote"
                         defaultValue={DEFAULTS.emailQuote}
                       />
-                    </p>
-                    <p style={{ fontSize: "12px", color: "#EEC569", lineHeight: 1.6 }}>
+                    </a>
+                    <a
+                      href="mailto:support@apexbatch.com"
+                      className="block text-xs leading-relaxed text-[#EEC569] transition-colors hover:text-white hover:underline"
+                    >
                       <EditableText
                         path="sidebar.emailSupport"
                         defaultValue={DEFAULTS.emailSupport}
                       />
-                    </p>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -1058,7 +1084,7 @@ export function ContactForm() {
                   rel="noopener noreferrer"
                   className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded bg-[#D09947] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[#000000] transition-all hover:bg-[#EEC569]"
                 >
-                  Directions — Shen Zhen
+                  Directions — Shenzhen
                   <ArrowRight className="h-3.5 w-3.5" />
                 </a>
               </div>
@@ -1083,20 +1109,6 @@ export function ContactForm() {
                   <EditableText
                     path="sidebar.headOfficeTitle"
                     defaultValue={DEFAULTS.headOfficeTitle}
-                  />
-                </p>
-                <p
-                  style={{
-                    fontSize: "12px",
-                    color: "#EEC569",
-                    lineHeight: 1.65,
-                    marginBottom: "14px",
-                    whiteSpace: "pre-line",
-                  }}
-                >
-                  <EditableText
-                    path="sidebar.headOfficeCompany"
-                    defaultValue={DEFAULTS.headOfficeCompany}
                   />
                 </p>
                 <p
