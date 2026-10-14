@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getPageMetaWithDefaults } from "@/lib/pageMeta";
 import { getPageContent } from "@/lib/pageContent";
+import { normalizeLegalContent } from "@/lib/legalContent";
 import { TermsAndConditionsClient } from "./TermsAndConditionsClient";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -21,7 +22,7 @@ export default async function TermsAndConditionsPage() {
 
   return (
     <TermsAndConditionsClient
-      initialContent={content}
+      initialContent={normalizeLegalContent(content)}
       initialVersion={version}
     />
   );

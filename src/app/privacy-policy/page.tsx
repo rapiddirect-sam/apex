@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getPageMetaWithDefaults } from "@/lib/pageMeta";
 import { getPageContent } from "@/lib/pageContent";
+import { normalizeLegalContent } from "@/lib/legalContent";
 import { PrivacyPolicyClient } from "./PrivacyPolicyClient";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -20,6 +21,9 @@ export default async function PrivacyPolicyPage() {
   const { content, version } = await getPageContent("/privacy-policy");
 
   return (
-    <PrivacyPolicyClient initialContent={content} initialVersion={version} />
+    <PrivacyPolicyClient
+      initialContent={normalizeLegalContent(content)}
+      initialVersion={version}
+    />
   );
 }
