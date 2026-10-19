@@ -1,109 +1,78 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { EditableText, EditableImage } from "@/components/cms";
+import { EditableImage, EditableText } from "@/components/cms";
 
 const DEFAULTS = {
-  backgroundImage: "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773908143132-1773908143132-0zqk1ggm.webp",
-  heading: "Ready to Scale Your Production?",
-  subheading: "Join 500+ global innovators who rely on ApexBatch for high-precision manufacturing solutions.",
-  buttonText: "Request A Free Quote",
-  buttonLink: "https://app.apexbatch.com/",
+  backgroundImage: "/about/apexbatch-cnc-machining-production-floor-with-operator.avif",
+  heading: "Build Your Next Production Program with ",
+  headingHighlight: "ApexBatch",
+  description:
+    "Upload your drawing to receive pricing where available or start an engineering review for your project.",
+  primaryCta: "Get a Free Online Quote",
+  secondaryCta: "Contact Our Team",
 };
 
 export function AboutCTA() {
   return (
-    <section
-      style={{
-        position: "relative",
-        width: "100%",
-        minHeight: "340px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      {/* Background Image */}
+    <section className="relative flex min-h-[440px] items-center overflow-hidden py-16 sm:min-h-[480px] sm:py-[72px] lg:min-h-[520px] lg:py-[88px]">
+      <EditableImage
+        path="aboutFinalCta.backgroundImage"
+        defaultSrc={DEFAULTS.backgroundImage}
+        alt="ApexBatch CNC machining production floor"
+        fill
+        sizes="100vw"
+        unoptimized
+        style={{ objectFit: "cover", objectPosition: "center" }}
+      />
       <div
-        style={{
-          position: "absolute",
-          inset: 0,
-        }}
-      >
-        <EditableImage
-          path="cta.backgroundImage"
-          defaultSrc={DEFAULTS.backgroundImage}
-          alt="Manufacturing background"
-          fill
-          sizes="100vw"
-          style={{
-            objectFit: "cover",
-          }}
-        />
-      </div>
-
-      {/* Dark Overlay */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "rgba(15, 12, 8, 0.75)",
-        }}
+        className="absolute inset-0 bg-gradient-to-r from-black/[0.90] via-black/[0.80] to-black/[0.64]"
+        aria-hidden="true"
       />
 
-      {/* Content */}
-      <div
-        style={{
-          position: "relative",
-          zIndex: 1,
-          maxWidth: "1200px",
-          width: "100%",
-          padding: "80px 40px",
-          textAlign: "center",
-        }}
-      >
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          className="mx-auto max-w-[920px] text-center"
         >
-          {/* Main Heading */}
-          <h2
-            style={{
-              fontSize: "48px",
-              fontWeight: 700,
-              color: "#EEC569",
-              margin: "0 0 18px 0",
-              letterSpacing: "-0.015em",
-            }}
-          >
-            <EditableText path="cta.heading" defaultValue={DEFAULTS.heading} />
+          <h2 className="text-[clamp(2.125rem,4vw,3.25rem)] font-bold leading-[1.1] tracking-[-0.015em] text-white">
+            <EditableText path="aboutFinalCta.heading" defaultValue={DEFAULTS.heading} />
+            <span className="text-[#EEC569]">
+              <EditableText
+                path="aboutFinalCta.headingHighlight"
+                defaultValue={DEFAULTS.headingHighlight}
+              />
+            </span>
           </h2>
 
-          {/* Subheading */}
-          <p
-            style={{
-              fontSize: "28px",
-              color: "#FFFFFF",
-              margin: "0 0 44px 0",
-              lineHeight: 1.5,
-              fontWeight: 500,
-            }}
-          >
-            <EditableText path="cta.subheading" defaultValue={DEFAULTS.subheading} multiline />
+          <p className="mx-auto mt-6 max-w-[820px] text-base leading-[1.65] text-[#E2E2E3] sm:text-lg">
+            <EditableText
+              path="aboutFinalCta.description"
+              defaultValue={DEFAULTS.description}
+              multiline
+            />
           </p>
 
-          {/* CTA Button */}
-          <Link
-            href={DEFAULTS.buttonLink}
-            rel="nofollow"
-            className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
-          >
-            <EditableText path="cta.buttonText" defaultValue={DEFAULTS.buttonText} />
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+            <Link
+              href="https://app.apexbatch.com/"
+              rel="nofollow"
+              className="group inline-flex min-h-14 items-center justify-center gap-2 rounded bg-[#D09947] px-8 py-4 text-sm font-semibold uppercase tracking-wider text-black transition-colors hover:bg-[#EEC569]"
+            >
+              <EditableText path="aboutFinalCta.primaryCta" defaultValue={DEFAULTS.primaryCta} />
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex min-h-14 items-center justify-center rounded border border-white/30 bg-black/20 px-8 py-4 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:border-[#D09947] hover:text-[#EEC569]"
+            >
+              <EditableText path="aboutFinalCta.secondaryCta" defaultValue={DEFAULTS.secondaryCta} />
+            </Link>
+          </div>
         </motion.div>
       </div>
     </section>

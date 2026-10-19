@@ -13,32 +13,136 @@ const DEFAULTS = {
     {
       year: "2009",
       description:
-        "Established the first self-owned factory in Shenzhen, building the bedrock of our manufacturing capabilities",
+        "Manufacturing operations began in Shenzhen, marking the start of the organization’s manufacturing heritage.",
       side: "right" as const,
     },
     {
       year: "2014",
       description:
-        "Global expansion. Officially launched international trade business, supporting engineers worldwide.",
+        "Self-owned manufacturing facilities were established in Shenzhen, expanding production capacity and international customer support.",
       side: "left" as const,
     },
     {
       year: "2019",
       description:
-        "Launched the RapidDirect online quoting platform, integrating AI into the manufacturing workflow.",
+        "RapidDirect, ApexBatch’s parent company, launched its online manufacturing platform to provide digital quoting and manufacturing support for customers worldwide.",
       side: "right" as const,
     },
     {
-      year: "2020-2022",
+      year: "2022",
       description:
-        "Achieved ISO 9001:2015 and ISO 13485:2016 certifications. The manufacturing network expanded to include exclusive surface treatment lines and medical-grade inspection labs.",
+        "Medical-device manufacturing and quality-management capabilities continued to expand within the organization.",
       side: "left" as const,
     },
   ],
-  finalYear: "2025",
-  bottomCard:
-    "ApexBatch Brand Established A dedicated division is born. ApexBatch focuses on high-precision parts and turnkey solutions for mid-to-large volume production, offering a higher level of specialization for elite global industries.",
+  finalEntry: {
+    year: "2025",
+    description:
+      "ApexBatch was established as a dedicated manufacturing business focused on batch manufacturing, repeat production and long-term industrial supply.",
+  },
 };
+
+function TimelineMarker({ final = false }: { final?: boolean }) {
+  return (
+    <span
+      className={
+        final
+          ? "left-4 top-[5px] md:left-1/2"
+          : "left-4 top-[8px] md:left-1/2 md:top-[10px]"
+      }
+      style={{
+        position: "absolute",
+        width: final ? "11px" : "9px",
+        height: final ? "11px" : "9px",
+        backgroundColor: "#EEC569",
+        borderRadius: "50%",
+        transform: "translateX(-50%)",
+        boxShadow: final
+          ? "0 0 15px rgba(238,197,105,0.8), 0 0 30px rgba(238,197,105,0.4)"
+          : "0 0 12px rgba(238,197,105,0.8), 0 0 24px rgba(238,197,105,0.4)",
+      }}
+    />
+  );
+}
+
+function TimelineEntry({
+  index,
+  item,
+}: {
+  index: number;
+  item: (typeof DEFAULTS.timelineItems)[number];
+}) {
+  return (
+    <>
+      <div className="pl-10 md:hidden">
+        <time
+          className="block text-[22px] font-semibold leading-none tracking-[-0.02em] text-[#EEC569] md:text-[28px]"
+          style={{ fontVariantNumeric: "tabular-nums" }}
+        >
+          <EditableText
+            path={`journey.entries.${index}.year`}
+            defaultValue={item.year}
+          />
+        </time>
+        <p className="body-copy mt-3">
+          <EditableText
+            path={`journey.entries.${index}.description`}
+            defaultValue={item.description}
+            multiline
+          />
+        </p>
+      </div>
+
+      <div
+        className="hidden md:flex"
+        style={{
+          justifyContent: item.side === "left" ? "flex-start" : "flex-end",
+        }}
+      >
+        <div
+          style={{
+            width: "50%",
+            paddingLeft: item.side === "right" ? "30px" : "0",
+            paddingRight: item.side === "left" ? "30px" : "0",
+            textAlign: item.side === "left" ? "right" : "left",
+          }}
+        >
+          <time
+            style={{
+              display: "block",
+              color: "#EEC569",
+              fontSize: "28px",
+              fontWeight: 600,
+              lineHeight: 1,
+              letterSpacing: "-0.02em",
+              fontVariantNumeric: "tabular-nums",
+            }}
+          >
+            <EditableText
+              path={`journey.entries.${index}.year`}
+              defaultValue={item.year}
+            />
+          </time>
+          <p
+            className="body-copy"
+            style={{
+              color: "#C5C6C9",
+              fontSize: "15.5px",
+              lineHeight: 1.7,
+              margin: "12px 0 0",
+            }}
+          >
+            <EditableText
+              path={`journey.entries.${index}.description`}
+              defaultValue={item.description}
+              multiline
+            />
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}
 
 export function AboutJourney() {
   return (
@@ -56,18 +160,12 @@ export function AboutJourney() {
         overflow: "hidden",
       }}
     >
-      <div
-        style={{
-          position: "relative",
-          zIndex: 1,
-        }}
-      >
-        {/* Main heading */}
+      <div style={{ position: "relative", zIndex: 1 }}>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-white"
+          className="section-title"
           style={{
             textAlign: "center",
             fontSize: "clamp(28px, 5vw, 48px)",
@@ -76,214 +174,90 @@ export function AboutJourney() {
             letterSpacing: "-0.015em",
           }}
         >
-          <EditableText path="journey.heading.prefix" defaultValue={DEFAULTS.heading.prefix} />
+          <EditableText
+            path="journey.heading.prefix"
+            defaultValue={DEFAULTS.heading.prefix}
+          />
           <span style={{ color: "#EEC569" }}>
-            <EditableText path="journey.heading.highlight" defaultValue={DEFAULTS.heading.highlight} />
+            <EditableText
+              path="journey.heading.highlight"
+              defaultValue={DEFAULTS.heading.highlight}
+            />
           </span>
         </motion.h2>
 
-        {/* Timeline container */}
-        <div
-          style={{
-            position: "relative",
-          }}
-        >
-          {/* Vertical timeline line - left on mobile, center on desktop */}
-          <div
-            className="left-4 md:left-1/2"
-            style={{
-              position: "absolute",
-              top: "5px",
-              bottom: "80px",
-              width: "1px",
-              backgroundColor: "#5A5A5A",
-            }}
-          />
-
-          {/* Timeline items */}
+        <div style={{ position: "relative" }}>
           {DEFAULTS.timelineItems.map((item, index) => (
-            <motion.div
-              key={index}
+            <motion.article
+              key={item.year}
               initial={{ opacity: 0, x: item.side === "right" ? 20 : -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="relative mb-10"
             >
-              {/* Mobile layout (always left-aligned) */}
-              <div className="md:hidden flex">
-                {/* Dot - on left */}
-                <div
-                  style={{
-                    position: "absolute",
-                    left: "16px",
-                    top: "5px",
-                    width: "9px",
-                    height: "9px",
-                    backgroundColor: "#EEC569",
-                    borderRadius: "50%",
-                    transform: "translateX(-50%)",
-                    boxShadow:
-                      "0 0 12px rgba(238,197,105,0.8), 0 0 24px rgba(238,197,105,0.4)",
-                  }}
-                />
-                {/* Content - to the right of line */}
-                <div style={{ paddingLeft: "40px" }}>
-                  <div
-                    style={{
-                      color: "#EEC569",
-                      fontSize: "22px",
-                      fontWeight: 600,
-                      marginBottom: "5px",
-                    }}
-                  >
-                    <EditableText path={`journey.timelineItems.${index}.year`} defaultValue={item.year} />
-                  </div>
-                  <div
-                    style={{
-                      color: "#C5C6C9",
-                      fontSize: "15px",
-                      lineHeight: 1.7,
-                    }}
-                  >
-                    <EditableText path={`journey.timelineItems.${index}.description`} defaultValue={item.description} multiline />
-                  </div>
-                </div>
-              </div>
-
-              {/* Desktop layout (alternating) */}
-              <div
-                className="hidden md:flex"
-                style={{
-                  justifyContent:
-                    item.side === "left" ? "flex-start" : "flex-end",
-                }}
-              >
-                {/* Dot - centered */}
-                <div
-                  style={{
-                    position: "absolute",
-                    left: "50%",
-                    top: "5px",
-                    width: "9px",
-                    height: "9px",
-                    backgroundColor: "#EEC569",
-                    borderRadius: "50%",
-                    transform: "translateX(-50%)",
-                    boxShadow:
-                      "0 0 12px rgba(238,197,105,0.8), 0 0 24px rgba(238,197,105,0.4)",
-                  }}
-                />
-
-                {/* Content container */}
-                <div
-                  style={{
-                    width: "50%",
-                    paddingLeft: item.side === "right" ? "30px" : "0",
-                    paddingRight: item.side === "left" ? "30px" : "0",
-                    textAlign: item.side === "left" ? "right" : "left",
-                  }}
-                >
-                  <div
-                    style={{
-                      color: "#EEC569",
-                      fontSize: "28px",
-                      fontWeight: 600,
-                      marginBottom: "5px",
-                    }}
-                  >
-                    <EditableText path={`journey.timelineItems.${index}.year`} defaultValue={item.year} />
-                  </div>
-                  <div
-                    style={{
-                      color: "#C5C6C9",
-                      fontSize: "15.5px",
-                      lineHeight: 1.7,
-                    }}
-                  >
-                    <EditableText path={`journey.timelineItems.${index}.description`} defaultValue={item.description} multiline />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+              <span
+                aria-hidden="true"
+                className="absolute left-4 top-[12px] -bottom-[50px] w-px bg-[#5A5A5A] md:left-1/2"
+              />
+              <TimelineMarker />
+              <TimelineEntry index={index} item={item} />
+            </motion.article>
           ))}
 
-          {/* 2025 - Final year */}
-          <motion.div
+          <motion.article
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            style={{
-              position: "relative",
-              marginBottom: "25px",
-            }}
+            className="relative"
+            style={{ paddingTop: "clamp(42px, 5vw, 58px)" }}
           >
-            {/* Dot - left on mobile, center on desktop */}
+            <TimelineMarker final />
+            <div className="pl-10 md:pl-0 md:text-center">
+              <time
+                className="block text-[clamp(36px,6vw,52px)] font-bold leading-none tracking-[-0.02em] text-[#EEC569]"
+                style={{
+                  fontVariantNumeric: "tabular-nums",
+                  marginTop: 0,
+                }}
+              >
+                <EditableText
+                  path="journey.finalEntry.year"
+                  defaultValue={DEFAULTS.finalEntry.year}
+                />
+              </time>
+            </div>
             <div
-              className="left-4 md:left-1/2"
               style={{
-                position: "absolute",
-                top: "0",
-                width: "11px",
-                height: "11px",
-                backgroundColor: "#EEC569",
-                borderRadius: "50%",
-                transform: "translateX(-50%)",
-                boxShadow:
-                  "0 0 15px rgba(238,197,105,0.8), 0 0 30px rgba(238,197,105,0.4)",
-              }}
-            />
-
-            {/* Mobile: left-aligned, Desktop: centered */}
-            <div
-              className="pl-10 md:pl-0 md:text-center"
-              style={{
-                color: "#EEC569",
-                fontSize: "clamp(36px, 6vw, 52px)",
-                fontWeight: 700,
+                position: "relative",
+                background:
+                  "radial-gradient(60% 50% at 50% 0%, rgba(249,235,188,0.05), rgba(0,0,0,0) 65%), rgba(13, 13, 13, 0.3)",
+                border: "2px solid #D09947",
+                borderRadius: "18px",
+                padding: "clamp(16px, 3vw, 26px) clamp(16px, 4vw, 32px)",
+                textAlign: "center",
                 marginTop: "25px",
+                boxShadow:
+                  "0 0 50px rgba(208,153,71,0.6), 0 0 100px rgba(208,153,71,0.3)",
               }}
             >
-              <EditableText path="journey.finalYear" defaultValue={DEFAULTS.finalYear} />
+              <p
+                style={{
+                  color: "#F9EBBC",
+                  fontSize: "clamp(16px, 3vw, 22px)",
+                  lineHeight: 1.5,
+                  margin: 0,
+                  fontWeight: 500,
+                }}
+              >
+                <EditableText
+                  path="journey.finalEntry.description"
+                  defaultValue={DEFAULTS.finalEntry.description}
+                  multiline
+                />
+              </p>
             </div>
-          </motion.div>
+          </motion.article>
         </div>
-
-        {/* Bottom card - glass effect with warm tint and glow */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          style={{
-            position: "relative",
-            background: `
-              radial-gradient(
-                60% 50% at 50% 0%,
-                rgba(249,235,188,0.05),
-                rgba(0,0,0,0) 65%
-              ),
-              rgba(13, 13, 13, 0.3)
-            `,
-            border: "2px solid #D09947",
-            borderRadius: "18px",
-            padding: "clamp(16px, 3vw, 26px) clamp(16px, 4vw, 32px)",
-            textAlign: "center",
-            marginTop: "25px",
-            boxShadow:
-              "0 0 50px rgba(208,153,71,0.6), 0 0 100px rgba(208,153,71,0.3)",
-          }}
-        >
-          <p
-            style={{
-              color: "#F9EBBC",
-              fontSize: "clamp(16px, 3vw, 22px)",
-              lineHeight: 1.5,
-              margin: 0,
-              fontWeight: 500,
-            }}
-          >
-            <EditableText path="journey.bottomCard" defaultValue={DEFAULTS.bottomCard} multiline />
-          </p>
-        </motion.div>
       </div>
     </section>
   );

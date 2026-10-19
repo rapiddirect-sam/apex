@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { EditableText } from "@/components/cms";
 import { QUALITY_CERTIFICATE_IMAGES } from "@/lib/qualityCertificates";
@@ -10,6 +11,7 @@ const DEFAULTS = {
   sectionTitleHighlight: "Management Systems",
   sectionDescription:
     "Defined procedures connect engineering review, material control, production inspection, final release and corrective action.",
+  aboutLinkText: "Learn About ApexBatch and Our Manufacturing Network",
   certifications: [
     {
       title: "ISO 9001:2015",
@@ -52,6 +54,7 @@ export function QualityCertifications() {
           className="text-center mb-10"
         >
           <h2
+            className="section-title"
             style={{
               fontSize: "clamp(34px, 4vw, 46px)",
               fontWeight: 700,
@@ -69,11 +72,11 @@ export function QualityCertifications() {
             </span>
           </h2>
           <p
+            className="section-intro-copy body-copy"
             style={{
               color: "#E2E2E2",
               fontSize: "17px",
               lineHeight: 1.7,
-              maxWidth: "780px",
               margin: "18px auto 0",
             }}
           >
@@ -106,13 +109,13 @@ export function QualityCertifications() {
                 />
               </div>
               <div className="p-6 text-left">
-                <h3 className="text-white text-xl font-bold mb-3">
+                <h3 className="section-card-title mb-3">
                   <EditableText
                     path={`certifications.items.${index}.title`}
                     defaultValue={cert.title}
                   />
                 </h3>
-                <p className="text-[#C5C6C9] text-base leading-7">
+                <p className="body-copy">
                   <EditableText
                     path={`certifications.items.${index}.description`}
                     defaultValue={cert.description}
@@ -123,6 +126,23 @@ export function QualityCertifications() {
             </motion.article>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-8 text-center"
+        >
+          <Link
+            href="/about"
+            className="body-text-link body-text-link--dark text-sm"
+          >
+            <EditableText
+              path="certifications.aboutLinkText"
+              defaultValue={DEFAULTS.aboutLinkText}
+            /> →
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

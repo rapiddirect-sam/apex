@@ -31,11 +31,11 @@ export function QualityProcess() {
     <section className="overflow-hidden bg-[#34312F] py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl">
-          <h2 className="text-[clamp(2rem,4.5vw,3rem)] font-bold leading-tight tracking-[-0.015em] text-white">
+          <h2 className="section-title">
             <EditableText path="preproductionOverview.title" defaultValue="Quality Starts " />
             <span className="text-[#EEC569]"><EditableText path="preproductionOverview.titleHighlight" defaultValue="Before Production" /></span>
           </h2>
-          <p className="mt-5 max-w-3xl text-base leading-7 text-[#E2E2E2] sm:text-lg">
+          <p className="body-copy mt-5 max-w-3xl">
             <EditableText path="preproductionOverview.description" defaultValue="Before production begins, we review the requirements that affect part quality, inspection and repeatability." multiline />
           </p>
         </motion.div>
@@ -54,10 +54,10 @@ export function QualityProcess() {
               <span className="text-xs font-bold tracking-[0.16em] text-[#EEC569]">
                 <EditableText path={`preproductionOverview.controls.${index}.number`} defaultValue={control.number} />
               </span>
-              <h3 className="mt-4 text-xl font-bold leading-snug text-white">
+              <h3 className="section-card-title mt-4">
                 <EditableText path={`preproductionOverview.controls.${index}.title`} defaultValue={control.title} />
               </h3>
-              <p className="mt-4 text-[15px] leading-6 text-[#CDCDD0]">
+              <p className="body-copy mt-4">
                 <EditableText path={`preproductionOverview.controls.${index}.description`} defaultValue={control.description} multiline />
               </p>
             </motion.article>

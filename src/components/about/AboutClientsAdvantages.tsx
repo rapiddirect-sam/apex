@@ -1,16 +1,22 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Settings, TrendingUp, Zap, Users } from "lucide-react";
+import {
+  DraftingCompass,
+  ShieldCheck,
+  Timer,
+  UserRoundCheck,
+} from "lucide-react";
 import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
   clients: {
     heading: {
-      prefix: "Our ",
-      highlight: "Clients",
+      prefix: "Supporting Customers Across",
+      highlight: "Global Industries",
     },
-    subheading: "Trusted by global industry leaders",
+    subheading:
+      "Our manufacturing organization has delivered 50,000+ projects across industrial automation, medical devices, aerospace, automotive, electronics, robotics and industrial equipment. Trusted by global industry leaders.",
     logos: [
       { name: "EMERSON", logo: "EMERSON", color: "#4A90D9", textColor: "#FFFFFF" },
       { name: "Stryker", logo: "stryker", color: "transparent", textColor: "#CCCCCC" },
@@ -24,36 +30,40 @@ const DEFAULTS = {
   },
   advantages: {
     heading: {
-      prefix: "Our ",
-      highlight: "Advantages",
+      prefix: "Why Manufacturers Choose ",
+      highlight: "ApexBatch",
     },
-    subheading: "Why leading global companies choose ApexBatch for their manufacturing needs",
     items: [
       {
         number: "01",
-        title: "Free Technical\nServices",
-        description: "DFM analysis, process selection, material testing, design optimization, and VR remote review at no additional cost.",
+        title: "Production-Focused Engineering",
+        description: "DFM review, process selection, material guidance and design-for-manufacturing recommendations help identify production risks and establish the right manufacturing approach before production begins. Pre-production engineering review is provided at no additional cost for applicable projects.",
       },
       {
         number: "02",
-        title: "End-to-End Service",
-        description: "From design to batch production with visual quotation and order management systems for real-time progress tracking.",
+        title: "Single-Point Project Ownership",
+        description: "One accountable team provides a clear point of contact from quotation through delivery, keeping decisions, changes and responsibilities visible throughout the project.",
       },
       {
         number: "03",
-        title: "Fast Response\n& Delivery",
-        description: "30-60 min response time, 1-2 hour quotations, and 1-3 day lead times with uncompromised precision.",
+        title: "Fast Response & Flexible Lead Times",
+        description: "Get a response in 30–60 minutes, engineering-reviewed quotes within 24 hours, and selected urgent parts in 1–3 days. Batch schedules are confirmed to match your production requirements.",
       },
       {
         number: "04",
-        title: "Expert Team Support",
-        description: "Dedicated sales and engineering teams providing customized risk analysis and optimization recommendations.",
+        title: "Repeatable Quality and Delivery",
+        description: "Defined specifications, controlled production records and planned inspection help maintain batch consistency and keep shipment schedules predictable.",
       },
     ],
   },
 };
 
-const ADVANTAGE_ICONS = [Settings, TrendingUp, Zap, Users];
+const ADVANTAGE_ICONS = [
+  DraftingCompass,
+  UserRoundCheck,
+  Timer,
+  ShieldCheck,
+];
 
 function CornerBrackets({ color = "rgba(255,255,255,0.15)" }: { color?: string }) {
   return (
@@ -110,10 +120,15 @@ function CornerBrackets({ color = "rgba(255,255,255,0.15)" }: { color?: string }
   );
 }
 
-export function AboutClientsAdvantages() {
+export function AboutClientsAdvantages({
+  show = "both",
+}: {
+  show?: "clients" | "advantages" | "both";
+}) {
   return (
     <>
       {/* Our Clients Section */}
+      {show !== "advantages" && (
       <section
         style={{
           background: `
@@ -147,7 +162,7 @@ export function AboutClientsAdvantages() {
             }}
           >
             <h2
-              className="text-white"
+              className="section-title"
               style={{
                 fontSize: "clamp(32px, 5vw, 48px)",
                 fontWeight: 700,
@@ -155,20 +170,13 @@ export function AboutClientsAdvantages() {
                 letterSpacing: "-0.015em",
               }}
             >
-              <EditableText path="clientsAdvantages.clients.heading.prefix" defaultValue={DEFAULTS.clients.heading.prefix} />
-              <span style={{ color: "#EEC569" }}>
-                <EditableText path="clientsAdvantages.clients.heading.highlight" defaultValue={DEFAULTS.clients.heading.highlight} />
+              <EditableText path="globalIndustries.heading.prefix" defaultValue={DEFAULTS.clients.heading.prefix} />
+              <span style={{ color: "#EEC569", display: "block" }}>
+                <EditableText path="globalIndustries.heading.highlight" defaultValue={DEFAULTS.clients.heading.highlight} />
               </span>
             </h2>
-            <p
-              style={{
-                color: "#7A7A7C",
-                fontSize: "18px",
-                lineHeight: 1.6,
-                margin: 0,
-              }}
-            >
-              <EditableText path="clientsAdvantages.clients.subheading" defaultValue={DEFAULTS.clients.subheading} />
+            <p className="section-intro-copy body-copy">
+              <EditableText path="globalIndustries.subheading" defaultValue={DEFAULTS.clients.subheading} multiline />
             </p>
           </motion.div>
 
@@ -410,8 +418,10 @@ export function AboutClientsAdvantages() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Our Advantages Section */}
+      {show !== "clients" && (
       <section
         style={{
           background: `
@@ -428,7 +438,7 @@ export function AboutClientsAdvantages() {
       >
         <div
           style={{
-            maxWidth: "1100px",
+            maxWidth: "1280px",
             margin: "0 auto",
           }}
         >
@@ -443,7 +453,7 @@ export function AboutClientsAdvantages() {
             }}
           >
             <h2
-              className="text-white"
+              className="section-title"
               style={{
                 fontSize: "clamp(32px, 5vw, 48px)",
                 fontWeight: 700,
@@ -451,21 +461,11 @@ export function AboutClientsAdvantages() {
                 letterSpacing: "-0.015em",
               }}
             >
-              <EditableText path="clientsAdvantages.advantages.heading.prefix" defaultValue={DEFAULTS.advantages.heading.prefix} />
+              <EditableText path="whyManufacturers.heading.prefix" defaultValue={DEFAULTS.advantages.heading.prefix} />
               <span style={{ color: "#EEC569" }}>
-                <EditableText path="clientsAdvantages.advantages.heading.highlight" defaultValue={DEFAULTS.advantages.heading.highlight} />
+                <EditableText path="whyManufacturers.heading.highlight" defaultValue={DEFAULTS.advantages.heading.highlight} />
               </span>
             </h2>
-            <p
-              style={{
-                color: "#7A7A7C",
-                fontSize: "18px",
-                lineHeight: 1.6,
-                margin: 0,
-              }}
-            >
-              <EditableText path="clientsAdvantages.advantages.subheading" defaultValue={DEFAULTS.advantages.subheading} multiline />
-            </p>
           </motion.div>
 
           {/* Advantages Grid - responsive */}
@@ -499,7 +499,7 @@ export function AboutClientsAdvantages() {
                     borderRadius: "18px",
                     padding: "24px",
                     overflow: "hidden",
-                    minHeight: "280px",
+                    minHeight: "360px",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.border = "2px solid #D09947";
@@ -563,7 +563,7 @@ export function AboutClientsAdvantages() {
                       pointerEvents: "none",
                     }}
                   >
-                    <EditableText path={`clientsAdvantages.advantages.items.${index}.number`} defaultValue={advantage.number} />
+                    <EditableText path={`whyManufacturers.items.${index}.number`} defaultValue={advantage.number} />
                   </span>
 
                   {/* Content */}
@@ -593,28 +593,15 @@ export function AboutClientsAdvantages() {
 
                     {/* Title */}
                     <h3
-                      style={{
-                        color: "#EEC569",
-                        fontSize: "18px",
-                        fontWeight: 700,
-                        margin: "0 0 12px 0",
-                        lineHeight: 1.3,
-                        whiteSpace: "pre-line",
-                      }}
+                      className="section-card-title section-card-title--accent"
+                      style={{ margin: "0 0 12px 0", whiteSpace: "pre-line" }}
                     >
-                      <EditableText path={`clientsAdvantages.advantages.items.${index}.title`} defaultValue={advantage.title} multiline />
+                      <EditableText path={`whyManufacturers.items.${index}.title`} defaultValue={advantage.title} multiline />
                     </h3>
 
                     {/* Description */}
-                    <p
-                      style={{
-                        color: "#C5C6C9",
-                        fontSize: "15.5px",
-                        lineHeight: 1.7,
-                        margin: 0,
-                      }}
-                    >
-                      <EditableText path={`clientsAdvantages.advantages.items.${index}.description`} defaultValue={advantage.description} multiline />
+                    <p className="body-copy" style={{ margin: 0 }}>
+                      <EditableText path={`whyManufacturers.items.${index}.description`} defaultValue={advantage.description} multiline />
                     </p>
                   </div>
                 </motion.div>
@@ -623,6 +610,7 @@ export function AboutClientsAdvantages() {
           </div>
         </div>
       </section>
+      )}
     </>
   );
 }

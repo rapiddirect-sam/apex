@@ -34,11 +34,11 @@ export function QualityConsistency() {
     <section className="bg-[#34312F] py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl">
-          <h2 className="text-[clamp(2rem,4.5vw,3rem)] font-bold tracking-[-0.015em] text-white">
+          <h2 className="section-title">
             <EditableText path="consistentQuality.title" defaultValue="How We Maintain " />
             <span className="text-[#EEC569]"><EditableText path="consistentQuality.titleHighlight" defaultValue="Consistent Quality" /></span>
           </h2>
-          <p className="mt-5 max-w-3xl text-base leading-7 text-[#E0E0E2] sm:text-lg">
+          <p className="body-copy mt-5 max-w-3xl">
             <EditableText path="consistentQuality.intro" defaultValue="Three system controls turn approved quality requirements into repeatable production practices." multiline />
           </p>
         </motion.div>

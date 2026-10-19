@@ -19,8 +19,8 @@ export const DEFAULT_PAGE_META: Record<string, { title: string; description: str
     description: "ApexBatch delivers high-precision CNC machining and manufacturing services for medium-to-large batch production. ISO certified quality management with ±0.01-0.05mm tolerance control.",
   },
   "/about": {
-    title: "About ApexBatch - Our Story & Manufacturing Expertise",
-    description: "Learn about ApexBatch's journey, our expert team, and our commitment to precision manufacturing. Inherited expertise from the world's pioneer in digital manufacturing.",
+    title: "About ApexBatch | Production Engineering & Scalable Manufacturing",
+    description: "Learn how ApexBatch supports industrial customers with production engineering, scalable manufacturing resources, documented quality control and accountable project ownership—from pilot runs to repeat production.",
   },
   "/contact": {
     title: "Contact ApexBatch | Manufacturing Project Support",

@@ -67,11 +67,11 @@ export function QualityProductionControl() {
     <section className="bg-black py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl">
-          <h2 className="text-[clamp(2rem,4.5vw,3rem)] font-bold tracking-[-0.015em] text-white">
+          <h2 className="section-title">
             <EditableText path="productionControl.title" defaultValue="Quality Control " />
             <span className="text-[#EEC569]"><EditableText path="productionControl.titleHighlight" defaultValue="Across Production" /></span>
           </h2>
-          <p className="mt-5 max-w-3xl text-base leading-7 text-[#D8D8DA] sm:text-lg">
+          <p className="body-copy mt-5 max-w-3xl">
             <EditableText path="productionControl.intro" defaultValue="Our quality process covers incoming materials, production control and final release." multiline />
           </p>
         </motion.div>
@@ -83,7 +83,7 @@ export function QualityProductionControl() {
                 <span className="mt-0.5 inline-flex min-w-11 items-center justify-center rounded-full border border-[#D09947]/60 px-3 py-1.5 text-xs font-bold tracking-[0.16em] text-[#EEC569]">{stage.number}</span>
                 <div className="min-w-0">
                   <h3 className="text-2xl font-bold leading-tight text-white sm:text-3xl"><EditableText path={`productionControl.stages.${index}.title`} defaultValue={stage.title} /></h3>
-                  <p className="mt-3 max-w-4xl text-base leading-7 text-[#D8D8DA]"><EditableText path={`productionControl.stages.${index}.intro`} defaultValue={stage.intro} multiline /></p>
+                  <p className="body-copy mt-3 max-w-4xl"><EditableText path={`productionControl.stages.${index}.intro`} defaultValue={stage.intro} multiline /></p>
                 </div>
               </header>
 
@@ -113,7 +113,7 @@ export function QualityProductionControl() {
               </div>
 
               {stage.note && (
-                <p className="mt-8 border-l-2 border-[#D09947] bg-[#171717] px-5 py-4 text-sm leading-6 text-[#CFCFD2] sm:px-6 sm:text-[15px]">
+                <p className="section-note mt-8">
                   <EditableText path={`productionControl.stages.${index}.note`} defaultValue={stage.note} multiline />
                 </p>
               )}
@@ -121,8 +121,8 @@ export function QualityProductionControl() {
           ))}
         </div>
 
-        <div className="mt-8 border-l-2 border-[#D09947] bg-[#171717] px-5 py-4 sm:px-6">
-          <p className="text-sm leading-6 text-[#CFCFD2] sm:text-[15px] sm:leading-7">
+        <div className="section-note mt-8">
+          <p>
             <EditableText path="productionControl.scopeNote" defaultValue="Inspection scope is defined by the approved drawing and project quality plan. Agreed critical characteristics can receive 100% inspection, while other characteristics may be verified using the approved sampling plan or applicable Acceptance Quality Limit (AQL) requirements." multiline />
           </p>
         </div>

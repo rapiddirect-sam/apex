@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
@@ -23,6 +24,10 @@ const DEFAULTS = {
   card3Description:
     "Production planning begins after technical requirements, commercial terms and required approvals are confirmed.",
   card3Time: "1 week",
+  aboutTitle: "Evaluating ApexBatch as a Manufacturing Partner?",
+  aboutDescription:
+    "Learn about our manufacturing background, production resources and approach to batch and repeat production.",
+  aboutLinkLabel: "About ApexBatch",
 };
 
 export function ContactNextSteps() {
@@ -649,6 +654,32 @@ export function ContactNextSteps() {
           </div>
         </div>
 
+        <div className="mt-10 border-t border-[#7F4D0F] pt-8 md:flex md:items-center md:justify-between md:gap-10">
+          <div className="max-w-3xl">
+            <h3 className="m-0 text-xl font-bold text-white md:text-2xl">
+              <EditableText
+                path="nextSteps.aboutTitle"
+                defaultValue={DEFAULTS.aboutTitle}
+              />
+            </h3>
+            <p className="mt-3 text-[15px] leading-7 text-[#C5C6C9] md:text-base">
+              <EditableText
+                path="nextSteps.aboutDescription"
+                defaultValue={DEFAULTS.aboutDescription}
+                multiline
+              />
+            </p>
+          </div>
+          <Link
+            href="/about"
+            className="body-text-link body-text-link--dark mt-5 shrink-0 text-sm md:mt-0"
+          >
+            <EditableText
+              path="nextSteps.aboutLinkLabel"
+              defaultValue={DEFAULTS.aboutLinkLabel}
+            /> →
+          </Link>
+        </div>
       </div>
     </section>
   );

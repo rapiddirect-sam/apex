@@ -6,17 +6,18 @@ import { EditableText, EditableImage } from "@/components/cms";
 
 // Default content - used when no DB content exists
 const DEFAULTS = {
-  headingPrefix: "Welcome to ",
-  headingHighlight: "Apexbatch",
-  tagline: "Inherited Expertise. Focused on Your Scale.",
+  eyebrow: "ABOUT APEXBATCH",
+  headingPrefix: "Power ",
+  headingHighlight: "What’s Next",
   description:
-    "From the world's pioneer in digital manufacturing comes a dedicated team focused on high-precision, medium-to-large batch production.",
-  backgroundImage: getImageUrl("about/AboutApexBatch.gif"),
-  images: [
-    { src: getImageUrl("about/1-about-banner-1.webp"), alt: "CNC machining" },
-    { src: getImageUrl("about/1-about-banner-2.webp"), alt: "Manufacturing" },
-    { src: getImageUrl("about/1-about-banner-3.webp"), alt: "Precision parts" },
-  ],
+    "ApexBatch helps industrial companies move validated designs into reliable production—with engineering review, scalable manufacturing resources, documented quality controls and clear project ownership from pilot runs through repeat orders.",
+  tagline: "Right Parts. Right Batch. Right Now.",
+  // Reuse the lead production-floor image from the “Built on Experience.
+  // Focused on Production.” section so the About page has one clear visual
+  // anchor across its hero and capability story.
+  backgroundImage: getImageUrl(
+    "about/apexbatch-cnc-machining-production-floor-with-operator.avif"
+  ),
 };
 
 export function AboutHero() {
@@ -81,116 +82,43 @@ export function AboutHero() {
             "clamp(24px, 5vw, 60px) clamp(16px, 5vw, 60px) clamp(24px, 4vw, 50px)",
         }}
       >
+        <p className="mb-5 text-center text-sm font-semibold tracking-[0.18em] text-[#D09947]">
+          <EditableText
+            path="hero.eyebrow"
+            defaultValue={DEFAULTS.eyebrow}
+          />
+        </p>
+
         {/* Main heading */}
-        <h1 className="text-center text-[48px] md:text-[64px] lg:text-[80px] font-bold leading-[0.95] tracking-tight uppercase mb-6">
+        <h1 className="mb-6 text-center text-[48px] font-bold leading-[0.95] tracking-tight md:text-[64px] lg:text-[80px]">
           <span className="text-white">
             <EditableText
-              path="hero.headingPrefix"
+              path="hero.titlePrefix"
               defaultValue={DEFAULTS.headingPrefix}
             />
           </span>
           <span className="text-[#D09947]">
             <EditableText
-              path="hero.headingHighlight"
+              path="hero.titleHighlight"
               defaultValue={DEFAULTS.headingHighlight}
             />
           </span>
         </h1>
 
-        {/* Subheading */}
-        <p className="text-center text-xl md:text-2xl mx-auto mb-10 leading-relaxed">
-          <span className="text-[#D09947] font-semibold block">
-            <EditableText
-              path="hero.tagline"
-              defaultValue={DEFAULTS.tagline}
-            />
-          </span>
-          <span className="text-[#7A7A7C]">
-            <EditableText
-              path="hero.description"
-              defaultValue={DEFAULTS.description}
-              multiline
-            />
-          </span>
+        <p className="mx-auto max-w-4xl text-center text-lg leading-relaxed text-[#D2D2D2] md:text-xl">
+          <EditableText
+            path="hero.productionDescription"
+            defaultValue={DEFAULTS.description}
+            multiline
+          />
         </p>
 
-        {/* Three images */}
-        <div
-          className="flex flex-col sm:flex-row"
-          style={{
-            gap: "clamp(12px, 2vw, 20px)",
-          }}
-        >
-          {/* Image 1 */}
-          <div
-            style={{
-              flex: 1,
-              height: "clamp(150px, 20vw, 200px)",
-              borderRadius: "12px",
-              overflow: "hidden",
-              backgroundColor: "#1a1a1a",
-              border: "1px solid rgba(208,153,71,0.2)",
-              position: "relative",
-            }}
-          >
-            <EditableImage
-              path="hero.image1"
-              defaultSrc={DEFAULTS.images[0].src}
-              alt={DEFAULTS.images[0].alt}
-              fill
-              style={{
-                objectFit: "cover",
-              }}
-            />
-          </div>
-
-          {/* Image 2 */}
-          <div
-            style={{
-              flex: 1,
-              height: "clamp(150px, 20vw, 200px)",
-              borderRadius: "12px",
-              overflow: "hidden",
-              backgroundColor: "#1a1a1a",
-              border: "1px solid rgba(208,153,71,0.2)",
-              position: "relative",
-            }}
-          >
-            <EditableImage
-              path="hero.image2"
-              defaultSrc={DEFAULTS.images[1].src}
-              alt={DEFAULTS.images[1].alt}
-              fill
-              style={{
-                objectFit: "cover",
-              }}
-            />
-          </div>
-
-          {/* Image 3 */}
-          <div
-            className="hidden sm:block"
-            style={{
-              flex: 1,
-              height: "clamp(150px, 20vw, 200px)",
-              borderRadius: "12px",
-              overflow: "hidden",
-              backgroundColor: "#1a1a1a",
-              border: "1px solid rgba(208,153,71,0.2)",
-              position: "relative",
-            }}
-          >
-            <EditableImage
-              path="hero.image3"
-              defaultSrc={DEFAULTS.images[2].src}
-              alt={DEFAULTS.images[2].alt}
-              fill
-              style={{
-                objectFit: "cover",
-              }}
-            />
-          </div>
-        </div>
+        <p className="mx-auto mt-5 text-center text-lg font-semibold tracking-[0.04em] text-[#D09947] md:text-xl">
+          <EditableText
+            path="hero.slogan"
+            defaultValue={DEFAULTS.tagline}
+          />
+        </p>
       </motion.div>
     </section>
   );

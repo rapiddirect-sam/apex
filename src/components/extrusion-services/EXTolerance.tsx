@@ -65,7 +65,7 @@ export function EXTolerance() {
           style={{ marginBottom: "48px" }}
         >
           <h2
-            className="text-white"
+            className="section-title"
             style={{
               fontSize: "46px",
               fontWeight: 700,

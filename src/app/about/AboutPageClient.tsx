@@ -6,7 +6,6 @@ import { AboutHero } from "@/components/about/AboutHero";
 import { AboutCapabilities } from "@/components/about/AboutCapabilities";
 import { AboutJourney } from "@/components/about/AboutJourney";
 import { AboutLeadership } from "@/components/about/AboutLeadership";
-import { AboutTeamStructure } from "@/components/about/AboutTeamStructure";
 import { AboutManufacturingHub } from "@/components/about/AboutManufacturingHub";
 import { AboutClientsAdvantages } from "@/components/about/AboutClientsAdvantages";
 import { AboutCTA } from "@/components/about/AboutCTA";
@@ -29,11 +28,11 @@ export function AboutPageClient({ initialContent, initialVersion }: AboutPageCli
       <main>
         <AboutHero />
         <AboutCapabilities />
+        <AboutClientsAdvantages show="advantages" />
+        <AboutManufacturingHub />
         <AboutJourney />
         <AboutLeadership />
-        <AboutTeamStructure />
-        <AboutManufacturingHub />
-        <AboutClientsAdvantages />
+        <AboutClientsAdvantages show="clients" />
         <AboutCTA />
       </main>
       <Home3Footer />

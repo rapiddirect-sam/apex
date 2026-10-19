@@ -51,7 +51,7 @@ export function QualityEquipment() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/5" aria-hidden="true" />
           <div className="relative z-10 max-w-3xl px-6 py-12 sm:px-10 lg:px-14">
-            <h2 className="text-[clamp(2rem,4.5vw,3rem)] font-bold leading-tight tracking-[-0.015em] text-white">
+            <h2 className="section-title">
               <EditableText path="equipment.title" defaultValue="Our Precision Measurement and " />
               <span className="text-[#EEC569]"><EditableText path="equipment.titleHighlight" defaultValue="Inspection Equipment" /></span>
             </h2>
@@ -79,10 +79,10 @@ export function QualityEquipment() {
                 />
               </div>
               <div className="flex flex-col justify-center p-5 sm:p-6">
-                <h3 className="text-lg font-bold leading-snug text-white sm:text-xl">
+                <h3 className="section-card-title">
                   <EditableText path={`equipment.items.${index}.name`} defaultValue={item.name} />
                 </h3>
-                <p className="mt-3 text-[14px] leading-6 text-[#D4D4D6] sm:text-[15px]">
+                <p className="body-copy mt-3">
                   <EditableText path={`equipment.items.${index}.description`} defaultValue={item.description} multiline />
                 </p>
               </div>
