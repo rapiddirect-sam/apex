@@ -213,7 +213,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                 }}
               >
                 <Link href={`/blog/${featuredPost.slug}`} style={{ textDecoration: "none" }}>
-                  <div style={{ position: "relative", height: "240px", background: "#F5F5F5", overflow: "hidden" }}>
+                  <div style={{ position: "relative", height: "340px", background: "#F5F5F5", overflow: "hidden" }}>
                     {featuredPost.featuredImage ? (
                       <Image
                         src={featuredPost.featuredImage}
@@ -314,14 +314,14 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                           )}
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
-                          <h3 style={{
+                          <p style={{
                             color: "#1E1E1E", fontSize: "14px", fontWeight: 600,
                             lineHeight: 1.4, marginBottom: "4px",
                             display: "-webkit-box", WebkitLineClamp: 2,
                             WebkitBoxOrient: "vertical", overflow: "hidden",
                           }}>
                             {post.title}
-                          </h3>
+                          </p>
                           <span style={{ color: "#999", fontSize: "12px" }}>
                             {post.publishedAt?.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
                           </span>
@@ -391,9 +391,9 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
             >
               {/* Categories Sidebar */}
               <aside>
-                <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
+                <h2 style={{ fontSize: "16px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
                   Categories
-                </h3>
+                </h2>
                 <div style={{ width: "32px", height: "3px", background: "#D09947", borderRadius: "2px", marginBottom: "16px" }} />
 
                 <div style={{ display: "flex", flexDirection: "column" }}>
