@@ -146,14 +146,7 @@ export function ContactHero() {
           </h1>
 
           {/* Subheadline */}
-          <p
-            style={{
-              fontSize: "clamp(16px, 2.5vw, 21px)",
-              lineHeight: 1.6,
-              color: "#C5C6C9",
-              maxWidth: "100%",
-            }}
-          >
+          <p className="body-copy max-w-full">
             <EditableText
               path="hero.subheadline"
               defaultValue={DEFAULTS.subheadline}

@@ -9,13 +9,13 @@ const DEFAULTS = {
   headingHighlight: "Die Casting ",
   headingSuffix: "Factory",
   description1:
-    "Located in Shenzhen's advanced manufacturing district, our 50,000 m² vertically integrated facility operates 8 specialized production shops and is equipped with 300+ advanced machines.",
+    "Located in Shenzhen's advanced manufacturing district, our 50,000 m² manufacturing footprint spans 8 specialized production workshops and includes 650+ advanced machines.",
   description2:
     "We support end-to-end manufacturing in one location, including die casting, CNC machining, sheet metal fabrication, 3D printing, as well as in-house surface treatment and quality inspection lines.",
   stats: [
-    { value: "50,000 m²", label: "Total Factory Area" },
+    { value: "50,000 m²", label: "Total Manufacturing Footprint" },
     { value: "8", label: "Specialized Production Shops" },
-    { value: "300+", label: "Advanced Equipment" },
+    { value: "650+", label: "Advanced Equipment" },
     { value: "98%", label: "On-time Delivery" },
   ],
   images: [

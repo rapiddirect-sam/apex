@@ -21,7 +21,7 @@ export function ContactPageClient({ initialContent, initialVersion }: ContactPag
       initialVersion={initialVersion}
     >
       <Home3Header />
-      <main>
+      <main className="contact-page">
         <ContactHero />
         <ContactForm />
         <ContactNextSteps />

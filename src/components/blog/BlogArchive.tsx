@@ -10,7 +10,6 @@ import {
   FileText,
   Clock,
   Search,
-  ChevronDown,
 } from "lucide-react";
 import { getImageUrl } from "@/lib/utils";
 
@@ -29,7 +28,6 @@ interface BlogArchiveProps {
 export function BlogArchive({ posts, categories }: BlogArchiveProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
 
   const filteredPosts = useMemo(() => {
     return posts.filter((post) => {
@@ -42,9 +40,6 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
       return matchesCategory && matchesSearch;
     });
   }, [posts, selectedCategory, searchQuery]);
-
-  const selectedCategoryName =
-    categories.find((c) => c.id === selectedCategory)?.name || "All Categories";
 
   const getCategoryName = (categoryId: string | null) => {
     if (!categoryId) return null;
@@ -102,20 +97,12 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
           style={{ position: "relative", zIndex: 1 }}
         >
           <div style={{ textAlign: "center", maxWidth: "700px", margin: "0 auto" }}>
-            <h1
-              style={{
-                fontSize: "clamp(28px, 4vw, 40px)",
-                fontWeight: 900,
-                color: "#FFFFFF",
-                lineHeight: 1.3,
-                marginBottom: "16px",
-              }}
-            >
-              Expert Insights
-              <br className="hidden sm:block" />
-              {" "}Practical Techniques
-              <br className="hidden sm:block" />
-              {" "}Industry Trends
+            <h1 className="section-title mb-4 text-center">
+              <span className="text-white">Expert Insights</span>
+              <br />
+              <span className="text-[#EEC569]">Practical Techniques</span>
+              <br />
+              <span className="text-white">Industry Trends</span>
             </h1>
             <p
               style={{
@@ -166,101 +153,22 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
       {/* Row 1: Filter Bar + Featured Post + Sidebar */}
       <section style={{ background: "#FFFFFF", padding: "0 0 48px" }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          {/* Filter Bar */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "28px 0 20px",
-              borderBottom: "1px solid #E5E5E5",
-              marginBottom: "32px",
-            }}
-          >
-            <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#1E1E1E" }}>
-              Latest Articles
-              <span style={{ color: "#999", fontWeight: 400, marginLeft: "8px" }}>
-                ({filteredPosts.length})
-              </span>
-            </h2>
-
-            <div style={{ position: "relative" }}>
-              <button
-                onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  padding: "10px 16px",
-                  background: "#FFFFFF",
-                  border: "1px solid #D4D4D4",
-                  borderRadius: "8px",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                  color: "#1E1E1E",
-                  cursor: "pointer",
-                }}
-              >
-                {selectedCategoryName}
-                <ChevronDown
-                  size={16}
-                  style={{
-                    transition: "transform 0.2s",
-                    transform: showCategoryDropdown ? "rotate(180deg)" : "rotate(0deg)",
-                  }}
-                />
-              </button>
-
-              {showCategoryDropdown && (
-                <>
-                  <div
-                    style={{ position: "fixed", inset: 0, zIndex: 40 }}
-                    onClick={() => setShowCategoryDropdown(false)}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "calc(100% + 4px)",
-                      right: 0,
-                      minWidth: "200px",
-                      background: "#FFFFFF",
-                      border: "1px solid #E5E5E5",
-                      borderRadius: "10px",
-                      boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
-                      zIndex: 50,
-                      overflow: "hidden",
-                    }}
-                  >
-                    <button
-                      onClick={() => { setSelectedCategory(""); setShowCategoryDropdown(false); }}
-                      style={{
-                        display: "block", width: "100%", padding: "10px 16px", textAlign: "left",
-                        background: selectedCategory === "" ? "#F5F5F5" : "transparent",
-                        border: "none", fontSize: "14px", color: "#1E1E1E", cursor: "pointer",
-                        fontWeight: selectedCategory === "" ? 600 : 400,
-                      }}
-                    >
-                      All Categories
-                    </button>
-                    {categories.map((cat) => (
-                      <button
-                        key={cat.id}
-                        onClick={() => { setSelectedCategory(cat.id); setShowCategoryDropdown(false); }}
-                        style={{
-                          display: "block", width: "100%", padding: "10px 16px", textAlign: "left",
-                          background: selectedCategory === cat.id ? "#F5F5F5" : "transparent",
-                          border: "none", fontSize: "14px", color: "#1E1E1E", cursor: "pointer",
-                          fontWeight: selectedCategory === cat.id ? 600 : 400,
-                        }}
-                      >
-                        {cat.name}
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
+          {!isFiltering && (
+            <div
+              style={{
+                padding: "28px 0 20px",
+                borderBottom: "1px solid #E5E5E5",
+                marginBottom: "32px",
+              }}
+            >
+              <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#1E1E1E" }}>
+                Latest Articles
+                <span style={{ color: "#999", fontWeight: 400, marginLeft: "8px" }}>
+                  ({filteredPosts.length})
+                </span>
+              </h2>
             </div>
-          </div>
+          )}
 
           {/* Featured Post + Sidebar (only when NOT filtering) */}
           {!isFiltering && filteredPosts.length === 0 && (
@@ -305,7 +213,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                 }}
               >
                 <Link href={`/blog/${featuredPost.slug}`} style={{ textDecoration: "none" }}>
-                  <div style={{ position: "relative", height: "340px", background: "#F5F5F5", overflow: "hidden" }}>
+                  <div style={{ position: "relative", height: "240px", background: "#F5F5F5", overflow: "hidden" }}>
                     {featuredPost.featuredImage ? (
                       <Image
                         src={featuredPost.featuredImage}
@@ -345,9 +253,9 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                       </div>
                     </div>
 
-                    <h2 style={{ color: "#1E1E1E", fontSize: "24px", fontWeight: 700, marginBottom: "12px", lineHeight: 1.3 }}>
+                    <h3 style={{ color: "#1E1E1E", fontSize: "24px", fontWeight: 700, marginBottom: "12px", lineHeight: 1.3 }}>
                       {featuredPost.title}
-                    </h2>
+                    </h3>
 
                     {featuredPost.excerpt && (
                       <p style={{
@@ -375,9 +283,9 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                   border: "1px solid #E8E8E8", borderRadius: "12px",
                   padding: "24px",
                 }}>
-                  <h3 style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
+                  <h2 style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
                     Popular Posts
-                  </h3>
+                  </h2>
                   <div style={{ width: "40px", height: "3px", background: "#2979C1", borderRadius: "2px", marginBottom: "20px" }} />
 
                   <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -406,14 +314,14 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                           )}
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
-                          <h4 style={{
+                          <h3 style={{
                             color: "#1E1E1E", fontSize: "14px", fontWeight: 600,
                             lineHeight: 1.4, marginBottom: "4px",
                             display: "-webkit-box", WebkitLineClamp: 2,
                             WebkitBoxOrient: "vertical", overflow: "hidden",
                           }}>
                             {post.title}
-                          </h4>
+                          </h3>
                           <span style={{ color: "#999", fontSize: "12px" }}>
                             {post.publishedAt?.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
                           </span>
@@ -428,9 +336,9 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                   border: "1px solid #E8E8E8", borderRadius: "12px",
                   padding: "24px",
                 }}>
-                  <h3 style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
+                  <p style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
                     Subscribe to Newsletter
-                  </h3>
+                  </p>
                   <div style={{ width: "40px", height: "3px", background: "#D09947", borderRadius: "2px", marginBottom: "16px" }} />
                   <p style={{ color: "#888", fontSize: "14px", lineHeight: 1.6, marginBottom: "16px" }}>
                     Get the latest manufacturing insights delivered to your inbox.
@@ -466,15 +374,16 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
       {(gridPosts.length > 0 || isFiltering) && (
         <section style={{ background: "#FFFFFF", paddingBottom: "80px" }}>
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            {/* Section Header */}
-            <h2 style={{
-              fontSize: "28px", fontWeight: 700, color: "#1E1E1E",
-              textAlign: "center", marginBottom: "32px",
-              textDecoration: "underline", textUnderlineOffset: "8px",
-              textDecorationColor: "#E5E5E5",
-            }}>
-              {isFiltering ? `Search Results (${filteredPosts.length})` : `All articles (${filteredPosts.length})`}
-            </h2>
+            {isFiltering && (
+              <h2 style={{
+                fontSize: "28px", fontWeight: 700, color: "#1E1E1E",
+                textAlign: "center", marginBottom: "32px",
+                textDecoration: "underline", textUnderlineOffset: "8px",
+                textDecorationColor: "#E5E5E5",
+              }}>
+                Search Results ({filteredPosts.length})
+              </h2>
+            )}
 
             <div
               style={{ display: "grid", gridTemplateColumns: "220px 1fr", gap: "32px" }}

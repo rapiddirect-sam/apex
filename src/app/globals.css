@@ -254,6 +254,12 @@ body {
   letter-spacing: 0.01em;
 }
 
+/* Contact lives under the root Home3 shell. Explicit inheritance prevents
+   browser-native form controls from falling back to a platform UI font. */
+.contact-page :is(input, select, textarea, button) {
+  font: inherit;
+}
+
 /* Native 404 route — deliberately static so reduced-motion and low-power users
    receive the same lightweight industrial composition. */
 .not-found-page {

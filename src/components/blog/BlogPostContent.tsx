@@ -17,7 +17,6 @@ import {
   ChevronRight,
   ArrowRight,
   FileText,
-  Zap,
 } from "lucide-react";
 
 function estimateReadTime(content: string): number {
@@ -296,27 +295,26 @@ export function BlogPostContent({
             position: sticky;
             top: 100px;
             align-self: start;
+          }
+          .blog-sidebar-left {
             max-height: calc(100vh - 120px);
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: #D8D8D8 transparent;
           }
-          .blog-sidebar-left::-webkit-scrollbar,
-          .blog-sidebar-right::-webkit-scrollbar {
-            width: 3px;
-          }
-          .blog-sidebar-left::-webkit-scrollbar-track,
-          .blog-sidebar-right::-webkit-scrollbar-track {
-            background: transparent;
-          }
-          .blog-sidebar-left::-webkit-scrollbar-thumb,
-          .blog-sidebar-right::-webkit-scrollbar-thumb {
+          .blog-sidebar-left::-webkit-scrollbar { width: 3px; }
+          .blog-sidebar-left::-webkit-scrollbar-track { background: transparent; }
+          .blog-sidebar-left::-webkit-scrollbar-thumb {
             background: #D0D0D0;
             border-radius: 3px;
           }
-          .blog-sidebar-left::-webkit-scrollbar-thumb:hover,
-          .blog-sidebar-right::-webkit-scrollbar-thumb:hover {
-            background: #B8B8B8;
+          .blog-sidebar-left::-webkit-scrollbar-thumb:hover { background: #B8B8B8; }
+          .blog-sidebar-right {
+            max-height: none;
+            overflow: visible;
+          }
+          .blog-quote-cta {
+            flex: 0 0 auto;
           }
           @media (max-width: 1024px) {
             .blog-layout {
@@ -1193,6 +1191,7 @@ export function BlogPostContent({
 
             {/* CTA Card - Instant Quote */}
             <div
+              className="blog-quote-cta"
               style={{
                 borderRadius: "14px",
                 overflow: "hidden",
@@ -1239,7 +1238,7 @@ export function BlogPostContent({
               </div>
 
               {/* White body with checklist */}
-              <div style={{ padding: "18px 20px 16px" }}>
+              <div style={{ padding: "18px 20px 20px" }}>
                 <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "14px" }}>
                   {["Get A Quote within 24 Hours", "Free DFM from Engineers", "One-Stop Design to Production"].map((item) => (
                     <div key={item} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -1255,6 +1254,8 @@ export function BlogPostContent({
                   href="https://app.apexbatch.com/"
                   style={{
                     display: "flex",
+                    minHeight: "44px",
+                    boxSizing: "border-box",
                     alignItems: "center",
                     justifyContent: "center",
                     gap: "8px",

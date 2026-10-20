@@ -39,6 +39,12 @@ const DEFAULTS = {
       image: "/about/apexbatch-cnc-milling-workshop.avif",
     },
     {
+      title: "Large-Format Gantry Machining Workshop",
+      description:
+        "Machining resources for applicable large and complex components.",
+      image: "/about/apexbatch-large-format-gantry-machining-workshop.avif",
+    },
+    {
       title: "CNC Turning Workshop",
       description:
         "Turning and related machining for cylindrical and rotational parts.",

@@ -84,7 +84,19 @@ function uniqueHeadingId(baseId: string, usedIds: Set<string>): string {
   return uniqueId;
 }
 
-/** Assign stable ids to h2/h3 for TOC and in-page anchors. */
+/**
+ * The post title in the hero is the page's only H1. CMS article content can
+ * occasionally include another H1, so normalize it to H2 before rendering to
+ * preserve a valid document outline.
+ */
+function normalizeArticleHeadingHierarchy(html: string): string {
+  return html.replace(
+    /<h1\b([^>]*)>([\s\S]*?)<\/h1>/gi,
+    (_, attrs, inner) => `<h2${attrs}>${inner}</h2>`
+  );
+}
+
+/** Assign stable ids to H2/H3 anchors while exposing only H2s in the TOC. */
 export function injectHeadingIds(html: string): { html: string; tocItems: BlogTocItem[] } {
   const tocItems: BlogTocItem[] = [];
   const usedIds = new Set<string>();
@@ -102,7 +114,11 @@ export function injectHeadingIds(html: string): { html: string; tocItems: BlogTo
       const id = existingId || uniqueHeadingId(slugId || `heading-${counter}`, usedIds);
       const levelNum = parseInt(String(level), 10);
 
-      tocItems.push({ id, text, level: levelNum });
+      // H3s retain anchors for deep links, but the left navigation intentionally
+      // stays at a single level for faster scanning.
+      if (levelNum === 2) {
+        tocItems.push({ id, text, level: levelNum });
+      }
 
       if (existingId) {
         usedIds.add(existingId);
@@ -366,7 +382,8 @@ function enhanceCtaLinksInBlock(inner: string): string {
 
 export function prepareBlogContentHtml(html: string): { html: string; tocItems: BlogTocItem[] } {
   const decoded = restoreRawBlocks(html);
-  const withLinks = normalizeBlogContentLinks(decoded);
+  const withNormalizedHeadings = normalizeArticleHeadingHierarchy(decoded);
+  const withLinks = normalizeBlogContentLinks(withNormalizedHeadings);
   const withCta = applyCtaBannerClass(enhanceBlogCtaHtml(withLinks));
   const withTables = wrapTablesForScroll(withCta);
   const { html: withIds, tocItems } = injectHeadingIds(withTables);
