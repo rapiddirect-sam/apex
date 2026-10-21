@@ -25,8 +25,7 @@ const DEFAULTS = {
 export function QualityHero() {
   return (
     <section className="relative bg-[#000000] pt-16 overflow-hidden">
-      {/* Background Image */}
-      <div className="relative w-full" style={{ minHeight: "640px" }}>
+      <div className="absolute inset-0">
         <EditableImage
           path="hero.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
@@ -35,30 +34,20 @@ export function QualityHero() {
           sizes="100vw"
           style={{ objectFit: "cover" }}
         />
+      </div>
 
-        {/* Dark overlay */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: "rgba(0, 0, 0, 0.5)" }}
-        />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "rgba(0, 0, 0, 0.5)" }}
+      />
 
-        {/* Content Overlay */}
-        <div
-          className="relative flex flex-col items-center justify-center px-6"
-          style={{ minHeight: "640px" }}
-        >
-          {/* Text Card */}
+      <div className="relative flex min-h-[620px] flex-col justify-center px-6 md:min-h-[640px] md:items-center">
+        <div className="w-full py-14 md:py-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center w-full max-w-7xl flex flex-col items-center"
-            style={{
-              background: "rgba(52, 49, 47, 0.5)",
-              border: "1px solid rgba(238, 197, 105, 0.3)",
-              borderRadius: "8px",
-              padding: "48px 40px",
-            }}
+            className="w-full max-w-[920px] text-left md:flex md:max-w-none md:flex-col md:items-center md:text-center"
           >
             <h1
               className="text-white font-extrabold tracking-tight"
@@ -76,13 +65,7 @@ export function QualityHero() {
             </h1>
 
             <p
-              className="text-white/90"
-              style={{
-                fontSize: "16px",
-                lineHeight: 1.6,
-                marginBottom: "36px",
-                maxWidth: "700px",
-              }}
+              className="mb-[22px] max-w-[860px] text-[18px] leading-[1.55] text-[#DDD5C6] md:mb-9 md:max-w-[700px] md:text-[16px] md:leading-[1.6] md:text-white/90"
             >
               <EditableText
                 path="hero.description"
@@ -91,21 +74,20 @@ export function QualityHero() {
               />
             </p>
 
-            {/* Stats */}
             <div
-              className="inline-flex flex-col sm:flex-row gap-4"
-              style={{ borderTop: "1px solid #EEC569", paddingTop: "8px" }}
+              className="flex max-w-[760px] flex-col gap-1 border-t border-[#EEC569]/60 pt-3 sm:flex-row sm:gap-0 md:w-full md:max-w-[850px] md:gap-0 md:border-[#EEC569] md:pt-2"
             >
               {DEFAULTS.stats.map((stat, index) => (
                 <div
                   key={index}
-                  className="flex flex-col items-center gap-1"
-                  style={{
-                    padding: "16px 24px",
-                  }}
+                  className={`flex flex-1 flex-col items-start gap-1 py-3 sm:py-2 sm:pr-5 md:items-center md:px-4 md:py-4 ${
+                    index < DEFAULTS.stats.length - 1
+                      ? "sm:border-r sm:border-[#EEC569]/30 md:border-r-0"
+                      : ""
+                  }`}
                 >
                   <div
-                    className="text-2xl lg:text-3xl font-bold"
+                    className="text-xl font-bold md:whitespace-nowrap md:text-2xl lg:text-3xl"
                     style={{ color: "#EEC569" }}
                   >
                     <EditableText
@@ -114,7 +96,7 @@ export function QualityHero() {
                     />
                   </div>
                   <div
-                    className="text-sm"
+                    className="text-xs md:text-sm"
                     style={{ color: "#FFFFFF", fontWeight: 500 }}
                   >
                     <EditableText
@@ -126,8 +108,7 @@ export function QualityHero() {
               ))}
             </div>
 
-            {/* Calls to action use the shared service-hero button treatment. */}
-            <div className="flex flex-wrap justify-center gap-3 mt-5">
+            <div className="mt-5 flex flex-wrap justify-start gap-3 md:justify-center">
               <Link
                 href="https://app.apexbatch.com/"
                 rel="nofollow"

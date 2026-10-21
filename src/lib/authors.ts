@@ -61,6 +61,29 @@ export async function getAuthorById(id: string): Promise<Author | null> {
   return data ? rowToAuthor(data) : null;
 }
 
+export async function getAuthorBySlug(slug: string): Promise<Author | null> {
+  if (!isSupabaseConfigured || !supabase) {
+    console.warn("Supabase is not configured");
+    return null;
+  }
+
+  const { data, error } = await supabase
+    .from(TABLE_NAME)
+    .select("*")
+    .eq("slug", slug)
+    .single();
+
+  if (error) {
+    if (error.code === "PGRST116") {
+      return null;
+    }
+    console.error("Error fetching author by slug:", error);
+    return null;
+  }
+
+  return data ? rowToAuthor(data) : null;
+}
+
 export async function createAuthor(input: AuthorInput): Promise<string> {
   if (!isSupabaseConfigured || !supabase) {
     throw new Error("Supabase is not configured");

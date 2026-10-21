@@ -96,26 +96,26 @@ export function QualityCertifications() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="overflow-hidden bg-[#171717] border border-[#EEC569]/30"
+              className="flex h-full flex-col overflow-hidden border border-[#EEC569]/30 bg-[#171717]"
               style={{ borderRadius: "16px" }}
             >
-              <div className="flex items-center justify-center bg-[#101010] px-6 py-5">
+              <div className="flex min-h-[236px] items-center justify-center bg-[#101010] px-6 py-5">
                 <Image
                   src={cert.src}
                   alt={cert.alt}
                   width={160}
                   height={214}
-                  className="h-auto w-full max-w-[145px]"
+                  className="h-auto max-h-[196px] w-full max-w-[145px] object-contain"
                 />
               </div>
-              <div className="p-6 text-left">
-                <h3 className="section-card-title mb-3">
+              <div className="flex flex-1 flex-col items-center p-6 text-center">
+                <h3 className="quality-certification-title mb-2">
                   <EditableText
                     path={`certifications.items.${index}.title`}
                     defaultValue={cert.title}
                   />
                 </h3>
-                <p className="body-copy">
+                <p className="body-copy max-w-[260px]">
                   <EditableText
                     path={`certifications.items.${index}.description`}
                     defaultValue={cert.description}

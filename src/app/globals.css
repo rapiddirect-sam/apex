@@ -492,6 +492,23 @@ body {
   background: var(--color-gold-dark);
 }
 
+/* Use the lighter page scrollbar only across the blog archive, author, and article views. */
+html:has(.blog-scrollbar-theme) {
+  scrollbar-color: #8A8A8A #F3F3F3;
+}
+
+html:has(.blog-scrollbar-theme)::-webkit-scrollbar-track {
+  background: #F3F3F3;
+}
+
+html:has(.blog-scrollbar-theme)::-webkit-scrollbar-thumb {
+  background: #8A8A8A;
+}
+
+html:has(.blog-scrollbar-theme)::-webkit-scrollbar-thumb:hover {
+  background: #6F6F6F;
+}
+
 /* CMS edit mode: single-click edits text inside links; double-click opens the link */
 html.cms-edit-mode a:has([data-editable-text]) {
   cursor: pointer;
@@ -621,5 +638,64 @@ html.cms-edit-mode a:has([data-editable-text]) {
 
   .section-card-title {
     font-size: 1.25rem !important;
+  }
+}
+
+/*
+ * Site heading scale (blog archive, author, and article pages are intentionally
+ * excluded because editorial content follows its own type scale).
+ */
+body:not(:has(.blog-scrollbar-theme)) main :where(h1) {
+  font-size: clamp(2rem, 7.2vw, 2.25rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.08 !important;
+}
+
+body:not(:has(.blog-scrollbar-theme)) main :where(h2) {
+  font-size: clamp(1.5rem, 5.6vw, 1.75rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.15 !important;
+}
+
+body:not(:has(.blog-scrollbar-theme)) main :where(h3) {
+  font-size: clamp(1.0625rem, 4vw, 1.1875rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+}
+
+body:not(:has(.blog-scrollbar-theme)) main :where(h4) {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+}
+
+@media (min-width: 768px) {
+  body:not(:has(.blog-scrollbar-theme)) main :where(h1) {
+    font-size: clamp(2.75rem, 4vw, 3.25rem) !important;
+  }
+
+  body:not(:has(.blog-scrollbar-theme)) main :where(h2) {
+    font-size: clamp(1.75rem, 2.8vw, 2.25rem) !important;
+  }
+
+  body:not(:has(.blog-scrollbar-theme)) main :where(h3) {
+    font-size: clamp(1.125rem, 1.75vw, 1.375rem) !important;
+  }
+
+  body:not(:has(.blog-scrollbar-theme)) main :where(h4) {
+    font-size: clamp(1rem, 1.4vw, 1.125rem) !important;
+  }
+}
+
+/* Compact titles used in the aligned certification cards. */
+.quality-certification-title {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  line-height: 1.35 !important;
+}
+
+@media (min-width: 768px) {
+  .quality-certification-title {
+    font-size: 1.125rem !important;
   }
 }

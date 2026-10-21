@@ -3,6 +3,8 @@
 import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { SFHero } from "@/components/surface-finish/SFHero";
+import { SFIntroduction } from "@/components/surface-finish/SFIntroduction";
+import { SFRequirementTable } from "@/components/surface-finish/SFRequirementTable";
 import { SFTable } from "@/components/surface-finish/SFTable";
 import { SFWhyChoose } from "@/components/surface-finish/SFWhyChoose";
 import { SFCTA } from "@/components/surface-finish/SFCTA";
@@ -24,6 +26,8 @@ export function SurfaceFinishPageClient({ initialContent, initialVersion }: Surf
       <Home3Header />
       <main className="bg-[#000000] min-h-screen">
         <SFHero />
+        <SFIntroduction />
+        <SFRequirementTable />
         <SFTable />
         <SFWhyChoose />
         <SFCTA />

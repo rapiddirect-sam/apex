@@ -28,7 +28,6 @@ function estimateReadTime(content: string): number {
 
 interface BlogPostContentProps {
   post: BlogPost;
-  category: Category | null;
   author: Author | null;
   relatedPosts: BlogPost[];
   popularPosts: BlogPost[];
@@ -37,7 +36,6 @@ interface BlogPostContentProps {
 
 export function BlogPostContent({
   post,
-  category,
   author,
   relatedPosts,
   popularPosts,
@@ -145,26 +143,6 @@ export function BlogPostContent({
           <div className="blog-hero-grid">
             {/* Left: Text content */}
             <div>
-              {/* Category Badge */}
-              {category && (
-                <span
-                  style={{
-                    display: "inline-block",
-                    background: "linear-gradient(135deg, #D09947, #EEC569)",
-                    color: "#FFFFFF",
-                    fontSize: "12px",
-                    fontWeight: 700,
-                    padding: "6px 16px",
-                    borderRadius: "6px",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.5px",
-                    marginBottom: "16px",
-                  }}
-                >
-                  {category.name}
-                </span>
-              )}
-
               {/* Title */}
               <h1
                 style={{
@@ -194,17 +172,57 @@ export function BlogPostContent({
 
               {/* Author & Meta */}
               <div
+                className="blog-post-author-meta"
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: "20px",
-                  flexWrap: "wrap",
                   paddingTop: "16px",
                   borderTop: "1px solid #333333",
                 }}
               >
                 {/* Author avatar + info */}
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                {author?.slug ? (
+                  <Link
+                    href={`/blog/author/${author.slug}`}
+                    className="blog-post-author-link"
+                    aria-label={`View ${author.name}'s author page`}
+                    style={{ display: "flex", alignItems: "center", gap: "12px" }}
+                  >
+                    {author.avatarUrl ? (
+                      <div style={{ width: "44px", height: "44px", borderRadius: "50%", overflow: "hidden", flexShrink: 0 }}>
+                        <Image
+                          src={author.avatarUrl}
+                          alt={author.name}
+                          width={44}
+                          height={44}
+                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        />
+                      </div>
+                    ) : (
+                      <div
+                        style={{
+                          width: "44px",
+                          height: "44px",
+                          borderRadius: "50%",
+                          background: "linear-gradient(135deg, #D09947, #EEC569)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "#FFFFFF",
+                          fontWeight: 700,
+                          fontSize: "16px",
+                        }}
+                      >
+                        {author.name[0]?.toUpperCase() || "A"}
+                      </div>
+                    )}
+                    <span style={{ color: "#FFFFFF", fontWeight: 600, fontSize: "14px" }}>
+                      {author.name}
+                    </span>
+                  </Link>
+                ) : (
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                   {author?.avatarUrl ? (
                     <div style={{ width: "44px", height: "44px", borderRadius: "50%", overflow: "hidden", flexShrink: 0 }}>
                       <Image
@@ -238,22 +256,22 @@ export function BlogPostContent({
                       {author?.name || post.authorEmail?.split("@")[0] || "Author"}
                     </div>
                   </div>
-                </div>
+                  </div>
+                )}
 
-                {/* Date */}
-                <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#D09947", fontSize: "14px" }}>
-                  <Calendar size={14} />
-                  {post.publishedAt?.toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </div>
-
-                {/* Read time */}
-                <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#D09947", fontSize: "14px" }}>
-                  <Clock size={14} />
-                  {readTime} min read
+                <div className="blog-post-date-reading" style={{ display: "flex", alignItems: "center", gap: "20px", color: "#D09947", fontSize: "14px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", whiteSpace: "nowrap" }}>
+                    <Calendar size={14} />
+                    {post.publishedAt?.toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", whiteSpace: "nowrap" }}>
+                    <Clock size={14} />
+                    {readTime} min read
+                  </div>
                 </div>
               </div>
             </div>
@@ -316,6 +334,17 @@ export function BlogPostContent({
           .blog-quote-cta {
             flex: 0 0 auto;
           }
+          .blog-post-author-link {
+            text-decoration: none;
+            border-radius: 999px;
+          }
+          .blog-post-author-link:hover span {
+            color: #EEC569 !important;
+          }
+          .blog-post-author-link:focus-visible {
+            outline: 2px solid #EEC569;
+            outline-offset: 4px;
+          }
           @media (max-width: 1024px) {
             .blog-layout {
               grid-template-columns: 1fr 280px;
@@ -331,6 +360,15 @@ export function BlogPostContent({
             .blog-sidebar-right {
               position: static;
               max-height: none;
+            }
+            .blog-post-author-meta {
+              align-items: flex-start !important;
+              flex-direction: column;
+              gap: 14px !important;
+            }
+            .blog-post-date-reading {
+              gap: 16px !important;
+              width: 100%;
             }
           }
         `}</style>

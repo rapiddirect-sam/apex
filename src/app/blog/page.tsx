@@ -26,7 +26,9 @@ export default async function BlogPage() {
   return (
     <>
       <Home3Header />
-      <BlogArchive posts={posts} categories={categories} />
+      <div className="blog-scrollbar-theme">
+        <BlogArchive posts={posts} categories={categories} />
+      </div>
       <Home3Footer />
     </>
   );

@@ -97,7 +97,7 @@ export function AboutHero() {
               defaultValue={DEFAULTS.headingPrefix}
             />
           </span>
-          <span className="text-[#D09947]">
+          <span className="text-[#EEC569]">
             <EditableText
               path="hero.titleHighlight"
               defaultValue={DEFAULTS.headingHighlight}
@@ -113,7 +113,7 @@ export function AboutHero() {
           />
         </p>
 
-        <p className="mx-auto mt-5 text-center text-lg font-semibold tracking-[0.04em] text-[#D09947] md:text-xl">
+        <p className="mx-auto mt-5 text-center text-lg font-semibold tracking-[0.04em] text-[#EEC569] md:text-xl">
           <EditableText
             path="hero.slogan"
             defaultValue={DEFAULTS.tagline}

@@ -107,7 +107,7 @@ export function ServiceHero({ defaults }: { defaults: ServiceHeroDefaults }) {
                 <EditableText path="hero.titlePrefix" defaultValue={firstWord} />
               </span>
               {restTitle ? (
-                <span className="text-[#E7C56F]">
+                <span className="text-[#EEC569]">
                   {" "}
                   <EditableText path="hero.titleHighlight" defaultValue={restTitle} />
                 </span>
@@ -207,6 +207,7 @@ export function ServiceHero({ defaults }: { defaults: ServiceHeroDefaults }) {
         </div>
       </div>
 
+      {merged.metrics.length > 0 && (
       <div className="relative -mt-6 z-10">
         <div
           className="relative border-t border-white/10"
@@ -231,6 +232,7 @@ export function ServiceHero({ defaults }: { defaults: ServiceHeroDefaults }) {
           </div>
         </div>
       </div>
+      )}
     </section>
   );
 }

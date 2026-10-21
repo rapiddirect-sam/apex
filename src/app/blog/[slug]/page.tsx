@@ -63,11 +63,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  // Find the category for this post
-  const category = post.categoryId
-    ? categories.find((c) => c.id === post.categoryId) || null
-    : null;
-
   // Get related posts (same category, excluding current post)
   const relatedPosts = allPosts
     .filter((p) => p.id !== post.id && p.categoryId === post.categoryId && post.categoryId)
@@ -91,14 +86,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <>
       <ArticleStructuredData post={post} author={author} />
       <Home3Header />
-      <BlogPostContent
-        post={post}
-        category={category}
-        author={author}
-        relatedPosts={relatedPosts}
-        popularPosts={popularPosts}
-        categories={categories}
-      />
+      <div className="blog-scrollbar-theme">
+        <BlogPostContent
+          post={post}
+          author={author}
+          relatedPosts={relatedPosts}
+          popularPosts={popularPosts}
+          categories={categories}
+        />
+      </div>
       <Home3Footer />
     </>
   );

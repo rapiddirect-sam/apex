@@ -4,6 +4,8 @@ import { cn } from "@/lib/utils";
 export type ServiceTableVariant = "compact" | "standard";
 export type ServiceTableAlignment = "left" | "center" | "right";
 export type ServiceTableTone = "default" | "primary" | "accent";
+export type ServiceTableHeaderCase = "uppercase" | "normal";
+export type ServiceTableBodyDensity = "default" | "dense";
 
 export interface ServiceTableColumn {
   header: ReactNode;
@@ -18,6 +20,9 @@ interface ServiceTableProps {
   variant?: ServiceTableVariant;
   caption?: string;
   firstColumnAsHeader?: boolean;
+  minTableWidth?: string;
+  headerCase?: ServiceTableHeaderCase;
+  bodyDensity?: ServiceTableBodyDensity;
   className?: string;
 }
 
@@ -39,6 +44,9 @@ export function ServiceTable({
   variant = "standard",
   caption,
   firstColumnAsHeader = true,
+  minTableWidth,
+  headerCase = "normal",
+  bodyDensity = "default",
   className,
 }: ServiceTableProps) {
   const isCompact = variant === "compact";
@@ -56,8 +64,11 @@ export function ServiceTable({
       <table
         className={cn(
           "w-full border-collapse",
-          isCompact ? "text-[13px] md:text-[14px]" : "min-w-[720px] text-[15px]",
+          isCompact
+            ? "text-[13px] md:text-[14px]"
+            : cn("min-w-[720px]", bodyDensity === "dense" ? "text-[13px]" : "text-[15px]"),
         )}
+        style={minTableWidth ? { minWidth: minTableWidth } : undefined}
       >
         {caption && <caption className="sr-only">{caption}</caption>}
         <thead>
@@ -70,7 +81,12 @@ export function ServiceTable({
                   "border-b border-[#D09947]/30 font-semibold text-[#EEC569]",
                   isCompact
                     ? "px-4 py-3.5 md:px-5"
-                    : "px-5 py-4 text-[13px] font-bold uppercase tracking-[0.08em] md:px-7",
+                    : cn(
+                        "px-5 py-4 text-[13px] font-bold md:px-7",
+                        headerCase === "uppercase"
+                          ? "uppercase tracking-[0.08em]"
+                          : "normal-case tracking-normal",
+                      ),
                   alignmentClasses[column.align ?? "left"],
                 )}
                 style={column.width ? { width: column.width } : undefined}
@@ -92,9 +108,14 @@ export function ServiceTable({
               {row.map((cell, columnIndex) => {
                 const column = columns[columnIndex];
                 const cellClasses = cn(
-                  isCompact ? "px-4 py-3.5 md:px-5" : "px-5 py-[18px] md:px-7",
+                  isCompact
+                    ? "px-4 py-3.5 md:px-5"
+                    : bodyDensity === "dense"
+                      ? "px-5 py-4 md:px-7"
+                      : "px-5 py-[18px] md:px-7",
                   alignmentClasses[column?.align ?? "left"],
                   toneClasses[column?.tone ?? (columnIndex === 0 ? "primary" : "default")],
+                  bodyDensity === "dense" && columnIndex === 0 && "text-[14px]",
                 );
 
                 return firstColumnAsHeader && columnIndex === 0 ? (
