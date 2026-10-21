@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Calendar, Clock, FileText } from "lucide-react";
+import { ArrowRight, Calendar, Clock, FileText, Linkedin } from "lucide-react";
 import { Author, BlogPost } from "@/types/blog";
 import { SanitizedHTML } from "./SanitizedHTML";
 
@@ -17,7 +17,7 @@ interface AuthorProfileProps {
 
 export function AuthorProfile({ author, posts }: AuthorProfileProps) {
   return (
-    <main className="bg-white">
+    <main className="bg-[#F7F7F7] pt-16 sm:pt-20">
       <section className="border-y border-[#E8E8E8] bg-[#F7F7F7] py-14 sm:py-20">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-center lg:px-8">
           <div className="relative mx-auto aspect-square w-full max-w-[280px] overflow-hidden rounded-sm bg-[#E8E8E8]">
@@ -48,6 +48,17 @@ export function AuthorProfile({ author, posts }: AuthorProfileProps) {
               <SanitizedHTML html={author.bio} className="author-profile-bio" />
             ) : (
               <p className="author-profile-bio">Manufacturing insights and practical guidance from ApexBatch.</p>
+            )}
+            {author.socialLinkedin && (
+              <a
+                href={`https://www.linkedin.com/in/${author.socialLinkedin}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${author.name} on LinkedIn`}
+                className="mt-6 inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#D8D8D8] text-[#5E5E5E] transition-colors hover:border-[#A97628] hover:bg-[#A97628] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A97628] focus-visible:ring-offset-2"
+              >
+                <Linkedin size={22} strokeWidth={2} aria-hidden="true" />
+              </a>
             )}
           </div>
         </div>
