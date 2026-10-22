@@ -282,7 +282,7 @@ export function BlogPostContent({
                 style={{
                   position: "relative",
                   width: "100%",
-                  height: "clamp(280px, 30vw, 400px)",
+                  aspectRatio: "3 / 2",
                   borderRadius: "12px",
                   overflow: "hidden",
                 }}

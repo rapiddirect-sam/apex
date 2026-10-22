@@ -62,7 +62,7 @@ export function QualityFAQ() {
               <article key={item.question} className={cn("overflow-hidden rounded-xl transition-colors duration-200", isOpen ? "bg-[#D09947]/30" : "bg-[#2A2A2A] hover:bg-[#D09947]/30")}>
                 <h3>
                   <button id={buttonId} type="button" aria-expanded={isOpen} aria-controls={answerId} onClick={() => setOpenIndex(isOpen ? null : index)} className="group flex min-h-[72px] w-full items-center gap-4 px-5 py-5 text-left sm:px-6">
-                    <span className="flex-1 text-base font-semibold leading-snug text-white sm:text-lg md:text-[21px]">
+                    <span className="flex-1 text-[15px] font-medium leading-snug text-white sm:text-base md:text-[17px]">
                       <EditableText path={`qualityFaq.items.${index}.question`} defaultValue={item.question} />
                     </span>
                     <span className="shrink-0 pl-2 text-[#D09947] sm:pl-4"><ChevronDown className={cn("h-5 w-5 transition-transform duration-300", isOpen && "rotate-180")} aria-hidden="true" /></span>

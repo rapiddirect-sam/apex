@@ -131,8 +131,8 @@ export function Home3FAQ() {
                   </span>
                 </div>
 
-                {/* Question Text - max 85% width, larger font */}
-                <span className="flex-1 font-semibold max-w-[85%] leading-snug text-base sm:text-lg md:text-[21px]" style={{ color: "#FFFFFF" }}>
+                {/* Question text */}
+                <span className="flex-1 max-w-[85%] text-[15px] font-medium leading-snug sm:text-base md:text-[17px]" style={{ color: "#FFFFFF" }}>
                   <EditableText
                     path={`faq.items.${index}.question`}
                     defaultValue={item.question}
@@ -204,6 +204,7 @@ export function Home3FAQ() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/contact"
+              rel="nofollow"
               className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
             >
               <EditableText

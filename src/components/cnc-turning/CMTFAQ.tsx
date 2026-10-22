@@ -112,8 +112,8 @@ export function CMTFAQ() {
         >
           <span
             style={{
-              fontSize: "16px",
-              fontWeight: 700,
+              fontSize: "15px",
+              fontWeight: 500,
               color: "#FFFFFF",
               lineHeight: 1.45,
             }}

@@ -1,17 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
-  headingPrefix: "Surface Finishing for ",
-  headingHighlight: "Custom Production Parts",
+  headingPrefix: "Surface Finishing as Part of the ",
+  headingHighlight: "Production Route",
   descriptionPrimary:
     "Surface finishing can protect a part, control its appearance or support a defined functional requirement. The appropriate process depends on the material, geometry, critical features, operating conditions and specification.",
   descriptionSecondary:
     "Rather than being treated only as a final cosmetic step, surface finishing is planned as part of the production route. Common surface finishing applications include corrosion protection, wear performance, appearance, electrical function and part identification. Depending on the requirement, the route may include mechanical preparation, conversion processes, coatings, plating, marking or other surface treatments.",
-  descriptionTertiary:
-    "For parts manufactured by ApexBatch, finishing requirements can be incorporated into the quoted manufacturing scope, including applicable inspection and delivery requirements. For customer-supplied parts, contact us before quotation to confirm eligibility, part condition, handling and responsibility.",
 };
 
 export function SFIntroduction() {
@@ -62,8 +61,18 @@ export function SFIntroduction() {
                 </p>
                 <p>
                   <EditableText
-                    path="surfaceFinishingIntroduction.scopeDetails"
-                    defaultValue={DEFAULTS.descriptionTertiary}
+                    path="surfaceFinishingIntroduction.scopeDetailsPrefix"
+                    defaultValue="For parts manufactured by ApexBatch, finishing requirements are incorporated into the quoted manufacturing scope, including applicable "
+                  />
+                  <Link href="/quality" className="body-text-link body-text-link--dark">
+                    <EditableText
+                      path="surfaceFinishingIntroduction.scopeDetailsQualityLink"
+                      defaultValue="inspection and documentation requirements"
+                    />
+                  </Link>
+                  <EditableText
+                    path="surfaceFinishingIntroduction.scopeDetailsSuffix"
+                    defaultValue=". For customer-supplied parts, contact us before quotation to confirm eligibility, part condition, handling and responsibility."
                     multiline
                   />
                 </p>

@@ -7,7 +7,7 @@ import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
   backgroundImage:
-    "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773380863212-1773380863212-qy3uzfbf.webp",
+    "/quality/apexbatch-cnc-machining-workshop-with-operators.webp",
   heading: "Need Custom Materials or Expert Guidance?",
   description:
     "Our material science experts can help you select, customize, or develop materials for your specific application requirements. Whether you need specialized formulations, custom composites, or technical consultation, we provide tailored solutions for manufacturing challenges.",
@@ -92,7 +92,7 @@ export function MaterialsCTA() {
           <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
             <Link
               href="https://app.apexbatch.com/"
-              className="inline-flex items-center justify-center gap-2 bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group"
+              className="cta-primary group"
             >
               <EditableText
                 path="cta.primaryCta"
@@ -102,7 +102,8 @@ export function MaterialsCTA() {
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 border border-[#4A4A48] hover:border-[#D09947] text-white hover:text-[#D09947] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider"
+              rel="nofollow"
+              className="cta-secondary"
             >
               <EditableText
                 path="cta.secondaryCta"

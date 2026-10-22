@@ -244,6 +244,7 @@ export function Home3Process() {
             </Link>
             <Link
               href="/contact"
+              rel="nofollow"
               className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
             >
               <EditableText

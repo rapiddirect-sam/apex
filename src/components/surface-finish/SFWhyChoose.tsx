@@ -43,7 +43,7 @@ const featureIcons = {
 
 export function SFWhyChoose() {
   return (
-    <section style={{ padding: "100px 0", background: "#000000" }}>
+    <section style={{ padding: "100px 0", background: "#34312F" }}>
       <div className="max-w-[1200px] mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

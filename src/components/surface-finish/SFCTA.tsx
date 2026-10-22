@@ -6,65 +6,62 @@ import Link from "next/link";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  backgroundImage:
-    "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773908143132-1773908143132-0zqk1ggm.webp",
-  heading:
-    "Need more surface treatment options? Contact us for custom solutions.",
-  primaryCta: "Get a Custom Surface Finishing Quote",
-  secondaryCta: "Contact Our Engineering Team",
+  backgroundImage: "/quality/apexbatch-cnc-machining-workshop-with-operators.webp",
+  headingPrefix: "Define the Right Finish ",
+  headingHighlight: "Before Production",
+  headingSuffix: "",
+  description:
+    "Send your drawing, material and any applicable specification. We will assess the finish requirement against critical features, visible surfaces, masking needs, process access and the agreed project scope before quotation.",
+  primaryCta: "Send Your Drawing for Finish Review",
+  secondaryCta: "Talk Through a Finish Requirement",
 };
 
 export function SFCTA() {
   return (
-    <section className="relative overflow-hidden" style={{ padding: "120px 0" }}>
+    <section className="relative flex min-h-[440px] items-center overflow-hidden py-16 sm:min-h-[480px] sm:py-[72px] lg:min-h-[520px] lg:py-[88px]">
       <div className="absolute inset-0">
         <EditableImage
           path="surfaceFinishCta.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
-          alt="Surface finishing CTA"
+          alt="ApexBatch operators working in the CNC machining workshop"
           fill
           sizes="100vw"
           style={{ objectFit: "cover" }}
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.6) 100%)",
-          }}
-        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/[0.90] via-black/[0.80] to-black/[0.64]" aria-hidden="true" />
       </div>
 
-      <div className="relative max-w-[1200px] mx-auto px-6">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto text-center"
+          className="mx-auto max-w-[920px] text-center"
         >
-          <h2
-            className="text-white"
-            style={{
-              fontSize: "clamp(28px, 3.5vw, 42px)",
-              fontWeight: 700,
-              lineHeight: 1.2,
-              marginBottom: "48px",
-            }}
-          >
-            <EditableText path="surfaceFinishCta.heading" defaultValue={DEFAULTS.heading} />
+          <h2 className="text-[clamp(2.125rem,4vw,3.25rem)] font-bold leading-[1.1] tracking-[-0.015em] text-white">
+            <EditableText path="surfaceFinishCta.headingPrefix" defaultValue={DEFAULTS.headingPrefix} />
+            <span className="text-[#EEC569]">
+              <EditableText path="surfaceFinishCta.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+            </span>
+            <EditableText path="surfaceFinishCta.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
           </h2>
 
-          <div className="flex flex-wrap gap-4 justify-center">
+          <p className="mx-auto mt-6 max-w-[820px] text-base leading-[1.65] text-[#E2E2E3] sm:text-lg">
+            <EditableText path="surfaceFinishCta.description" defaultValue={DEFAULTS.description} multiline />
+          </p>
+
+          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               href="https://app.apexbatch.com/"
-              className="inline-flex items-center gap-2 bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group"
+              className="cta-primary group"
             >
               <EditableText path="surfaceFinishCta.primaryCta" defaultValue={DEFAULTS.primaryCta} />
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 border border-[#4A4A48] hover:border-[#D09947] text-white hover:text-[#D09947] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider"
+              rel="nofollow"
+              className="cta-secondary"
             >
               <EditableText path="surfaceFinishCta.secondaryCta" defaultValue={DEFAULTS.secondaryCta} />
             </Link>

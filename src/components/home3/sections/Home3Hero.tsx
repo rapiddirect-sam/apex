@@ -151,7 +151,7 @@ export function Home3Hero() {
               <Link
                 href="https://app.apexbatch.com/"
                 rel="nofollow"
-                className="text-[#1A1A1A] font-bold py-3.5 px-6 rounded-md text-xs transition-all uppercase tracking-[0.11em] flex items-center gap-2 group shadow-[0_8px_22px_rgba(238,197,105,0.4)]"
+                className="cta-primary group shadow-[0_8px_22px_rgba(238,197,105,0.4)]"
                 style={{
                   background: "linear-gradient(90deg, #D8AC4E 0%, #F1DB9A 100%)",
                 }}
@@ -164,7 +164,8 @@ export function Home3Hero() {
               </Link>
               <Link
                 href="/contact"
-                className="border border-white/30 hover:border-[#D09947] bg-[#181818]/72 text-white font-bold py-3.5 px-6 rounded-md text-xs transition-all uppercase tracking-[0.11em] shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
+                rel="nofollow"
+                className="cta-secondary shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
               >
                 <EditableText
                   path="hero.ctaSecondary"

@@ -764,7 +764,7 @@ export function ContactForm() {
               </button>
               <p className="text-center text-xs leading-relaxed text-[#8F8F91]">
                 <EditableText path="form.privacyNotice" defaultValue={DEFAULTS.privacyNotice} />{" "}
-                <Link href="/privacy-policy" className="text-[#C9A25D] underline decoration-[#C9A25D]/50 underline-offset-2 transition-colors hover:text-[#EEC569]">
+                <Link href="/privacy-policy" className="body-text-link body-text-link--dark">
                   <EditableText path="form.privacyPolicyLabel" defaultValue={DEFAULTS.privacyPolicyLabel} />
                 </Link>
                 .
@@ -900,7 +900,7 @@ export function ContactForm() {
                     </p>
                     <a
                       href="tel:+8613302480516"
-                      className="block text-xs leading-relaxed text-[#EEC569] transition-colors hover:text-white hover:underline"
+                      className="body-text-link body-text-link--dark block text-xs leading-relaxed"
                     >
                       <EditableText
                         path="sidebar.callUsDetail"
@@ -958,7 +958,7 @@ export function ContactForm() {
                     </p>
                     <a
                       href="mailto:info@apexbatch.com"
-                      className="block text-xs leading-relaxed text-[#EEC569] transition-colors hover:text-white hover:underline"
+                      className="body-text-link body-text-link--dark block text-xs leading-relaxed"
                     >
                       <EditableText
                         path="sidebar.emailGeneral"
@@ -967,7 +967,7 @@ export function ContactForm() {
                     </a>
                     <a
                       href="mailto:quotes@apexbatch.com"
-                      className="block text-xs leading-relaxed text-[#EEC569] transition-colors hover:text-white hover:underline"
+                      className="body-text-link body-text-link--dark block text-xs leading-relaxed"
                     >
                       <EditableText
                         path="sidebar.emailQuote"
@@ -976,7 +976,7 @@ export function ContactForm() {
                     </a>
                     <a
                       href="mailto:support@apexbatch.com"
-                      className="block text-xs leading-relaxed text-[#EEC569] transition-colors hover:text-white hover:underline"
+                      className="body-text-link body-text-link--dark block text-xs leading-relaxed"
                     >
                       <EditableText
                         path="sidebar.emailSupport"

@@ -8,7 +8,7 @@ import { useCMS } from "@/contexts/CMSContext";
 
 const DEFAULTS = {
   backgroundImage:
-    "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773380863212-1773380863212-qy3uzfbf.webp",
+    "/quality/apexbatch-cnc-machining-workshop-with-operators.webp",
   heading: "Ready to Start Your Laser Cutting Project?",
   description:
     "Upload your CAD files and drawings. ApexBatch will review your material, thickness, edge quality, secondary operations, and production requirements before providing a detailed quote.",
@@ -73,14 +73,15 @@ export function LCCTA() {
           <div className="flex flex-wrap gap-4 justify-center">
             <Link
               href="https://app.apexbatch.com/"
-              className="inline-flex items-center gap-2 bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group"
+              className="cta-primary group"
             >
               <EditableText path="cta.primaryCta" defaultValue={DEFAULTS.primaryCta} />
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 border border-[#4A4A48] hover:border-[#D09947] text-white hover:text-[#D09947] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider"
+              rel="nofollow"
+              className="cta-secondary"
             >
               <EditableText path="cta.secondaryCta" defaultValue={DEFAULTS.secondaryCta} />
             </Link>

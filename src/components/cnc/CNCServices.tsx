@@ -101,14 +101,14 @@ export function CNCServices() {
                   {index === 0 ? (
                     <Link
                       href="/cnc-milling"
-                      className="text-[#EEC569] underline underline-offset-2 transition-colors hover:text-[#D09947]"
+                      className="body-text-link body-text-link--dark"
                     >
                       <EditableText path={`services.items.${index}.title`} defaultValue={service.title} />
                     </Link>
                   ) : index === 1 ? (
                     <Link
                       href="/cnc-turning"
-                      className="text-[#EEC569] underline underline-offset-2 transition-colors hover:text-[#D09947]"
+                      className="body-text-link body-text-link--dark"
                     >
                       <EditableText path={`services.items.${index}.title`} defaultValue={service.title} />
                     </Link>

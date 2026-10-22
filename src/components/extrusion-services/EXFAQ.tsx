@@ -109,7 +109,7 @@ export function EXFAQ() {
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     className="group flex min-h-[72px] w-full items-center gap-4 px-5 py-5 text-left sm:px-6"
                   >
-                    <span className="flex-1 text-base font-semibold leading-snug text-white sm:text-lg md:text-[21px]">
+                    <span className="flex-1 text-[15px] font-medium leading-snug text-white sm:text-base md:text-[17px]">
                       <EditableText
                         path={`extrusionFaq.items.${index}.question`}
                         defaultValue={item.question}

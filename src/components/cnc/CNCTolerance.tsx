@@ -129,10 +129,9 @@ export function CNCTolerance() {
               href="https://app.apexbatch.com/"
               target="_blank"
               rel="noopener noreferrer"
+              className="body-text-link body-text-link--dark"
               style={{
                 color: "#EEC569",
-                textDecoration: "underline",
-                textUnderlineOffset: "3px",
                 fontWeight: 700,
               }}
             >

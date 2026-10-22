@@ -5,7 +5,7 @@ import Link from "next/link";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  backgroundImage: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp",
+  backgroundImage: "/quality/apexbatch-cnc-machining-workshop-with-operators.webp",
   headingPrefix: "Join Industry Leaders Who ",
   headingHighlight: "Build with Precision",
   description:
@@ -85,35 +85,14 @@ export function ReviewsCTA() {
         >
           <Link
             href="https://app.apexbatch.com/"
-            className="transition-all duration-300 hover:-translate-y-0.5"
-            style={{
-              padding: "18px 40px",
-              background: "#D09947",
-              color: "#000000",
-              fontSize: "14px",
-              fontWeight: 600,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              border: "none",
-              borderRadius: "4px",
-            }}
+            className="cta-primary"
           >
             <EditableText path="cta.primaryButton" defaultValue={DEFAULTS.primaryButton} />
           </Link>
           <Link
             href="/contact"
-            className="transition-all duration-300 hover:-translate-y-0.5"
-            style={{
-              padding: "18px 40px",
-              background: "transparent",
-              color: "#D09947",
-              fontSize: "14px",
-              fontWeight: 600,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              border: "2px solid #D09947",
-              borderRadius: "4px",
-            }}
+            rel="nofollow"
+            className="cta-secondary"
           >
             <EditableText path="cta.secondaryButton" defaultValue={DEFAULTS.secondaryButton} />
           </Link>

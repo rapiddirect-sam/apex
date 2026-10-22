@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { EditableImage, EditableText } from "@/components/cms";
 
 const DEFAULTS = {
-  backgroundImage: "/about/apexbatch-cnc-machining-production-floor-with-operator.avif",
+  backgroundImage: "/quality/apexbatch-cnc-machining-workshop-with-operators.webp",
   heading: "Build Your Next Production Program with ",
   headingHighlight: "ApexBatch",
   description:
@@ -61,14 +61,15 @@ export function AboutCTA() {
             <Link
               href="https://app.apexbatch.com/"
               rel="nofollow"
-              className="group inline-flex min-h-14 items-center justify-center gap-2 rounded bg-[#D09947] px-8 py-4 text-sm font-semibold uppercase tracking-wider text-black transition-colors hover:bg-[#EEC569]"
+              className="cta-primary group"
             >
               <EditableText path="aboutFinalCta.primaryCta" defaultValue={DEFAULTS.primaryCta} />
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </Link>
             <Link
               href="/contact"
-              className="inline-flex min-h-14 items-center justify-center rounded border border-white/30 bg-black/20 px-8 py-4 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:border-[#D09947] hover:text-[#EEC569]"
+              rel="nofollow"
+              className="cta-secondary"
             >
               <EditableText path="aboutFinalCta.secondaryCta" defaultValue={DEFAULTS.secondaryCta} />
             </Link>

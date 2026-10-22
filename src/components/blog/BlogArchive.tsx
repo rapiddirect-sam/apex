@@ -213,7 +213,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                 }}
               >
                 <Link href={`/blog/${featuredPost.slug}`} style={{ textDecoration: "none" }}>
-                  <div style={{ position: "relative", height: "340px", background: "#F5F5F5", overflow: "hidden" }}>
+                  <div style={{ position: "relative", aspectRatio: "3 / 2", background: "#F5F5F5", overflow: "hidden" }}>
                     {featuredPost.featuredImage ? (
                       <Image
                         src={featuredPost.featuredImage}
@@ -525,7 +525,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                     >
                       <Link href={`/blog/${post.slug}`} style={{ textDecoration: "none" }}>
                         <div style={{
-                          position: "relative", height: "170px",
+                          position: "relative", aspectRatio: "3 / 2",
                           background: "#F5F5F5", overflow: "hidden",
                         }}>
                           {post.featuredImage ? (

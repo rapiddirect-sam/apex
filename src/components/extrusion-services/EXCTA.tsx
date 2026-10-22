@@ -6,7 +6,7 @@ import Link from "next/link";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  backgroundImage: "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773380863212-1773380863212-qy3uzfbf.webp",
+  backgroundImage: "/quality/apexbatch-cnc-machining-workshop-with-operators.webp",
   heading: "Ready to Review Your ",
   headingHighlight: "Extrusion Design?",
   headingSuffix: "",
@@ -19,8 +19,7 @@ const DEFAULTS = {
 
 export function EXCTA() {
   return (
-    <section className="relative overflow-hidden" style={{ padding: "120px 0" }}>
-      {/* Background Image */}
+    <section className="relative flex min-h-[440px] items-center overflow-hidden py-16 sm:min-h-[480px] sm:py-[72px] lg:min-h-[520px] lg:py-[88px]">
       <div className="absolute inset-0">
         <EditableImage
           path="cta.backgroundImage"
@@ -29,30 +28,24 @@ export function EXCTA() {
           fill
           sizes="100vw"
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.6) 100%)",
-          }}
-        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/[0.90] via-black/[0.80] to-black/[0.64]" aria-hidden="true" />
       </div>
 
-      <div className="relative max-w-[1200px] mx-auto px-6">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-2xl mx-auto text-center"
+          className="mx-auto max-w-[920px] text-center"
         >
-          <h2 className="service-section-title mb-[18px]">
+          <h2 className="text-[clamp(2.125rem,4vw,3.25rem)] font-bold leading-[1.1] tracking-[-0.015em] text-white">
             <EditableText path="cta.heading" defaultValue={DEFAULTS.heading} />
-            <span className="service-title-accent">
+            <span className="text-[#EEC569]">
               <EditableText path="cta.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
             </span>
             <EditableText path="cta.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
           </h2>
-          <div className="service-section-copy mb-9 space-y-2">
+          <div className="mx-auto mt-6 max-w-[820px] space-y-2 text-base leading-[1.65] text-[#E2E2E3] sm:text-lg">
             <p>
               <EditableText
                 path="cta.descriptionPrimary"
@@ -69,18 +62,19 @@ export function EXCTA() {
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               href="https://app.apexbatch.com/"
               rel="nofollow"
-              className="inline-flex items-center gap-2 bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group"
+              className="cta-primary group"
             >
               <EditableText path="cta.primaryCta" defaultValue={DEFAULTS.primaryCta} />
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 border border-[#4A4A48] hover:border-[#D09947] text-white hover:text-[#D09947] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider"
+              rel="nofollow"
+              className="cta-secondary"
             >
               <EditableText path="cta.secondaryCta" defaultValue={DEFAULTS.secondaryCta} />
             </Link>

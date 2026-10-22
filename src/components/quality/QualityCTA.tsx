@@ -41,11 +41,11 @@ export function QualityCTA() {
           </p>
 
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-            <Link href="https://app.apexbatch.com/" className="group inline-flex min-h-14 items-center justify-center gap-2 rounded bg-[#D09947] px-8 py-4 text-sm font-semibold uppercase tracking-wider text-black transition-colors hover:bg-[#EEC569]">
+            <Link href="https://app.apexbatch.com/" className="cta-primary group">
               <EditableText path="qualityFinalCta.primaryCta" defaultValue={DEFAULTS.primaryCta} />
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </Link>
-            <Link href="/contact" className="inline-flex min-h-14 items-center justify-center rounded border border-white/30 bg-black/20 px-8 py-4 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:border-[#D09947] hover:text-[#EEC569]">
+            <Link href="/contact" rel="nofollow" className="cta-secondary">
               <EditableText path="qualityFinalCta.secondaryCta" defaultValue={DEFAULTS.secondaryCta} />
             </Link>
           </div>

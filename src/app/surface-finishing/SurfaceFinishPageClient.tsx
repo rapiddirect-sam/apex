@@ -6,6 +6,9 @@ import { SFHero } from "@/components/surface-finish/SFHero";
 import { SFIntroduction } from "@/components/surface-finish/SFIntroduction";
 import { SFRequirementTable } from "@/components/surface-finish/SFRequirementTable";
 import { SFTable } from "@/components/surface-finish/SFTable";
+import { SFCompatibility } from "@/components/surface-finish/SFCompatibility";
+import { SFCriticalFeatureReview } from "@/components/surface-finish/SFCriticalFeatureReview";
+import { SFFAQ } from "@/components/surface-finish/SFFAQ";
 import { SFWhyChoose } from "@/components/surface-finish/SFWhyChoose";
 import { SFCTA } from "@/components/surface-finish/SFCTA";
 import { CMSProvider } from "@/contexts/CMSContext";
@@ -29,6 +32,9 @@ export function SurfaceFinishPageClient({ initialContent, initialVersion }: Surf
         <SFIntroduction />
         <SFRequirementTable />
         <SFTable />
+        <SFCompatibility />
+        <SFCriticalFeatureReview />
+        <SFFAQ />
         <SFWhyChoose />
         <SFCTA />
       </main>

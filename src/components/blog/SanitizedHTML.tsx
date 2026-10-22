@@ -35,7 +35,19 @@ export function SanitizedHTML({ html, className }: SanitizedHTMLProps) {
       FORBID_TAGS: ["script", "style", "iframe", "form", "input", "button"],
       FORBID_ATTR: ["onerror", "onload", "onclick", "onmouseover"],
     });
-    setSanitizedHTML(clean);
+    const container = document.createElement("div");
+    container.innerHTML = clean;
+    container.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((link) => {
+      const href = link.getAttribute("href")?.replace(/\/+$/, "") ?? "";
+      const isContactLink = href === "/contact" || /^https?:\/\/(?:www\.)?apexbatch\.com\/contact$/i.test(href);
+
+      if (isContactLink) {
+        const relTokens = new Set((link.getAttribute("rel") ?? "").split(/\s+/).filter(Boolean));
+        relTokens.add("nofollow");
+        link.setAttribute("rel", Array.from(relTokens).join(" "));
+      }
+    });
+    setSanitizedHTML(container.innerHTML);
   }, [html]);
 
   return (

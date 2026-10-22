@@ -96,7 +96,7 @@ export function OMFAQ() {
           className="w-full text-left flex items-start justify-between gap-4"
           style={{ padding: "22px 24px", cursor: "pointer", background: "transparent" }}
         >
-          <span style={{ fontSize: "16px", fontWeight: 700, color: "#FFFFFF", lineHeight: 1.45 }}>
+          <span style={{ fontSize: "15px", fontWeight: 500, color: "#FFFFFF", lineHeight: 1.45 }}>
             <EditableText path={`faq.items.${index}.question`} defaultValue={item.question} />
           </span>
           <ChevronDown

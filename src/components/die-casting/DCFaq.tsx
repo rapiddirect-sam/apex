@@ -128,8 +128,8 @@ export function DCFaq() {
                 >
                   <span
                     style={{
-                      fontSize: "16px",
-                      fontWeight: 700,
+                      fontSize: "15px",
+                      fontWeight: 500,
                       color: "#EEC569",
                       lineHeight: 1.4,
                       paddingRight: "16px",

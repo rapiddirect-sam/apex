@@ -43,7 +43,7 @@ const DEFAULTS = {
       specValue: "5–25 μm",
       infoValue:
         "Anodized aluminum extrusions for corrosion resistance and decorative clear, black, silver or custom-color finishes.",
-      image: "/images/services/aluminum-extrusion/surface-finishes/anodizing.avif",
+      image: "/images/surface-finishing/aluminum-protection/surface-finishing-type-ii-anodizing.webp",
     },
     {
       name: "Powder Coating",
@@ -52,7 +52,7 @@ const DEFAULTS = {
       specValue: "60–120 μm (custom up to 180 μm)",
       infoValue:
         "Powder-coated aluminum profiles with impact-resistant, UV-stabilized protection and salt spray performance exceeding 1,000 hours.",
-      image: "/images/services/aluminum-extrusion/surface-finishes/powder-coating.avif",
+      image: "/images/surface-finishing/protective-coatings/surface-finishing-powder-coating.webp",
     },
     {
       name: "Brushing",
@@ -61,7 +61,7 @@ const DEFAULTS = {
       specValue: "Ra 0.3–0.8 μm achievable",
       infoValue:
         "Uniform decorative lines that help hide fingerprints on appearance-critical parts.",
-      image: "/images/services/aluminum-extrusion/surface-finishes/brushing.avif",
+      image: "/images/surface-finishing/base-preparation/surface-finishing-brushing.webp",
     },
     {
       name: "Polishing",
@@ -70,7 +70,7 @@ const DEFAULTS = {
       specValue: "Up to 85% after mechanical polishing",
       infoValue:
         "High-gloss decorative finish for strips, lighting reflectors and luxury goods.",
-      image: "/images/services/aluminum-extrusion/surface-finishes/polishing-surface-finish.avif",
+      image: "/images/surface-finishing/base-preparation/surface-finishing-mirror-polishing.webp",
     },
     {
       name: "Sandblasting",
@@ -79,7 +79,7 @@ const DEFAULTS = {
       specValue: "Fine (100–150 mesh) / Coarse (40–60 mesh)",
       infoValue:
         "Uniform matte texture that increases surface area for adhesive bonding and improves paint adhesion.",
-      image: "/images/services/aluminum-extrusion/surface-finishes/sandblasting.avif",
+      image: "/images/surface-finishing/base-preparation/surface-finishing-sand-blasting.webp",
     },
   ],
   workflow:

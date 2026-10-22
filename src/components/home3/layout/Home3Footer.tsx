@@ -104,6 +104,7 @@ function FooterLinkColumn({
           <li key={link.label}>
             <Link
               href={link.href}
+              rel={link.href === "/contact" ? "nofollow" : undefined}
               className="text-xs text-[#000000]/70 transition-colors hover:text-[#000000] lg:text-sm"
             >
               {link.label}

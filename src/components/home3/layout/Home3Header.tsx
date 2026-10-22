@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { cn, getImageUrl } from "@/lib/utils";
-import { Menu, X, ChevronRight, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronRight, ChevronDown, UserRound } from "lucide-react";
 import { Q4AnnouncementBar } from "./Q4AnnouncementBar";
 
 interface NavLink {
@@ -250,6 +250,7 @@ export function Home3Header() {
                 <Link
                   key={item.label}
                   href={item.href}
+                  rel={item.href === "/contact" ? "nofollow" : undefined}
                   className="relative text-[#000000]/80 hover:text-[#000000] transition-all text-[15px] font-medium py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#7F4D0F] after:transition-all hover:after:w-full"
                 >
                   {item.label}
@@ -267,25 +268,44 @@ export function Home3Header() {
             )}
           </nav>
 
-          {/* CTA Button */}
-          <Link
-            href="https://app.apexbatch.com/"
-            rel="nofollow"
-            className="hidden lg:inline-flex items-center gap-2 bg-[#1A1A1A] hover:bg-[#000000] text-white hover:text-[#D09947] active:text-[#D09947] font-semibold px-5 py-2.5 rounded-full transition-all text-sm"
-          >
-            Get Quote
-          </Link>
+          {/* Account entry and CTA */}
+          <div className="hidden items-center gap-2 lg:flex">
+            <Link
+              href="https://app.apexbatch.com/"
+              rel="nofollow"
+              className="cta-account inline-flex h-10 w-10 items-center justify-center rounded-full text-[#1A1A1A] transition-colors hover:bg-[#1A1A1A] hover:text-white"
+              aria-label="Open ApexBatch account"
+            >
+              <UserRound className="h-5 w-5" strokeWidth={1.8} aria-hidden="true" />
+            </Link>
+            <Link
+              href="https://app.apexbatch.com/"
+              rel="nofollow"
+              className="cta-compact"
+            >
+              Get Instant Quote
+            </Link>
+          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-[#000000] hover:bg-black/10 rounded-lg transition-colors"
-            aria-label="Toggle menu"
-            aria-expanded={isMobileMenuOpen}
-            aria-controls="mobile-navigation"
-          >
-            {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
-          </button>
+          {/* Mobile actions: menu trigger first, followed by the CTA. */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 text-[#000000] hover:bg-black/10 rounded-lg transition-colors"
+              aria-label="Toggle menu"
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation"
+            >
+              {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
+            </button>
+            <Link
+              href="https://app.apexbatch.com/"
+              rel="nofollow"
+              className="cta-compact px-4 text-xs"
+            >
+              Get Instant Quote
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -305,6 +325,7 @@ export function Home3Header() {
                 <Link
                   key={item.label}
                   href={item.href}
+                  rel={item.href === "/contact" ? "nofollow" : undefined}
                   className="flex items-center justify-between text-white hover:text-[#EEC569] transition-colors text-lg font-medium py-4 border-b border-white/10"
                   onClick={() => setIsMobileMenuOpen(false)}
                   style={{ animationDelay: `${index * 50}ms` }}
@@ -385,15 +406,6 @@ export function Home3Header() {
                 </div>
               )
             )}
-
-            <Link
-              href="https://app.apexbatch.com/"
-              rel="nofollow"
-              className="inline-flex items-center justify-center bg-gradient-to-r from-[#D09947] to-[#EEC569] hover:from-[#EEC569] hover:to-[#D09947] text-black font-semibold px-6 py-3.5 rounded-xl transition-all text-base mt-6"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Get Quote
-            </Link>
 
             {/* Contact Info */}
             <div className="pt-6 border-t border-white/10 mt-6">
