@@ -65,7 +65,6 @@ const navItems: NavItem[] = [
     items: [
       { href: "/materials", label: "Material Library" },
       { href: "/blog", label: "Blog" },
-      { href: "/reviews", label: "Customer Reviews" },
     ],
   },
   {

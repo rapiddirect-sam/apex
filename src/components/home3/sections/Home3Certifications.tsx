@@ -1,51 +1,33 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { Shield, Target, TrendingUp, CheckCircle, Award } from "lucide-react";
+import { Award, CheckCircle, Target, TrendingUp } from "lucide-react";
+import Link from "next/link";
 import { EditableText } from "@/components/cms";
-import { QUALITY_CERTIFICATE_IMAGES } from "@/lib/qualityCertificates";
 
 const DEFAULTS = {
-  badge: "Quality Assurance",
   titleWhiteLine1: "Your Trust,",
-  titleHighlightLine2: "Verified by Data.",
+  titleHighlightLine2: "Verified by Data",
   description:
-    "We exceed standards with rigorous testing and verification for real-world applications.",
+    "Quality controls, inspection planning and documented records are aligned to the requirements that matter to each program.",
+  qualityLinkLabel: "Explore Quality Assurance",
   metrics: [
     {
-      value: "\u00B10.001",
       label: "Zeiss CMM Verification",
-      description: "Every critical dimension verified by world-class metrology.",
+      description: "Critical dimensions verified against drawing requirements.",
     },
     {
       value: "2-Hr",
-      label: "Dynamic IPQC",
-      description: "In-process quality control every 2 hours for consistency.",
+      label: "2-Hour Dynamic IPQC",
+      description: "In-process checks scheduled every two hours, where applicable.",
     },
     {
-      value: "100%",
-      label: "Full Documentation",
-      description: "Digital OQC, Material Certs, and DFM reports included.",
+      label: "FAI & Production Records",
+      description: "FAI and records defined to match project requirements.",
     },
     {
-      value: "0.2%",
       label: "ISO Certified",
-      description: "ISO 9001:2015 & ISO 13485 & ISO 14001 standards backed.",
-    },
-  ],
-  certificates: [
-    {
-      name: "ISO 9001",
-      image: QUALITY_CERTIFICATE_IMAGES.iso9001,
-    },
-    {
-      name: "ISO 13485",
-      image: QUALITY_CERTIFICATE_IMAGES.iso13485,
-    },
-    {
-      name: "ISO 14001",
-      image: QUALITY_CERTIFICATE_IMAGES.iso14001,
+      description: "Certified to ISO 9001:2015, 13485:2016 and 14001:2015.",
     },
   ],
 };
@@ -54,86 +36,47 @@ const metricIcons = [Target, TrendingUp, CheckCircle, Award];
 
 export function Home3Certifications() {
   return (
-    <section className="py-12 sm:py-16 md:py-24 bg-[#1A1A1A] overflow-hidden">
+    <section className="overflow-hidden bg-[#2B2826] py-12 sm:py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Section - Two columns */}
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 mb-8 sm:mb-12 lg:mb-16">
-          {/* Left - Header */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 border border-[#D09947] rounded-full mb-8">
-              <Shield className="w-4 h-4 text-[#D09947]" />
-              <span className="text-[#D09947] text-xs font-medium tracking-[0.1em] uppercase">
-                <EditableText
-                  path="certifications.badge"
-                  defaultValue={DEFAULTS.badge}
-                />
-              </span>
-            </div>
-
-            <h2 className="mb-6 text-3xl font-extrabold tracking-[-0.02em] text-white sm:text-4xl md:text-5xl">
-              <span className="mb-2 block">
-                <EditableText
-                  path="certifications.titleWhiteLine1"
-                  defaultValue={DEFAULTS.titleWhiteLine1}
-                />
-              </span>
-              {" "}
-              <span className="block text-[#EEC569]">
-                <EditableText
-                  path="certifications.titleHighlightLine2"
-                  defaultValue={DEFAULTS.titleHighlightLine2}
-                />
-              </span>
-            </h2>
-            <p className="max-w-lg text-base leading-relaxed text-[#888888]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mx-auto max-w-3xl text-center"
+        >
+          <h2 className="section-title">
+            <EditableText
+              path="certifications.titleWhiteLine1"
+              defaultValue={DEFAULTS.titleWhiteLine1}
+            />{" "}
+            <span className="service-title-accent">
               <EditableText
-                path="certifications.description"
-                defaultValue={DEFAULTS.description}
-                multiline
+                path="certifications.titleHighlightLine2"
+                defaultValue={DEFAULTS.titleHighlightLine2}
               />
-            </p>
-          </motion.div>
-
-          {/* Right - Certificate Images */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex justify-center lg:justify-end items-center overflow-hidden"
+            </span>
+          </h2>
+          <p className="body-copy mx-auto mt-5 max-w-2xl">
+            <EditableText
+              path="certifications.description"
+              defaultValue={DEFAULTS.description}
+              multiline
+            />
+          </p>
+          <Link
+            href="/quality"
+            className="body-text-link body-text-link--dark mt-5 inline-flex items-center gap-2 text-sm"
           >
-            <div className="flex gap-2 sm:gap-4">
-              {DEFAULTS.certificates.map((cert, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="relative w-24 h-32 sm:w-32 sm:h-44 md:w-40 md:h-52 rounded-lg overflow-hidden shadow-2xl flex-shrink-0"
-                  style={{
-                    transform: `rotate(${index === 0 ? -3 : index === 2 ? 3 : 0}deg)`,
-                  }}
-                >
-                  <Image
-                    src={cert.image}
-                    alt={`${cert.name} certificate`}
-                    fill
-                    sizes="(max-width: 639px) 96px, (max-width: 767px) 128px, 160px"
-                    style={{ objectFit: "contain" }}
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
+            <EditableText
+              path="homeCertifications.qualityLinkLabel"
+              defaultValue={DEFAULTS.qualityLinkLabel}
+            />
+            <span aria-hidden="true">→</span>
+          </Link>
+        </motion.div>
 
         {/* Bottom - Metrics Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {DEFAULTS.metrics.map((metric, index) => {
             const Icon = metricIcons[index];
             return (
@@ -143,7 +86,7 @@ export function Home3Certifications() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1"
+                className="rounded-2xl border border-[#D09947]/25 bg-[#0D0D0D] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#D09947]/60"
                 style={{
                   background: `
                     radial-gradient(
@@ -153,34 +96,18 @@ export function Home3Certifications() {
                     ),
                     #0D0D0D
                   `,
-                  border: "1px solid rgba(208,153,71,0.25)",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.border = "2px solid #D09947";
-                  e.currentTarget.style.boxShadow = "0 0 30px rgba(208,153,71,0.5)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.border = "1px solid rgba(208,153,71,0.25)";
-                  e.currentTarget.style.boxShadow = "none";
                 }}
               >
-                {/* Icon */}
-                <div className="mb-4 flex items-center">
-                  <div className="w-10 h-10 rounded-lg bg-[#3A3A3A] flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-[#D09947]" />
-                  </div>
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-[#3A3A3A]">
+                  <Icon className="h-5 w-5 text-[#D09947]" aria-hidden="true" />
                 </div>
-
-                {/* Label */}
-                <h3 style={{ color: "#EEC569", fontWeight: 700, fontSize: "18px", marginBottom: "8px" }}>
+                <h3 className="text-base font-semibold leading-snug text-[#EEC569]">
                   <EditableText
                     path={`certifications.metrics.${index}.label`}
                     defaultValue={metric.label}
                   />
                 </h3>
-
-                {/* Description */}
-                <p style={{ color: "#C5C6C9", fontSize: "14px", lineHeight: 1.5 }}>
+                <p className="body-copy mt-3 text-sm">
                   <EditableText
                     path={`certifications.metrics.${index}.description`}
                     defaultValue={metric.description}

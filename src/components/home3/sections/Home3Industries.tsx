@@ -25,7 +25,7 @@ const DEFAULTS = {
       image: getImageUrl("home/5-industries-aerospace.webp"),
     },
     {
-      title: "Automative",
+      title: "Automotive",
       description:
         "High-precision components for electronics and hardware applications. Supporting miniaturization, tight tolerances, and reliable performance.",
       image: getImageUrl("home/5-industries-consumer-electronics.webp"),
@@ -98,11 +98,8 @@ export function Home3Industries() {
             </span>
           </h2>
           <p
-            className="mx-auto"
+            className="service-section-copy mx-auto"
             style={{
-              fontSize: "18px",
-              lineHeight: 1.6,
-              color: "#7A7A7C",
               maxWidth: "820px",
               marginTop: "18px",
             }}
@@ -173,7 +170,11 @@ export function Home3Industries() {
                         }}
                       >
                         <EditableText
-                          path={`industries.items.${actualIndex}.title`}
+                          path={
+                            actualIndex === 2
+                              ? "homeIndustries.items.2.title"
+                              : `industries.items.${actualIndex}.title`
+                          }
                           defaultValue={industry.title}
                         />
                       </h3>
@@ -223,7 +224,11 @@ export function Home3Industries() {
                             }}
                           >
                             <EditableText
-                              path={`industries.items.${actualIndex}.title`}
+                              path={
+                                actualIndex === 2
+                                  ? "homeIndustries.items.2.title"
+                                  : `industries.items.${actualIndex}.title`
+                              }
                               defaultValue={industry.title}
                             />
                           </h3>

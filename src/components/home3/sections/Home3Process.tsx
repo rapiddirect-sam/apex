@@ -84,11 +84,8 @@ export function Home3Process() {
             </span>
           </h2>
           <p
-            className="mx-auto"
+            className="service-section-copy mx-auto"
             style={{
-              fontSize: "18px",
-              lineHeight: 1.6,
-              color: "#7A7A7C",
               maxWidth: "760px",
               marginTop: "18px",
             }}

@@ -39,7 +39,6 @@ const LABELS: Record<string, string> = {
   "/about": "About ApexBatch",
   "/contact": "Contact Us",
   "/quality": "Quality Assurance",
-  "/reviews": "Customer Reviews",
   "/privacy-policy": "Privacy Policy",
   "/terms-and-conditions": "Terms and Conditions",
 };

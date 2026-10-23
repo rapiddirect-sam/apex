@@ -1,34 +1,59 @@
 "use client";
 
-import { useState } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { getImageUrl } from "@/lib/utils";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 import { EditableText, EditableImage } from "@/components/cms";
-import { useCMS } from "@/contexts/CMSContext";
 
 const DEFAULTS = {
-  eyebrow: "State-of-the-Art Manufacturing Environment",
   titleWhite: "Our ",
   titleHighlight: "Facilities",
   panelTitle: "Advanced Manufacturing Hub",
   panelDescription1:
-    "Located in Shenzhen's advanced manufacturing district, our 50,000 m\u00B2 manufacturing footprint spans 8 specialized production workshops and includes 650+ advanced machines.",
+    "Based in China, ApexBatch operates a 50,000 m\u00B2 production footprint across eight specialist workshops, supported by 650+ production, inspection and support equipment.",
   panelDescription2:
-    "We support end-to-end manufacturing in one location, including CNC machining, precision injection molding, sheet metal fabrication, 3D printing, as well as in-house surface treatment and quality inspection lines.",
+    "Machining, fabrication, molding, finishing, assembly and inspection are coordinated under one accountable production plan.",
+  panelCta: "Explore the ApexBatch Manufacturing Network",
   stats: [
     { value: "50,000 m\u00B2", label: "Total Manufacturing Footprint" },
     { value: "8", label: "Specialized Production Shops" },
     { value: "650+", label: "Advanced Equipment" },
     { value: "98%", label: "On-Time Delivery" },
   ],
-  facilityImages: [
-    getImageUrl("home/2-our-facilities-cnc.webp"),
-    getImageUrl("home/2-our-facilities-injection-molding.webp"),
-    getImageUrl("home/2-our-facilities-sheet-metal.webp"),
-    // CMS 上传图：用 S3 直链或相对路径，不要用 /_next/image?...（那是优化器地址，不能当原始 src 拼进 getImageUrl）
-    getImageUrl("cms/1773972168149-1773972168149-qx8na8s4.webp"),
-    getImageUrl("cms/1773972129878-1773972129878-dd8ddilq.webp"),
+  workshops: [
+    {
+      title: "CNC Milling Workshop",
+      image: "/about/apexbatch-cnc-milling-workshop.avif",
+    },
+    {
+      title: "CNC Turning Workshop",
+      image: "/about/apexbatch-cnc-turning-workshop.avif",
+    },
+    {
+      title: "Sheet Metal & Bending Workshop",
+      image: "/about/apexbatch-sheet-metal-bending-workshop.avif",
+    },
+    {
+      title: "Laser Welding Workshop",
+      image: "/about/apexbatch-laser-welding-workshop.avif",
+    },
+    {
+      title: "Injection Molding Workshop",
+      image: "/about/apexbatch-injection-molding-workshop.avif",
+    },
+    {
+      title: "Additive Manufacturing Workshop",
+      image: "/about/apexbatch-3d-printing-workshop.avif",
+    },
+    {
+      title: "Vacuum Casting Workshop",
+      image: "/about/apexbatch-vacuum-casting-workshop.avif",
+    },
+    {
+      title: "Large-Format Gantry Machining Workshop",
+      image: "/about/apexbatch-large-format-gantry-machining-workshop.avif",
+    },
   ],
 };
 
@@ -113,22 +138,23 @@ function Metric({ index, delay }: { index: number; delay: number }) {
 }
 
 export function Home3Facilities() {
-  const [currentImage, setCurrentImage] = useState(0);
-  const { isEditMode } = useCMS();
+  const workshopRailRef = useRef<HTMLDivElement>(null);
 
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % DEFAULTS.facilityImages.length);
-  };
+  const scrollWorkshops = (direction: "previous" | "next") => {
+    const rail = workshopRailRef.current;
+    if (!rail) return;
 
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + DEFAULTS.facilityImages.length) % DEFAULTS.facilityImages.length);
+    rail.scrollBy({
+      left: (direction === "next" ? 1 : -1) * rail.clientWidth * 0.78,
+      behavior: "smooth",
+    });
   };
 
   return (
     <section
       className="relative overflow-hidden"
       style={{
-        padding: "clamp(56px, 12vw, 88px) 0 clamp(72px, 16vw, 130px)",
+        padding: "clamp(36px, 6vw, 52px) 0 clamp(72px, 16vw, 130px)",
         background: "#34312F",
       }}
     >
@@ -141,39 +167,6 @@ export function Home3Facilities() {
           className="text-center"
           style={{ marginBottom: "clamp(40px, 10vw, 64px)" }}
         >
-          {/* Eyebrow label with decorative lines */}
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div
-              className="hidden min-[360px]:block"
-              style={{
-                width: "48px",
-                height: "1px",
-                background: "rgba(208,153,71,0.5)",
-              }}
-            />
-            <span
-              style={{
-                fontSize: "clamp(10px, 3.5vw, 12px)",
-                letterSpacing: "0.25em",
-                textTransform: "uppercase",
-                color: "rgba(208,153,71,0.65)",
-              }}
-            >
-              <EditableText
-                path="facilities.eyebrow"
-                defaultValue={DEFAULTS.eyebrow}
-              />
-            </span>
-            <div
-              className="hidden min-[360px]:block"
-              style={{
-                width: "48px",
-                height: "1px",
-                background: "rgba(208,153,71,0.5)",
-              }}
-            />
-          </div>
-
           {/* Title */}
           <h2
             className="text-white"
@@ -196,10 +189,8 @@ export function Home3Facilities() {
           </h2>
         </motion.div>
 
-        {/* Content Grid */}
-        <div
-          className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
-        >
+        {/* Narrative and manufacturing metrics */}
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Left - Narrative Panel */}
           <div>
             {/* Description Panel - quiet, no heavy borders */}
@@ -214,7 +205,7 @@ export function Home3Facilities() {
                 maxWidth: "520px",
               }}
             >
-              <h3
+              <p
                 style={{
                   fontSize: "22px",
                   fontWeight: 700,
@@ -223,10 +214,10 @@ export function Home3Facilities() {
                 }}
               >
                 <EditableText
-                  path="facilities.panelTitle"
+                  path="homeFacilities.panelTitle"
                   defaultValue={DEFAULTS.panelTitle}
                 />
-              </h3>
+              </p>
               <p
                 style={{
                   fontSize: "15.5px",
@@ -236,7 +227,7 @@ export function Home3Facilities() {
                 }}
               >
                 <EditableText
-                  path="facilities.panelDescription1"
+                  path="homeFacilities.panelDescription1"
                   defaultValue={DEFAULTS.panelDescription1}
                   multiline
                 />
@@ -249,11 +240,22 @@ export function Home3Facilities() {
                 }}
               >
                 <EditableText
-                  path="facilities.panelDescription2"
+                  path="homeFacilities.panelDescription2"
                   defaultValue={DEFAULTS.panelDescription2}
                   multiline
                 />
               </p>
+
+              <Link
+                href="/about"
+                className="body-text-link body-text-link--dark mt-6 inline-flex items-center gap-2 text-sm"
+              >
+                <EditableText
+                  path="homeFacilities.panelCta"
+                  defaultValue={DEFAULTS.panelCta}
+                />
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
 
               {/* Decorative line with diamond */}
               <div className="flex items-center" style={{ marginTop: "24px" }}>
@@ -277,115 +279,92 @@ export function Home3Facilities() {
             </motion.div>
           </div>
 
-          {/* Right - Image Carousel (window feel, not component) */}
+          {/* Right - Manufacturing metrics */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative"
+            className="grid grid-cols-2 gap-4"
           >
-            {/* Main Image */}
-            <div
-              className="relative aspect-[4/3]"
-              style={{
-                borderRadius: "18px",
-                overflow: "hidden",
-                outline: "1px solid rgba(208,153,71,0.25)",
-              }}
-            >
-              {/* In edit mode render only the active slide so uploads map to the selected index. */}
-              {isEditMode ? (
-                <EditableImage
-                  key={`edit-${currentImage}`}
-                  path={`facilities.images.${currentImage}`}
-                  defaultSrc={DEFAULTS.facilityImages[currentImage]}
-                  alt="Manufacturing facility"
-                  fill
-                  priority={currentImage === 0}
-                  sizes="(max-width: 1024px) 100vw, 560px"
-                  className="object-cover"
-                />
-              ) : (
-                /* Pre-render all slides for smooth switching in view mode */
-                <div className="absolute inset-0">
-                  {DEFAULTS.facilityImages.map((src, index) => (
-                    <EditableImage
-                      key={src}
-                      path={`facilities.images.${index}`}
-                      defaultSrc={src}
-                      alt="Manufacturing facility"
-                      fill
-                      priority={index === 0}
-                      sizes="(max-width: 1024px) 100vw, 560px"
-                      className="object-cover transition-opacity duration-300 ease-out"
-                      style={{
-                        opacity: index === currentImage ? 1 : 0,
-                        willChange: "opacity",
-                        pointerEvents: index === currentImage ? "auto" : "none",
-                      }}
-                    />
-                  ))}
-                </div>
-              )}
-
-              {/* Navigation Arrows - subtle industrial style */}
-              <button
-                onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300 hover:bg-[rgba(208,153,71,0.15)]"
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "8px",
-                  background: "rgba(0,0,0,0.55)",
-                  border: "1px solid rgba(208,153,71,0.35)",
-                }}
-              >
-                <ChevronLeft className="w-5 h-5" style={{ color: "#D09947" }} />
-              </button>
-              <button
-                onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300 hover:bg-[rgba(208,153,71,0.15)]"
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "8px",
-                  background: "rgba(0,0,0,0.55)",
-                  border: "1px solid rgba(208,153,71,0.35)",
-                }}
-              >
-                <ChevronRight className="w-5 h-5" style={{ color: "#D09947" }} />
-              </button>
-            </div>
-
-            {/* Dot Indicators */}
-            <div className="flex justify-center gap-2" style={{ marginTop: "20px" }}>
-              {DEFAULTS.facilityImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentImage(index)}
-                  className="h-1 rounded-full transition-all"
-                  style={{
-                    width: index === currentImage ? "24px" : "12px",
-                    background: index === currentImage ? "#D09947" : "#444444",
-                  }}
-                />
-              ))}
-            </div>
+            {DEFAULTS.stats.map((_, index) => (
+              <Metric key={index} index={index} delay={index * 0.08} />
+            ))}
           </motion.div>
         </div>
 
-        {/* Metrics - full width, aligns with text+image above */}
-        <div
-          className="grid grid-cols-2 gap-4 min-[640px]:grid-cols-4 min-[640px]:gap-x-8"
-          style={{ marginTop: "clamp(32px, 8vw, 48px)" }}
-        >
-          {DEFAULTS.stats.map((_, index) => (
-            <Metric
-              key={index}
-              index={index}
-              delay={index * 0.1}
-            />
-          ))}
+        {/* Workshop rail: an at-a-glance view of the eight production shops. */}
+        <div className="relative" style={{ marginTop: "clamp(20px, 4vw, 32px)" }}>
+          <div className="mb-4 flex justify-end">
+            <div className="hidden gap-2 sm:flex">
+              <button
+                type="button"
+                onClick={() => scrollWorkshops("previous")}
+                aria-label="Previous workshops"
+                className="flex h-10 w-10 items-center justify-center rounded-md border border-[#D09947]/35 bg-black/35 transition-colors hover:bg-[#D09947]/15"
+              >
+                <ChevronLeft className="h-5 w-5 text-[#EEC569]" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollWorkshops("next")}
+                aria-label="Next workshops"
+                className="flex h-10 w-10 items-center justify-center rounded-md border border-[#D09947]/35 bg-black/35 transition-colors hover:bg-[#D09947]/15"
+              >
+                <ChevronRight className="h-5 w-5 text-[#EEC569]" />
+              </button>
+            </div>
+          </div>
+
+          <div
+            ref={workshopRailRef}
+            className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {DEFAULTS.workshops.map((workshop, index) => (
+              <Link
+                key={workshop.title}
+                href="/about"
+                aria-label={`Explore ${workshop.title}`}
+                className="group relative aspect-[4/3] w-[82vw] shrink-0 snap-start overflow-hidden rounded-xl outline outline-1 outline-[#D09947]/25 sm:w-[calc((100%_-_1rem)/2)] lg:w-[calc((100%_-_2rem)/3)]"
+              >
+                <EditableImage
+                  path={`homeFacilities.workshops.${index}.image`}
+                  defaultSrc={workshop.image}
+                  alt={workshop.title}
+                  fill
+                  priority={index < 3}
+                  sizes="(max-width: 640px) 82vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.035]"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/75 to-transparent px-5 pb-5 pt-14">
+                  <p className="home-facility-card-title text-white">
+                    <EditableText
+                      path={`homeFacilities.workshops.${index}.title`}
+                      defaultValue={workshop.title}
+                    />
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-4 flex justify-center gap-3 sm:hidden">
+            <button
+              type="button"
+              onClick={() => scrollWorkshops("previous")}
+              aria-label="Previous workshops"
+              className="flex h-14 w-14 items-center justify-center rounded-lg border border-[#D09947]/50 bg-[#24211F] transition-colors active:bg-[#D09947]/15"
+            >
+              <ChevronLeft className="h-6 w-6 text-[#EEC569]" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollWorkshops("next")}
+              aria-label="Next workshops"
+              className="flex h-14 w-14 items-center justify-center rounded-lg border border-[#D09947]/50 bg-[#24211F] transition-colors active:bg-[#D09947]/15"
+            >
+              <ChevronRight className="h-6 w-6 text-[#EEC569]" />
+            </button>
+          </div>
         </div>
       </div>
     </section>

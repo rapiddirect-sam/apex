@@ -11,8 +11,8 @@ const DEFAULTS = {
   headingHighlight: "ApexBatch",
   description:
     "Upload your drawing to receive pricing where available or start an engineering review for your project.",
-  primaryCta: "Get a Free Online Quote",
-  secondaryCta: "Contact Our Team",
+  primaryCta: "Get Production Quote",
+  secondaryCta: "Request DFM Review",
 };
 
 export function AboutCTA() {

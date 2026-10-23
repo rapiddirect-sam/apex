@@ -8,6 +8,7 @@ import { Home3Hero } from "@/components/home3/sections/Home3Hero";
 import { Home3Q4ProjectSupport } from "@/components/home3/sections/Home3Q4ProjectSupport";
 import { CMSProvider } from "@/contexts/CMSContext";
 import { scheduleIdleTask } from "@/lib/scheduleIdleTask";
+import type { LatestResourcePost } from "@/components/home3/sections/Home3LatestResources";
 
 const CMSToolbar = dynamic(
   () => import("@/components/cms").then((m) => ({ default: m.CMSToolbar })),
@@ -25,9 +26,9 @@ const Home3Services = dynamic(() =>
     default: m.Home3Services,
   }))
 );
-const Home3Process = dynamic(() =>
-  import("@/components/home3/sections/Home3Process").then((m) => ({
-    default: m.Home3Process,
+const Home3QuoteWorkflow = dynamic(() =>
+  import("@/components/about/AboutQuoteWorkflow").then((m) => ({
+    default: m.AboutQuoteWorkflow,
   }))
 );
 const Home3WhyChoose = dynamic(() =>
@@ -50,18 +51,29 @@ const Home3Certifications = dynamic(() =>
     default: m.Home3Certifications,
   }))
 );
+const Home3Testimonials = dynamic(() =>
+  import("@/components/home3/sections/Home3Testimonials").then((m) => ({
+    default: m.Home3Testimonials,
+  }))
+);
 const Home3FAQ = dynamic(() =>
   import("@/components/home3/sections/Home3FAQ").then((m) => ({
     default: m.Home3FAQ,
+  }))
+);
+const Home3LatestResources = dynamic(() =>
+  import("@/components/home3/sections/Home3LatestResources").then((m) => ({
+    default: m.Home3LatestResources,
   }))
 );
 
 interface HomePageClientProps {
   initialContent: Record<string, unknown> | null;
   initialVersion: number;
+  latestResources: LatestResourcePost[];
 }
 
-export function HomePageClient({ initialContent, initialVersion }: HomePageClientProps) {
+export function HomePageClient({ initialContent, initialVersion, latestResources }: HomePageClientProps) {
   const [isMobile, setIsMobile] = useState(false);
   const [phase, setPhase] = useState<0 | 1 | 2>(2);
 
@@ -96,10 +108,12 @@ export function HomePageClient({ initialContent, initialVersion }: HomePageClien
         {!isMobile || phase >= 2 ? (
           <>
             <Home3WhyChoose />
-            <Home3Process />
+            <Home3Testimonials />
+            <Home3Certifications />
+            <Home3QuoteWorkflow />
             <Home3Industries />
             <Home3Portfolio />
-            <Home3Certifications />
+            <Home3LatestResources posts={latestResources} />
             <Home3FAQ />
           </>
         ) : null}

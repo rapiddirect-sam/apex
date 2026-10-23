@@ -4,6 +4,7 @@ import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { MaterialsHero } from "@/components/materials/MaterialsHero";
 import { MaterialsContent } from "@/components/materials/MaterialsContent";
+import { MaterialsSourcingControl } from "@/components/materials/MaterialsSourcingControl";
 import { MaterialsCTA } from "@/components/materials/MaterialsCTA";
 import { CMSProvider } from "@/contexts/CMSContext";
 import { CMSToolbar } from "@/components/cms";
@@ -24,6 +25,7 @@ export function MaterialsPageClient({ initialContent, initialVersion }: Material
       <main className="bg-[#000000] min-h-screen">
         <MaterialsHero />
         <MaterialsContent />
+        <MaterialsSourcingControl />
         <MaterialsCTA />
       </main>
       <Home3Footer />

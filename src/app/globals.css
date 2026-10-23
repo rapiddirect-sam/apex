@@ -516,7 +516,18 @@ html.cms-edit-mode a:has([data-editable-text]) {
 
 /* Unified inline links and text CTAs. Their color adapts to the background;
    hover only reveals an underline so link color remains stable. */
-.body-text-link,
+.body-text-link {
+  color: #986116;
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+  text-decoration: none;
+  transition: border-color 160ms ease;
+}
+
+.body-text-link:hover {
+  border-bottom-color: currentColor;
+}
+
 .blog-content a,
 .author-bio a {
   color: #986116;
@@ -527,7 +538,6 @@ html.cms-edit-mode a:has([data-editable-text]) {
   transition: text-decoration-color 160ms ease;
 }
 
-.body-text-link:hover,
 .blog-content a:hover,
 .author-bio a:hover {
   text-decoration-line: underline;
@@ -768,6 +778,13 @@ body:not(:has(.blog-scrollbar-theme)) main :where(h4) {
   font-size: 1rem !important;
   font-weight: 600 !important;
   line-height: 1.35 !important;
+}
+
+body:not(:has(.blog-scrollbar-theme)) main .home-facility-card-title {
+  font-size: clamp(0.625rem, 1vw, 0.8125rem) !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap;
 }
 
 @media (min-width: 768px) {

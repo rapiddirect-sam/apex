@@ -16,7 +16,6 @@ const capabilitiesLinks = [
 const resourceLinks = [
   { href: "/blog", label: "Blog" },
   { href: "/materials", label: "Materials" },
-  { href: "/reviews", label: "Customer Reviews" },
 ];
 
 const aboutLinks = [

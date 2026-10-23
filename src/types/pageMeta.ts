@@ -15,8 +15,8 @@ export interface PageMetaInput {
 // Default meta values for each page
 export const DEFAULT_PAGE_META: Record<string, { title: string; description: string }> = {
   "/": {
-    title: "ApexBatch - Precision CNC Machining & Manufacturing",
-    description: "ApexBatch delivers high-precision CNC machining and manufacturing services for medium-to-large batch production. ISO certified quality management with ±0.01-0.05mm tolerance control.",
+    title: "Precision Batch Manufacturing & Automation | ApexBatch",
+    description: "ApexBatch delivers precision batch manufacturing—from CNC machining and sheet metal fabrication to molding, finishing, assembly and inspection—for pilot builds and repeat production.",
   },
   "/about": {
     title: "About ApexBatch | Production Engineering & Scalable Manufacturing",
@@ -83,8 +83,8 @@ export const DEFAULT_PAGE_META: Record<string, { title: string; description: str
     description: "Comprehensive surface finishing services including anodizing, powder coating, plating, painting, and polishing for all materials.",
   },
   "/materials": {
-    title: "Manufacturing Materials - ApexBatch",
-    description: "Explore our wide range of manufacturing materials including metals, plastics, and composites for CNC machining, injection molding, and more.",
+    title: "Manufacturing Materials for CNC, Molding & Sheet Metal | ApexBatch",
+    description: "Explore metals, engineering plastics and sheet materials for CNC machining, injection molding and fabrication. Compare material options and request a project review.",
   },
   "/privacy-policy": {
     title: "Privacy Policy - ApexBatch",

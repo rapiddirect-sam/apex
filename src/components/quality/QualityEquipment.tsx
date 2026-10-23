@@ -55,6 +55,13 @@ export function QualityEquipment() {
               <EditableText path="equipment.title" defaultValue="Our Precision Measurement and " />
               <span className="text-[#EEC569]"><EditableText path="equipment.titleHighlight" defaultValue="Inspection Equipment" /></span>
             </h2>
+            <p className="body-copy mt-5 max-w-2xl">
+              <EditableText
+                path="equipment.description"
+                defaultValue="Our inspection capability includes CMMs, 2D/3D vision systems, height gauges, XRF analyzers, hardness testers, gauges, micrometers and calipers—supporting dimensional, material and surface-finish verification across applicable production requirements."
+                multiline
+              />
+            </p>
           </div>
         </motion.div>
 

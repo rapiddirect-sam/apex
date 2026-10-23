@@ -20,12 +20,12 @@ const FAQ_ITEMS = [
     answer: "Depending on project requirements, we can provide dimensional inspection reports, FAI reports, material certificates, surface treatment certificates and defined batch traceability records.",
   },
   {
-    question: "Can you follow customer-specific inspection requirements?",
+    question: "Can ApexBatch follow customer-specific inspection requirements?",
     answer: "Yes. Customer drawings, inspection sheets, critical characteristics, sampling requirements and control plans can be reviewed before quotation and incorporated into the project quality plan where feasible.",
   },
   {
-    question: "How are quality concerns handled during production or after delivery?",
-    answer: "Affected material or parts are identified and contained according to the available part, order and batch information. Our team reviews the approved drawing, inspection records, production history and reported issue to determine the affected scope and root cause. Corrective action is implemented and verified where required. If a manufacturing nonconformance attributable to ApexBatch is confirmed, an appropriate resolution such as rework, remake or replacement is arranged according to the applicable order terms.",
+    question: "How does ApexBatch manage nonconforming parts?",
+    answer: "Nonconforming material or parts are identified, segregated and recorded against the available part, order and batch information. Our quality team reviews the approved drawing, inspection records and production history to define the affected scope and root cause. Required corrective action is verified before release. If an ApexBatch manufacturing nonconformance is confirmed, rework, remake or replacement is arranged under the applicable order terms.",
   },
 ];
 

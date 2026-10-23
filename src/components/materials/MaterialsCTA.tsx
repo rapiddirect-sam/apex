@@ -1,160 +1,63 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Wrench, ClipboardCheck, Lightbulb } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { EditableText, EditableImage } from "@/components/cms";
+import { EditableImage, EditableText } from "@/components/cms";
 
 const DEFAULTS = {
-  backgroundImage:
-    "/quality/apexbatch-cnc-machining-workshop-with-operators.webp",
-  heading: "Need Custom Materials or Expert Guidance?",
+  backgroundImage: "/quality/apexbatch-cnc-machining-workshop-with-operators.webp",
+  headingPrefix: "Specify the Right ",
+  headingHighlight: "Material Before Production",
+  headingSuffix: "",
   description:
-    "Our material science experts can help you select, customize, or develop materials for your specific application requirements. Whether you need specialized formulations, custom composites, or technical consultation, we provide tailored solutions for manufacturing challenges.",
-  primaryCta: "Request Material Consultation",
-  secondaryCta: "Explore Custom Material Solutions",
-  features: [
-    {
-      title: "Custom Formulation & Compounding",
-      icon: "wrench",
-    },
-    {
-      title: "Material Testing & Validation",
-      icon: "clipboard",
-    },
-    {
-      title: "Application-Specific Solutions",
-      icon: "lightbulb",
-    },
-  ],
-};
-
-const featureIcons = {
-  wrench: Wrench,
-  clipboard: ClipboardCheck,
-  lightbulb: Lightbulb,
+    "Send your drawing, required material grade and applicable specification. We will review material availability, process compatibility, documentation requirements and the proposed production route before quotation.",
+  primaryCta: "Upload Drawing and Material Specification",
+  secondaryCta: "Discuss Material Requirements",
 };
 
 export function MaterialsCTA() {
   return (
-    <section className="relative overflow-hidden" style={{ padding: "120px 0" }}>
+    <section className="relative flex min-h-[440px] items-center overflow-hidden py-16 sm:min-h-[480px] sm:py-[72px] lg:min-h-[520px] lg:py-[88px]">
       <div className="absolute inset-0">
         <EditableImage
-          path="cta.backgroundImage"
+          path="materialsFinalCta.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
-          alt="Custom Materials"
+          alt="ApexBatch operators working in the CNC machining workshop"
           fill
           sizes="100vw"
+          style={{ objectFit: "cover" }}
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.6) 100%)",
-          }}
-        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/[0.90] via-black/[0.80] to-black/[0.64]" aria-hidden="true" />
       </div>
 
-      <div className="relative max-w-[1200px] mx-auto px-6">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto text-center"
+          className="mx-auto max-w-[920px] text-center"
         >
-          <h2
-            className="text-white"
-            style={{
-              fontSize: "46px",
-              fontWeight: 700,
-              letterSpacing: "-0.015em",
-              lineHeight: 1.1,
-              marginBottom: "18px",
-            }}
-          >
-            <EditableText path="cta.heading" defaultValue={DEFAULTS.heading} />
+          <h2 className="text-[clamp(2.125rem,4vw,3.25rem)] font-bold leading-[1.1] tracking-[-0.015em] text-white">
+            <EditableText path="materialsFinalCta.headingPrefix" defaultValue={DEFAULTS.headingPrefix} />
+            <span className="text-[#EEC569]">
+              <EditableText path="materialsFinalCta.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
+            </span>
+            <EditableText path="materialsFinalCta.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
           </h2>
-          <p
-            style={{
-              fontSize: "18px",
-              lineHeight: 1.6,
-              color: "#C5C6C9",
-              marginBottom: "36px",
-            }}
-          >
-            <EditableText
-              path="cta.description"
-              defaultValue={DEFAULTS.description}
-              multiline
-            />
+
+          <p className="mx-auto mt-6 max-w-[820px] text-base leading-[1.65] text-[#E2E2E3] sm:text-lg">
+            <EditableText path="materialsFinalCta.description" defaultValue={DEFAULTS.description} multiline />
           </p>
 
-          <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
-            <Link
-              href="https://app.apexbatch.com/"
-              className="cta-primary group"
-            >
-              <EditableText
-                path="cta.primaryCta"
-                defaultValue={DEFAULTS.primaryCta}
-              />
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+            <Link href="https://app.apexbatch.com/" className="cta-primary group">
+              <EditableText path="materialsFinalCta.primaryCta" defaultValue={DEFAULTS.primaryCta} />
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </Link>
-            <Link
-              href="/contact"
-              rel="nofollow"
-              className="cta-secondary"
-            >
-              <EditableText
-                path="cta.secondaryCta"
-                defaultValue={DEFAULTS.secondaryCta}
-              />
+            <Link href="/contact" rel="nofollow" className="cta-secondary">
+              <EditableText path="materialsFinalCta.secondaryCta" defaultValue={DEFAULTS.secondaryCta} />
             </Link>
-          </div>
-        </motion.div>
-
-        {/* Feature boxes */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex justify-center"
-          style={{ marginTop: "64px" }}
-        >
-          <div
-            className="grid grid-cols-1 sm:grid-cols-3 gap-12"
-            style={{
-              background: "rgba(30, 30, 30, 0.7)",
-              border: "1px solid rgba(208,153,71,0.2)",
-              borderRadius: "10px",
-              padding: "32px 56px",
-            }}
-          >
-            {DEFAULTS.features.map((feature, index) => {
-              const Icon = featureIcons[feature.icon as keyof typeof featureIcons];
-              return (
-                <div
-                  key={index}
-                  className="flex flex-col items-center text-center"
-                  style={{ gap: "12px", maxWidth: "140px", margin: "0 auto" }}
-                >
-                  <Icon className="w-7 h-7 shrink-0" style={{ color: "#D09947" }} />
-                  <p
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: 600,
-                      color: "#C5C6C9",
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    <EditableText
-                      path={`cta.features.${index}.title`}
-                      defaultValue={feature.title}
-                    />
-                  </p>
-                </div>
-              );
-            })}
           </div>
         </motion.div>
       </div>

@@ -1,48 +1,31 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { EditableImage, EditableText } from "@/components/cms";
-import { QUALITY_CERTIFICATE_IMAGES } from "@/lib/qualityCertificates";
 
 const DEFAULTS = {
   headingPrefix: "Manufacturing Resources for ",
   headingHighlight: "Scalable Production",
   description:
     "Customers can access CNC machining, sheet metal fabrication, injection molding and supporting processes across our self-owned facilities and qualified manufacturing network. Resources are selected according to process fit, production capacity, inspection requirements and delivery priorities.",
-  statsHeading: "Manufacturing at a Glance",
-  stats: [
-    { value: "50,000 m²", label: "Total Manufacturing Footprint" },
-    { value: "8", label: "Specialized Production Workshops" },
-    {
-      value: "650+",
-      label: "Manufacturing, Inspection and Supporting Equipment",
-    },
-    { value: "98%", label: "On-Time Delivery" },
-  ],
-  certifications: {
-    heading: "Certified Management Systems",
-    description:
-      "Defined quality and environmental management systems support consistent production and continuous improvement.",
-    standards: "ISO 9001:2015 · ISO 13485:2016 · ISO 14001:2015",
-    linkLabel: "Explore Quality Assurance",
-  },
-  workshopsHeading: "Inside Our Manufacturing Network",
   workshops: [
     {
       title: "CNC Milling Workshop",
       description:
         "Precision machining for complex metal and plastic components, supported by more than 350 CNC machines and machining equipment across the manufacturing network.",
       image: "/about/apexbatch-cnc-milling-workshop.avif",
+      supportingImage: "/about/apexbatch-five-axis-cnc-machines-operated.avif",
+      supportingImageAlt: "ApexBatch five-axis CNC machines in operation",
     },
     {
       title: "Large-Format Gantry Machining Workshop",
       description:
         "Machining resources for applicable large and complex components.",
       image: "/about/apexbatch-large-format-gantry-machining-workshop.avif",
+      supportingImage: "/about/apexbatch-heavy-machining-tooling-assembly-workshop.avif",
+      supportingImageAlt: "ApexBatch heavy machining tooling and assembly workshop",
     },
     {
       title: "CNC Turning Workshop",
@@ -55,6 +38,8 @@ const DEFAULTS = {
       description:
         "Laser cutting, forming and bending for sheet metal components.",
       image: "/about/apexbatch-sheet-metal-bending-workshop.avif",
+      supportingImage: "/about/apexbatch-amada-cnc-press-brake-sheet-metal-bending.avif",
+      supportingImageAlt: "ApexBatch AMADA CNC press brake for sheet metal bending",
     },
     {
       title: "Laser Welding Workshop",
@@ -67,12 +52,16 @@ const DEFAULTS = {
       description:
         "Plastic-part production using project-specific molds and materials.",
       image: "/about/apexbatch-injection-molding-workshop.avif",
+      supportingImage: "/about/apexbatch-haitian-automated-injection-molding-machines.avif",
+      supportingImageAlt: "ApexBatch Haitian automated injection molding machines",
     },
     {
       title: "Additive Manufacturing Workshop",
       description:
         "3D printing for design validation, engineering samples and applicable production parts.",
       image: "/about/apexbatch-3d-printing-workshop.avif",
+      supportingImage: "/about/apexbatch-blt-a400-metal-3d-printing-machine.avif",
+      supportingImageAlt: "ApexBatch BLT A400 metal 3D printing machine",
     },
     {
       title: "Vacuum Casting Workshop",
@@ -85,42 +74,6 @@ const DEFAULTS = {
     "Our automation focus is applied within the manufacturing process. Where appropriate, dedicated fixtures, inspection aids and process-specific automation are used to improve repeatability, efficiency and production control.",
 };
 
-const CERTIFICATES = [
-  { name: "ISO 9001", image: QUALITY_CERTIFICATE_IMAGES.iso9001 },
-  { name: "ISO 13485", image: QUALITY_CERTIFICATE_IMAGES.iso13485 },
-  { name: "ISO 14001", image: QUALITY_CERTIFICATE_IMAGES.iso14001 },
-];
-
-function Metric({ index }: { index: number }) {
-  const metric = DEFAULTS.stats[index];
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.06 }}
-      className="relative min-w-0 rounded-lg bg-[#0D0D0D] px-3 py-5 text-center sm:px-4"
-    >
-      <span className="absolute left-0 top-0 h-3.5 w-3.5 border-l-2 border-t-2 border-[#D09947]" />
-      <span className="absolute bottom-0 right-0 h-3.5 w-3.5 border-b-2 border-r-2 border-[#D09947]" />
-      <div className="whitespace-nowrap text-[clamp(22px,4vw,30px)] font-bold leading-none tracking-[-0.035em] text-[#EEC569]">
-        <EditableText
-          path={`manufacturingResources.stats.${index}.value`}
-          defaultValue={metric.value}
-        />
-      </div>
-      <div className="mt-2 text-[11px] leading-4 text-[#EEC569] sm:text-xs">
-        <EditableText
-          path={`manufacturingResources.stats.${index}.label`}
-          defaultValue={metric.label}
-          multiline
-        />
-      </div>
-    </motion.div>
-  );
-}
-
 function WorkshopCard({
   index,
   isActive,
@@ -129,10 +82,24 @@ function WorkshopCard({
   isActive: boolean;
 }) {
   const workshop = DEFAULTS.workshops[index];
+  const [showSupportingImage, setShowSupportingImage] = useState(false);
+  const supportingImage =
+    "supportingImage" in workshop ? workshop.supportingImage : undefined;
+  const supportingImageAlt =
+    "supportingImageAlt" in workshop ? workshop.supportingImageAlt : undefined;
+  const displayedImage = showSupportingImage && supportingImage
+    ? supportingImage
+    : workshop.image;
+  const displayedImageAlt = showSupportingImage && supportingImage
+    ? supportingImageAlt ?? `${workshop.title} supporting equipment`
+    : workshop.title;
+  const displayedImagePath = showSupportingImage && supportingImage
+    ? `manufacturingResources.workshops.${index}.supportingImage`
+    : `manufacturingResources.workshops.${index}.image`;
 
   return (
     <article
-      className="h-full overflow-hidden rounded-2xl bg-[#111111]"
+      className="group h-full overflow-hidden rounded-2xl bg-[#111111]"
       style={{
         border: isActive
           ? "2px solid #D09947"
@@ -144,13 +111,70 @@ function WorkshopCard({
     >
       <div className="relative h-[260px] overflow-hidden sm:h-[300px]">
         <EditableImage
-          path={`manufacturingResources.workshops.${index}.image`}
-          defaultSrc={workshop.image}
-          alt={workshop.title}
+          path={displayedImagePath}
+          defaultSrc={displayedImage}
+          alt={displayedImageAlt}
           fill
           sizes="(max-width: 767px) 84vw, 52vw"
           className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
+        {supportingImage ? (
+          <div className="absolute bottom-3 left-3 z-10 flex items-end gap-2 rounded-lg bg-black/70 p-1.5 backdrop-blur-sm">
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                setShowSupportingImage(false);
+              }}
+              aria-pressed={!showSupportingImage}
+              className={`overflow-hidden rounded border transition-colors ${
+                !showSupportingImage
+                  ? "border-[#EEC569]"
+                  : "border-white/25 opacity-75 hover:opacity-100"
+              }`}
+            >
+              <span className="relative block h-10 w-14">
+                <EditableImage
+                  path={`manufacturingResources.workshops.${index}.image`}
+                  defaultSrc={workshop.image}
+                  alt=""
+                  fill
+                  sizes="56px"
+                  className="object-cover"
+                />
+              </span>
+              <span className="sr-only">Show workshop view</span>
+            </button>
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                setShowSupportingImage(true);
+              }}
+              aria-pressed={showSupportingImage}
+              className={`overflow-hidden rounded border transition-colors ${
+                showSupportingImage
+                  ? "border-[#EEC569]"
+                  : "border-white/25 opacity-75 hover:opacity-100"
+              }`}
+            >
+              <span className="relative block h-10 w-14">
+                <EditableImage
+                  path={`manufacturingResources.workshops.${index}.supportingImage`}
+                  defaultSrc={supportingImage}
+                  alt=""
+                  fill
+                  sizes="56px"
+                  className="object-cover"
+                />
+              </span>
+              <span className="sr-only">Show equipment view</span>
+            </button>
+            <span className="pb-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]">
+              {showSupportingImage ? "Equipment" : "Workshop"}
+            </span>
+          </div>
+        ) : null}
       </div>
       <div className="min-h-[178px] p-5 sm:p-6">
         <h4 className="section-card-title section-card-title--accent">
@@ -180,6 +204,7 @@ function getNormalizedDiff(index: number, activeIndex: number, length: number) {
 
 export function AboutManufacturingHub() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const swipeStartX = useRef<number | null>(null);
   const itemCount = DEFAULTS.workshops.length;
 
   const goTo = useCallback(
@@ -188,6 +213,22 @@ export function AboutManufacturingHub() {
     },
     [itemCount]
   );
+
+  const handleTouchStart = (event: React.TouchEvent) => {
+    swipeStartX.current = event.touches[0]?.clientX ?? null;
+  };
+
+  const handleTouchEnd = (event: React.TouchEvent) => {
+    const startX = swipeStartX.current;
+    const endX = event.changedTouches[0]?.clientX;
+    swipeStartX.current = null;
+
+    if (startX === null || endX === undefined || Math.abs(endX - startX) < 48) {
+      return;
+    }
+
+    goTo(activeIndex + (endX < startX ? 1 : -1));
+  };
 
   const getCardLayout = (diff: number) => {
     const cardWidth = "52%";
@@ -262,98 +303,12 @@ export function AboutManufacturingHub() {
           </p>
         </motion.div>
 
-        <div className="mt-10 grid items-stretch gap-5 lg:grid-cols-[1.15fr_0.85fr]">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="rounded-2xl bg-[#1A1A1A] p-5 sm:p-7"
+        <div className="mt-10 md:mt-14">
+          <div
+            className="md:hidden"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
-            <h3 className="text-2xl font-bold text-white">
-              <EditableText
-                path="manufacturingResources.statsHeading"
-                defaultValue={DEFAULTS.statsHeading}
-              />
-            </h3>
-            <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4">
-              {DEFAULTS.stats.map((_, index) => (
-                <Metric key={index} index={index} />
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col rounded-2xl bg-[#1A1A1A] p-5 sm:p-7"
-          >
-            <h3 className="text-2xl font-bold text-white">
-              <EditableText
-                path="manufacturingResources.certifications.heading"
-                defaultValue={DEFAULTS.certifications.heading}
-              />
-            </h3>
-            <p className="body-copy mt-3">
-              <EditableText
-                path="manufacturingResources.certifications.description"
-                defaultValue={DEFAULTS.certifications.description}
-                multiline
-              />
-            </p>
-
-            <div className="mt-5 flex items-center justify-center gap-2 sm:gap-3">
-              {CERTIFICATES.map((certificate) => (
-                <div
-                  key={certificate.name}
-                  className="relative h-[112px] w-[84px] overflow-hidden rounded-md sm:h-[128px] sm:w-[96px]"
-                >
-                  <Image
-                    src={certificate.image}
-                    alt={`${certificate.name} certificate`}
-                    fill
-                    sizes="96px"
-                    className="object-contain"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <p className="mt-4 text-center text-xs font-semibold leading-5 text-[#EEC569] sm:text-sm">
-              <EditableText
-                path="manufacturingResources.certifications.standards"
-                defaultValue={DEFAULTS.certifications.standards}
-              />
-            </p>
-            <div className="mt-auto pt-5 text-center">
-              <Link
-                href="/quality"
-                className="body-text-link body-text-link--dark text-sm"
-              >
-                <EditableText
-                  path="manufacturingResources.certifications.linkLabel"
-                  defaultValue={DEFAULTS.certifications.linkLabel}
-                />{" "}
-                →
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-
-        <div className="mt-16 md:mt-24">
-          <motion.h3
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center text-[26px] font-bold tracking-[-0.02em] text-white sm:text-[32px] lg:text-[36px]"
-          >
-            <EditableText
-              path="manufacturingResources.workshopsHeading"
-              defaultValue={DEFAULTS.workshopsHeading}
-            />
-          </motion.h3>
-
-          <div className="mt-8 md:hidden">
             <WorkshopCard index={activeIndex} isActive />
 
             <div className="mt-5 flex items-center justify-center gap-3">
@@ -394,7 +349,7 @@ export function AboutManufacturingHub() {
             </div>
           </div>
 
-          <div className="relative mt-10 hidden md:block">
+          <div className="relative mt-8 hidden md:block">
             <button
               type="button"
               onClick={() => goTo(activeIndex - 1)}
@@ -412,7 +367,11 @@ export function AboutManufacturingHub() {
               <ChevronRight className="h-5 w-5 text-[#D09947]" />
             </button>
 
-            <div className="relative h-[510px] overflow-hidden">
+            <div
+              className="relative h-[510px] overflow-hidden touch-pan-y"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
               {DEFAULTS.workshops.map((workshop, index) => {
                 const diff = getNormalizedDiff(index, activeIndex, itemCount);
                 const layout = getCardLayout(diff);
@@ -420,13 +379,21 @@ export function AboutManufacturingHub() {
                 const isAdjacent = Math.abs(diff) === 1;
 
                 return (
-                  <motion.button
+                  <motion.div
                     key={workshop.title}
-                    type="button"
                     onClick={() => isAdjacent && goTo(index)}
-                    aria-label={
-                      isActive ? workshop.title : `View ${workshop.title}`
-                    }
+                    role={isAdjacent ? "button" : undefined}
+                    tabIndex={isAdjacent ? 0 : undefined}
+                    onKeyDown={(event) => {
+                      if (
+                        isAdjacent &&
+                        (event.key === "Enter" || event.key === " ")
+                      ) {
+                        event.preventDefault();
+                        goTo(index);
+                      }
+                    }}
+                    aria-label={isAdjacent ? `View ${workshop.title}` : undefined}
                     className="group absolute top-0 border-0 bg-transparent p-0 text-left"
                     initial={false}
                     animate={layout}
@@ -441,7 +408,7 @@ export function AboutManufacturingHub() {
                     }}
                   >
                     <WorkshopCard index={index} isActive={isActive} />
-                  </motion.button>
+                  </motion.div>
                 );
               })}
             </div>

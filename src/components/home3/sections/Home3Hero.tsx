@@ -15,26 +15,24 @@ function createLogoPlaceholder(label: string): string {
 }
 
 const DEFAULTS = {
-  badge: "Precision Engineering",
-  headingLine1: "EVERY INDUSTRIAL CHALLENGE,",
-  headingLine2: "AN APEX SOLUTION",
+  headingLine1: "Every Industrial Challenge,",
+  headingLine2: "An Apex Solution.",
   description:
-    "We're your full-service manufacturing partner. With in-house CNC machining, sheet metal fabrication and extensive multi-molding capabilities, from pre-production prototyping to full-scale manufacturing.",
-  ctaPrimary: "Get Sample Quote",
-  ctaSecondary: "Get Production Quote",
+    "From pilot builds to repeat production, ApexBatch integrates precision machining, fabrication, molding, finishing and assembly—giving complex manufacturing programs greater control, repeatable quality and scalable capacity.",
+  ctaPrimary: "Get Production Quote",
+  ctaSecondary: "Request DFM Review",
   backgroundImage: getImageUrl("home/1-homepage-banner.webp"),
   certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 4001:2015"],
   features: [
-    { highlight: "Fast Quotes:", text: "2-Hour Response Time" },
-    { highlight: "±0.01-0.05mm", text: "Precision control" },
-    { highlight: "ISO-certified", text: "Quality system" },
-    { highlight: "End-to-End", text: "Turnkey Solutions" },
-    { highlight: "Free Expert", text: "Technical Support for All Projects" },
+    "Fast Engineering Review & Quotation",
+    "Precision Down to 0.003 mm",
+    "Integrated Manufacturing, One Accountable Partner",
+    "Complimentary Production-Ready DFM Review",
   ],
   stats: [
-    { value: "15+", label: "Years of Precision Manufacturing Experience" },
-    { value: "50K", label: "SKU Projects Delivered for Global Clients" },
-    { value: "99.8%", label: "First-time Accuracy Rate (Global Benchmark)" },
+    { value: "350+", label: "CNC Machines" },
+    { value: "50K", label: "Projects Delivered for Global Clients" },
+    { value: "98%", label: "On-Time Delivery" },
   ],
   logos: [
     { alt: "Stryker", src: createLogoPlaceholder("stryker") },
@@ -79,25 +77,16 @@ export function Home3Hero() {
       <div className="relative max-w-[1240px] mx-auto px-6 lg:px-8 min-h-[calc(84vh-80px)] flex items-center">
         <div className="grid grid-cols-12 gap-6 lg:gap-8 w-full py-14 lg:py-16">
           <div className="col-span-12 lg:col-span-7">
-            <div className="inline-flex items-center px-3 py-1.5 border border-[#D09947]/35 rounded-md mb-5 bg-black/35">
-              <span className="text-[#D09947] text-[10px] font-semibold uppercase tracking-[0.2em]">
-                <EditableText
-                  path="hero.badge"
-                  defaultValue={DEFAULTS.badge}
-                />
-              </span>
-            </div>
-
-            <h1 className="text-[36px] sm:text-[42px] md:text-[54px] lg:text-[56px] font-extrabold leading-[0.98] tracking-tight uppercase mb-5">
+            <h1 className="text-[36px] sm:text-[42px] md:text-[54px] lg:text-[56px] font-extrabold leading-[0.98] tracking-tight mb-5">
               <span className="block text-white mb-1">
                 <EditableText
-                  path="hero.headingLine1"
+                  path="homeHeroContent.headingLine1"
                   defaultValue={DEFAULTS.headingLine1}
                 />
               </span>
               <span className="block text-[#E2B45A]">
                 <EditableText
-                  path="hero.headingLine2"
+                  path="homeHeroContent.headingLine2"
                   defaultValue={DEFAULTS.headingLine2}
                 />
               </span>
@@ -105,7 +94,7 @@ export function Home3Hero() {
 
             <p className="text-[#D1D1D1] text-[15px] lg:text-base max-w-xl mb-7 leading-relaxed">
               <EditableText
-                path="hero.description"
+                path="homeHeroContent.description"
                 defaultValue={DEFAULTS.description}
                 multiline
               />
@@ -157,7 +146,7 @@ export function Home3Hero() {
                 }}
               >
                 <EditableText
-                  path="hero.ctaPrimary"
+                  path="homeHeroContent.ctaPrimary"
                   defaultValue={DEFAULTS.ctaPrimary}
                 />
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -168,7 +157,7 @@ export function Home3Hero() {
                 className="cta-secondary shadow-[0_8px_20px_rgba(0,0,0,0.35)]"
               >
                 <EditableText
-                  path="hero.ctaSecondary"
+                  path="homeHeroContent.ctaSecondary"
                   defaultValue={DEFAULTS.ctaSecondary}
                 />
               </Link>
@@ -180,20 +169,14 @@ export function Home3Hero() {
               <div className="absolute -top-16 -right-16 w-40 h-40 bg-[#D09947]/15 rounded-full blur-3xl" />
               <ul className="space-y-3.5 mb-6 relative">
                 {DEFAULTS.features.map((feature, index) => (
-                  <li key={index} className="flex items-center gap-2.5">
+                  <li key={feature} className="flex items-center gap-2.5">
                     <div className="w-5 h-5 rounded-full bg-[#EEC569] flex items-center justify-center flex-shrink-0">
                       <Check className="w-3 h-3 text-[#191919]" strokeWidth={3} />
                     </div>
                     <span className="text-[#E5E5E5] text-[14px] leading-tight">
-                      <span className="text-[#E2B45A] font-semibold">
-                        <EditableText
-                          path={`hero.features.${index}.highlight`}
-                          defaultValue={feature.highlight}
-                        />
-                      </span>{" "}
                       <EditableText
-                        path={`hero.features.${index}.text`}
-                        defaultValue={feature.text}
+                        path={`homeHeroContent.features.${index}`}
+                        defaultValue={feature}
                       />
                     </span>
                   </li>
@@ -205,13 +188,13 @@ export function Home3Hero() {
                   <div key={index} className="text-center">
                     <div className="text-[#E2B45A] text-[32px] font-bold leading-none">
                       <EditableText
-                        path={`hero.stats.${index}.value`}
+                        path={`homeHeroContent.stats.${index}.value`}
                         defaultValue={stat.value}
                       />
                     </div>
                     <div className="text-[#B3B3B3] text-[10px] mt-1 leading-tight">
                       <EditableText
-                        path={`hero.stats.${index}.label`}
+                        path={`homeHeroContent.stats.${index}.label`}
                         defaultValue={stat.label}
                       />
                     </div>

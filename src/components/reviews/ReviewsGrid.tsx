@@ -94,6 +94,8 @@ const DEFAULTS = {
   ],
 };
 
+export const REVIEW_DATA = DEFAULTS.reviews;
+
 export function ReviewsGrid() {
   const [visibleCount, setVisibleCount] = useState(6);
 

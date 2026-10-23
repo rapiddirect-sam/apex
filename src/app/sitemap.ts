@@ -32,7 +32,6 @@ const ROUTE_CONFIG: Record<
 > = {
   "/": { changeFrequency: "weekly", priority: 1.0 },
   "/blog": { changeFrequency: "daily", priority: 0.9 },
-  "/reviews": { changeFrequency: "weekly", priority: 0.7 },
   "/privacy-policy": { changeFrequency: "yearly", priority: 0.3 },
   "/terms-and-conditions": { changeFrequency: "yearly", priority: 0.3 },
 };

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { EditableImage, EditableText } from "@/components/cms";
 
 const DEFAULTS = {
@@ -8,6 +9,8 @@ const DEFAULTS = {
   headingHighlight: "Focused on Production.",
   description:
     "ApexBatch builds on manufacturing capabilities developed in Shenzhen since 2009. Based in Shenzhen, China, our engineering, production, quality and supply-chain teams bring together the resources and experience to support industrial customers at scale.",
+  certificationText:
+    "Our production operations are supported by ISO 9001:2015, ISO 13485:2016 and ISO 14001:2015 management systems.",
   images: {
     production: "/about/apexbatch-cnc-machining-production-floor-with-operator.avif",
     office: "/about/apexbatch-staff-working-in-office.avif",
@@ -48,6 +51,19 @@ export function AboutCapabilities() {
                 multiline
               />
             </p>
+            <p className="mt-5">
+              <EditableText
+                path="experience.certificationText"
+                defaultValue={DEFAULTS.certificationText}
+                multiline
+              />
+            </p>
+            <Link
+              href="/quality"
+              className="body-text-link body-text-link--dark mt-5 inline-flex items-center gap-2 text-sm"
+            >
+              Explore Quality Assurance <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </motion.div>
 

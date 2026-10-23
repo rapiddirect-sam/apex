@@ -6,14 +6,14 @@ import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
   backgroundImage:
-    "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp",
+    "/images/materials/materials-hero.avif",
   headingLine1: "ApexBatch",
   headingLine2: "Materials Library",
   description:
     "Comprehensive selection of metals, plastics, and special alloys for CNC machining, injection molding, sheet metal fabrication, and 3D printing. Find the perfect material for your manufacturing needs.",
   stats: [
-    { value: "24", label: "Material Types" },
-    { value: "15+", label: "Material Categories" },
+    { value: "25+", label: "Material Types" },
+    { value: "8", label: "Material Families" },
     { value: "50+", label: "Surface Treatments" },
     { value: "10+", label: "Manufacturing Processes" },
   ],
@@ -24,7 +24,7 @@ export function MaterialsHero() {
     <section className="relative bg-[#000000] pt-16 overflow-hidden">
       <div className="relative w-full" style={{ minHeight: "640px" }}>
         <EditableImage
-          path="hero.backgroundImage"
+          path="materialsHero.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
           alt="Materials library hero background"
           fill

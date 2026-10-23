@@ -1,59 +1,61 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Check, ArrowRight } from "lucide-react";
-import { getImageUrl } from "@/lib/utils";
-import { EditableText, EditableImage } from "@/components/cms";
+import { ArrowRight, Check, ChevronLeft, ChevronRight } from "lucide-react";
+import { EditableImage, EditableText } from "@/components/cms";
 
 const DEFAULTS = {
   titleWhite: "Why Engineers ",
   titleHighlight: "Choose ApexBatch",
-  ctaText: "Get Free engineering review before production.",
-  ctaButton: "Upload Your Design",
-  slides: [
+  ctaText: "Need an engineering and inspection review before quotation?",
+  ctaButton: "Request DFM Review",
+  image: "/images/home/apexbatch-engineering-review-production-planning-meeting.webp",
+  imageAlt: "ApexBatch engineering team reviewing production planning requirements",
+  items: [
     {
-      image: getImageUrl("home/4-why-choose-us-1.webp"),
       number: "01",
-      title: "Comprehensive Free Services",
+      title: "Solve Problems Before Production",
       description:
-        "Full-spectrum support including DFM analysis, process optimization, design validation, and quality inspection. Reduce trial costs with free engineering verification.",
+        "Get practical DFM feedback before quotation—so manufacturability risks, critical dimensions and finish requirements are addressed early.",
     },
     {
-      image: getImageUrl("home/4-why-choose-us-2.webp"),
       number: "02",
-      title: "Expert Engineering Team",
+      title: "Clear Ownership from Quote to Delivery",
       description:
-        "Our team of experienced engineers provides technical consultation and design optimization to ensure manufacturability and cost-effectiveness.",
+        "One project contact keeps drawing revisions, technical questions and production updates connected—so decisions do not get lost between suppliers.",
     },
     {
-      image: getImageUrl("home/4-why-choose-us-3.webp"),
       number: "03",
-      title: "Quality Guaranteed",
+      title: "Quality You Can Verify",
       description:
-        "ISO-certified processes with rigorous quality control at every stage. Full documentation and traceability for all production runs.",
+        "From inspection planning to agreed documentation, we build measurable quality controls around the features that matter to your part.",
     },
     {
-      image: getImageUrl("home/4-why-choose-us-4.webp"),
       number: "04",
-      title: "Fast Turnaround",
+      title: "Built to Move Beyond the First Batch",
       description:
-        "Rapid prototyping and efficient production scheduling. Get your parts delivered on time, every time with our streamlined processes.",
+        "Start with pilot builds, then carry approved processes, inspection requirements and delivery planning into repeat production.",
     },
   ],
 };
 
 export function Home3WhyChoose() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const currentItem = DEFAULTS.items[currentSlide];
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % DEFAULTS.slides.length);
+  const goTo = (index: number) => {
+    setCurrentSlide((index + DEFAULTS.items.length) % DEFAULTS.items.length);
   };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + DEFAULTS.slides.length) % DEFAULTS.slides.length);
-  };
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setCurrentSlide((index) => (index + 1) % DEFAULTS.items.length);
+    }, 10000);
+
+    return () => window.clearInterval(timer);
+  }, []);
 
   return (
     <section
@@ -67,18 +69,17 @@ export function Home3WhyChoose() {
             rgba(249,235,188,0.08),
             rgba(0,0,0,0) 65%
           ),
-          #000000
+          #2B2826
         `,
       }}
     >
-      <div className="max-w-[1200px] mx-auto px-6">
-        {/* Section Header */}
+      <div className="mx-auto max-w-[1200px] px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center"
-          style={{ marginBottom: "64px" }}
+          style={{ marginBottom: "56px" }}
         >
           <h2
             className="text-white"
@@ -88,269 +89,127 @@ export function Home3WhyChoose() {
               letterSpacing: "-0.015em",
             }}
           >
-            <EditableText
-              path="whyChoose.titleWhite"
-              defaultValue={DEFAULTS.titleWhite}
-            />
+            <EditableText path="whyChoose.titleWhite" defaultValue={DEFAULTS.titleWhite} />
             <span style={{ color: "#EEC569" }}>
-              <EditableText
-                path="whyChoose.titleHighlight"
-                defaultValue={DEFAULTS.titleHighlight}
-              />
+              <EditableText path="whyChoose.titleHighlight" defaultValue={DEFAULTS.titleHighlight} />
             </span>
           </h2>
         </motion.div>
 
-        {/* Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-10 items-start">
-          {/* Left - Image Carousel with industrial framing */}
+        <div className="grid items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative"
+            className="relative min-h-[320px] overflow-hidden rounded-2xl border-2 border-[#7F4D0F] bg-[#171717] shadow-[inset_0_0_0_1px_rgba(208,153,71,0.15),0_24px_48px_rgba(0,0,0,0.6)] lg:min-h-0"
           >
-            {/* Main image container with industrial framing */}
-            <div
-              className="relative"
-              style={{
-                borderRadius: "16px",
-                border: "2px solid #7F4D0F",
-                boxShadow: "inset 0 0 0 1px rgba(208,153,71,0.15), 0 24px 48px rgba(0,0,0,0.6)",
-                overflow: "hidden",
-              }}
-            >
-              {/* Corner brackets - precision tooling indicators */}
-              <div
-                className="absolute top-3 left-3 z-10"
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderTop: "2px solid #7F4D0F",
-                  borderLeft: "2px solid #7F4D0F",
-                }}
-              />
-              <div
-                className="absolute top-3 right-3 z-10"
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderTop: "2px solid #7F4D0F",
-                  borderRight: "2px solid #7F4D0F",
-                }}
-              />
-              <div
-                className="absolute bottom-3 left-3 z-10"
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderBottom: "2px solid #7F4D0F",
-                  borderLeft: "2px solid #7F4D0F",
-                }}
-              />
-              <div
-                className="absolute bottom-3 right-3 z-10"
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderBottom: "2px solid #7F4D0F",
-                  borderRight: "2px solid #7F4D0F",
-                }}
-              />
-
-              {/* Image */}
-              <div className="relative aspect-[4/3]">
-                <EditableImage
-                  path={`whyChoose.slides.${currentSlide}.image`}
-                  defaultSrc={DEFAULTS.slides[currentSlide].image}
-                  alt="Manufacturing facility"
-                  fill
-                  style={{ objectFit: "cover" }}
-                />
-
-                {/* Navigation Arrows - Industrial rectangular style */}
-                <button
-                  onClick={prevSlide}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300 hover:bg-[rgba(208,153,71,0.15)]"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "8px",
-                    background: "rgba(0,0,0,0.75)",
-                    border: "1px solid rgba(208,153,71,0.4)",
-                  }}
-                >
-                  <ChevronLeft className="w-5 h-5" style={{ color: "#D09947" }} />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300 hover:bg-[rgba(208,153,71,0.15)]"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "8px",
-                    background: "rgba(0,0,0,0.75)",
-                    border: "1px solid rgba(208,153,71,0.4)",
-                  }}
-                >
-                  <ChevronRight className="w-5 h-5" style={{ color: "#D09947" }} />
-                </button>
-              </div>
-            </div>
-
-            {/* Dot Indicators */}
-            <div className="flex justify-center gap-2 mt-5">
-              {DEFAULTS.slides.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className="h-1 rounded-full transition-all"
-                  style={{
-                    width: index === currentSlide ? "24px" : "12px",
-                    background: index === currentSlide ? "#D09947" : "#444444",
-                  }}
-                />
-              ))}
-            </div>
+            <EditableImage
+              path="homeWhyChoose.image"
+              defaultSrc={DEFAULTS.image}
+              alt={DEFAULTS.imageAlt}
+              fill
+              sizes="(max-width: 1023px) 100vw, 50vw"
+              className="object-cover"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
           </motion.div>
 
-          {/* Right - Content Panel (Spec Sheet Style) */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.12 }}
+            className="flex flex-col"
           >
-            {/* Content Panel with glass effect */}
-            <div
-              className="mb-6"
-              style={{
-                background: "linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
-                borderRadius: "16px",
-                border: "1px solid rgba(208,153,71,0.2)",
-                padding: "32px",
-              }}
-            >
-              {/* Section Number - structural anchor */}
-              <div
-                style={{
-                  fontSize: "48px",
-                  fontWeight: 700,
-                  color: "rgba(208,153,71,0.35)",
-                  lineHeight: 1,
-                  marginBottom: "8px",
-                }}
+            <div className="sr-only">
+              {DEFAULTS.items.map((item) => (
+                <h3 key={item.number}>{item.title}</h3>
+              ))}
+            </div>
+            <div className="flex min-h-[320px] flex-1 flex-col rounded-2xl border border-[#D09947]/20 bg-white/[0.035] p-7 sm:p-8 lg:min-h-0">
+              <motion.div
+                key={currentItem.number}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25 }}
               >
-                <EditableText
-                  path={`whyChoose.slides.${currentSlide}.number`}
-                  defaultValue={DEFAULTS.slides[currentSlide].number}
-                />
-              </div>
-
-              {/* Title */}
-              <h3
-                style={{
-                  fontSize: "24px",
-                  fontWeight: 600,
-                  color: "#D09947",
-                  marginBottom: "16px",
-                }}
-              >
-                <EditableText
-                  path={`whyChoose.slides.${currentSlide}.title`}
-                  defaultValue={DEFAULTS.slides[currentSlide].title}
-                />
-              </h3>
-
-              {/* Checkbox with description */}
-              <div className="flex items-start gap-4">
-                <div
-                  className="flex items-center justify-center flex-shrink-0 mt-1"
-                  style={{
-                    width: "24px",
-                    height: "24px",
-                    border: "2px solid #D09947",
-                    background: "rgba(208,153,71,0.1)",
-                  }}
-                >
-                  <Check className="w-4 h-4" style={{ color: "#D09947" }} />
-                </div>
-                <p
-                  style={{
-                    fontSize: "15.5px",
-                    lineHeight: 1.65,
-                    color: "#C5C6C9",
-                    maxWidth: "90%",
-                  }}
-                >
+                <div className="text-5xl font-bold leading-none text-[#D09947]/35">
                   <EditableText
-                    path={`whyChoose.slides.${currentSlide}.description`}
-                    defaultValue={DEFAULTS.slides[currentSlide].description}
-                    multiline
+                    path={`homeWhyChoose.items.${currentSlide}.number`}
+                    defaultValue={currentItem.number}
+                  />
+                </div>
+                <p className="mt-5 text-2xl font-semibold text-[#D09947]">
+                  <EditableText
+                    path={`homeWhyChoose.items.${currentSlide}.title`}
+                    defaultValue={currentItem.title}
                   />
                 </p>
-              </div>
-            </div>
+                <div className="mt-5 flex items-start gap-4">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center border-2 border-[#D09947] bg-[#D09947]/10">
+                    <Check className="h-4 w-4 text-[#D09947]" aria-hidden="true" />
+                  </span>
+                  <p className="body-copy max-w-[34rem]">
+                    <EditableText
+                      path={`homeWhyChoose.items.${currentSlide}.description`}
+                      defaultValue={currentItem.description}
+                      multiline
+                    />
+                  </p>
+                </div>
+              </motion.div>
 
-            {/* Thumbnail Images - Dataset reference style */}
-            <div className="grid grid-cols-4 gap-3">
-              {DEFAULTS.slides.map((slide, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className="relative aspect-square overflow-hidden transition-all duration-300"
-                  style={{
-                    borderRadius: "8px",
-                    border: index === currentSlide
-                      ? "1px solid #D09947"
-                      : "1px solid rgba(208,153,71,0.25)",
-                    opacity: index === currentSlide ? 1 : 0.65,
-                  }}
-                >
-                  <EditableImage
-                    path={`whyChoose.slides.${index}.image`}
-                    defaultSrc={slide.image}
-                    alt={`Thumbnail ${index + 1}`}
-                    fill
-                    style={{ objectFit: "cover" }}
-                  />
-                </button>
-              ))}
+              <div className="mt-auto flex items-center justify-between gap-4 pt-8">
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => goTo(currentSlide - 1)}
+                    aria-label="Previous reason"
+                    className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#D09947]/40 bg-black/60 transition-colors hover:bg-[#D09947]/15"
+                  >
+                    <ChevronLeft className="h-5 w-5 text-[#D09947]" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => goTo(currentSlide + 1)}
+                    aria-label="Next reason"
+                    className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#D09947]/40 bg-black/60 transition-colors hover:bg-[#D09947]/15"
+                  >
+                    <ChevronRight className="h-5 w-5 text-[#D09947]" />
+                  </button>
+                </div>
+                <div className="flex items-center gap-2">
+                  {DEFAULTS.items.map((item, index) => (
+                    <button
+                      key={item.number}
+                      type="button"
+                      onClick={() => goTo(index)}
+                      aria-label={`Show reason ${index + 1}`}
+                      className="h-1 rounded-full transition-all"
+                      style={{
+                        width: index === currentSlide ? "24px" : "12px",
+                        background: index === currentSlide ? "#D09947" : "#444444",
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center"
-          style={{ marginTop: "48px" }}
+          className="mt-12 text-center"
         >
-          <p
-            className="mb-5"
-            style={{
-              fontSize: "25px",
-              fontWeight: 700,
-              color: "#FFFFFF",
-            }}
-          >
-            <EditableText
-              path="whyChoose.ctaText"
-              defaultValue={DEFAULTS.ctaText}
-            />
+          <p className="body-copy mb-5">
+            <EditableText path="homeWhyChoose.ctaText" defaultValue={DEFAULTS.ctaText} />
           </p>
-          <Link
-            href="https://app.apexbatch.com/"
-            rel="nofollow"
-            className="bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center gap-2 group"
-          >
-            <EditableText
-              path="whyChoose.ctaButton"
-              defaultValue={DEFAULTS.ctaButton}
-            />
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          <Link href="/contact" rel="nofollow" className="cta-primary group">
+            <EditableText path="homeWhyChoose.ctaButton" defaultValue={DEFAULTS.ctaButton} />
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </motion.div>
       </div>

@@ -7,11 +7,11 @@ import { getImageUrl } from "@/lib/utils";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  titleWhite: "Our ",
-  titleHighlight: "Services",
+  titleWhite: "Our Manufacturing ",
+  titleHighlight: "Capabilities",
   subtitle: "Everything You Need to Move from Design to Production",
   ctaText: "Need a custom solution?",
-  ctaButton: "Get Instant Quote",
+  ctaButton: "Consult Us",
   services: [
     {
       title: "CNC Machining",
@@ -35,7 +35,7 @@ const DEFAULTS = {
       href: "/injection-molding",
     },
     {
-      title: "Metal Molding",
+      title: "Metal Forming & Casting",
       description: "Cost-effective metal forming solutions for complex shapes and high-volume production.",
       image: getImageUrl("home/3-our-services-extrusion.webp"),
       tags: ["Extrusion", "Die Casting", "Post-Machining"],
@@ -83,22 +83,19 @@ export function Home3Services() {
             }}
           >
             <EditableText
-              path="services.titleWhite"
+              path="homeServices.titleWhite"
               defaultValue={DEFAULTS.titleWhite}
             />
             <span style={{ color: "#EEC569" }}>
               <EditableText
-                path="services.titleHighlight"
+                path="homeServices.titleHighlight"
                 defaultValue={DEFAULTS.titleHighlight}
               />
             </span>
           </h2>
           <p
-            className="mx-auto"
+            className="service-section-copy mx-auto"
             style={{
-              fontSize: "18px",
-              lineHeight: 1.6,
-              color: "#7A7A7C",
               maxWidth: "760px",
               marginTop: "18px",
             }}
@@ -181,7 +178,11 @@ export function Home3Services() {
                   }}
                 >
                   <EditableText
-                    path={`services.items.${index}.title`}
+                    path={
+                      index === 3
+                        ? "homeServices.items.3.title"
+                        : `services.items.${index}.title`
+                    }
                     defaultValue={service.title}
                   />
                 </h3>
@@ -218,7 +219,11 @@ export function Home3Services() {
                       }}
                     >
                       <EditableText
-                        path={`services.items.${index}.tags.${tagIndex}`}
+                        path={
+                          index === 2 && tagIndex === 0
+                            ? "homeServices.items.2.tags.0"
+                            : `services.items.${index}.tags.${tagIndex}`
+                        }
                         defaultValue={tag}
                       />
                     </span>
@@ -229,32 +234,15 @@ export function Home3Services() {
                 {service.href ? (
                   <Link
                     href={service.href}
-                    className="inline-flex items-center gap-1.5 transition-colors hover:text-[#F5D89A]"
+                    className="body-text-link body-text-link--dark inline-flex items-center gap-1.5 text-sm font-medium"
                     style={{
                       marginTop: "4px",
-                      fontWeight: 500,
-                      color: "#EEC569",
-                      fontSize: "14px",
                     }}
                   >
                     Learn More
                     <ArrowRight className="w-4 h-4" />
                   </Link>
-                ) : (
-                  <a
-                    href="#"
-                    className="inline-flex items-center gap-1.5 transition-colors hover:text-[#F5D89A]"
-                    style={{
-                      marginTop: "4px",
-                      fontWeight: 500,
-                      color: "#EEC569",
-                      fontSize: "14px",
-                    }}
-                  >
-                    Learn More
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
-                )}
+                ) : null}
               </div>
             </motion.div>
           ))}
@@ -284,15 +272,12 @@ export function Home3Services() {
           </p>
           <div className="inline-block">
             <Link
-              href="https://app.apexbatch.com/"
+              href="/contact"
               rel="nofollow"
-              className="bg-[#E2B45A] hover:bg-[#F3C86D] text-[#111111] font-semibold py-5 px-12 rounded-xl text-base transition-all uppercase tracking-[0.16em] inline-flex items-center gap-2.5 group"
-              style={{
-                boxShadow: "0 8px 24px rgba(226,180,90,0.5)",
-              }}
+              className="cta-primary group"
             >
               <EditableText
-                path="services.ctaButton"
+                path="homeServices.ctaButton"
                 defaultValue={DEFAULTS.ctaButton}
               />
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
