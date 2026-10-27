@@ -6,6 +6,12 @@ import { SMHero } from "@/components/sheet-metal/SMHero";
 import { SMSupplier } from "@/components/sheet-metal/SMSupplier";
 import { SMServices } from "@/components/sheet-metal/SMServices";
 import { SMParts } from "@/components/sheet-metal/SMParts";
+import { SMCustomParts } from "@/components/sheet-metal/SMCustomParts";
+import { SMApplications } from "@/components/sheet-metal/SMApplications";
+import { SMFacility } from "@/components/sheet-metal/SMFacility";
+import { SMAdvantages } from "@/components/sheet-metal/SMAdvantages";
+import { SMQuoteProcess } from "@/components/sheet-metal/SMQuoteProcess";
+import { SMFAQ } from "@/components/sheet-metal/SMFAQ";
 import { SMWhyChoose } from "@/components/sheet-metal/SMWhyChoose";
 import { SMProcess } from "@/components/sheet-metal/SMProcess";
 import { SMTolerance } from "@/components/sheet-metal/SMTolerance";
@@ -27,13 +33,19 @@ export function SMPageClient({ initialContent, initialVersion }: SMPageClientPro
       <main>
         <SMHero />
         <SMServices />
-        <SMParts />
         <SMTolerance />
         <SMSupplier />
-        <SMWhyChoose />
-        <SMProcess />
         <SMMaterials />
         <SMSurfaceFinishes />
+        <SMCustomParts />
+        <SMApplications />
+        <SMProcess />
+        <SMParts />
+        <SMFacility />
+        <SMAdvantages />
+        <SMWhyChoose />
+        <SMQuoteProcess />
+        <SMFAQ />
         <SMCTA />
       </main>
       <Home3Footer />

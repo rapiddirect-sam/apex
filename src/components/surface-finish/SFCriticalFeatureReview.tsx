@@ -31,7 +31,7 @@ export function SFCriticalFeatureReview() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mx-auto max-w-[880px] text-center"
+          className="max-w-[880px] text-left lg:mx-auto lg:text-center"
         >
           <h2 className="service-section-title">
             <EditableText

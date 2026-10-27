@@ -7,53 +7,48 @@ import { useState } from "react";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  heading: "Sheet Metal ",
-  headingHighlight: "Materials",
+  heading: "Materials for Custom Sheet Metal ",
+  headingHighlight: "Parts",
+  description:
+    "Material choice affects weight, corrosion resistance, bendability, weldability, appearance, available finishes, lead time, and cost. The same geometry can require a different bend radius, tooling approach, or finish route when the material changes.",
+  scopeNote:
+    "A material that works well for a flat bracket may need a different production route when tight bends, welding, cosmetic requirements, or coating are involved.",
   materials: [
     {
       name: "Aluminum",
       grades: [
-        { name: "AL5052 H32", primary: true },
-        { name: "AL5052 O-state", primary: true },
-        { name: "AL5754", primary: false },
-        { name: "AL6061", primary: false },
-        { name: "AL1060", primary: false },
-        { name: "AL1050", primary: false },
+        "5052-H32", "5052-O", "5754", "6061", "1060", "1050",
       ],
-      characteristics: [
-        "AL5052: Best bending performance, no cracking",
-        "AL5754: Suitable for bending applications",
-        "AL6061: Not suitable for bending, good for machining",
-        "AL1060/1050: Excellent bending performance, pure aluminum",
-      ],
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/5-Injection-Molding-Material-General-Plastics.webp",
+      applications: "Lightweight enclosures, brackets, panels, covers",
+      considerations: "Confirm temper, grain direction, bend radius, surface finish",
+      image: "/images/materials/cnc-metals/Aluminum%20Alloy%201.webp",
     },
     {
       name: "Stainless Steel",
       grades: [
-        { name: "SUS304", primary: true },
-        { name: "SUS316", primary: true },
-        { name: "SUS430", primary: false },
+        "304", "316", "430",
       ],
-      characteristics: [
-        "SUS304/316: High corrosion resistance, strength, good appearance",
-        "SUS430: Magnetic, moderate corrosion resistance, lower cost",
-      ],
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/5-Injection-Molding-Engineering-Plastics.webp",
+      applications: "Corrosion-resistant panels, housings, visible parts",
+      considerations: "Confirm grade, bend geometry, weld appearance, finish requirement",
+      image: "/images/materials/cnc-metals/Stainless%20Steel%20Series%201.webp",
     },
     {
       name: "Steel",
       grades: [
-        { name: "SPCC (Cold Rolled)", primary: true },
-        { name: "SGCC (Galvanized)", primary: false },
-        { name: "Q235 (Hot Rolled)", primary: false },
+        "SPCC", "SGCC", "SECC", "Q235",
       ],
-      characteristics: [
-        "SPCC: Smooth surface, good for painting and plating",
-        "SGCC: Zinc-coated for enhanced corrosion resistance",
-        "Q235: High strength, low cost, surface has oxide layer",
+      applications: "Cabinets, guards, brackets, structural panels",
+      considerations: "Confirm material condition, flatness, corrosion protection, coating route",
+      image: "/images/materials/cnc-metals/Steel%201.webp",
+    },
+    {
+      name: "Copper & Brass",
+      grades: [
+        "C11000", "C2600", "Project-specific grades",
       ],
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/5-Injection-Molding-High-Performance-Plastics.webp",
+      applications: "Conductive parts, electrical components, decorative features",
+      considerations: "Confirm scratch protection, bend geometry, joining method, final surface condition",
+      image: "/images/materials/cnc-metals/Copper%20Alloys%201.webp",
     },
   ],
 };
@@ -70,15 +65,18 @@ export function SMMaterials() {
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center" style={{ marginBottom: "48px" }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-left lg:text-center" style={{ marginBottom: "48px" }}>
           <h2 className="service-section-title text-white" style={{ fontSize: "46px", fontWeight: 700, letterSpacing: "-0.015em" }}>
             <EditableText path="materials.heading" defaultValue={DEFAULTS.heading} />
             <span className="service-title-accent"><EditableText path="materials.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
           </h2>
+          <p className="service-section-copy mt-6 max-w-4xl lg:mx-auto">
+            <EditableText path="materials.description" defaultValue={DEFAULTS.description} multiline />
+          </p>
         </motion.div>
 
         {/* Tabs */}
-        <div className="flex flex-wrap justify-center gap-4" style={{ marginBottom: "40px" }}>
+        <div className="flex flex-wrap justify-start gap-4 lg:justify-center" style={{ marginBottom: "40px" }}>
           {DEFAULTS.materials.map((material, index) => (
             <motion.button key={material.name} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.05 }} onClick={() => setActiveTab(index)} className="transition-all duration-300" style={{ padding: "10px 24px", borderRadius: "8px", fontSize: "14px", fontWeight: 600, border: activeTab === index ? "1px solid #D09947" : "1px solid rgba(208,153,71,0.3)", background: activeTab === index ? "rgba(208,153,71,0.15)" : "transparent", color: activeTab === index ? "#EEC569" : "#7A7A7C" }}>
               {material.name}
@@ -102,8 +100,7 @@ export function SMMaterials() {
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Left Column - Content */}
             <div style={{ padding: "40px" }}>
-              <div className="flex items-center gap-3" style={{ marginBottom: "24px" }}>
-                <span style={{ fontSize: "24px" }}>✈️</span>
+              <div style={{ marginBottom: "24px" }}>
                 <h3
                   style={{
                     fontSize: "22px",
@@ -135,38 +132,28 @@ export function SMMaterials() {
                         color: "#FFFFFF",
                       }}
                     >
-                      {grade.name}
+                      <EditableText path={`materials.items.${activeTab}.grades.${i}`} defaultValue={grade} />
                     </span>
                   ))}
                 </div>
               </div>
 
-              {/* Key Characteristics */}
+              <div style={{ marginBottom: "24px" }}>
+                <p style={{ fontSize: "14px", fontWeight: 600, color: "#EEC569", marginBottom: "8px" }}>
+                  Typical Applications
+                </p>
+                <p className="text-[15px] leading-relaxed text-[#C5C6C9]">
+                  <EditableText path={`materials.items.${activeTab}.applications`} defaultValue={DEFAULTS.materials[activeTab].applications} multiline />
+                </p>
+              </div>
+
               <div>
                 <p style={{ fontSize: "14px", fontWeight: 600, color: "#EEC569", marginBottom: "8px" }}>
-                  Key Characteristics:
+                  Manufacturing Considerations
                 </p>
-                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                  {DEFAULTS.materials[activeTab].characteristics.map((item, i) => (
-                    <li
-                      key={i}
-                      style={{
-                        fontSize: "15px",
-                        lineHeight: 1.7,
-                        color: "#C5C6C9",
-                        paddingLeft: "16px",
-                        position: "relative",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      <span style={{ position: "absolute", left: 0, color: "#7A7A7C" }}>&bull;</span>
-                      <EditableText
-                        path={`materials.items.${activeTab}.characteristics.${i}`}
-                        defaultValue={item}
-                      />
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-[15px] leading-relaxed text-[#C5C6C9]">
+                  <EditableText path={`materials.items.${activeTab}.considerations`} defaultValue={DEFAULTS.materials[activeTab].considerations} multiline />
+                </p>
               </div>
             </div>
 
@@ -190,10 +177,13 @@ export function SMMaterials() {
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex justify-center" style={{ marginTop: "48px" }}>
-          <Link href="https://app.apexbatch.com/" rel="nofollow" className="inline-flex items-center gap-2 bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group">
-            Start Your Project
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        <div className="section-note mx-auto mt-8 max-w-[1050px]">
+          <p><EditableText path="materials.scopeNote" defaultValue={DEFAULTS.scopeNote} multiline /></p>
+        </div>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-6 flex justify-start lg:justify-center">
+          <Link href="/materials" className="body-text-link body-text-link--dark inline-flex items-center gap-2 text-sm">
+            View Sheet Metal Materials
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </motion.div>
       </div>

@@ -6,165 +6,67 @@ import { ArrowRight } from "lucide-react";
 import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
-  heading: "From CAD to Part",
-  subheading:
-    "A streamlined SOP ensuring every delivery meets your specifications.",
-  ctaText: "Get Instant Quote",
-  steps: [
+  heading: "Design Review Before ",
+  headingHighlight: "Production",
+  description:
+    "The most effective time to resolve manufacturing risk is before cutting begins. Our engineering review focuses on the features that affect feasibility, cost, part quality, and final assembly.",
+  ctaText: "Request Free DFM Feedback",
+  reviews: [
     {
-      number: "01",
-      title: "Upload & Analyze",
+      title: "Sheet Metal Bend Radius, Flange Length, and Tool Access",
       description:
-        "Submit 3D/2D files. Our engineers perform a free DFM analysis to evaluate manufacturability and suggest optimizations.",
+        "Bend feasibility depends on material, thickness, temper, radius, flange length, tooling, and bend order. Short flanges, return bends, or closely spaced bends may need adjustment before production.",
     },
     {
-      number: "02",
-      title: "Quote in 24h",
+      title: "Holes, Slots, and Cutouts Near Bends",
       description:
-        "Receive a comprehensive quote including materials, processing, and shipping, backed by AI algorithms and engineer review.",
+        "Holes and slots can change shape during forming when they sit near a bend zone. Mark functional features and critical post-bend dimensions clearly in your drawing.",
     },
     {
-      number: "03",
-      title: "Precision Production",
+      title: "Flat Pattern, K-Factor, and Final Dimensions",
       description:
-        "Production starts upon order confirmation. ISO-controlled processes, First Article Inspection (FAI), and real-time updates.",
+        "CAD defaults do not always match the approved material, radius, tooling, or measurement datum. Identify the dimensions that matter on the completed formed part.",
     },
     {
-      number: "04",
-      title: "QC & Delivery",
+      title: "Corners, Welding, Hardware, and Assembly",
       description:
-        "100% inspection of critical dimensions. Material certs & CMM reports included. Global shipping via DHL/FedEx in as fast as 3 days.",
+        "Corner relief, welding access, hardware placement, coating clearance, cosmetic surfaces, and assembly fit should be reviewed together. This helps prevent avoidable changes after the part has been cut or formed.",
     },
   ],
 };
 
 export function SMProcess() {
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{
-        padding: "112px 0 120px",
-        background: "#0A0A0A",
-      }}
-    >
-      <div className="max-w-[1200px] mx-auto px-6">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center"
-          style={{ marginBottom: "64px" }}
-        >
-          <h2
-            className="text-white"
-            style={{
-              fontSize: "46px",
-              fontWeight: 800,
-              letterSpacing: "-0.015em",
-            }}
-          >
-            <EditableText path="process.heading" defaultValue={DEFAULTS.heading} />
-          </h2>
-          <p
-            style={{
-              fontSize: "18px",
-              lineHeight: 1.6,
-              color: "#7A7A7C",
-              marginTop: "18px",
-            }}
-          >
-            <EditableText path="process.subheading" defaultValue={DEFAULTS.subheading} multiline />
-          </p>
-        </motion.div>
+    <section className="relative overflow-hidden bg-[#000000] py-20 sm:py-24 lg:py-28">
+      <div className="mx-auto max-w-[1200px] px-6">
+        <div className="grid items-start gap-12 lg:grid-cols-[1.18fr_0.82fr] lg:items-center lg:gap-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="lg:order-2 lg:self-center">
+            <h2 className="service-section-title text-white">
+              <EditableText path="process.heading" defaultValue={DEFAULTS.heading} />
+              <span className="service-title-accent"><EditableText path="process.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
+            </h2>
+            <p className="service-section-copy mt-6 max-w-[470px]">
+              <EditableText path="process.description" defaultValue={DEFAULTS.description} multiline />
+            </p>
+            <Link href="/contact" className="cta-primary group mt-8 inline-flex">
+              <EditableText path="process.ctaText" defaultValue={DEFAULTS.ctaText} />
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </motion.div>
 
-        {/* Steps Grid - 4 columns */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-          style={{ gap: "24px" }}
-        >
-          {DEFAULTS.steps.map((step, index) => (
-            <motion.div
-              key={step.number}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="text-center transition-all duration-300 hover:-translate-y-1 group"
-              style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: "12px",
-                padding: "40px 28px 36px",
-              }}
-            >
-              {/* Numbered Circle */}
-              <div
-                className="mx-auto flex items-center justify-center transition-all duration-300 group-hover:!border-[#D09947] group-hover:!bg-[rgba(208,153,71,0.08)]"
-                style={{
-                  width: "64px",
-                  height: "64px",
-                  borderRadius: "50%",
-                  border: "2px solid rgba(150,160,180,0.4)",
-                  background: "rgba(150,160,180,0.06)",
-                  marginBottom: "24px",
-                }}
-              >
-                <span
-                  className="transition-all duration-300 group-hover:!text-[#EEC569]"
-                  style={{
-                    fontSize: "20px",
-                    fontWeight: 700,
-                    color: "#8A90A0",
-                  }}
-                >
-                  {step.number}
-                </span>
-              </div>
-
-              {/* Title */}
-              <h3
-                style={{
-                  fontSize: "18px",
-                  fontWeight: 800,
-                  color: "#FFFFFF",
-                  marginBottom: "14px",
-                }}
-              >
-                <EditableText path={`process.steps.${index}.title`} defaultValue={step.title} />
-              </h3>
-
-              {/* Description */}
-              <p
-                style={{
-                  fontSize: "14px",
-                  lineHeight: 1.65,
-                  color: "#8A90A0",
-                }}
-              >
-                <EditableText path={`process.steps.${index}.description`} defaultValue={step.description} multiline />
-              </p>
-            </motion.div>
-          ))}
+          <div className="space-y-3 lg:order-1">
+            {DEFAULTS.reviews.map((review, index) => (
+              <motion.article key={review.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.07 }} className="border-l-2 border-[#EEC569]/60 bg-[#292624]/80 px-6 py-5 sm:px-7">
+                <h3 className="text-lg font-semibold leading-snug text-white sm:text-xl">
+                  <EditableText path={`process.reviews.${index}.title`} defaultValue={review.title} />
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-[#C5C1BD]">
+                  <EditableText path={`process.reviews.${index}.description`} defaultValue={review.description} multiline />
+                </p>
+              </motion.article>
+            ))}
+          </div>
         </div>
-
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex justify-center"
-          style={{ marginTop: "48px" }}
-        >
-          <Link
-            href="https://app.apexbatch.com/"
-            rel="nofollow"
-            className="inline-flex items-center gap-2 bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group"
-          >
-            <EditableText path="process.ctaText" defaultValue={DEFAULTS.ctaText} />
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </motion.div>
       </div>
     </section>
   );

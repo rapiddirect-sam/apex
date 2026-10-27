@@ -1,91 +1,91 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { EditableText, EditableImage } from "@/components/cms";
+import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
-  heading: "Sheet Metal Parts ",
-  headingHighlight: "Made By Us",
-  parts: [
+  heading: "From Prototype to ",
+  headingHighlight: "Production",
+  description:
+    "Our sheet metal prototyping helps your team validate fit, bend geometry, hardware installation, finish appearance, coating clearance, assembly sequence, and critical dimensions before larger quantities are released. Prototype sheet metal parts can also support supplier qualification, design updates, functional testing, and production planning.",
+  stages: [
     {
-      title: "Enclosure & Chassis",
-      description:
-        "Precision-formed enclosures with tight tolerances for electronics, telecom, and industrial equipment.",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Medical-Fluid Connector.webp",
-      tags: ["Aluminum", "powder coating", "EMI shielding"],
+      stage: "Prototype",
+      objective: "Verify fit and function",
+      focus: "Material, bend geometry, hole placement, finish, hardware, assembly",
     },
     {
-      title: "Bracket & Mounting Plate",
-      description:
-        "Custom brackets and mounting hardware with laser-cut precision and CNC-formed bends.",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Automotive Vent-Grille.webp",
-      tags: ["Stainless steel", "zinc plating", "structural", "Sample"],
+      stage: "Low-volume production",
+      objective: "Confirm repeatability",
+      focus: "Revision control, inspection scope, packaging, process refinement",
     },
     {
-      title: "Heat Sink & Cover Panel",
-      description:
-        "Lightweight heat management components and decorative panels with fine surface finishes.",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Wearable-Device Band.webp",
-      tags: ["Copper", "anodizing", "thermal management"],
+      stage: "Repeat production",
+      objective: "Deliver stable batches",
+      focus: "Material planning, agreed process route, quality records, delivery schedule",
     },
   ],
+  scopeNote:
+    "Share your project stage and target quantity with your files. We will recommend a suitable route for validation or repeat production.",
 };
 
 export function SMParts() {
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{ padding: "112px 0 120px", background: "#000000" }}
-    >
-      <div className="max-w-[1200px] mx-auto px-6">
+    <section className="relative overflow-hidden bg-[#252220] py-20 sm:py-24 lg:py-28">
+      <div className="mx-auto max-w-[1200px] px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center"
-          style={{ marginBottom: "64px" }}
+          className="max-w-4xl text-left lg:mx-auto lg:text-center"
         >
-          <h2 className="service-section-title text-white" style={{ fontSize: "46px", fontWeight: 700, letterSpacing: "-0.015em" }}>
+          <h2 className="service-section-title text-white">
             <EditableText path="parts.heading" defaultValue={DEFAULTS.heading} />
             <span className="service-title-accent">
               <EditableText path="parts.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
             </span>
           </h2>
+          <p className="service-section-copy mt-6 max-w-4xl lg:mx-auto">
+            <EditableText path="parts.description" defaultValue={DEFAULTS.description} multiline />
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: "28px" }}>
-          {DEFAULTS.parts.map((part, index) => (
+        <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
+          {DEFAULTS.stages.map((stage, index) => (
             <motion.div
-              key={part.title}
+              key={stage.stage}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group overflow-hidden transition-all duration-300 hover:-translate-y-1"
-              style={{ borderRadius: "12px", background: "#1A1A1A", border: "1px solid rgba(208,153,71,0.15)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.border = "1px solid rgba(208,153,71,0.4)"; e.currentTarget.style.boxShadow = "0 14px 36px rgba(0,0,0,0.45)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.border = "1px solid rgba(208,153,71,0.15)"; e.currentTarget.style.boxShadow = "none"; }}
+              className="border border-white/10 border-t-[#EEC569]/50 bg-[#1A1918] p-6 sm:p-7"
             >
-              <div className="relative overflow-hidden" style={{ height: "220px" }}>
-                <EditableImage path={`parts.items.${index}.image`} defaultSrc={part.image} alt={part.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
-              </div>
-              <div style={{ padding: "24px" }}>
-                <h3 style={{ fontSize: "18px", fontWeight: 700, color: "#FFFFFF", marginBottom: "8px" }}>
-                  <EditableText path={`parts.items.${index}.title`} defaultValue={part.title} />
-                </h3>
-                <p style={{ fontSize: "14px", lineHeight: 1.6, color: "#7A7A7C", marginBottom: "16px" }}>
-                  <EditableText path={`parts.items.${index}.description`} defaultValue={part.description} multiline />
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#EEC569]">
+                Project stage
+              </p>
+              <h3 className="mt-3 text-xl font-semibold text-white">
+                <EditableText path={`parts.stages.${index}.stage`} defaultValue={stage.stage} />
+              </h3>
+              <div className="mt-7 border-t border-white/10 pt-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#AAA7A3]">Main objective</p>
+                <p className="mt-2 text-base font-medium text-[#F4F1EC]">
+                  <EditableText path={`parts.stages.${index}.objective`} defaultValue={stage.objective} />
                 </p>
-                <div className="flex flex-wrap gap-2">
-                  {part.tags.map((tag, tagIndex) => (
-                    <span key={tag} style={{ border: "1px solid rgba(238,197,105,0.5)", color: "#F5D89A", background: "transparent", fontSize: "13px", padding: "6px 10px", borderRadius: "999px" }}>
-                      <EditableText path={`parts.items.${index}.tags.${tagIndex}`} defaultValue={tag} />
-                    </span>
-                  ))}
-                </div>
+              </div>
+              <div className="mt-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#AAA7A3]">Engineering focus</p>
+                <p className="mt-2 text-sm leading-relaxed text-[#C5C1BD]">
+                  <EditableText path={`parts.stages.${index}.focus`} defaultValue={stage.focus} multiline />
+                </p>
               </div>
             </motion.div>
           ))}
+        </div>
+
+        <div className="section-note mx-auto mt-8 max-w-[1050px]">
+          <p>
+            <EditableText path="parts.scopeNote" defaultValue={DEFAULTS.scopeNote} multiline />
+          </p>
         </div>
       </div>
     </section>

@@ -3,12 +3,21 @@
 import { ServiceHero } from "@/components/services/ServiceHero";
 
 const DEFAULTS = {
-  title: "Sheet Metal Fabrication Services",
+  title: "Custom Sheet Metal Fabrication Services",
   description:
-    "ApexBatch's sheet metal solutions deliver the consistency, reliability, and quality you expect, with comprehensive material and finishing options to support your applications. Get an instant online quote for prototype or batch production today.",
+    "From prototype validation to repeat production, ApexBatch manufactures custom sheet metal parts and assemblies through laser cutting, CNC bending, punching, welding, finishing and hardware insertion.",
   heroImage:
-    "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp",
+    "/sheet-metal/apexbatch-sheet-metal-secondary-operations-factory.avif",
+  ctaPrimary: "Get a Sheet Metal Fabrication Quote",
+  ctaSecondary: "Request Free DFM Feedback",
   ctaSecondaryHref: "/contact",
+  metricsSingleLine: true,
+  metrics: [
+    { value: "Prototype to Production", label: "" },
+    { value: "Pre-Production DFM Review", label: "" },
+    { value: "Integrated Fabrication & Assembly", label: "" },
+    { value: "Global Delivery", label: "" },
+  ],
 };
 
 export function SMHero() {

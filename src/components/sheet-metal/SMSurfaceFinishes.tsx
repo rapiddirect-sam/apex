@@ -1,101 +1,81 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  heading: "Sheet Metal ",
-  headingHighlight: "Surface Finishes",
+  heading: "Surface Finishing and Secondary ",
+  headingHighlight: "Operations",
   subheading:
-    "Professional surface finishing options to meet aesthetic and functional requirements for your sheet metal parts.",
+    "Finishing protects parts, supports appearance requirements, and prepares components for their final environment. It should be considered before production when a part includes tight fits, threads, contact areas, visible faces, or post-finish assembly.",
+  scopeNote:
+    "Finish specifications—including thickness, adhesion, surface condition, corrosion performance and appearance—are confirmed against the agreed material, process route, specification and inspection requirements.",
   finishes: [
     {
       name: "Powder Coating",
-      standard: "RAL / Pantone Color Cards",
-      stats: [
-        { label: "Coating", value: "60-100\u03BCm" },
-        { label: "Adhesion", value: "Class 0" },
-        { label: "Salt Spray", value: ">500h" },
-      ],
-      application:
-        "Custom color sheet metal fabrication, outdoor weathering surface treatment",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIA(High-Gloss).webp",
+      materials: "Steel, aluminum and suitable sheet-metal parts",
+      options: "RAL and Pantone color systems, with selectable gloss and texture.",
+      performance: "Typically 60–100 μm coating thickness, Class 0 adhesion and salt-spray performance above 500 h where specified.",
+      requirements: "Color, gloss, texture, masking and coating clearance.",
+      image: "/images/surface-finishing/protective-coatings/surface-finishing-powder-coating.webp",
     },
     {
       name: "Anodizing",
-      standard: "Natural / Black / RAL Colors",
-      stats: [
-        { label: "Coating", value: "5-25\u03BCm" },
-        { label: "Hardness", value: "HV>300" },
-        { label: "Salt Spray", value: ">48h" },
-      ],
-      application: "Aluminum anodizing, hard anodizing processing",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIB(Semi-Gloss).webp",
+      materials: "Aluminum",
+      options: "Clear, black and selected anodized colors. RAL matching is generally better suited to powder coating.",
+      performance: "Typically 5–25 μm film thickness; hard-anodized systems can exceed HV 300. Salt-spray performance is specification-dependent.",
+      requirements: "Alloy, color, fit-critical features, masking and sample approval.",
+      image: "/images/surface-finishing/aluminum-protection/surface-finishing-type-ii-anodizing.webp",
     },
     {
-      name: "Brushed/Polish",
-      standard: "Straight/Random Grain/Mirror",
-      stats: [
-        { label: "Roughness", value: "Ra 0.4-1.6" },
-        { label: "Finish", value: "As required" },
-      ],
-      application:
-        "Stainless steel brushed panels, metal mirror polishing",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIC(Fine Matte).webp",
+      name: "Brushing & Polishing",
+      materials: "Stainless steel and aluminum",
+      options: "Straight grain, non-directional brushing or mirror polish.",
+      performance: "Typical surface roughness ranges from Ra 0.4–1.6 μm, depending on the requested texture and starting surface.",
+      requirements: "Grain direction, visible surfaces, approved sample and packaging.",
+      image: "/images/surface-finishing/base-preparation/surface-finishing-brushing.webp",
     },
     {
-      name: "Electropolish",
-      standard: "Mirror/Matte",
-      stats: [
-        { label: "Surface", value: "Micro-smooth" },
-        { label: "Corrosion", value: "Improved" },
-      ],
-      application:
-        "Medical-grade stainless steel polishing, food equipment surface treatment",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPID(Coarse-Matte-Sandblast).webp",
+      name: "Electropolishing",
+      materials: "Suitable stainless steel",
+      options: "Bright or matte appearance, depending on the starting surface and process route.",
+      performance: "Reduces microscopic surface peaks; the final corrosion result depends on material grade and starting surface condition.",
+      requirements: "Material, starting surface condition and acceptance requirement.",
+      image: "/images/surface-finishing/base-preparation/surface-finishing-electropolishing.webp",
     },
     {
       name: "E-Coating",
-      standard: "Black/Gray",
-      stats: [
-        { label: "Coating", value: "15-25\u03BCm" },
-        { label: "Salt Spray", value: ">240h" },
-      ],
-      application: "Automotive e-coating, uniform anti-rust coating",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIA(High-Gloss).webp",
+      materials: "Suitable steel and metal assemblies",
+      options: "Black and gray are common options.",
+      performance: "Typically 15–25 μm coating thickness and salt-spray performance above 240 h where specified.",
+      requirements: "Pretreatment, coating system, test method and coating coverage requirements.",
+      image: "/images/surface-finishing/plating-treatments/surface-finishing-electrophoresis.webp",
     },
     {
       name: "Plating",
-      standard: "White/Blue/Black/Color Zinc/Nickel",
-      stats: [
-        { label: "White Zinc", value: ">72h" },
-        { label: "Blue Zinc", value: ">96h" },
-      ],
-      application:
-        "Environmental blue zinc fasteners, hardware nickel plating",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIB(Semi-Gloss).webp",
+      materials: "Suitable steel, copper alloys and project-specific metals",
+      options: "White zinc, blue zinc, black zinc, color zinc and nickel finishes.",
+      performance: "Typical salt-spray references exceed 72 h for white zinc and 96 h for blue zinc, where specified.",
+      requirements: "Base material, coating type, thickness, corrosion target and post-treatment requirements.",
+      image: "/images/surface-finishing/plating-treatments/electroplating-surface-finishing-service.webp",
     },
     {
       name: "Passivation",
-      standard: "Natural",
-      stats: [
-        { label: "Film", value: "High density" },
-        { label: "Corrosion", value: "Enhanced" },
-      ],
-      application:
-        "Stainless steel pickling passivation, enhanced corrosion resistance",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPIC(Fine Matte).webp",
+      materials: "Suitable stainless steel",
+      options: "Natural metal appearance.",
+      performance: "Improves the density and corrosion performance of the stainless-steel passive layer.",
+      requirements: "Stainless grade, surface condition, cleaning route, acceptance standard and documentation.",
+      image: "/images/surface-finishing/aluminum-protection/surface-finishing-stainless-steel-passivation.webp",
     },
     {
-      name: "Laser Etching",
-      standard: "Natural/Black",
-      stats: [
-        { label: "Depth", value: "0.01-0.5mm" },
-        { label: "Marking", value: "Permanent" },
-      ],
-      application:
-        "Product serial number marking, logo laser engraving",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/6-SPID(Coarse-Matte-Sandblast).webp",
+      name: "Laser Marking",
+      materials: "Suitable metals",
+      options: "Natural contrast or black marking, depending on the base material and process.",
+      performance: "Permanent marking with a typical depth range of 0.01–0.5 mm where applicable.",
+      requirements: "Mark location, artwork, contrast, depth and appearance.",
+      image: "/images/surface-finishing/decoration-marking/surface-finishing-engraving-marking.webp",
     },
   ],
 };
@@ -112,7 +92,7 @@ export function SMSurfaceFinishes() {
             <EditableText path="finishes.heading" defaultValue={DEFAULTS.heading} />
             <span className="service-title-accent"><EditableText path="finishes.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
           </h2>
-          <p style={{ fontSize: "18px", lineHeight: 1.6, color: "#7A7A7C", maxWidth: "700px", marginBottom: "72px" }}>
+          <p className="service-section-copy mb-[72px] max-w-[700px]">
             <EditableText path="finishes.subheading" defaultValue={DEFAULTS.subheading} multiline />
           </p>
         </motion.div>
@@ -135,38 +115,49 @@ export function SMSurfaceFinishes() {
                 <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#FFFFFF", marginBottom: "8px" }}>
                   <EditableText path={`finishes.items.${index}.name`} defaultValue={finish.name} />
                 </h3>
-                <p style={{ fontSize: "14px", color: "#7A7A7C", marginBottom: "20px" }}>
-                  Compatible: <EditableText path={`finishes.items.${index}.standard`} defaultValue={finish.standard} />
-                </p>
-
                 {/* Image */}
                 <div className="relative" style={{ width: "100%", height: "180px", marginBottom: "24px", borderRadius: "8px", overflow: "hidden" }}>
                   <EditableImage path={`finishes.items.${index}.image`} defaultSrc={finish.image} alt={finish.name} fill className="object-cover" />
                 </div>
 
-                {/* Stats row */}
-                <div className="flex justify-between" style={{ marginBottom: "20px" }}>
-                  {finish.stats.map((stat, si) => (
-                    <div key={si} className={si === finish.stats.length - 1 ? "text-right" : ""}>
-                      <p style={{ fontSize: "14px", fontWeight: 700, color: "#EEC569", marginBottom: "4px" }}>
-                        {stat.label}
-                      </p>
-                      <p style={{ fontSize: "16px", fontWeight: 600, color: "#FFFFFF" }}>
-                        {stat.value}
-                      </p>
-                    </div>
-                  ))}
+                <div className="border-t border-white/10 pt-4" style={{ marginBottom: "20px" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#EEC569", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                    Colors / finish options
+                  </p>
+                  <p style={{ fontSize: "14px", lineHeight: 1.6, color: "#C5C6C9" }}>
+                    <EditableText path={`finishes.items.${index}.options`} defaultValue={finish.options} multiline />
+                  </p>
+                </div>
+
+                <div className="border-t border-white/10 pt-4" style={{ marginBottom: "20px" }}>
+                  <p style={{ fontSize: "12px", fontWeight: 700, color: "#EEC569", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                    Typical performance reference
+                  </p>
+                  <p style={{ fontSize: "14px", lineHeight: 1.6, color: "#C5C6C9" }}>
+                    <EditableText path={`finishes.items.${index}.performance`} defaultValue={finish.performance} multiline />
+                  </p>
                 </div>
               </div>
 
-              {/* Description */}
-              <div style={{ padding: "16px 24px 24px 24px" }}>
+              <div style={{ padding: "0 24px 24px 24px" }}>
+                <p style={{ fontSize: "12px", fontWeight: 700, color: "#EEC569", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                  Requirements to confirm
+                </p>
                 <p style={{ fontSize: "14px", lineHeight: 1.6, color: "#C5C6C9" }}>
-                  <EditableText path={`finishes.items.${index}.application`} defaultValue={finish.application} multiline />
+                  <EditableText path={`finishes.items.${index}.requirements`} defaultValue={finish.requirements} multiline />
                 </p>
               </div>
             </motion.div>
           ))}
+        </div>
+        <div className="section-note mt-8">
+          <p><EditableText path="finishes.scopeNote" defaultValue={DEFAULTS.scopeNote} multiline /></p>
+        </div>
+        <div className="mt-6 flex justify-center">
+          <Link href="/surface-finish" className="body-text-link body-text-link--dark inline-flex items-center gap-2 text-sm">
+            Explore Surface Finishing Services
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
         </div>
       </div>
     </section>

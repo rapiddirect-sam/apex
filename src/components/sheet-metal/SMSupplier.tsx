@@ -1,236 +1,52 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  headingHighlight: "Sheet Metal Fabrication ",
-  headingSuffix: "Factory",
-  description1:
-    "Located in Shenzhen\u2019s advanced manufacturing district, our 50,000 m\u00B2 manufacturing footprint spans 8 specialized production workshops and includes 650+ advanced machines.",
-  description2:
-    "We support end-to-end manufacturing in one location, including CNC machining, precision injection molding, sheet metal fabrication, 3D printing, as well as in-house surface treatment and quality inspection lines.",
-  stats: [
-    { value: "50,000 m\u00B2", label: "Total Manufacturing Footprint" },
-    { value: "8", label: "Specialized Production Shops" },
-    { value: "650+", label: "Advanced Equipment" },
-    { value: "98%", label: "On-time Delivery" },
-  ],
-  images: [
-    {
-      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-injection-molding-factory-workshop-1.webp",
-      alt: "Sheet Metal Fabrication Workshop",
-    },
-    {
-      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-plastic-injection-molding-production-line-2.webp",
-      alt: "Sheet Metal Production Line",
-    },
-    {
-      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-custom-injection-molding-manufacturing-facility-3.webp",
-      alt: "Sheet Metal Manufacturing Facility",
-    },
-    {
-      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-injection-molding-machines-on-site-4.webp",
-      alt: "Sheet Metal Machines On Site",
-    },
-    {
-      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-plastic-injection-molding-factory-5.webp",
-      alt: "Sheet Metal Fabrication Factory",
-    },
+  heading: "Tolerances, Inspection, and Quality ",
+  headingHighlight: "Requirements",
+  description:
+    "The table provides indicative sheet metal tolerance references for suitable parts. Final achievable results are confirmed from the approved drawing, material, thickness, geometry, bend features, finish, tooling, inspection method and measurement datum.",
+  image: "/sheet-metal/inspecting-sheet-metal-part-before-delivery.avif",
+  headers: ["Dimension", "General reference", "ApexBatch capability target"],
+  rows: [
+    ["Cutting linear tolerance", "±0.2 mm", "±0.1 mm"],
+    ["Bending linear tolerance", "±0.3 mm", "±0.15 mm"],
+    ["Bend angle", "±1.0°", "±0.5°"],
+    ["Hole-to-edge distance", "±0.2 mm", "±0.1 mm"],
+    ["Welding distortion / flatness", "Depends on part size", "Confirmed by part structure and drawing"],
   ],
 };
 
 export function SMSupplier() {
-  const [currentImage, setCurrentImage] = useState(0);
-
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % DEFAULTS.images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + DEFAULTS.images.length) % DEFAULTS.images.length);
-  };
-
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{
-        padding: "112px 0 120px",
-        background: `
-          radial-gradient(
-            60% 50% at 50% 0%,
-            rgba(249,235,188,0.08),
-            rgba(0,0,0,0) 65%
-          ),
-          #000000
-        `,
-      }}
-    >
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* Left - Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2
-              className="service-section-title font-bold"
-              style={{
-                fontSize: "46px",
-                fontWeight: 700,
-                letterSpacing: "-0.015em",
-                lineHeight: 1.1,
-                marginTop: "10px",
-                marginBottom: "34px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              <span className="service-title-accent">
-                <EditableText path="supplier.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
-              </span>
-              <span style={{ color: "#FFFFFF" }}>
-                <EditableText path="supplier.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
-              </span>
+    <section className="relative overflow-hidden bg-[#000000] py-20 sm:py-24 lg:py-28">
+      <div className="mx-auto max-w-[1200px] px-6">
+        <div className="grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+          <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+            <h2 className="service-section-title text-white">
+              <EditableText path="quality.heading" defaultValue={DEFAULTS.heading} />
+              <span className="service-title-accent"><EditableText path="quality.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
             </h2>
-
-            <div
-              style={{
-                fontSize: "15px",
-                lineHeight: 1.7,
-                color: "#C5C6C9",
-                marginBottom: "32px",
-              }}
-            >
-              <p>
-                <EditableText path="supplier.description1" defaultValue={DEFAULTS.description1} multiline />
-              </p>
-              <br />
-              <p>
-                <EditableText path="supplier.description2" defaultValue={DEFAULTS.description2} multiline />
-              </p>
-            </div>
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-4">
-              {DEFAULTS.stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="text-center transition-all duration-300 hover:-translate-y-1"
-                  style={{
-                    padding: "20px 16px",
-                    background: "linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
-                    border: "1px solid rgba(208,153,71,0.3)",
-                    borderRadius: "12px",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: "28px",
-                      fontWeight: 700,
-                      color: "#D09947",
-                      lineHeight: 1.1,
-                    }}
-                  >
-                    <EditableText path={`supplier.stats.${index}.value`} defaultValue={stat.value} />
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "12px",
-                      color: "#7A7A7C",
-                      marginTop: "8px",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    <EditableText path={`supplier.stats.${index}.label`} defaultValue={stat.label} />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            <p className="service-section-copy mt-6 max-w-[560px]">
+              <EditableText path="quality.description" defaultValue={DEFAULTS.description} multiline />
+            </p>
           </motion.div>
-
-          {/* Right - Image with navigation */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="relative"
-            style={{ marginTop: "80px" }}
-          >
-            <div
-              className="relative overflow-hidden"
-              style={{
-                borderRadius: "16px",
-                border: "2px solid #7F4D0F",
-                boxShadow: "inset 0 0 0 1px rgba(208,153,71,0.15), 0 24px 48px rgba(0,0,0,0.6)",
-              }}
-            >
-              {/* Corner brackets */}
-              <div className="absolute top-3 left-3 z-10" style={{ width: "24px", height: "24px", borderTop: "2px solid #7F4D0F", borderLeft: "2px solid #7F4D0F" }} />
-              <div className="absolute top-3 right-3 z-10" style={{ width: "24px", height: "24px", borderTop: "2px solid #7F4D0F", borderRight: "2px solid #7F4D0F" }} />
-              <div className="absolute bottom-3 left-3 z-10" style={{ width: "24px", height: "24px", borderBottom: "2px solid #7F4D0F", borderLeft: "2px solid #7F4D0F" }} />
-              <div className="absolute bottom-3 right-3 z-10" style={{ width: "24px", height: "24px", borderBottom: "2px solid #7F4D0F", borderRight: "2px solid #7F4D0F" }} />
-
-              <div className="relative aspect-[4/3]">
-                {DEFAULTS.images.map((img, index) => (
-                  <EditableImage
-                    key={img.src}
-                    path={`supplier.images.${index}.src`}
-                    defaultSrc={img.src}
-                    alt={img.alt}
-                    fill
-                    priority={index === 0}
-                    sizes="(max-width: 1024px) 100vw, 520px"
-                    className="object-cover transition-opacity duration-300 ease-out"
-                    style={{
-                      opacity: index === currentImage ? 1 : 0,
-                      willChange: "opacity",
-                      pointerEvents: index === currentImage ? "auto" : "none",
-                    }}
-                  />
-                ))}
-
-                {/* Navigation arrows */}
-                <button
-                  onClick={prevImage}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300 hover:bg-[rgba(208,153,71,0.15)]"
-                  style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.75)", border: "1px solid rgba(208,153,71,0.4)" }}
-                >
-                  <ChevronLeft className="w-5 h-5" style={{ color: "#D09947" }} />
-                </button>
-                <button
-                  onClick={nextImage}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300 hover:bg-[rgba(208,153,71,0.15)]"
-                  style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.75)", border: "1px solid rgba(208,153,71,0.4)" }}
-                >
-                  <ChevronRight className="w-5 h-5" style={{ color: "#D09947" }} />
-                </button>
-              </div>
-            </div>
-
-            {/* Dot indicators */}
-            <div className="flex justify-center gap-2 mt-5">
-              {DEFAULTS.images.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentImage(index)}
-                  className="h-1 rounded-full transition-all"
-                  style={{
-                    width: index === currentImage ? "24px" : "12px",
-                    background: index === currentImage ? "#D09947" : "#444444",
-                  }}
-                />
-              ))}
-            </div>
+          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative aspect-[4/3] overflow-hidden border border-white/10">
+            <EditableImage path="quality.image" defaultSrc={DEFAULTS.image} alt="Inspecting a sheet metal part before delivery" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
           </motion.div>
         </div>
+
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-14 w-full max-w-full overflow-x-auto border border-white/10 md:mt-16 md:overflow-visible">
+          <table className="min-w-[720px] w-full border-collapse text-left md:min-w-0">
+            <thead className="bg-[#292624]">
+              <tr>{DEFAULTS.headers.map((header, index) => <th key={header} className="border-b border-white/10 px-5 py-4 text-xs font-semibold uppercase tracking-[0.1em] text-[#EEC569]"><EditableText path={`quality.headers.${index}`} defaultValue={header} /></th>)}</tr>
+            </thead>
+            <tbody>{DEFAULTS.rows.map((row, rowIndex) => <tr key={row[0]} className="border-b border-white/[0.07] last:border-0">{row.map((cell, cellIndex) => <td key={cellIndex} className={`px-5 py-4 text-sm leading-relaxed ${cellIndex === 2 ? "font-medium text-[#F4F1EC]" : "text-[#C5C1BD]"}`}><EditableText path={`quality.rows.${rowIndex}.${cellIndex}`} defaultValue={cell} multiline /></td>)}</tr>)}</tbody>
+          </table>
+        </motion.div>
+
       </div>
     </section>
   );

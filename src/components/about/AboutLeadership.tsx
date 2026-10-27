@@ -125,7 +125,7 @@ export function AboutLeadership() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-center md:text-left"
+            className="text-left"
             style={{
               flex: 1,
               paddingTop: "20px",

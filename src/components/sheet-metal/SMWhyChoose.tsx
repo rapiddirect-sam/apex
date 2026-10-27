@@ -10,33 +10,33 @@ const DEFAULTS = {
   headingHighlight: "Choose ApexBatch",
   reasons: [
     {
-      title: "Comprehensive Free Services",
+      title: "Prototype and Sample Support",
       description:
-        "Full-spectrum support including DFM analysis, process optimization, design validation, and quality inspection. Reduce trial costs with free engineering verification.",
+        "Validate material, fit, bend geometry, finish, hardware, and assembly before moving into larger quantities.",
       iconPath: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z",
     },
     {
-      title: "Flexible Manufacturing",
+      title: "Practical DFM Feedback",
       description:
-        "From single prototypes to 500+ production runs. Perfect balance of ultra-precision machining and cost-effective solutions for rapid R&D iteration.",
+        "Receive engineering feedback on cut features, bend feasibility, materials, tolerances, welding, finishing, and assembly before production begins.",
       iconPath: "M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65z",
     },
     {
-      title: "End-to-End Service",
+      title: "Integrated Manufacturing",
       description:
-        "Complete workflow from design to delivery. Support for expedited production, batch scheduling, and custom delivery solutions under one roof.",
+        "Manage laser cutting, bending, punching, welding, hardware insertion, finishing, inspection, and assembly through one production plan.",
       iconPath: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z",
     },
     {
-      title: "Expert Support System",
+      title: "Reliable Production and Delivery",
       description:
-        "Dedicated sales + engineering teams, visual order management, compliance adaptation, and risk analysis. 24-hour rapid response with professional support.",
+        "Confirm the approved material, process route, quality requirements, packaging, lead time, and delivery arrangement for low-volume or repeat orders.",
       iconPath: "M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z",
     },
   ],
-  ctaTitle: "Ready to Start Your Project?",
-  ctaDescription: "Upload your STEP/IGES files now for a professional manufacturing analysis and quote.",
-  ctaButton: "Get Instant Quote",
+  ctaTitle: "Share Your Design Requirements",
+  ctaDescription: "Upload DXF, DWG, STEP files and drawings with material, finish, quantity, and critical requirements for a practical manufacturing review.",
+  ctaButton: "Request DFM Feedback",
   ipNote: "Strict IP Protection (NDA Available)",
 };
 
@@ -51,7 +51,7 @@ export function SMWhyChoose() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center"
+          className="text-left lg:text-center"
           style={{ marginBottom: "64px" }}
         >
           <h2 className="service-section-title text-white" style={{ fontSize: "46px", fontWeight: 700, letterSpacing: "-0.015em" }}>
@@ -84,7 +84,7 @@ export function SMWhyChoose() {
             <p style={{ fontSize: "14px", lineHeight: 1.6, color: "#FFFFFF", marginBottom: "28px" }}>
               <EditableText path="whychoose.ctaDescription" defaultValue={DEFAULTS.ctaDescription} multiline />
             </p>
-            <Link href="https://app.apexbatch.com/" rel="nofollow" className="inline-flex items-center justify-center gap-2 w-full bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group">
+            <Link href="/contact" rel="nofollow" className="cta-primary w-full">
               <EditableText path="whychoose.ctaButton" defaultValue={DEFAULTS.ctaButton} />
             </Link>
             <div className="flex items-center justify-center gap-2 mt-5" style={{ fontSize: "12px", color: "#6B7280" }}>
