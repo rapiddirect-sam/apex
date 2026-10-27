@@ -414,7 +414,7 @@ export function MaterialsContent() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="flex items-center justify-between"
+                  className="flex items-center justify-between gap-4"
                   style={{
                     marginBottom: "16px",
                     borderBottom: "2px solid rgba(208,153,71,0.3)",
@@ -422,6 +422,7 @@ export function MaterialsContent() {
                   }}
                 >
                   <h2
+                    className="min-w-0"
                     style={{
                       fontSize: "28px",
                       fontWeight: 700,
@@ -436,7 +437,7 @@ export function MaterialsContent() {
                   {section.learnMoreHref ? (
                     <Link
                       href={section.learnMoreHref}
-                      className="body-text-link inline-flex items-center gap-1 text-[15px] font-bold"
+                      className="body-text-link inline-flex shrink-0 whitespace-nowrap items-center gap-1 text-[15px] font-bold"
                       style={{ color: "#FFFFFF" }}
                     >
                       Learn More

@@ -18,6 +18,8 @@ const DEFAULTS = {
       image: "/about/apexbatch-cnc-milling-workshop.avif",
       supportingImage: "/about/apexbatch-five-axis-cnc-machines-operated.avif",
       supportingImageAlt: "ApexBatch five-axis CNC machines in operation",
+      additionalSupportingImage: "/about/apexbatch-black-five-axis-cnc-machine-workshop.avif",
+      additionalSupportingImageAlt: "Black five-axis CNC machine in the ApexBatch workshop",
     },
     {
       title: "Large-Format Gantry Machining Workshop",
@@ -26,6 +28,8 @@ const DEFAULTS = {
       image: "/about/apexbatch-large-format-gantry-machining-workshop.avif",
       supportingImage: "/about/apexbatch-heavy-machining-tooling-assembly-workshop.avif",
       supportingImageAlt: "ApexBatch heavy machining tooling and assembly workshop",
+      additionalSupportingImage: "/about/apexbatch-vision-wide-double-column-cnc-machining-center.avif",
+      additionalSupportingImageAlt: "Vision Wide double-column CNC machining center for large-part machining",
     },
     {
       title: "CNC Turning Workshop",
@@ -82,20 +86,40 @@ function WorkshopCard({
   isActive: boolean;
 }) {
   const workshop = DEFAULTS.workshops[index];
-  const [showSupportingImage, setShowSupportingImage] = useState(false);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
   const supportingImage =
     "supportingImage" in workshop ? workshop.supportingImage : undefined;
   const supportingImageAlt =
     "supportingImageAlt" in workshop ? workshop.supportingImageAlt : undefined;
-  const displayedImage = showSupportingImage && supportingImage
-    ? supportingImage
-    : workshop.image;
-  const displayedImageAlt = showSupportingImage && supportingImage
-    ? supportingImageAlt ?? `${workshop.title} supporting equipment`
-    : workshop.title;
-  const displayedImagePath = showSupportingImage && supportingImage
-    ? `manufacturingResources.workshops.${index}.supportingImage`
-    : `manufacturingResources.workshops.${index}.image`;
+  const additionalSupportingImage =
+    "additionalSupportingImage" in workshop ? workshop.additionalSupportingImage : undefined;
+  const additionalSupportingImageAlt =
+    "additionalSupportingImageAlt" in workshop ? workshop.additionalSupportingImageAlt : undefined;
+  const imageViews = [
+    {
+      src: workshop.image,
+      alt: workshop.title,
+      path: `manufacturingResources.workshops.${index}.image`,
+      label: "Workshop",
+    },
+    ...(supportingImage
+      ? [{
+          src: supportingImage,
+          alt: supportingImageAlt ?? `${workshop.title} supporting equipment`,
+          path: `manufacturingResources.workshops.${index}.supportingImage`,
+          label: "Equipment",
+        }]
+      : []),
+    ...(additionalSupportingImage
+      ? [{
+          src: additionalSupportingImage,
+          alt: additionalSupportingImageAlt ?? `${workshop.title} additional equipment`,
+          path: `manufacturingResources.workshops.${index}.additionalSupportingImage`,
+          label: "Equipment",
+        }]
+      : []),
+  ];
+  const displayedView = imageViews[activeImageIndex] ?? imageViews[0];
 
   return (
     <article
@@ -111,67 +135,45 @@ function WorkshopCard({
     >
       <div className="relative h-[260px] overflow-hidden sm:h-[300px]">
         <EditableImage
-          path={displayedImagePath}
-          defaultSrc={displayedImage}
-          alt={displayedImageAlt}
+          path={displayedView.path}
+          defaultSrc={displayedView.src}
+          alt={displayedView.alt}
           fill
           sizes="(max-width: 767px) 84vw, 52vw"
           className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
-        {supportingImage ? (
+        {imageViews.length > 1 ? (
           <div className="absolute bottom-3 left-3 z-10 flex items-end gap-2 rounded-lg bg-black/70 p-1.5 backdrop-blur-sm">
-            <button
-              type="button"
-              onClick={(event) => {
-                event.stopPropagation();
-                setShowSupportingImage(false);
-              }}
-              aria-pressed={!showSupportingImage}
-              className={`overflow-hidden rounded border transition-colors ${
-                !showSupportingImage
-                  ? "border-[#EEC569]"
-                  : "border-white/25 opacity-75 hover:opacity-100"
-              }`}
-            >
-              <span className="relative block h-10 w-14">
-                <EditableImage
-                  path={`manufacturingResources.workshops.${index}.image`}
-                  defaultSrc={workshop.image}
-                  alt=""
-                  fill
-                  sizes="56px"
-                  className="object-cover"
-                />
-              </span>
-              <span className="sr-only">Show workshop view</span>
-            </button>
-            <button
-              type="button"
-              onClick={(event) => {
-                event.stopPropagation();
-                setShowSupportingImage(true);
-              }}
-              aria-pressed={showSupportingImage}
-              className={`overflow-hidden rounded border transition-colors ${
-                showSupportingImage
-                  ? "border-[#EEC569]"
-                  : "border-white/25 opacity-75 hover:opacity-100"
-              }`}
-            >
-              <span className="relative block h-10 w-14">
-                <EditableImage
-                  path={`manufacturingResources.workshops.${index}.supportingImage`}
-                  defaultSrc={supportingImage}
-                  alt=""
-                  fill
-                  sizes="56px"
-                  className="object-cover"
-                />
-              </span>
-              <span className="sr-only">Show equipment view</span>
-            </button>
+            {imageViews.map((view, imageIndex) => (
+              <button
+                key={view.path}
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setActiveImageIndex(imageIndex);
+                }}
+                aria-pressed={activeImageIndex === imageIndex}
+                className={`overflow-hidden rounded border transition-colors ${
+                  activeImageIndex === imageIndex
+                    ? "border-[#EEC569]"
+                    : "border-white/25 opacity-75 hover:opacity-100"
+                }`}
+              >
+                <span className="relative block h-10 w-14">
+                  <EditableImage
+                    path={view.path}
+                    defaultSrc={view.src}
+                    alt=""
+                    fill
+                    sizes="56px"
+                    className="object-cover"
+                  />
+                </span>
+                <span className="sr-only">Show {view.label.toLowerCase()} view</span>
+              </button>
+            ))}
             <span className="pb-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]">
-              {showSupportingImage ? "Equipment" : "Workshop"}
+              {displayedView.label}
             </span>
           </div>
         ) : null}

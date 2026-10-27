@@ -75,8 +75,8 @@ export const DEFAULT_PAGE_META: Record<string, { title: string; description: str
     description: "Custom aluminum extrusion services for complex profiles and finished components. Support 6063, 6061 and 6060 alloys, profiles up to 300 × 200 mm, lengths up to 7 m, CNC machining, anodizing and powder coating.",
   },
   "/sheet-metal-fabrication": {
-    title: "Sheet Metal Fabrication Services - ApexBatch Manufacturing",
-    description: "Precision sheet metal fabrication services including laser cutting, bending, stamping, and welding. Aluminum, stainless steel, and carbon steel.",
+    title: "Custom Sheet Metal Fabrication Services | Prototype to Production",
+    description: "Custom sheet metal fabrication for prototypes and production parts, including laser cutting, CNC bending, punching, welding, finishing, and assembly. Upload CAD files for DFM feedback and a detailed quote.",
   },
   "/surface-finish": {
     title: "Surface Finishing Services - ApexBatch Manufacturing",

@@ -7,7 +7,7 @@ import { EditableImage, EditableText } from "@/components/cms";
 
 const DEFAULTS = {
   backgroundImage: "/quality/apexbatch-cnc-machining-workshop-with-operators.webp",
-  headingPrefix: "Specify the Right ",
+  headingPrefix: "Choose the Right ",
   headingHighlight: "Material Before Production",
   headingSuffix: "",
   description:

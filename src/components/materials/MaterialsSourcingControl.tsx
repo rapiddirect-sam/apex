@@ -6,28 +6,30 @@ import Link from "next/link";
 import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
-  heading: "Material Sourcing and ",
-  headingHighlight: "Control",
+  heading: "Material Sourcing You Can ",
+  headingHighlight: "Plan Around",
   description:
-    "Materials can be sourced from established domestic and international producers according to project specifications and availability. For each project, material selection is reviewed against the specified grade, form, condition, certification, compliance requirements and production route.",
-  qualityCta: "Learn about our quality and documentation approach",
+    "Through established domestic and international supply channels, we align material availability with your drawing, production schedule and documentation needs before quotation.",
+  sourceNote:
+    "Approved sourcing includes BASF, DuPont, Mitsubishi Chemical, China Baowu Steel, Nippon Steel, CHALCO and other qualified producers.",
+  qualityCta: "See Quality & Documentation",
   items: [
     {
-      title: "Specified Grade and Form",
+      title: "Specified Material Requirements",
       description:
-        "Material is sourced against the specified grade, temper, reinforcement, color, stock form and applicable standard.",
+        "We confirm the required grade, condition and stock form, along with applicable standards and project-specific options such as reinforcement or colour.",
       icon: ClipboardCheck,
     },
     {
       title: "Documentation When Required",
       description:
-        "Mill certificates, certificates of conformity and lot-related documentation can be reviewed when requested in the quotation scope.",
+        "Mill certificates, certificates of conformity and lot-related records can be included.",
       icon: FileCheck2,
     },
     {
-      title: "Project-Specific Availability",
+      title: "Availability for Your Program",
       description:
-        "Final sourcing depends on the specified material, quantity, lead time, geographic availability and approved project requirements.",
+        "Availability is reviewed against quantity, lead time, sourcing region and approved project requirements.",
       icon: PackageCheck,
     },
   ],
@@ -50,6 +52,9 @@ export function MaterialsSourcingControl() {
           </h2>
           <p className="service-section-copy mt-6 max-w-[480px]">
             <EditableText path="materialsSourcing.description" defaultValue={DEFAULTS.description} multiline />
+          </p>
+          <p className="mt-5 max-w-[480px] border-l border-[#EEC569]/50 pl-4 text-xs leading-relaxed text-[#A9A19A]">
+            <EditableText path="materialsSourcing.sourceNote" defaultValue={DEFAULTS.sourceNote} multiline />
           </p>
           <Link href="/quality" className="body-text-link body-text-link--dark mt-6 inline-flex items-center gap-2 text-sm">
             <EditableText path="materialsSourcing.qualityCta" defaultValue={DEFAULTS.qualityCta} />

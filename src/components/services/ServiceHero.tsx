@@ -28,6 +28,7 @@ type ServiceHeroDefaults = {
   certifications?: string[];
   logos?: { alt: string; src: string }[];
   metrics?: ServiceHeroMetric[];
+  metricsSingleLine?: boolean;
 };
 
 const SHARED_DEFAULTS = {
@@ -115,7 +116,7 @@ export function ServiceHero({ defaults }: { defaults: ServiceHeroDefaults }) {
             </h1>
 
             <p
-              className="text-[#DDD5C6]"
+              className="whitespace-pre-line text-[#DDD5C6]"
               style={{
                 fontSize: "18px",
                 lineHeight: 1.55,
@@ -217,15 +218,17 @@ export function ServiceHero({ defaults }: { defaults: ServiceHeroDefaults }) {
           }}
         >
           <div className="max-w-[1240px] mx-auto px-6 lg:px-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-5 py-5">
+            <div className={`grid ${merged.metricsSingleLine ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-2"} lg:grid-cols-4 gap-x-8 gap-y-5 py-5`}>
               {merged.metrics.map((item, index) => (
                 <div key={index} className="text-center">
-                  <div className="text-[#D7AE5A] text-[16px] md:text-[18px] font-semibold leading-snug">
+                  <div className={`text-[#D7AE5A] text-[16px] md:text-[18px] font-semibold leading-snug ${merged.metricsSingleLine ? "whitespace-nowrap" : ""}`}>
                     <EditableText path={`hero.metrics.${index}.value`} defaultValue={item.value} />
                   </div>
-                  <div className="text-[#D8D8D8] text-[11px] mt-1 leading-relaxed">
-                    <EditableText path={`hero.metrics.${index}.label`} defaultValue={item.label} />
-                  </div>
+                  {item.label ? (
+                    <div className="text-[#D8D8D8] text-[11px] mt-1 leading-relaxed">
+                      <EditableText path={`hero.metrics.${index}.label`} defaultValue={item.label} />
+                    </div>
+                  ) : null}
                 </div>
               ))}
             </div>
