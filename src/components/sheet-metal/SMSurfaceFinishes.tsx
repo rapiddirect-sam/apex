@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { EditableText, EditableImage } from "@/components/cms";
+import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
   heading: "Surface Finishing and Secondary ",
@@ -117,7 +118,7 @@ export function SMSurfaceFinishes() {
                 </h3>
                 {/* Image */}
                 <div className="relative" style={{ width: "100%", height: "180px", marginBottom: "24px", borderRadius: "8px", overflow: "hidden" }}>
-                  <EditableImage path={`finishes.items.${index}.image`} defaultSrc={finish.image} alt={finish.name} fill className="object-cover" />
+                  <Image src={finish.image} alt={finish.name} fill className="object-cover" sizes="(min-width: 1024px) 350px, (min-width: 768px) 45vw, 100vw" />
                 </div>
 
                 <div className="border-t border-white/10 pt-4" style={{ marginBottom: "20px" }}>

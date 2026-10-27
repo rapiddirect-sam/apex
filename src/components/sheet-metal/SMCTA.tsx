@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { EditableText, EditableImage } from "@/components/cms";
+import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
   backgroundImage: "/quality/apexbatch-cnc-machining-workshop-with-operators.webp",
@@ -18,7 +19,14 @@ export function SMCTA() {
   return (
     <section className="relative overflow-hidden" style={{ padding: "120px 0" }}>
       <div className="absolute inset-0">
-        <EditableImage path="cta.backgroundImage" defaultSrc={DEFAULTS.backgroundImage} alt="Sheet Metal Fabrication" fill sizes="100vw" />
+        <Image
+          src={DEFAULTS.backgroundImage}
+          alt="ApexBatch operators working in the CNC machining workshop"
+          fill
+          unoptimized
+          className="object-cover object-center"
+          sizes="100vw"
+        />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.6) 100%)" }} />
       </div>
       <div className="relative mx-auto max-w-[1200px] px-6">
@@ -31,7 +39,7 @@ export function SMCTA() {
           </p>
           <div className="flex flex-col justify-center gap-4 lg:flex-row">
             <Link href="https://app.apexbatch.com/" rel="nofollow" className="cta-primary group whitespace-nowrap">
-              <EditableText path="cta.primaryCta" defaultValue={DEFAULTS.primaryCta} />
+              {DEFAULTS.primaryCta}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link href="/contact" rel="nofollow" className="cta-secondary whitespace-nowrap">
