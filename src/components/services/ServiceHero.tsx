@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "@/components/ui/StaticMotion";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { EditableText, EditableImage } from "@/components/cms";
@@ -29,6 +30,7 @@ type ServiceHeroDefaults = {
   logos?: { alt: string; src: string }[];
   metrics?: ServiceHeroMetric[];
   metricsSingleLine?: boolean;
+  heroImageIsEditable?: boolean;
 };
 
 const SHARED_DEFAULTS = {
@@ -63,15 +65,26 @@ export function ServiceHero({ defaults }: { defaults: ServiceHeroDefaults }) {
   return (
     <section className="relative bg-[#060606] pt-16 overflow-hidden">
       <div className="absolute inset-0">
-        <EditableImage
-          path="hero.image"
-          defaultSrc={merged.heroImage}
-          alt={merged.title}
-          fill
-          priority
-          sizes="100vw"
-          style={{ objectFit: "cover", objectPosition: "center" }}
-        />
+        {merged.heroImageIsEditable === false ? (
+          <Image
+            src={merged.heroImage}
+            alt={merged.title}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        ) : (
+          <EditableImage
+            path="hero.image"
+            defaultSrc={merged.heroImage}
+            alt={merged.title}
+            fill
+            priority
+            sizes="100vw"
+            style={{ objectFit: "cover", objectPosition: "center" }}
+          />
+        )}
       </div>
       <div
         className="absolute inset-0 pointer-events-none"

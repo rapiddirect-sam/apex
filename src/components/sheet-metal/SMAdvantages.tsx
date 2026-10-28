@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Layers3, PanelsTopLeft } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion } from "@/components/ui/StaticMotion";
 import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {

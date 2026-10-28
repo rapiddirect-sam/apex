@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "@/components/ui/StaticMotion";
 import { Lock } from "lucide-react";
 import Link from "next/link";
 import { EditableText } from "@/components/cms";
@@ -78,9 +78,9 @@ export function SMWhyChoose() {
           ))}
 
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="lg:row-span-2 flex flex-col items-center justify-center text-center self-center" style={{ background: "linear-gradient(180deg, #0A1628 0%, #0D1117 100%)", borderRadius: "16px", padding: "40px 36px", border: "1px solid rgba(208,153,71,0.15)" }}>
-            <h3 style={{ fontSize: "22px", fontWeight: 700, color: "#FFFFFF", marginBottom: "14px" }}>
+            <div style={{ fontSize: "22px", fontWeight: 700, color: "#FFFFFF", marginBottom: "14px" }}>
               <EditableText path="whychoose.ctaTitle" defaultValue={DEFAULTS.ctaTitle} />
-            </h3>
+            </div>
             <p style={{ fontSize: "14px", lineHeight: 1.6, color: "#FFFFFF", marginBottom: "28px" }}>
               <EditableText path="whychoose.ctaDescription" defaultValue={DEFAULTS.ctaDescription} multiline />
             </p>

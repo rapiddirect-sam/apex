@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "@/components/ui/StaticMotion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
@@ -85,18 +85,20 @@ export function SMMaterials() {
         </div>
 
         {/* Content Panel */}
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          style={{
-            background: "#1A1A1A",
-            borderRadius: "16px",
-            border: "1px solid rgba(208,153,71,0.15)",
-            overflow: "hidden",
-          }}
-        >
+        {DEFAULTS.materials.map((material, materialIndex) => (
+          <motion.div
+            key={material.name}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: activeTab === materialIndex ? 1 : 0, y: activeTab === materialIndex ? 0 : 20 }}
+            transition={{ duration: 0.3 }}
+            hidden={activeTab !== materialIndex}
+            style={{
+              background: "#1A1A1A",
+              borderRadius: "16px",
+              border: "1px solid rgba(208,153,71,0.15)",
+              overflow: "hidden",
+            }}
+          >
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Left Column - Content */}
             <div style={{ padding: "40px" }}>
@@ -108,7 +110,7 @@ export function SMMaterials() {
                     color: "#FFFFFF",
                   }}
                 >
-                  <EditableText path={`materials.items.${activeTab}.name`} defaultValue={DEFAULTS.materials[activeTab].name} />
+                  <EditableText path={`materials.items.${materialIndex}.name`} defaultValue={material.name} />
                 </h3>
               </div>
 
@@ -118,7 +120,7 @@ export function SMMaterials() {
                   Common Grades
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {DEFAULTS.materials[activeTab].grades.map((grade, i) => (
+                  {material.grades.map((grade, i) => (
                     <span
                       key={i}
                       style={{
@@ -132,7 +134,7 @@ export function SMMaterials() {
                         color: "#FFFFFF",
                       }}
                     >
-                      <EditableText path={`materials.items.${activeTab}.grades.${i}`} defaultValue={grade} />
+                      <EditableText path={`materials.items.${materialIndex}.grades.${i}`} defaultValue={grade} />
                     </span>
                   ))}
                 </div>
@@ -143,7 +145,7 @@ export function SMMaterials() {
                   Typical Applications
                 </p>
                 <p className="text-[15px] leading-relaxed text-[#C5C6C9]">
-                  <EditableText path={`materials.items.${activeTab}.applications`} defaultValue={DEFAULTS.materials[activeTab].applications} multiline />
+                  <EditableText path={`materials.items.${materialIndex}.applications`} defaultValue={material.applications} multiline />
                 </p>
               </div>
 
@@ -152,7 +154,7 @@ export function SMMaterials() {
                   Manufacturing Considerations
                 </p>
                 <p className="text-[15px] leading-relaxed text-[#C5C6C9]">
-                  <EditableText path={`materials.items.${activeTab}.considerations`} defaultValue={DEFAULTS.materials[activeTab].considerations} multiline />
+                  <EditableText path={`materials.items.${materialIndex}.considerations`} defaultValue={material.considerations} multiline />
                 </p>
               </div>
             </div>
@@ -167,15 +169,16 @@ export function SMMaterials() {
               }}
             >
               <EditableImage
-                path={`materials.items.${activeTab}.image`}
-                defaultSrc={DEFAULTS.materials[activeTab].image}
-                alt={DEFAULTS.materials[activeTab].name}
+                path={`materials.items.${materialIndex}.image`}
+                defaultSrc={material.image}
+                alt={material.name}
                 fill
                 className="object-cover"
               />
             </div>
           </div>
-        </motion.div>
+          </motion.div>
+        ))}
 
         <div className="section-note mx-auto mt-8 max-w-[1050px]">
           <p><EditableText path="materials.scopeNote" defaultValue={DEFAULTS.scopeNote} multiline /></p>

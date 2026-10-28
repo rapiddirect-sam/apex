@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "@/components/ui/StaticMotion";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {

@@ -7,7 +7,8 @@ const DEFAULTS = {
   description:
     "From prototype validation to repeat production, ApexBatch manufactures custom sheet metal parts and assemblies through laser cutting, CNC bending, punching, welding, finishing and hardware insertion.",
   heroImage:
-    "/sheet-metal/apexbatch-sheet-metal-secondary-operations-factory.avif",
+    "/sheet-metal/custom-sheet-metal-fabrication-parts.avif",
+  heroImageIsEditable: false,
   ctaPrimary: "Get a Sheet Metal Fabrication Quote",
   ctaSecondary: "Request Free DFM Feedback",
   ctaSecondaryHref: "/contact",

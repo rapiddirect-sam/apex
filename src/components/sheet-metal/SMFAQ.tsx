@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion } from "@/components/ui/StaticMotion";
 import { cn } from "@/lib/utils";
 import { EditableText } from "@/components/cms";
 
