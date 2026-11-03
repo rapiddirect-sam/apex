@@ -8,7 +8,7 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { useAuth } from "./AuthContext";
+import { useAuthOptional } from "./AuthContext";
 import { getNestedValue, setNestedValue } from "@/lib/pageContent";
 
 interface PendingChange {
@@ -69,7 +69,9 @@ export function CMSProvider({
   pageSlug,
   initialVersion = 1,
 }: CMSProviderProps) {
-  const { isAdmin, user } = useAuth();
+  const auth = useAuthOptional();
+  const isAdmin = auth?.isAdmin ?? false;
+  const user = auth?.user ?? null;
   const [isEditMode, setIsEditMode] = useState(false);
   const [pageContent, setPageContent] = useState<Record<string, unknown> | null>(
     initialContent

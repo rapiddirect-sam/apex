@@ -6,14 +6,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { EditableText, EditableImage } from "@/components/cms";
 
-function createLogoPlaceholder(label: string): string {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="220" height="56" viewBox="0 0 220 56">
-    <rect width="220" height="56" rx="8" fill="#1b1b1b"/>
-    <text x="110" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#f1f1f1">${label}</text>
-  </svg>`;
-  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
-}
-
 type ServiceHeroMetric = {
   value: string;
   label: string;
@@ -38,12 +30,12 @@ const SHARED_DEFAULTS = {
   ctaSecondary: "Upload Your Design",
   certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 14001:2015"],
   logos: [
-    { alt: "Stryker", src: createLogoPlaceholder("stryker") },
-    { alt: "Rockwell Automation", src: createLogoPlaceholder("Rockwell") },
-    { alt: "Honeywell", src: createLogoPlaceholder("Honeywell") },
-    { alt: "DJI", src: createLogoPlaceholder("DJI") },
-    { alt: "Tesla", src: createLogoPlaceholder("TESLA") },
-    { alt: "Festo", src: createLogoPlaceholder("FESTO") },
+    { alt: "Stryker", src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1776219261633-1776219261633-q0yjdzr3.png" },
+    { alt: "Rockwell Automation", src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1776219235511-1776219235511-sen0uylz.png" },
+    { alt: "Honeywell", src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1776219240090-1776219240090-3d78az05.png" },
+    { alt: "DJI", src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1776219243286-1776219243286-xgqd11gg.png" },
+    { alt: "Tesla", src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1776219248073-1776219248073-ts8jcocs.png" },
+    { alt: "Festo", src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1776219254041-1776219254041-dj0y695q.png" },
   ],
   metrics: [
     { value: "Free DFM Feedback", label: "Optimize your design before production" },
@@ -186,27 +178,22 @@ export function ServiceHero({ defaults }: { defaults: ServiceHeroDefaults }) {
               </Link>
             </div>
 
-            <div className="mt-6 overflow-hidden max-w-[760px] pt-2">
-              <motion.div
-                className="flex items-center"
-                animate={{ x: ["0%", "-50%"] }}
-                transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
-              >
+            <div className="mt-6 max-w-[760px] overflow-hidden py-2">
+              <div className="service-hero-logo-marquee flex items-center">
                 {marqueeLogos.map((logo, index) => {
                   const editableIndex = index % merged.logos.length;
                   return (
                     <div
                       key={`${logo.alt}-${index}`}
-                      className="shrink-0 flex items-center justify-center"
-                      style={{ width: "16.6667%", minWidth: "140px", paddingInline: "10px" }}
+                      className="flex h-8 w-40 shrink-0 items-center justify-center px-3"
                     >
-                      <div className="relative w-full h-7 opacity-90">
+                      <div className="relative h-7 w-full opacity-90">
                         <EditableImage
                           path={`hero.logos.${editableIndex}.src`}
                           defaultSrc={logo.src}
                           alt={logo.alt}
                           fill
-                          sizes="140px"
+                          sizes="160px"
                           quality={90}
                           unoptimized
                           style={{ objectFit: "contain" }}
@@ -215,7 +202,7 @@ export function ServiceHero({ defaults }: { defaults: ServiceHeroDefaults }) {
                     </div>
                   );
                 })}
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>

@@ -46,13 +46,13 @@ function EvidenceImage({
   alt: string;
 }) {
   return (
-    <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
+    <div className="feature-media-responsive relative aspect-[4/3] overflow-hidden rounded-lg">
       <EditableImage
         path={path}
         defaultSrc={src}
         alt={alt}
         fill
-        sizes="(max-width: 1023px) 100vw, 45vw"
+        sizes="(min-width: 768px) 45vw, 100vw"
         className="object-cover"
       />
     </div>
@@ -78,7 +78,7 @@ export function EXServices() {
               />
             </span>
           </h2>
-          <div className="service-section-copy mt-5 max-w-[980px] space-y-4 text-left">
+          <div className="service-section-copy section-reading-copy mt-5 max-w-[980px] space-y-4 text-left">
             <p>
               <EditableText
                 path="profileFabrication.introduction"
@@ -96,12 +96,12 @@ export function EXServices() {
           </div>
         </motion.div>
 
-        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,55fr)_minmax(0,45fr)] lg:gap-12">
+        <div className="grid items-center gap-8 md:grid-cols-[minmax(0,55fr)_minmax(0,45fr)] md:gap-10 lg:gap-12">
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="order-2 lg:order-1"
+            className="order-2 md:order-1"
           >
             <h3 className="service-subsection-title mb-5">
               <EditableText
@@ -135,7 +135,7 @@ export function EXServices() {
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="order-1 lg:order-2"
+            className="order-1 md:order-2"
           >
             <EvidenceImage
               path="profileFabrication.profileImage"
@@ -147,7 +147,7 @@ export function EXServices() {
 
         <div className="my-14 h-px bg-gradient-to-r from-transparent via-[#D09947]/70 to-transparent lg:my-20" />
 
-        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,45fr)_minmax(0,55fr)] lg:gap-14">
+        <div className="grid items-center gap-8 md:grid-cols-[minmax(0,45fr)_minmax(0,55fr)] md:gap-10 lg:gap-14">
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}

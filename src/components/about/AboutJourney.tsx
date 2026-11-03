@@ -154,8 +154,8 @@ export function AboutJourney() {
         backgroundSize: "100% auto",
         backgroundPosition: "center bottom",
         backgroundRepeat: "no-repeat",
-        paddingTop: "clamp(40px, 8vw, 80px)",
-        paddingBottom: "clamp(40px, 8vw, 80px)",
+        paddingTop: "clamp(48px, 8vw, 80px)",
+        paddingBottom: "clamp(48px, 8vw, 80px)",
         position: "relative",
         overflow: "hidden",
       }}

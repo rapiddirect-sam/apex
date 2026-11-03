@@ -85,7 +85,7 @@ export function SMSurfaceFinishes() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ padding: "104px 0 112px", background: "#34312F" }}
+      style={{ padding: "104px 0 112px", background: "#000000" }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
@@ -93,7 +93,7 @@ export function SMSurfaceFinishes() {
             <EditableText path="finishes.heading" defaultValue={DEFAULTS.heading} />
             <span className="service-title-accent"><EditableText path="finishes.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
           </h2>
-          <p className="service-section-copy mb-[72px] max-w-[700px]">
+          <p className="service-section-copy section-reading-copy mb-[72px] max-w-[700px]">
             <EditableText path="finishes.subheading" defaultValue={DEFAULTS.subheading} multiline />
           </p>
         </motion.div>

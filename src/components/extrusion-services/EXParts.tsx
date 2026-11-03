@@ -89,7 +89,7 @@ export function EXParts() {
               />
             </span>
           </h2>
-          <p className="service-section-copy mt-[18px] max-w-[900px]">
+          <p className="service-section-copy section-reading-copy mt-[18px] max-w-[900px]">
             <EditableText path="extrusionApplications.subtitle" defaultValue={DEFAULTS.subtitle} />
           </p>
         </motion.div>
@@ -210,7 +210,10 @@ export function EXParts() {
           >
             <X className="h-5 w-5" />
           </button>
-          <div className="max-h-[90vh] max-w-[95vw]" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="flex max-h-[72vh] max-w-[82vw] items-center justify-center md:max-h-[74vh] md:max-w-[min(78vw,760px)] lg:max-h-[76vh] lg:max-w-[min(68vw,1000px)]"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={String(
@@ -220,7 +223,7 @@ export function EXParts() {
                 ),
               )}
               alt={DEFAULTS.parts[lightboxIndex].title}
-              className="max-h-[90vh] max-w-[95vw] object-contain"
+              className="block max-h-[72vh] max-w-full object-contain md:max-h-[74vh] lg:max-h-[76vh]"
             />
           </div>
         </div>

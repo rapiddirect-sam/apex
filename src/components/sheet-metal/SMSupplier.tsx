@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "@/components/ui/StaticMotion";
-import { EditableText, EditableImage } from "@/components/cms";
+import { EditableText } from "@/components/cms";
+import { StaticImage } from "@/components/ui/StaticImage";
+import { TechnicalDataTable } from "@/components/ui/TechnicalDataTable";
 
 const DEFAULTS = {
   heading: "Tolerances, Inspection, and Quality ",
@@ -21,30 +23,29 @@ const DEFAULTS = {
 
 export function SMSupplier() {
   return (
-    <section className="relative overflow-hidden bg-[#000000] py-20 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden bg-[#34312F] py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-[1200px] px-6">
-        <div className="grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+        <div className="grid items-center gap-10 md:grid-cols-[0.95fr_1.05fr] md:gap-10 lg:gap-16">
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <h2 className="service-section-title text-white">
               <EditableText path="quality.heading" defaultValue={DEFAULTS.heading} />
               <span className="service-title-accent"><EditableText path="quality.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
             </h2>
-            <p className="service-section-copy mt-6 max-w-[560px]">
+            <p className="service-section-copy mt-6 max-w-none lg:max-w-[560px]">
               <EditableText path="quality.description" defaultValue={DEFAULTS.description} multiline />
             </p>
           </motion.div>
-          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative aspect-[4/3] overflow-hidden border border-white/10">
-            <EditableImage path="quality.image" defaultSrc={DEFAULTS.image} alt="Inspecting a sheet metal part before delivery" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="feature-media-responsive relative aspect-[4/3] overflow-hidden border border-white/10">
+            <StaticImage path="quality.image" defaultSrc={DEFAULTS.image} alt="Inspecting a sheet metal part before delivery" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           </motion.div>
         </div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-14 w-full max-w-full overflow-x-auto border border-white/10 md:mt-16 md:overflow-visible">
-          <table className="min-w-[720px] w-full border-collapse text-left md:min-w-0">
-            <thead className="bg-[#292624]">
-              <tr>{DEFAULTS.headers.map((header, index) => <th key={header} className="border-b border-white/10 px-5 py-4 text-xs font-semibold uppercase tracking-[0.1em] text-[#EEC569]"><EditableText path={`quality.headers.${index}`} defaultValue={header} /></th>)}</tr>
-            </thead>
-            <tbody>{DEFAULTS.rows.map((row, rowIndex) => <tr key={row[0]} className="border-b border-white/[0.07] last:border-0">{row.map((cell, cellIndex) => <td key={cellIndex} className={`px-5 py-4 text-sm leading-relaxed ${cellIndex === 2 ? "font-medium text-[#F4F1EC]" : "text-[#C5C1BD]"}`}><EditableText path={`quality.rows.${rowIndex}.${cellIndex}`} defaultValue={cell} multiline /></td>)}</tr>)}</tbody>
-          </table>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-14 md:mt-16">
+          <TechnicalDataTable
+            headers={DEFAULTS.headers.map((header, index) => <EditableText key={header} path={`quality.headers.${index}`} defaultValue={header} />)}
+            rows={DEFAULTS.rows.map((row, rowIndex) => row.map((cell, cellIndex) => <EditableText key={`${rowIndex}-${cellIndex}`} path={`quality.rows.${rowIndex}.${cellIndex}`} defaultValue={cell} multiline />))}
+            highlightColumn={2}
+          />
         </motion.div>
 
       </div>

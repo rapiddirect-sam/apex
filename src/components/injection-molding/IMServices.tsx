@@ -1,50 +1,44 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { EditableText, EditableImage } from "@/components/cms";
+import { motion } from "@/components/ui/StaticMotion";
+import { ArrowRight } from "lucide-react";
+import { EditableText } from "@/components/cms";
+import { StaticImage } from "@/components/ui/StaticImage";
 
 const DEFAULTS = {
-  heading: "Our ",
-  headingHighlight: "Injection Molding",
-  headingSuffix: " Services",
+  heading: "Choose Our ",
+  headingHighlight: "Injection Molding Services",
+  headingSuffix: "",
   subheading:
-    "We provide comprehensive plastic injection molding solutions tailored to your project requirements, from prototyping to full-scale production.",
+    "These injection molding services cover standard custom plastic parts, dedicated tooling, overmolding, and insert molding. Choose the route around the part material, geometry, functional requirements, assembly needs, and production plan.",
   services: [
     {
-      title: "Rapid Prototyping",
+      title: "Plastic Injection Molding",
       description:
-        "Quick-turn injection molding for design validation and functional testing before mass production.",
-      specs: [
-        "3-7 day turnaround",
-        "Aluminum tooling for speed",
-        "Low minimum order quantity",
-        "Design for manufacturability feedback",
-      ],
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-rapid-injection-molding-prototyping.webp",
+        "Produce custom thermoplastic parts with repeatable geometry, defined material performance, and controlled cosmetic or functional requirements.",
+      detail: "Suitable for housings, enclosures, covers, clips, brackets, connectors, handles, and other custom plastic parts.",
+      image: "/injection-molding/custom-plastic-injection-molded-housings-covers-connectors-handles.webp",
     },
     {
-      title: "High-Volume Production",
+      title: "Injection Mold Tooling",
       description:
-        "Mass production with steel molds for maximum efficiency and lowest per-part cost.",
-      specs: [
-        "Steel tooling for durability",
-        "Automated production lines",
-        "Quality control at every stage",
-        "Just-in-time delivery options",
-      ],
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-high-volume-injection-molding-production.webp",
+        "Build a dedicated mold for prototype validation, pilot production, or repeat manufacturing. Before tooling begins, review part geometry, material, expected quantity, critical features, appearance requirements, and the validation plan.",
+      detail: "",
+      image: "/injection-molding/precision-steel-injection-mold-cavity-core-guide-pillars-cooling-fittings.webp",
     },
     {
-      title: "Custom Solutions",
+      title: "Overmolding",
       description:
-        "Specialized injection molding services including insert molding, overmolding, and multi-material.",
-      specs: [
-        "Insert and overmolding",
-        "Two-shot/multi-material molding",
-        "Liquid silicone rubber (LSR)",
-        "Micro-injection molding",
-      ],
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/3-custom-injection-molding-solutions.webp",
+        "Add a soft, flexible, sealing, protective, or grip-enhancing material to a rigid plastic or metal substrate.",
+      detail: "",
+      image: "/injection-molding/two-material-overmolded-industrial-grip-soft-touch-tpe.webp",
+    },
+    {
+      title: "Insert Molding",
+      description:
+        "Integrate threaded inserts, bushings, terminals, pins, magnets, stamped components, or other functional features directly into a molded part.",
+      detail: "",
+      image: "/injection-molding/insert-molded-plastic-parts-brass-threaded-inserts-terminals.webp",
     },
   ],
 };
@@ -64,7 +58,7 @@ export function IMServices() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center"
+          className="text-left lg:text-center"
           style={{ marginBottom: "64px" }}
         >
           <h2
@@ -75,31 +69,21 @@ export function IMServices() {
               letterSpacing: "-0.015em",
             }}
           >
-            <EditableText path="services.heading" defaultValue={DEFAULTS.heading} />
+            <EditableText path="services.headingPrefix" defaultValue={DEFAULTS.heading} />
             <span className="service-title-accent">
               <EditableText path="services.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
             </span>
             <EditableText path="services.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
           </h2>
-          <p
-            className="mx-auto"
-            style={{
-              fontSize: "18px",
-              lineHeight: 1.6,
-              color: "#7A7A7C",
-              maxWidth: "700px",
-              marginTop: "18px",
-            }}
-          >
+          <p className="service-section-copy mt-[18px] max-w-[760px] lg:mx-auto">
             <EditableText path="services.subheading" defaultValue={DEFAULTS.subheading} multiline />
           </p>
         </motion.div>
 
-        {/* Services Grid - 3 columns */}
         <div className="max-w-[1000px] mx-auto">
           <div
-            className="grid grid-cols-1 md:grid-cols-3"
-            style={{ gap: "24px" }}
+            className="grid grid-cols-1 md:grid-cols-2"
+            style={{ gap: "32px" }}
           >
             {DEFAULTS.services.map((service, index) => (
               <motion.div
@@ -108,14 +92,11 @@ export function IMServices() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="overflow-hidden"
-                style={{
-                  background: "#1A1A1A",
-                }}
+                className="service-card flex flex-col"
               >
                 {/* Image */}
-                <div className="relative" style={{ height: "200px" }}>
-                  <EditableImage
+                <div className="service-card-media">
+                  <StaticImage
                     path={`services.items.${index}.image`}
                     defaultSrc={service.image}
                     alt={service.title}
@@ -125,86 +106,30 @@ export function IMServices() {
                 </div>
 
                 {/* Content */}
-                <div style={{ padding: "24px" }}>
-                  <h3
-                    style={{
-                      fontSize: "20px",
-                      fontWeight: 700,
-                      color: "#FFFFFF",
-                      marginBottom: "12px",
-                    }}
-                  >
+                <div className="service-card-content flex flex-1 flex-col">
+                  <h3 className="service-card-title">
                     <EditableText path={`services.items.${index}.title`} defaultValue={service.title} />
                   </h3>
 
-                  <p
-                    style={{
-                      fontSize: "14px",
-                      lineHeight: 1.6,
-                      color: "#C5C6C9",
-                      marginBottom: "20px",
-                    }}
-                  >
+                  <p className="service-card-copy">
                     <EditableText path={`services.items.${index}.description`} defaultValue={service.description} multiline />
                   </p>
 
-                  {/* Specs as bullet points */}
-                  <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                    {service.specs.map((spec, specIndex) => (
-                      <li
-                        key={spec}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "12px",
-                          color: "#C5C6C9",
-                          fontSize: "14px",
-                          marginBottom: "8px",
-                        }}
-                      >
-                        <span
-                          style={{
-                            width: "8px",
-                            height: "8px",
-                            borderRadius: "50%",
-                            background: "#D09947",
-                            flexShrink: 0,
-                          }}
-                        />
-                        <EditableText path={`services.items.${index}.specs.${specIndex}`} defaultValue={spec} />
-                      </li>
-                    ))}
-                  </ul>
+                  {service.detail ? (
+                    <p className="service-card-copy">
+                      <EditableText path={`services.items.${index}.detail`} defaultValue={service.detail} multiline />
+                    </p>
+                  ) : null}
+                  <a href="https://app.apexbatch.com/" target="_blank" rel="noopener noreferrer" className="cta-primary group mt-auto self-start">
+                    Get a Quote
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </a>
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex justify-center"
-          style={{ marginTop: "40px" }}
-        >
-          <a
-            href="https://app.apexbatch.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-xl transition-colors duration-200 hover:bg-[#E3B95F]"
-            style={{
-              padding: "16px 36px",
-              background: "#D09947",
-              color: "#111111",
-              fontSize: "18px",
-              fontWeight: 800,
-              textDecoration: "none",
-            }}
-          >
-            Upload Your Design
-          </a>
-        </motion.div>
       </div>
     </section>
   );

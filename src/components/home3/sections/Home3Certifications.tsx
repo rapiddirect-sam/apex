@@ -2,15 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Award, CheckCircle, Target, TrendingUp } from "lucide-react";
-import Link from "next/link";
 import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
   titleWhiteLine1: "Your Trust,",
   titleHighlightLine2: "Verified by Data",
-  description:
-    "Quality controls, inspection planning and documented records are aligned to the requirements that matter to each program.",
-  qualityLinkLabel: "Explore Quality Assurance",
   metrics: [
     {
       label: "Zeiss CMM Verification",
@@ -56,23 +52,6 @@ export function Home3Certifications() {
               />
             </span>
           </h2>
-          <p className="body-copy mx-auto mt-5 max-w-2xl">
-            <EditableText
-              path="certifications.description"
-              defaultValue={DEFAULTS.description}
-              multiline
-            />
-          </p>
-          <Link
-            href="/quality"
-            className="body-text-link body-text-link--dark mt-5 inline-flex items-center gap-2 text-sm"
-          >
-            <EditableText
-              path="homeCertifications.qualityLinkLabel"
-              defaultValue={DEFAULTS.qualityLinkLabel}
-            />
-            <span aria-hidden="true">→</span>
-          </Link>
         </motion.div>
 
         {/* Bottom - Metrics Cards */}

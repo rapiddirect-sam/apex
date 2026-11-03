@@ -35,7 +35,7 @@ const DEFAULTS = {
 
 export function SMAdvantages() {
   return (
-    <section className="relative overflow-hidden bg-[#292624] py-20 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden bg-[#34312F] py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-[1200px] px-6">
         <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-20">
           <motion.div
@@ -50,9 +50,14 @@ export function SMAdvantages() {
                 <EditableText path="advantages.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
               </span>
             </h2>
-            <p className="service-section-copy mt-6 max-w-[500px]">
+            <p className="service-section-copy section-reading-copy mt-6 max-w-none lg:max-w-[500px]">
               <EditableText path="advantages.introduction" defaultValue={DEFAULTS.introduction} multiline />
             </p>
+            <div className="section-note mt-8 hidden max-w-[500px] lg:block">
+              <p>
+                <EditableText path="advantages.note" defaultValue={DEFAULTS.note} multiline />
+              </p>
+            </div>
           </motion.div>
 
           <div className="border-t border-white/10">
@@ -83,18 +88,13 @@ export function SMAdvantages() {
               );
             })}
           </div>
-        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="section-note mt-10"
-        >
-          <p>
-            <EditableText path="advantages.note" defaultValue={DEFAULTS.note} multiline />
-          </p>
-        </motion.div>
+          <div className="section-note mt-8 max-w-none lg:hidden">
+            <p>
+              <EditableText path="advantages.note" defaultValue={DEFAULTS.note} multiline />
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

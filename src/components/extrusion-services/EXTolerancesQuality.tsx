@@ -60,7 +60,7 @@ export function EXTolerancesQuality() {
               />
             </span>
           </h2>
-          <p className="service-section-copy mt-5 max-w-[820px]">
+          <p className="service-section-copy section-reading-copy mt-5 max-w-[820px]">
             <EditableText
               path="tolerancesQuality.introduction"
               defaultValue={DEFAULTS.introduction}

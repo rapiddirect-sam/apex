@@ -44,8 +44,9 @@ const navItems: NavItem[] = [
       },
       {
         heading: "Molding Services",
+        href: "/injection-molding",
         links: [
-          { href: "/injection-molding", label: "Plastic Injection Molding" },
+          { href: "/plastic-injection-molding", label: "Plastic Injection Molding" },
           { href: "/overmolding", label: "Overmolding" },
           { href: "/insert-molding", label: "Insert Molding" },
         ],

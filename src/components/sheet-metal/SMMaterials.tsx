@@ -4,7 +4,8 @@ import { motion } from "@/components/ui/StaticMotion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { EditableText, EditableImage } from "@/components/cms";
+import { EditableText } from "@/components/cms";
+import { StaticImage } from "@/components/ui/StaticImage";
 
 const DEFAULTS = {
   heading: "Materials for Custom Sheet Metal ",
@@ -61,7 +62,7 @@ export function SMMaterials() {
       className="relative overflow-hidden"
       style={{
         padding: "112px 0 120px",
-        background: `radial-gradient(60% 50% at 50% 0%, rgba(249,235,188,0.08), rgba(0,0,0,0) 65%), #000000`,
+        background: `radial-gradient(60% 50% at 50% 0%, rgba(249,235,188,0.05), rgba(52,49,47,0) 65%), #34312F`,
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">
@@ -168,7 +169,7 @@ export function SMMaterials() {
                 overflow: "hidden",
               }}
             >
-              <EditableImage
+              <StaticImage
                 path={`materials.items.${materialIndex}.image`}
                 defaultSrc={material.image}
                 alt={material.name}
@@ -183,7 +184,7 @@ export function SMMaterials() {
         <div className="section-note mx-auto mt-8 max-w-[1050px]">
           <p><EditableText path="materials.scopeNote" defaultValue={DEFAULTS.scopeNote} multiline /></p>
         </div>
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-6 flex justify-start lg:justify-center">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-6 flex justify-center">
           <Link href="/materials" className="body-text-link body-text-link--dark inline-flex items-center gap-2 text-sm">
             View Sheet Metal Materials
             <ArrowRight className="h-4 w-4" aria-hidden="true" />

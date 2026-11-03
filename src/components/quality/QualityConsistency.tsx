@@ -45,11 +45,11 @@ export function QualityConsistency() {
 
         <div className="mt-12 divide-y divide-white/10 border-y border-white/10">
           {CONTROLS.map((control, index) => (
-            <motion.article key={control.title} initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} className={`grid items-center gap-8 py-10 lg:gap-14 lg:py-14 ${index % 2 === 1 ? "lg:grid-cols-[minmax(0,0.60fr)_minmax(0,0.40fr)]" : "lg:grid-cols-[minmax(0,0.40fr)_minmax(0,0.60fr)]"}`}>
-              <div className={`relative order-1 aspect-[3/2] overflow-hidden rounded-xl border border-white/10 bg-[#171717] ${index % 2 === 1 ? "lg:order-2" : "lg:order-1"}`}>
-                <Image src={control.image} alt={control.alt} fill unoptimized className="object-cover" sizes="(max-width: 1023px) 100vw, 40vw" />
+            <motion.article key={control.title} initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} className={`grid items-center gap-8 py-10 md:gap-10 md:py-14 lg:gap-14 ${index % 2 === 1 ? "md:grid-cols-[minmax(0,0.60fr)_minmax(0,0.40fr)]" : "md:grid-cols-[minmax(0,0.40fr)_minmax(0,0.60fr)]"}`}>
+              <div className={`relative order-1 aspect-[3/2] overflow-hidden rounded-xl border border-white/10 bg-[#171717] ${index % 2 === 1 ? "md:order-2" : "md:order-1"}`}>
+                <Image src={control.image} alt={control.alt} fill unoptimized className="object-cover" sizes="(max-width: 767px) 100vw, 40vw" />
               </div>
-              <div className={`order-2 min-w-0 ${index % 2 === 1 ? "lg:order-1" : "lg:order-2"}`}>
+              <div className={`order-2 min-w-0 ${index % 2 === 1 ? "md:order-1" : "md:order-2"}`}>
                 <h3 className="text-2xl font-bold leading-tight text-white sm:text-3xl"><EditableText path={`consistentQuality.controls.${index}.title`} defaultValue={control.title} /></h3>
                 <p className="mt-3 text-base font-semibold leading-6 text-[#EEC569]"><EditableText path={`consistentQuality.controls.${index}.subtitle`} defaultValue={control.subtitle} multiline /></p>
                 <ul className="mt-6 space-y-4">

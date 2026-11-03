@@ -9,14 +9,14 @@ export function SFCompatibility() {
   return (
     <section className="bg-[#0D0D0D] py-20 lg:py-28">
       <div className="mx-auto max-w-[1200px] px-6">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+        <div className="mx-auto grid gap-10 md:max-w-[800px] lg:max-w-none lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="lg:flex lg:items-center lg:justify-center"
           >
-            <h2 className="service-section-title mx-auto max-w-[460px] text-left">
+            <h2 className="service-section-title max-w-[460px] text-left md:mx-0 lg:mx-auto">
               <EditableText
                 path="surfaceFinishingCompatibility.headingPrefix"
                 defaultValue="Material Compatibility for "

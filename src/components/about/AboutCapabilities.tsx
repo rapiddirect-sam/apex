@@ -23,8 +23,8 @@ const imageFrame =
 
 export function AboutCapabilities() {
   return (
-    <section className="bg-[#0D0D0D] px-4 py-14 sm:px-6 md:px-10 md:py-20">
-      <div className="mx-auto grid max-w-[1280px] items-center gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14">
+    <section className="bg-[#34312F] px-4 py-16 sm:px-6 sm:py-20 md:px-10 lg:py-24">
+      <div className="mx-auto grid max-w-[1280px] items-center gap-10 md:grid-cols-[0.82fr_1.18fr] md:gap-10 lg:gap-14">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
-  backgroundImage: "/quality/apexbatch-cnc-machining-workshop-with-operators.webp",
+  backgroundImage: "/sheet-metal/apexbatch-sheet-metal-secondary-operations-factory.avif",
   heading: "Ready to Review Your Sheet Metal Design?",
   description:
     "Upload your CAD files and drawings for a review of material, forming, joining, finishing, inspection and production requirements.",
@@ -21,7 +21,7 @@ export function SMCTA() {
       <div className="absolute inset-0">
         <Image
           src={DEFAULTS.backgroundImage}
-          alt="ApexBatch operators working in the CNC machining workshop"
+          alt="ApexBatch sheet metal secondary operations factory"
           fill
           unoptimized
           className="object-cover object-center"
@@ -37,7 +37,7 @@ export function SMCTA() {
           <p className="mx-auto max-w-2xl" style={{ fontSize: "18px", lineHeight: 1.6, color: "#C5C6C9", marginBottom: "36px" }}>
             <EditableText path="cta.description" defaultValue={DEFAULTS.description} multiline />
           </p>
-          <div className="flex flex-col justify-center gap-4 lg:flex-row">
+          <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:flex-nowrap">
             <Link href="https://app.apexbatch.com/" rel="nofollow" className="cta-primary group whitespace-nowrap">
               {DEFAULTS.primaryCta}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

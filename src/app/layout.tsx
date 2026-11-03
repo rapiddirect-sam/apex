@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 import "./home3.css";
-import { AuthProvider } from "@/contexts/AuthContext";
 import { VisitTracker } from "@/components/VisitTracker";
 import { getQ4AnnouncementBootstrapScript } from "@/components/home3/layout/q4AnnouncementConfig";
 import { inter, playfair } from "./fontDefinitions";
@@ -57,7 +56,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           />
         </noscript>
         <VisitTracker />
-        <AuthProvider>{children}</AuthProvider>
+        {children}
       </body>
     </html>
   );

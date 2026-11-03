@@ -14,10 +14,10 @@ const DEFAULTS = {
   ctaSecondaryHref: "/contact",
   metricsSingleLine: true,
   metrics: [
-    { value: "Prototype to Production", label: "" },
-    { value: "Pre-Production DFM Review", label: "" },
-    { value: "Integrated Fabrication & Assembly", label: "" },
-    { value: "Global Delivery", label: "" },
+    { value: "1 PC+", label: "Prototype to Production" },
+    { value: "DFM Review", label: "Before Production" },
+    { value: "8 Workshops", label: "Integrated Manufacturing" },
+    { value: "Global Shipping", label: "Planned Delivery" },
   ],
 };
 

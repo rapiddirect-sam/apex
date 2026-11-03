@@ -1,279 +1,112 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
-import { EditableText, EditableImage } from "@/components/cms";
+import Link from "next/link";
+import { motion } from "@/components/ui/StaticMotion";
+import { EditableImage, EditableText } from "@/components/cms";
 
 const DEFAULTS = {
-  headingHighlight: "Precision Injection Molding Services ",
-  headingSuffix: "Supplier",
-  description1:
-    "Located in Shenzhen\u2019s advanced manufacturing district, our 50,000 m\u00B2 manufacturing footprint spans 8 specialized production workshops and includes 650+ advanced machines.",
-  description2:
-    "We support end-to-end manufacturing in one location, including CNC machining, precision injection molding, sheet metal fabrication, 3D printing, as well as in-house surface treatment and quality inspection lines.",
-  stats: [
-    { value: "50,000 m\u00B2", label: "Total Manufacturing Footprint" },
-    { value: "8", label: "Specialized Production Shops" },
-    { value: "650+", label: "Advanced Equipment" },
-    { value: "98%", label: "On-time Delivery" },
-  ],
+  heading: "Quality and ",
+  headingHighlight: "Documentation",
+  introduction:
+    "Quality requirements are reviewed against the drawing, specification, intended use, and order scope.",
+  qualityPlanning:
+    "From our Shenzhen manufacturing facility, ApexBatch supports defined production programs with incoming inspection, in-process controls, first-article inspection, SPC where required, ZEISS CMM measurement, and material or batch traceability.",
+  documentation:
+    "Inspection reports, material certificates, and lot-related documentation can be included where agreed for the project.",
+  qualityLink: "Quality Assurance",
   images: [
     {
-      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-injection-molding-factory-workshop-1.webp",
-      alt: "Injection Molding Factory Workshop",
+      src: "/injection-molding/apexbatch-injection-molding-factory-workshop.avif",
+      alt: "ApexBatch injection molding factory workshop",
     },
     {
-      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-plastic-injection-molding-production-line-2.webp",
-      alt: "Plastic Injection Molding Production Line",
+      src: "/injection-molding/apexbatch-quality-inspector-operating-zeiss-contura-cmm.webp",
+      alt: "Quality inspector operating a ZEISS CONTURA CMM",
     },
     {
-      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-custom-injection-molding-manufacturing-facility-3.webp",
-      alt: "Custom Injection Molding Manufacturing Facility",
+      src: "/injection-molding/apexbatch-quality-inspector-operating-tesa-height-gauge.webp",
+      alt: "Quality inspector operating a TESA height gauge",
     },
-    {
-      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-injection-molding-machines-on-site-4.webp",
-      alt: "Injection Molding Machines On Site",
-    },
-    {
-      src: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/2-plastic-injection-molding-factory-5.webp",
-      alt: "Plastic Injection Molding Factory",
-    },
+  ],
+  stats: [
+    { value: "98%", label: "On-time Delivery" },
+    { value: "50,000 m²", label: "Manufacturing Facility" },
+    { value: "8", label: "Specialized Workshops" },
+    { value: "650+", label: "Manufacturing & Inspection Equipment" },
   ],
 };
 
 export function IMSupplier() {
-  const [currentImage, setCurrentImage] = useState(0);
-
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % DEFAULTS.images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + DEFAULTS.images.length) % DEFAULTS.images.length);
-  };
-
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{
-        padding: "112px 0 120px",
-        background: `
-          radial-gradient(
-            60% 50% at 50% 0%,
-            rgba(249,235,188,0.08),
-            rgba(0,0,0,0) 65%
-          ),
-          #000000
-        `,
-      }}
-    >
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* Left - Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2
-              className="service-section-title font-bold"
-              style={{
-                fontSize: "46px",
-                fontWeight: 700,
-                letterSpacing: "-0.015em",
-                lineHeight: 1.1,
-                marginTop: "10px",
-                marginBottom: "34px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              <span className="service-title-accent">
-                <EditableText path="supplier.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
-              </span>
-              <span style={{ color: "#FFFFFF" }}>
-                <EditableText path="supplier.headingSuffix" defaultValue={DEFAULTS.headingSuffix} />
-              </span>
+    <section className="bg-black py-20 sm:py-24 lg:py-28">
+      <div className="mx-auto max-w-[1200px] px-6">
+        <div className="grid items-center gap-10 md:grid-cols-[minmax(0,0.45fr)_minmax(0,0.55fr)] md:gap-12 lg:gap-16">
+          <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+            <h2 className="service-section-title text-white">
+              <EditableText path="qualityDocumentation.headingPrefix" defaultValue={DEFAULTS.heading} />
+              <span className="service-title-accent"><EditableText path="qualityDocumentation.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
             </h2>
-
-            <div
-              style={{
-                fontSize: "15px",
-                lineHeight: 1.7,
-                color: "#C5C6C9",
-                marginBottom: "32px",
-              }}
-            >
-              <p>
-                <EditableText path="supplier.description1" defaultValue={DEFAULTS.description1} multiline />
+            <div className="mt-6 space-y-5">
+              <p className="service-section-copy">
+                <EditableText path="qualityDocumentation.introduction" defaultValue={DEFAULTS.introduction} multiline />
               </p>
-              <br />
-              <p>
-                <EditableText path="supplier.description2" defaultValue={DEFAULTS.description2} multiline />
+              <p className="service-section-copy">
+                <EditableText path="qualityDocumentation.qualityPlanning" defaultValue={DEFAULTS.qualityPlanning} multiline />
               </p>
             </div>
+            <div className="section-note mt-6">
+              <p><EditableText path="qualityDocumentation.documentation" defaultValue={DEFAULTS.documentation} multiline /></p>
+            </div>
+            <p className="service-section-copy mt-6">
+              For our quality-management approach, inspection resources, and certification information, visit {" "}
+              <Link href="/quality" className="body-text-link body-text-link--dark">
+                <EditableText path="qualityDocumentation.qualityLink" defaultValue={DEFAULTS.qualityLink} />
+              </Link>.
+            </p>
+          </motion.div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-4">
-              {DEFAULTS.stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="text-center transition-all duration-300 hover:-translate-y-1"
-                  style={{
-                    padding: "20px 16px",
-                    background: "linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
-                    border: "1px solid rgba(208,153,71,0.3)",
-                    borderRadius: "12px",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: "28px",
-                      fontWeight: 700,
-                      color: "#D09947",
-                      lineHeight: 1.1,
-                    }}
-                  >
-                    <EditableText path={`supplier.stats.${index}.value`} defaultValue={stat.value} />
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "12px",
-                      color: "#7A7A7C",
-                      marginTop: "8px",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    <EditableText path={`supplier.stats.${index}.label`} defaultValue={stat.label} />
-                  </div>
-                </motion.div>
+          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="grid gap-4">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-xl border border-white/10 bg-[#171717]">
+              <EditableImage path="qualityDocumentation.images.0.src" defaultSrc={DEFAULTS.images[0].src} alt={DEFAULTS.images[0].alt} fill sizes="(max-width: 767px) 100vw, 55vw" className="object-cover" />
+              <span className="absolute bottom-3 left-3 bg-black/70 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white">Manufacturing floor</span>
+            </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {DEFAULTS.images.slice(1).map((image, index) => (
+                <div key={image.src} className="relative aspect-[16/9] overflow-hidden rounded-xl border border-white/10 bg-[#171717] sm:aspect-[4/3]">
+                  <EditableImage path={`qualityDocumentation.images.${index + 1}.src`} defaultSrc={image.src} alt={image.alt} fill sizes="(max-width: 639px) 100vw, (max-width: 767px) 50vw, 28vw" className="object-cover" />
+                  <span className="absolute bottom-2 left-2 bg-black/70 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white">
+                    {index === 0 ? "CMM measurement" : "Height-gauge inspection"}
+                  </span>
+                </div>
               ))}
             </div>
           </motion.div>
+        </div>
 
-          {/* Right - Image with navigation */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="relative"
-            style={{ marginTop: "80px" }}
-          >
-            <div
-              className="relative overflow-hidden"
+        <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {DEFAULTS.stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.08 }}
+              className="text-center transition-transform duration-300 hover:-translate-y-1"
               style={{
-                borderRadius: "16px",
-                border: "2px solid #7F4D0F",
-                boxShadow: "inset 0 0 0 1px rgba(208,153,71,0.15), 0 24px 48px rgba(0,0,0,0.6)",
+                padding: "20px 16px",
+                background: "linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
+                border: "1px solid rgba(208,153,71,0.3)",
+                borderRadius: "12px",
               }}
             >
-              {/* Corner brackets */}
-              <div
-                className="absolute top-3 left-3 z-10"
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderTop: "2px solid #7F4D0F",
-                  borderLeft: "2px solid #7F4D0F",
-                }}
-              />
-              <div
-                className="absolute top-3 right-3 z-10"
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderTop: "2px solid #7F4D0F",
-                  borderRight: "2px solid #7F4D0F",
-                }}
-              />
-              <div
-                className="absolute bottom-3 left-3 z-10"
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderBottom: "2px solid #7F4D0F",
-                  borderLeft: "2px solid #7F4D0F",
-                }}
-              />
-              <div
-                className="absolute bottom-3 right-3 z-10"
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  borderBottom: "2px solid #7F4D0F",
-                  borderRight: "2px solid #7F4D0F",
-                }}
-              />
-
-              <div className="relative aspect-[4/3]">
-                {DEFAULTS.images.map((img, index) => (
-                  <EditableImage
-                    key={img.src}
-                    path={`supplier.images.${index}.src`}
-                    defaultSrc={img.src}
-                    alt={img.alt}
-                    fill
-                    priority={index === 0}
-                    sizes="(max-width: 1024px) 100vw, 520px"
-                    className="object-cover transition-opacity duration-300 ease-out"
-                    style={{
-                      opacity: index === currentImage ? 1 : 0,
-                      willChange: "opacity",
-                      pointerEvents: index === currentImage ? "auto" : "none",
-                    }}
-                  />
-                ))}
-
-                {/* Navigation arrows */}
-                <button
-                  onClick={prevImage}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300 hover:bg-[rgba(208,153,71,0.15)]"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "8px",
-                    background: "rgba(0,0,0,0.75)",
-                    border: "1px solid rgba(208,153,71,0.4)",
-                  }}
-                >
-                  <ChevronLeft className="w-5 h-5" style={{ color: "#D09947" }} />
-                </button>
-                <button
-                  onClick={nextImage}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300 hover:bg-[rgba(208,153,71,0.15)]"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "8px",
-                    background: "rgba(0,0,0,0.75)",
-                    border: "1px solid rgba(208,153,71,0.4)",
-                  }}
-                >
-                  <ChevronRight className="w-5 h-5" style={{ color: "#D09947" }} />
-                </button>
-              </div>
-            </div>
-
-            {/* Dot indicators */}
-            <div className="flex justify-center gap-2 mt-5">
-              {DEFAULTS.images.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentImage(index)}
-                  className="h-1 rounded-full transition-all"
-                  style={{
-                    width: index === currentImage ? "24px" : "12px",
-                    background: index === currentImage ? "#D09947" : "#444444",
-                  }}
-                />
-              ))}
-            </div>
-          </motion.div>
+              <p className="text-[28px] font-bold leading-[1.1] text-[#D09947]">
+                <EditableText path={`qualityDocumentation.stats.${index}.value`} defaultValue={stat.value} />
+              </p>
+              <p className="mt-2 text-xs uppercase tracking-[0.05em] text-[#A9A19A]">
+                <EditableText path={`qualityDocumentation.stats.${index}.label`} defaultValue={stat.label} />
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

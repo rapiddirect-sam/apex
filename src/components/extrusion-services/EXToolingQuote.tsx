@@ -11,7 +11,12 @@ const DEFAULTS = {
   introduction:
     "Custom aluminum extrusion is built around the cross-section. When your required geometry cannot be achieved with an existing profile, a custom die is used to form that shape consistently.",
   toolingHeading: "Tooling",
-  toolingIntroduction:
+  toolingEvidenceLabel: "Typical die material and service life",
+  toolingMaterialLabel: "Tool steel",
+  toolingMaterial: "H13 or SKD61",
+  toolingLifeLabel: "Expected die life",
+  toolingLife: "5,000–50,000 m",
+  toolingDesignIntroduction:
     "Aluminum extrusion tooling is developed around the profile’s cross-section, including cavities, channels, ribs, mounting features and wall thicknesses. Tooling requirements and cost are affected by:",
   toolingFactors: [
     "Profile size and geometry",
@@ -78,7 +83,7 @@ export function EXToolingQuote() {
               />
             </span>
           </h2>
-          <p className="service-section-copy mt-5 max-w-[840px]">
+          <p className="service-section-copy section-reading-copy mt-5 max-w-[840px]">
             <EditableText
               path="toolingQuote.introduction"
               defaultValue={DEFAULTS.introduction}
@@ -99,24 +104,67 @@ export function EXToolingQuote() {
               defaultValue={DEFAULTS.toolingHeading}
             />
           </h3>
-          <p className="service-section-copy mt-5 max-w-[960px]">
-            <EditableText
-              path="toolingQuote.toolingIntroduction"
-              defaultValue={DEFAULTS.toolingIntroduction}
-              multiline
-            />
-          </p>
-          <ul className="mt-7 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
-            {DEFAULTS.toolingFactors.map((factor, index) => (
-              <li key={factor} className="flex items-start gap-3 text-[15px] leading-6 text-[#D7D7D8]">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#EEC569]" />
+          <div className="mt-6 grid gap-8 border-t border-white/[0.08] pt-7 lg:grid-cols-[minmax(0,36fr)_minmax(0,64fr)] lg:gap-12">
+            <div className="rounded-lg border border-[#D09947]/20 bg-black/20 p-5 sm:p-6">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#EEC569]">
                 <EditableText
-                  path={`toolingQuote.toolingFactors.${index}`}
-                  defaultValue={factor}
+                  path="toolingQuote.toolingEvidenceLabel"
+                  defaultValue={DEFAULTS.toolingEvidenceLabel}
                 />
-              </li>
-            ))}
-          </ul>
+              </p>
+              <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#A8A8AA]">
+                    <EditableText
+                      path="toolingQuote.toolingMaterialLabel"
+                      defaultValue={DEFAULTS.toolingMaterialLabel}
+                    />
+                  </p>
+                  <p className="mt-2 text-2xl font-bold tracking-tight text-white">
+                    <EditableText
+                      path="toolingQuote.toolingMaterial"
+                      defaultValue={DEFAULTS.toolingMaterial}
+                    />
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#A8A8AA]">
+                    <EditableText
+                      path="toolingQuote.toolingLifeLabel"
+                      defaultValue={DEFAULTS.toolingLifeLabel}
+                    />
+                  </p>
+                  <p className="mt-2 text-2xl font-bold tracking-tight text-[#EEC569]">
+                    <EditableText
+                      path="toolingQuote.toolingLife"
+                      defaultValue={DEFAULTS.toolingLife}
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <p className="service-section-copy section-reading-copy max-w-[760px]">
+                <EditableText
+                  path="toolingQuote.toolingDesignIntroduction"
+                  defaultValue={DEFAULTS.toolingDesignIntroduction}
+                  multiline
+                />
+              </p>
+              <ul className="mt-7 grid gap-x-8 gap-y-4 sm:grid-cols-2">
+                {DEFAULTS.toolingFactors.map((factor, index) => (
+                  <li key={factor} className="flex items-start gap-3 text-[15px] leading-6 text-[#D7D7D8]">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#EEC569]" />
+                    <EditableText
+                      path={`toolingQuote.toolingFactors.${index}`}
+                      defaultValue={factor}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </motion.article>
 
         <div className="mt-6 grid items-stretch gap-6 md:grid-cols-2">
@@ -181,7 +229,7 @@ export function EXToolingQuote() {
           viewport={{ once: true }}
           className="mt-8 rounded-xl border border-white/[0.08] bg-[#111111] p-7 sm:p-8 lg:p-10"
         >
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,40fr)_minmax(0,60fr)] lg:gap-14">
+          <div className="grid gap-10 md:grid-cols-[minmax(0,45fr)_minmax(0,55fr)] md:gap-10 lg:grid-cols-[minmax(0,40fr)_minmax(0,60fr)] lg:gap-14">
             <div className="flex flex-col items-start">
               <h3 className="service-subsection-title">
                 <EditableText
@@ -196,27 +244,29 @@ export function EXToolingQuote() {
                   multiline
                 />
               </p>
-              <p className="mt-6 rounded-r-lg border-l-2 border-[#D09947] bg-[#D09947]/10 px-4 py-3 text-[16px] font-medium leading-[1.65] text-[#F0F0F0]">
-                <strong className="font-bold text-[#EEC569]">
+              <div className="mt-6 hidden md:block">
+                <p className="rounded-r-lg border-l-2 border-[#D09947] bg-[#D09947]/10 px-4 py-3 text-[16px] font-medium leading-[1.65] text-[#F0F0F0]">
+                  <strong className="font-bold text-[#EEC569]">
+                    <EditableText
+                      path="toolingQuote.missingDetailsLead"
+                      defaultValue={DEFAULTS.missingDetailsLead}
+                    />
+                  </strong>{" "}
                   <EditableText
-                    path="toolingQuote.missingDetailsLead"
-                    defaultValue={DEFAULTS.missingDetailsLead}
+                    path="toolingQuote.missingDetailsTail"
+                    defaultValue={DEFAULTS.missingDetailsTail}
+                    multiline
                   />
-                </strong>{" "}
-                <EditableText
-                  path="toolingQuote.missingDetailsTail"
-                  defaultValue={DEFAULTS.missingDetailsTail}
-                  multiline
-                />
-              </p>
-              <Link
-                href="https://app.apexbatch.com/"
-                rel="nofollow"
-                className="group mt-7 inline-flex items-center justify-center gap-2 rounded bg-[#D09947] px-7 py-4 text-sm font-semibold uppercase tracking-wider text-black transition-colors hover:bg-[#EEC569]"
-              >
-                <EditableText path="toolingQuote.cta" defaultValue={DEFAULTS.cta} />
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
+                </p>
+                <Link
+                  href="https://app.apexbatch.com/"
+                  rel="nofollow"
+                  className="group mt-7 inline-flex whitespace-nowrap items-center justify-center gap-2 rounded bg-[#D09947] px-5 py-4 text-sm font-semibold uppercase tracking-wider text-black transition-colors hover:bg-[#EEC569] sm:px-7"
+                >
+                  <EditableText path="toolingQuote.cta" defaultValue={DEFAULTS.cta} />
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
             </div>
 
             <div>
@@ -246,6 +296,30 @@ export function EXToolingQuote() {
                 ))}
               </ul>
             </div>
+          </div>
+
+          <div className="mt-10 flex flex-col items-center border-t border-white/[0.08] pt-8 text-center md:hidden">
+            <p className="w-full max-w-2xl rounded-r-lg border-l-2 border-[#D09947] bg-[#D09947]/10 px-4 py-3 text-[16px] font-medium leading-[1.65] text-[#F0F0F0]">
+              <strong className="font-bold text-[#EEC569]">
+                <EditableText
+                  path="toolingQuote.missingDetailsLead"
+                  defaultValue={DEFAULTS.missingDetailsLead}
+                />
+              </strong>{" "}
+              <EditableText
+                path="toolingQuote.missingDetailsTail"
+                defaultValue={DEFAULTS.missingDetailsTail}
+                multiline
+              />
+            </p>
+            <Link
+              href="https://app.apexbatch.com/"
+              rel="nofollow"
+              className="group mt-7 inline-flex items-center justify-center gap-2 rounded bg-[#D09947] px-7 py-4 text-sm font-semibold uppercase tracking-wider text-black transition-colors hover:bg-[#EEC569]"
+            >
+              <EditableText path="toolingQuote.cta" defaultValue={DEFAULTS.cta} />
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
         </motion.article>
       </div>

@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "@/components/ui/StaticMotion";
-import { EditableImage, EditableText } from "@/components/cms";
+import { EditableText } from "@/components/cms";
+import { StaticImage } from "@/components/ui/StaticImage";
 
 const DEFAULTS = {
   heading: "Our Sheet Metal Manufacturing Facility and ",
@@ -14,7 +15,7 @@ const DEFAULTS = {
     {
       src: "/about/apexbatch-sheet-metal-bending-workshop.avif",
       alt: "ApexBatch sheet metal bending workshop",
-      className: "col-span-2 row-span-2",
+      className: "col-span-2 row-span-2 md:col-span-1 md:row-span-1 lg:col-span-2 lg:row-span-2",
     },
     {
       src: "/sheet-metal/sheet-metal-fabrication-inventory.avif",
@@ -29,14 +30,14 @@ const DEFAULTS = {
     {
       src: "/sheet-metal/digital-caliper-inspection-custom-sheet-metal-part.avif",
       alt: "Digital caliper inspection of a custom sheet metal part",
-      className: "col-span-2",
+      className: "col-span-2 md:col-span-1 lg:col-span-2",
     },
   ],
 };
 
 export function SMFacility() {
   return (
-    <section className="relative overflow-hidden bg-[#1A1918] py-20 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden bg-black py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-[1200px] px-6">
         <div className="grid items-start gap-12 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:gap-16">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
@@ -46,11 +47,11 @@ export function SMFacility() {
                 <EditableText path="facility.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
               </span>
             </h2>
-            <p className="service-section-copy mt-6 max-w-[540px]">
+            <p className="service-section-copy section-reading-copy mt-6 max-w-none lg:max-w-[540px]">
               <EditableText path="facility.description" defaultValue={DEFAULTS.description} multiline />
             </p>
 
-            <p className="service-section-copy mt-5 max-w-[540px]">
+            <p className="service-section-copy section-reading-copy mt-5 max-w-none lg:max-w-[540px]">
               <EditableText path="facility.support" defaultValue={DEFAULTS.support} multiline />
             </p>
           </motion.div>
@@ -62,8 +63,8 @@ export function SMFacility() {
             className="grid grid-cols-2 gap-3 sm:gap-4"
           >
             {DEFAULTS.images.map((image, index) => (
-              <div key={image.src} className={`relative min-h-[150px] overflow-hidden ${image.className}`}>
-                <EditableImage
+              <div key={image.src} className={`relative min-h-[150px] overflow-hidden md:min-h-[220px] lg:min-h-[150px] ${image.className}`}>
+                <StaticImage
                   path={`facility.images.${index}`}
                   defaultSrc={image.src}
                   alt={image.alt}

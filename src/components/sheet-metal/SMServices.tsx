@@ -32,10 +32,10 @@ export function SMServices() {
                 <EditableText path="services.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
               </span>
             </h2>
-            <p className="service-section-copy mt-6 max-w-[540px]">
+            <p className="service-section-copy section-reading-copy mt-6 max-w-none lg:max-w-[540px]">
               <EditableText path="services.description" defaultValue={DEFAULTS.description} multiline />
             </p>
-            <p className="service-section-copy mt-5 max-w-[540px]">
+            <p className="service-section-copy section-reading-copy mt-5 max-w-none lg:max-w-[540px]">
               <EditableText path="services.applications" defaultValue={DEFAULTS.applications} multiline />
             </p>
           </motion.div>

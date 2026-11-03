@@ -1,32 +1,34 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { EditableText, EditableImage } from "@/components/cms";
+import { motion } from "@/components/ui/StaticMotion";
+import { EditableText } from "@/components/cms";
+import { StaticImage } from "@/components/ui/StaticImage";
 
 const DEFAULTS = {
-  heading: "Molding Parts ",
-  headingHighlight: "Made By Us",
+  heading: "Project Examples by Molding ",
+  headingHighlight: "Route",
+  description: "These examples show how the production route changes with the part requirement.",
   parts: [
     {
-      title: "Medical Fluid Connector",
+      title: "Textured Plastic Panels and Housings",
       description:
-        "Ultrasonically welded and leak-tested after molding for guaranteed sterile fluid paths.",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Medical-Fluid Connector.webp",
-      tags: ["PC", "ultrasonic welding", "leak-proof"],
+        "Plastic molding can support equipment panels, housings, covers, and exterior components that need defined texture, visible-surface control, mounting features, or repeatable assembly interfaces.",
+      reviewFocus: "Material selection, cosmetic surfaces, texture, parting-line location, clips, bosses, and assembly fit.",
+      image: "/injection-molding/textured-plastic-injection-molded-panels-housings.avif",
     },
     {
-      title: "Automotive Vent Grille",
+      title: "Soft-Touch Handles and Protective Interfaces",
       description:
-        "Molded with precise, deep textures to achieve a consistent matte appearance across complex surfaces.",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Automotive Vent-Grille.webp",
-      tags: ["ABS", "texture molding", "SPI-D", "automotive interior"],
+        "Overmolding can add grip, cushioning, sealing, or a softer user-contact surface to a rigid substrate.",
+      reviewFocus: "Substrate material, overmold material, interface geometry, hardness, bonding, wear, and intended use.",
+      image: "/injection-molding/soft-touch-overmolded-handles-protective-interfaces.avif",
     },
     {
-      title: "Wearable Device Band",
+      title: "Functional Connector and Insert Housings",
       description:
-        "Soft-touch overmolding on a rigid core for durable and comfortable skin contact.",
-      image: "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/4-Wearable-Device Band.webp",
-      tags: ["two-shot", "TPE overmolding", "wearable"],
+        "Insert molding can integrate terminals, threaded inserts, bushings, pins, magnets, or stamped components directly into a plastic part.",
+      reviewFocus: "Insert positioning, plastic coverage, retention, critical dimensions, insulation, and downstream assembly.",
+      image: "/injection-molding/insert-molded-functional-connector-housings.avif",
     },
   ],
 };
@@ -46,7 +48,7 @@ export function IMParts() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center"
+          className="text-left lg:text-center"
           style={{ marginBottom: "64px" }}
         >
           <h2
@@ -57,11 +59,12 @@ export function IMParts() {
               letterSpacing: "-0.015em",
             }}
           >
-            <EditableText path="parts.heading" defaultValue={DEFAULTS.heading} />
-            <span className="service-title-accent">
-              <EditableText path="parts.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
-            </span>
+            <EditableText path="parts.headingPrefix" defaultValue={DEFAULTS.heading} />
+            <span className="service-title-accent"><EditableText path="parts.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
           </h2>
+          <p className="service-section-copy mt-6 max-w-[720px] lg:mx-auto">
+            <EditableText path="parts.description" defaultValue={DEFAULTS.description} multiline />
+          </p>
         </motion.div>
 
         {/* Parts Grid */}
@@ -76,7 +79,7 @@ export function IMParts() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group overflow-hidden transition-all duration-300 hover:-translate-y-1"
+              className="group flex flex-col overflow-hidden rounded-xl border border-[#D09947]/15 transition-all duration-300 hover:-translate-y-1"
               style={{
                 borderRadius: "12px",
                 background: "#1A1A1A",
@@ -92,8 +95,8 @@ export function IMParts() {
               }}
             >
               {/* Image */}
-              <div className="relative overflow-hidden" style={{ height: "220px" }}>
-                <EditableImage
+              <div className="service-card-media">
+                <StaticImage
                   path={`parts.items.${index}.image`}
                   defaultSrc={part.image}
                   alt={part.title}
@@ -105,45 +108,21 @@ export function IMParts() {
               {/* Content */}
               <div style={{ padding: "24px" }}>
                 <h3
-                  style={{
-                    fontSize: "18px",
-                    fontWeight: 700,
-                    color: "#FFFFFF",
-                    marginBottom: "8px",
-                  }}
+                    className="section-card-title mb-2"
                 >
                   <EditableText path={`parts.items.${index}.title`} defaultValue={part.title} />
                 </h3>
 
                 <p
-                  style={{
-                    fontSize: "14px",
-                    lineHeight: 1.6,
-                    color: "#7A7A7C",
-                    marginBottom: "16px",
-                  }}
+                    className="section-card-copy mb-4"
                 >
                   <EditableText path={`parts.items.${index}.description`} defaultValue={part.description} multiline />
                 </p>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {part.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tag}
-                      style={{
-                        border: "1px solid rgba(238,197,105,0.5)",
-                        color: "#F5D89A",
-                        background: "transparent",
-                        fontSize: "13px",
-                        padding: "6px 10px",
-                        borderRadius: "999px",
-                      }}
-                    >
-                      <EditableText path={`parts.items.${index}.tags.${tagIndex}`} defaultValue={tag} />
-                    </span>
-                  ))}
-                </div>
+                <p className="section-support-copy">
+                  <span className="font-semibold uppercase tracking-[0.1em] text-[#EEC569]">Review focus: </span>
+                  <EditableText path={`parts.items.${index}.reviewFocus`} defaultValue={part.reviewFocus} multiline />
+                </p>
               </div>
             </motion.div>
           ))}

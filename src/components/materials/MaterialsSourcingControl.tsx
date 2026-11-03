@@ -38,7 +38,7 @@ const DEFAULTS = {
 export function MaterialsSourcingControl() {
   return (
     <section className="bg-[#34312F] py-20 lg:py-28">
-      <div className="mx-auto grid max-w-[1200px] gap-10 px-6 lg:grid-cols-[minmax(280px,40fr)_minmax(0,60fr)] lg:items-center lg:gap-16">
+      <div className="mx-auto grid max-w-[1200px] gap-10 px-6 md:grid-cols-[minmax(280px,40fr)_minmax(0,60fr)] md:items-center md:gap-16">
         <motion.div
           initial={{ opacity: 0, x: -24 }}
           whileInView={{ opacity: 1, x: 0 }}

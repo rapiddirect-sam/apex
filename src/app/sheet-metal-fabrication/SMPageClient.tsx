@@ -12,14 +12,12 @@ import { SMFacility } from "@/components/sheet-metal/SMFacility";
 import { SMAdvantages } from "@/components/sheet-metal/SMAdvantages";
 import { SMQuoteProcess } from "@/components/sheet-metal/SMQuoteProcess";
 import { SMFAQ } from "@/components/sheet-metal/SMFAQ";
-import { SMWhyChoose } from "@/components/sheet-metal/SMWhyChoose";
 import { SMProcess } from "@/components/sheet-metal/SMProcess";
 import { SMTolerance } from "@/components/sheet-metal/SMTolerance";
 import { SMMaterials } from "@/components/sheet-metal/SMMaterials";
 import { SMSurfaceFinishes } from "@/components/sheet-metal/SMSurfaceFinishes";
 import { SMCTA } from "@/components/sheet-metal/SMCTA";
 import { CMSProvider } from "@/contexts/CMSContext";
-import { CMSToolbar } from "@/components/cms";
 
 interface SMPageClientProps {
   initialContent: Record<string, unknown> | null;
@@ -35,21 +33,19 @@ export function SMPageClient({ initialContent, initialVersion }: SMPageClientPro
         <SMServices />
         <SMTolerance />
         <SMSupplier />
+        <SMFacility />
         <SMMaterials />
         <SMSurfaceFinishes />
         <SMCustomParts />
         <SMApplications />
         <SMProcess />
         <SMParts />
-        <SMFacility />
         <SMAdvantages />
-        <SMWhyChoose />
         <SMQuoteProcess />
         <SMFAQ />
         <SMCTA />
       </main>
       <Home3Footer />
-      <CMSToolbar />
     </CMSProvider>
   );
 }

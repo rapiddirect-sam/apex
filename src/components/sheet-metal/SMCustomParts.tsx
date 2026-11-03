@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "@/components/ui/StaticMotion";
-import { EditableImage, EditableText } from "@/components/cms";
+import { EditableText } from "@/components/cms";
+import { StaticImage } from "@/components/ui/StaticImage";
 
 const DEFAULTS = {
   heading: "Custom Sheet Metal Parts ",
@@ -38,7 +39,7 @@ const DEFAULTS = {
 
 export function SMCustomParts() {
   return (
-    <section className="relative overflow-hidden bg-[#121110] py-20 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden bg-[#34312F] py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-[1200px] px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -68,7 +69,7 @@ export function SMCustomParts() {
               className="group overflow-hidden border border-white/10 bg-[#1A1918] transition-transform duration-300 hover:-translate-y-1"
             >
               <div className="relative aspect-[16/10] overflow-hidden">
-                <EditableImage
+                <StaticImage
                   path={`customParts.items.${index}.image`}
                   defaultSrc={part.image}
                   alt={part.title}

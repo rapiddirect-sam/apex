@@ -14,6 +14,18 @@
   animation: h3-hero-logo-marquee 40s linear infinite;
 }
 
+.service-hero-logo-marquee {
+  width: max-content;
+  will-change: transform;
+  animation: h3-hero-logo-marquee 32s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-hero-logo-marquee {
+    animation: none;
+  }
+}
+
 .home3-root {
   /* Avoid rare horizontal reflow from full-bleed sections (helps CLS). */
   overflow-x: clip;

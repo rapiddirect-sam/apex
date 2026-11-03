@@ -9,7 +9,6 @@ import { SFTable } from "@/components/surface-finish/SFTable";
 import { SFCompatibility } from "@/components/surface-finish/SFCompatibility";
 import { SFCriticalFeatureReview } from "@/components/surface-finish/SFCriticalFeatureReview";
 import { SFFAQ } from "@/components/surface-finish/SFFAQ";
-import { SFWhyChoose } from "@/components/surface-finish/SFWhyChoose";
 import { SFCTA } from "@/components/surface-finish/SFCTA";
 import { CMSProvider } from "@/contexts/CMSContext";
 import { CMSToolbar } from "@/components/cms";
@@ -35,7 +34,6 @@ export function SurfaceFinishPageClient({ initialContent, initialVersion }: Surf
         <SFCompatibility />
         <SFCriticalFeatureReview />
         <SFFAQ />
-        <SFWhyChoose />
         <SFCTA />
       </main>
       <Home3Footer />

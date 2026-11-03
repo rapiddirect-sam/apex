@@ -37,7 +37,7 @@ const DEFAULTS = {
 
 export function SMProcess() {
   return (
-    <section className="relative overflow-hidden bg-[#000000] py-20 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden bg-[#34312F] py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-[1200px] px-6">
         <div className="grid items-start gap-12 lg:grid-cols-[1.18fr_0.82fr] lg:items-center lg:gap-16">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="lg:order-2 lg:self-center">
@@ -45,7 +45,7 @@ export function SMProcess() {
               <EditableText path="process.heading" defaultValue={DEFAULTS.heading} />
               <span className="service-title-accent"><EditableText path="process.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
             </h2>
-            <p className="service-section-copy mt-6 max-w-[470px]">
+            <p className="service-section-copy section-reading-copy mt-6 max-w-none lg:max-w-[470px]">
               <EditableText path="process.description" defaultValue={DEFAULTS.description} multiline />
             </p>
             <Link href="/contact" className="cta-primary group mt-8 inline-flex">

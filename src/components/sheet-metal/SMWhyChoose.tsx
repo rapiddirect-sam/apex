@@ -12,7 +12,7 @@ const DEFAULTS = {
     {
       title: "Prototype and Sample Support",
       description:
-        "Validate material, fit, bend geometry, finish, hardware, and assembly before moving into larger quantities.",
+        "Get free sample support for eligible projects to validate material, fit, bend geometry, finish, hardware, and assembly before larger quantities.",
       iconPath: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z",
     },
     {
@@ -62,7 +62,7 @@ export function SMWhyChoose() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr_1.4fr] gap-x-10 gap-y-8">
+        <div className="grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1.4fr]">
           {DEFAULTS.reasons.slice(0, 2).map((reason, index) => (
             <motion.div key={reason.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} className="transition-all duration-300 hover:-translate-y-1" style={{ padding: "20px 0" }}>
               <div style={{ marginBottom: "16px" }}>
@@ -77,14 +77,14 @@ export function SMWhyChoose() {
             </motion.div>
           ))}
 
-          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="lg:row-span-2 flex flex-col items-center justify-center text-center self-center" style={{ background: "linear-gradient(180deg, #0A1628 0%, #0D1117 100%)", borderRadius: "16px", padding: "40px 36px", border: "1px solid rgba(208,153,71,0.15)" }}>
+          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="mx-auto flex w-full flex-col items-center justify-center self-center text-center md:col-span-2 md:w-4/5 lg:col-span-1 lg:row-span-2 lg:w-full" style={{ background: "linear-gradient(180deg, #0A1628 0%, #0D1117 100%)", borderRadius: "16px", padding: "40px 36px", border: "1px solid rgba(208,153,71,0.15)" }}>
             <div style={{ fontSize: "22px", fontWeight: 700, color: "#FFFFFF", marginBottom: "14px" }}>
               <EditableText path="whychoose.ctaTitle" defaultValue={DEFAULTS.ctaTitle} />
             </div>
             <p style={{ fontSize: "14px", lineHeight: 1.6, color: "#FFFFFF", marginBottom: "28px" }}>
               <EditableText path="whychoose.ctaDescription" defaultValue={DEFAULTS.ctaDescription} multiline />
             </p>
-            <Link href="/contact" rel="nofollow" className="cta-primary w-full">
+            <Link href="/contact" rel="nofollow" className="cta-primary">
               <EditableText path="whychoose.ctaButton" defaultValue={DEFAULTS.ctaButton} />
             </Link>
             <div className="flex items-center justify-center gap-2 mt-5" style={{ fontSize: "12px", color: "#6B7280" }}>

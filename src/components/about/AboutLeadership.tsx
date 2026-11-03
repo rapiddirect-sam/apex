@@ -25,16 +25,9 @@ export function AboutLeadership() {
     <section
       className="px-4 sm:px-6 md:px-10"
       style={{
-        background: `
-          radial-gradient(
-            70% 50% at 50% 0%,
-            rgba(249,235,188,0.08),
-            rgba(0,0,0,0) 65%
-          ),
-          #000000
-        `,
-        paddingTop: "clamp(40px, 8vw, 80px)",
-        paddingBottom: "clamp(40px, 6vw, 60px)",
+        background: "#34312F",
+        paddingTop: "clamp(48px, 8vw, 80px)",
+        paddingBottom: "clamp(48px, 6vw, 64px)",
         position: "relative",
       }}
     >
@@ -133,6 +126,7 @@ export function AboutLeadership() {
           >
             {/* Name */}
             <h3
+              className="text-center md:text-left"
               style={{
                 color: "#FFFFFF",
                 fontSize: "clamp(28px, 4vw, 36px)",
@@ -146,6 +140,7 @@ export function AboutLeadership() {
 
             {/* Title */}
             <p
+              className="text-center md:text-left"
               style={{
                 color: "#D09947",
                 fontSize: "15px",
@@ -200,7 +195,7 @@ export function AboutLeadership() {
                   fontFamily: "var(--font-playfair), Georgia, serif",
                 }}
               >
-                "
+                &ldquo;
               </span>
 
               {/* Quote text */}
@@ -214,7 +209,7 @@ export function AboutLeadership() {
                   paddingRight: "40px",
                 }}
               >
-                "<EditableText path="leadership.leader.quote" defaultValue={DEFAULTS.leader.quote} multiline />"
+                &ldquo;<EditableText path="leadership.leader.quote" defaultValue={DEFAULTS.leader.quote} multiline />&rdquo;
               </p>
             </div>
           </motion.div>

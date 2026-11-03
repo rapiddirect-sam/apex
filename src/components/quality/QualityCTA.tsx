@@ -40,7 +40,7 @@ export function QualityCTA() {
             <EditableText path="qualityFinalCta.description" defaultValue={DEFAULTS.description} multiline />
           </p>
 
-          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-stretch">
             <Link href="https://app.apexbatch.com/" className="cta-primary group">
               <EditableText path="qualityFinalCta.primaryCta" defaultValue={DEFAULTS.primaryCta} />
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />

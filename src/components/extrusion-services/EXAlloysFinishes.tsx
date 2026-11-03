@@ -161,7 +161,7 @@ export function EXAlloysFinishes() {
               />
             </div>
           </div>
-          <p className="service-section-copy mt-6 max-w-[920px]">
+          <p className="service-section-copy section-reading-copy mt-6 max-w-[920px]">
             <EditableText
               path="alloysFinishes.materialNote"
               defaultValue={DEFAULTS.materialNote}
@@ -183,7 +183,7 @@ export function EXAlloysFinishes() {
               defaultValue={DEFAULTS.finishesHeading}
             />
           </h3>
-          <p className="service-section-copy mb-12 mt-4 max-w-[760px]">
+          <p className="service-section-copy section-reading-copy mb-12 mt-4 max-w-[760px]">
             <EditableText
               path="alloysFinishes.finishesIntroduction"
               defaultValue={DEFAULTS.finishesIntroduction}

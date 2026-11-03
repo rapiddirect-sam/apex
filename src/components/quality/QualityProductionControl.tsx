@@ -87,11 +87,10 @@ export function QualityProductionControl() {
                 </div>
               </header>
 
-              <div className={`mt-8 grid gap-8 lg:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)] lg:gap-12 ${stage.groups ? "items-start" : "items-center"}`}>
+              <div className="mt-8 grid gap-8 md:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)] md:items-center md:gap-10 lg:gap-14">
                 <div className="relative aspect-[3/2] overflow-hidden rounded-xl border border-white/10 bg-[#171717]">
-                  <Image src={stage.image} alt={stage.alt} fill unoptimized className="object-cover" sizes="(max-width: 1023px) 100vw, 38vw" />
+                  <Image src={stage.image} alt={stage.alt} fill unoptimized className="object-cover" sizes="(max-width: 767px) 100vw, 38vw" />
                 </div>
-
                 {stage.groups ? (
                   <div className="grid gap-8 sm:grid-cols-2 sm:gap-10">
                     {stage.groups.map((group, groupIndex) => (

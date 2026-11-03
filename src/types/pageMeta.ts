@@ -55,8 +55,12 @@ export const DEFAULT_PAGE_META: Record<string, { title: string; description: str
     description: "Stay updated with the latest manufacturing insights, industry news, and technical articles from ApexBatch.",
   },
   "/injection-molding": {
-    title: "Injection Molding Services - ApexBatch Manufacturing",
-    description: "Professional injection molding services for medium-to-large batch production. General, engineering, and high-performance plastics with tight tolerances.",
+    title: "Injection Molding Services for Custom Parts | ApexBatch",
+    description: "Choose plastic injection molding, mold tooling, overmolding, or insert molding for custom parts with material, DFM, tooling, and production support.",
+  },
+  "/plastic-injection-molding": {
+    title: "Plastic Injection Molding Services for Custom Parts | ApexBatch",
+    description: "Custom plastic injection molding for parts with defined resin, tolerance, surface, and quality requirements. Review design, materials, finishes, and initial-part approval.",
   },
   "/overmolding": {
     title: "Overmolding Services - ApexBatch Manufacturing",

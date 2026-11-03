@@ -579,6 +579,9 @@ html.cms-edit-mode a:has([data-editable-text]) {
 .cta-secondary,
 .cta-compact {
   display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
@@ -628,7 +631,7 @@ html.cms-edit-mode a:has([data-editable-text]) {
 }
 
 /* Legacy page CTAs inherit the same system while their individual page markup is migrated. */
-a[href="https://app.apexbatch.com/"]:not(.cta-compact):not(.cta-account) {
+a[href="https://app.apexbatch.com/"]:not(.cta-compact):not(.cta-account):not(.cta-secondary) {
   border: 1px solid transparent !important;
   border-radius: 0.375rem !important;
   padding: 0.875rem 1.75rem !important;
@@ -670,6 +673,7 @@ a[href="/contact"][class*="border"][class*="uppercase"]:hover {
   color: #eec569 !important;
 }
 
+
 .service-subsection-title {
   color: #ffffff;
   font-size: clamp(1.625rem, 2.2vw, 1.875rem);
@@ -689,6 +693,19 @@ a[href="/contact"][class*="border"][class*="uppercase"]:hover {
   max-width: 56rem;
   margin-inline: auto;
   text-align: center;
+}
+
+/* Reading measure for long, left-aligned section copy. Use this alongside
+ * service-section-copy when a desktop two-column section becomes one column
+ * on tablets; cards, tables, and short supporting copy should not use it. */
+.section-reading-copy {
+  max-width: 100%;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .section-reading-copy {
+    max-width: 50rem;
+  }
 }
 
 .section-card-title {
@@ -716,6 +733,54 @@ a[href="/contact"][class*="border"][class*="uppercase"]:hover {
   line-height: 1.65 !important;
 }
 
+/* Reusable media frame for service-card grids. Keeps visual cards compact as
+ * column counts change, rather than allowing source-image aspect ratios to
+ * determine their height. */
+.service-card-media {
+  position: relative;
+  height: 16.25rem;
+  overflow: hidden;
+}
+
+/* Shared media sizing for feature sections that collapse from a desktop
+ * two-column layout to a single-column layout on tablets. Mobile media stays
+ * full width; tablet media is intentionally capped so it does not overpower
+ * the heading and copy above it. */
+.feature-media-responsive {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .feature-media-responsive {
+    max-width: 42.5rem;
+  }
+}
+
+.service-card {
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+.service-card-content {
+  padding: 1.5rem;
+}
+
+.service-card-title {
+  margin-bottom: 1rem;
+  color: #ffffff !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+}
+
+.service-card-copy {
+  margin-bottom: 1.5rem;
+  color: #c5c6c9 !important;
+  font-size: 1rem !important;
+  line-height: 1.7 !important;
+}
+
 @media (min-width: 768px) {
   .service-section-copy,
   .body-copy {
@@ -725,6 +790,7 @@ a[href="/contact"][class*="border"][class*="uppercase"]:hover {
   .section-card-title {
     font-size: 1.25rem !important;
   }
+
 }
 
 /*

@@ -30,10 +30,10 @@ export function EXPageClient({ initialContent, initialVersion }: EXPageClientPro
         <EXParts />
         <EXAlloysFinishes />
         <EXTolerancesQuality />
+        <Home3Certifications />
         <EXProcess />
         <EXToolingQuote />
         <EXFAQ />
-        <Home3Certifications />
         <EXCTA />
       </main>
       <Home3Footer />

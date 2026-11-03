@@ -4,10 +4,10 @@ import { motion } from "@/components/ui/StaticMotion";
 import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
-  heading: "From Prototype to ",
+  heading: "From Sheet Metal Prototyping to Repeat ",
   headingHighlight: "Production",
   description:
-    "Our sheet metal prototyping helps your team validate fit, bend geometry, hardware installation, finish appearance, coating clearance, assembly sequence, and critical dimensions before larger quantities are released. Prototype sheet metal parts can also support supplier qualification, design updates, functional testing, and production planning.",
+    "Sheet metal prototyping helps validate fit, bend geometry, hardware installation, finish appearance, assembly, and critical dimensions before larger quantities are released. For eligible projects, our free prototype and sample support can help confirm these requirements before larger quantities are committed. Prototype sheet metal parts also support functional testing, design updates, supplier qualification, and a controlled move into low-volume or repeat production.",
   stages: [
     {
       stage: "Prototype",
@@ -25,13 +25,11 @@ const DEFAULTS = {
       focus: "Material planning, agreed process route, quality records, delivery schedule",
     },
   ],
-  scopeNote:
-    "Share your project stage and target quantity with your files. We will recommend a suitable route for validation or repeat production.",
 };
 
 export function SMParts() {
   return (
-    <section className="relative overflow-hidden bg-[#252220] py-20 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden bg-black py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-[1200px] px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -80,12 +78,6 @@ export function SMParts() {
               </div>
             </motion.div>
           ))}
-        </div>
-
-        <div className="section-note mx-auto mt-8 max-w-[1050px]">
-          <p>
-            <EditableText path="parts.scopeNote" defaultValue={DEFAULTS.scopeNote} multiline />
-          </p>
         </div>
       </div>
     </section>

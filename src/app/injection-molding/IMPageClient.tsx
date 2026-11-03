@@ -5,12 +5,13 @@ import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { IMHero } from "@/components/injection-molding/IMHero";
 import { IMSupplier } from "@/components/injection-molding/IMSupplier";
 import { IMServices } from "@/components/injection-molding/IMServices";
+import { IMRouteComparison } from "@/components/injection-molding/IMRouteComparison";
+import { IMFitAndToolingReview } from "@/components/injection-molding/IMFitAndToolingReview";
+import { IMFAQ } from "@/components/injection-molding/IMFAQ";
+import { IMQuoteReadiness } from "@/components/injection-molding/IMQuoteReadiness";
+import { IMSpecializedRequirements } from "@/components/injection-molding/IMSpecializedRequirements";
 import { IMParts } from "@/components/injection-molding/IMParts";
-import { IMWhyChoose } from "@/components/injection-molding/IMWhyChoose";
-import { IMProcess } from "@/components/injection-molding/IMProcess";
-import { IMTolerance } from "@/components/injection-molding/IMTolerance";
-import { IMMaterials } from "@/components/injection-molding/IMMaterials";
-import { IMSurfaceFinishes } from "@/components/injection-molding/IMSurfaceFinishes";
+import { IMMaterialsOptionsLegacy } from "@/components/injection-molding/IMMaterialsOptionsLegacy";
 import { IMCTA } from "@/components/injection-molding/IMCTA";
 import { CMSProvider } from "@/contexts/CMSContext";
 import { CMSToolbar } from "@/components/cms";
@@ -24,16 +25,18 @@ export function IMPageClient({ initialContent, initialVersion }: IMPageClientPro
   return (
     <CMSProvider pageSlug="/injection-molding" initialContent={initialContent} initialVersion={initialVersion}>
       <Home3Header />
-      <main>
+      <main className="injection-molding-page">
         <IMHero />
         <IMServices />
-        <IMParts />
-        <IMTolerance />
+        <IMMaterialsOptionsLegacy />
         <IMSupplier />
-        <IMWhyChoose />
-        <IMProcess />
-        <IMMaterials />
-        <IMSurfaceFinishes />
+        <IMFitAndToolingReview showLifecycle={false} />
+        <IMRouteComparison />
+        <IMParts />
+        <IMFitAndToolingReview showFit={false} />
+        <IMSpecializedRequirements />
+        <IMQuoteReadiness />
+        <IMFAQ />
         <IMCTA />
       </main>
       <Home3Footer />

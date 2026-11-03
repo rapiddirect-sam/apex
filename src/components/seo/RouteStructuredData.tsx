@@ -17,11 +17,12 @@ const IMAGES: Record<string, string> = {
   "/cnc-milling": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp",
   "/cnc-turning": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp",
   "/die-casting": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp",
-  "/injection-molding": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp",
+  "/injection-molding": `${SITE_URL}/injection-molding/injection-molding-services-custom-plastic-parts-housings-transparent-components.avif`,
+  "/plastic-injection-molding": `${SITE_URL}/injection-molding/complex-injection-molded-plastic-parts-with-inserts.avif`,
   "/insert-molding": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp",
   "/molding-services": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp",
   "/overmolding": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp",
-  "/sheet-metal-fabrication": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp",
+  "/sheet-metal-fabrication": `${SITE_URL}/sheet-metal/apexbatch-sheet-metal-secondary-operations-factory.avif`,
   "/aluminum-extrusion": `${SITE_URL}/images/services/aluminum-extrusion/custom-aluminum-extrusion-profiles-production.avif`,
   "/contact": `${SITE_URL}/contact/apexbatch-contact-brand-office-feature-image.jpg`,
   "/quality": `${SITE_URL}/quality/apexbatch-zeiss-cmm-quality-inspection-lab-with-two-operators.webp`,
@@ -31,6 +32,9 @@ const IMAGE_CAPTIONS: Record<string, string> = {
   "/contact": "ApexBatch office brand wall",
   "/aluminum-extrusion": "Custom aluminum extrusion profiles during production",
   "/quality": "ApexBatch ZEISS CMM quality inspection lab with two operators",
+  "/sheet-metal-fabrication": "ApexBatch sheet metal secondary operations factory",
+  "/injection-molding": "Custom injection-molded plastic parts and housings",
+  "/plastic-injection-molding": "Complex injection-molded plastic parts with inserts",
 };
 
 const LABELS: Record<string, string> = {

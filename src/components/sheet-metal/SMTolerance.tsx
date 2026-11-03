@@ -3,7 +3,9 @@
 import { motion } from "@/components/ui/StaticMotion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { EditableImage, EditableText } from "@/components/cms";
+import { EditableText } from "@/components/cms";
+import { StaticImage } from "@/components/ui/StaticImage";
+import { TechnicalDataTable } from "@/components/ui/TechnicalDataTable";
 
 const DEFAULTS = {
   heading: "Sheet Metal Manufacturing ",
@@ -36,6 +38,7 @@ const DEFAULTS = {
     cta: "Discuss Your Bending Requirements",
     ctaHref: "/contact",
     headers: ["Capability", "Available range", "Notes"],
+    columnWidths: ["27%", "32%", "41%"],
     rows: [
       ["Maximum bend length", "Up to 3000 mm", "Thickness capacity changes with bend length, material, tooling, and geometry"],
       ["Minimum sheet thickness", "From 0.2 mm", "Depends on material condition and feature requirements"],
@@ -80,6 +83,7 @@ type Capability = {
   headers?: string[];
   rows?: string[][];
   reference?: { label: string; value: string }[];
+  columnWidths?: string[];
 };
 
 function CapabilityTable({ capability, path }: { capability: Capability; path: string }) {
@@ -87,97 +91,80 @@ function CapabilityTable({ capability, path }: { capability: Capability; path: s
   if (!headers || !rows) return null;
 
   return (
-    <>
-      <div className="w-full max-w-full overflow-x-auto border border-white/10 md:overflow-visible">
-        <table className="min-w-[720px] w-full border-collapse text-left md:min-w-0">
-          <thead className="bg-[#292624]">
-            <tr>
-              {headers.map((header, index) => (
-                <th key={header} className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.1em] text-[#EEC569]">
-                  <EditableText path={`${path}.headers.${index}`} defaultValue={header} />
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, rowIndex) => (
-              <tr key={row[0]} className="border-b border-white/[0.07] last:border-0">
-                {row.map((cell, cellIndex) => (
-                  <td key={cellIndex} className={`px-4 py-3 text-sm leading-relaxed ${cellIndex === 1 ? "font-medium text-[#F4F1EC]" : "text-[#C5C1BD]"}`}>
-                    <EditableText path={`${path}.rows.${rowIndex}.${cellIndex}`} defaultValue={cell} multiline />
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
+    <TechnicalDataTable
+      headers={headers.map((header, index) => <EditableText key={header} path={`${path}.headers.${index}`} defaultValue={header} />)}
+      rows={rows.map((row, rowIndex) => row.map((cell, cellIndex) => <EditableText key={`${rowIndex}-${cellIndex}`} path={`${path}.rows.${rowIndex}.${cellIndex}`} defaultValue={cell} multiline />))}
+      highlightColumn={1}
+      minTableWidth="0"
+      columnWidths={capability.columnWidths}
+    />
   );
 }
 
-function FeatureCapability({ capability, path, reverse, hideDetails = false, detailsBelowImage = false, hideCta = false }: { capability: Capability & { image: string; imageAlt: string; note?: string; cta?: string; ctaHref?: string }; path: string; reverse?: boolean; hideDetails?: boolean; detailsBelowImage?: boolean; hideCta?: boolean }) {
+function FeatureCapability({ capability, path, reverse, hideDetails = false, hideCta = false, descriptionBelowImage = false }: { capability: Capability & { image: string; imageAlt: string; note?: string; cta?: string; ctaHref?: string }; path: string; reverse?: boolean; hideDetails?: boolean; hideCta?: boolean; descriptionBelowImage?: boolean }) {
+  const renderDetails = () => (
+    <>
+      {capability.reference ? (
+        <div className="grid gap-3 sm:grid-cols-2">
+          {capability.reference.map((item, index) => (
+            <div key={item.label} className="border border-white/10 bg-[#1A1918] px-5 py-4">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]">
+                <EditableText path={`${path}.reference.${index}.label`} defaultValue={item.label} />
+              </p>
+              <p className="mt-2 text-lg font-semibold text-[#F4F1EC]">
+                <EditableText path={`${path}.reference.${index}.value`} defaultValue={item.value} />
+              </p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <CapabilityTable capability={capability} path={path} />
+      )}
+
+      {!hideDetails && capability.note ? (
+        <>
+          <div className="section-note mt-6">
+            <p><EditableText path={`${path}.note`} defaultValue={capability.note} multiline /></p>
+          </div>
+          {!hideCta && capability.cta && capability.ctaHref ? (
+            <Link href={capability.ctaHref} className="body-text-link body-text-link--dark mt-6 inline-flex items-center gap-2 text-sm">
+              <EditableText path={`${path}.cta`} defaultValue={capability.cta} />
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          ) : null}
+        </>
+      ) : null}
+    </>
+  );
+
   return (
-    <article className={`grid min-w-0 items-center gap-8 lg:grid-cols-2 lg:gap-12 ${reverse ? "" : ""}`}>
-      <div className={`min-w-0 ${reverse ? "lg:order-2" : ""}`}>
-        <h3 className="text-2xl font-semibold text-white sm:text-3xl">
-          <EditableText path={`${path}.title`} defaultValue={capability.title} />
-        </h3>
-        <div className="relative mt-5 h-[240px] w-full max-w-full overflow-hidden border border-white/10 sm:h-[320px] lg:hidden">
-          <EditableImage path={`${path}.image`} defaultSrc={capability.image} alt={capability.imageAlt} fill sizes="100vw" className="object-cover" />
+    <article className="min-w-0">
+      <div className="grid items-center gap-8 md:grid-cols-2 md:gap-10 lg:gap-12">
+        <div className={`min-w-0 ${reverse ? "lg:order-2" : ""}`}>
+          <h3 className="text-2xl font-semibold text-white sm:text-3xl">
+            <EditableText path={`${path}.title`} defaultValue={capability.title} />
+          </h3>
+          <p className={`service-section-copy section-reading-copy mt-4 max-w-none break-words lg:max-w-[580px] ${descriptionBelowImage ? "lg:hidden" : ""}`}>
+            <EditableText path={`${path}.description`} defaultValue={capability.description} multiline />
+          </p>
+          <div className="mt-6 hidden lg:block">
+            {renderDetails()}
+          </div>
         </div>
-        <p className="service-section-copy mt-4 max-w-[580px] break-words">
-          <EditableText path={`${path}.description`} defaultValue={capability.description} multiline />
-        </p>
-        <div className="mt-6">
-          {capability.reference ? (
-            <div className="grid gap-3 sm:grid-cols-2">
-              {capability.reference.map((item, index) => (
-                <div key={item.label} className="border border-white/10 bg-[#1A1918] px-5 py-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]">
-                    <EditableText path={`${path}.reference.${index}.label`} defaultValue={item.label} />
-                  </p>
-                  <p className="mt-2 text-lg font-semibold text-[#F4F1EC]">
-                    <EditableText path={`${path}.reference.${index}.value`} defaultValue={item.value} />
-                  </p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <CapabilityTable capability={capability} path={path} />
-          )}
+        <div className={`min-w-0 ${reverse ? "lg:order-1" : ""}`}>
+          <div className="relative aspect-[4/3] min-h-[240px] overflow-hidden border border-white/10 sm:min-h-[320px] md:min-h-0">
+            <StaticImage path={`${path}.image`} defaultSrc={capability.image} alt={capability.imageAlt} fill sizes="(max-width: 767px) 100vw, 50vw" className="object-cover" />
+          </div>
+          {descriptionBelowImage ? (
+            <p className="service-section-copy section-reading-copy mt-6 hidden max-w-none break-words lg:block">
+              <EditableText path={`${path}.description`} defaultValue={capability.description} multiline />
+            </p>
+          ) : null}
         </div>
-        {!hideDetails && !detailsBelowImage && capability.note ? (
-          <>
-            <div className="section-note mt-6">
-              <p><EditableText path={`${path}.note`} defaultValue={capability.note} multiline /></p>
-            </div>
-            {!hideCta && capability.cta && capability.ctaHref ? (
-              <Link href={capability.ctaHref} className="body-text-link body-text-link--dark mt-6 inline-flex items-center gap-2 text-sm">
-                <EditableText path={`${path}.cta`} defaultValue={capability.cta} />
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-            ) : null}
-          </>
-        ) : null}
-      </div>
-      <div className={`hidden lg:block ${reverse ? "lg:order-1" : ""}`}>
-        <div className="relative aspect-[4/3] min-h-[260px] overflow-hidden border border-white/10 sm:min-h-[360px]">
-          <EditableImage path={`${path}.image`} defaultSrc={capability.image} alt={capability.imageAlt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+
+        <div className="min-w-0 md:col-span-2 lg:hidden">
+          {renderDetails()}
         </div>
-        {!hideDetails && detailsBelowImage && capability.note ? (
-          <>
-            <div className="section-note mt-5">
-              <p><EditableText path={`${path}.note`} defaultValue={capability.note} multiline /></p>
-            </div>
-            {!hideCta && capability.cta && capability.ctaHref ? (
-              <Link href={capability.ctaHref} className="body-text-link body-text-link--dark mt-5 inline-flex items-center gap-2 text-sm">
-                <EditableText path={`${path}.cta`} defaultValue={capability.cta} />
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-            ) : null}
-          </>
-        ) : null}
       </div>
     </article>
   );
@@ -185,21 +172,21 @@ function FeatureCapability({ capability, path, reverse, hideDetails = false, det
 
 export function SMTolerance() {
   return (
-    <section className="relative overflow-hidden bg-[#252220] py-20 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden bg-black py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-[1200px] px-6">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl">
           <h2 className="service-section-title text-white">
             <EditableText path="capabilities.heading" defaultValue={DEFAULTS.heading} />
             <span className="service-title-accent"><EditableText path="capabilities.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
           </h2>
-          <p className="service-section-copy mt-6 max-w-4xl">
+          <p className="service-section-copy section-reading-copy mt-6 max-w-4xl">
             <EditableText path="capabilities.description" defaultValue={DEFAULTS.description} multiline />
           </p>
         </motion.div>
 
         <div className="mt-14 space-y-20 lg:mt-16 lg:space-y-28">
           <FeatureCapability capability={DEFAULTS.laser} path="capabilities.laser" />
-          <FeatureCapability capability={DEFAULTS.bending} path="capabilities.bending" reverse hideDetails />
+          <FeatureCapability capability={DEFAULTS.bending} path="capabilities.bending" reverse hideDetails descriptionBelowImage />
         </div>
 
         <div className="mt-20 space-y-20 lg:mt-24 lg:space-y-28">

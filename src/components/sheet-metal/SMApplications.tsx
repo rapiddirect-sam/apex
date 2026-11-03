@@ -34,9 +34,9 @@ const DEFAULTS = {
 
 export function SMApplications() {
   return (
-    <section className="relative overflow-hidden bg-[#34312F] py-20 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden bg-black py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-[1200px] px-6">
-        <div className="grid items-start gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-20">
+        <div className="grid items-start gap-10 md:grid-cols-[0.8fr_1.2fr] md:items-center md:gap-10 lg:gap-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -49,7 +49,7 @@ export function SMApplications() {
                 <EditableText path="applications.headingHighlight" defaultValue={DEFAULTS.headingHighlight} />
               </span>
             </h2>
-            <p className="service-section-copy mt-6 max-w-[500px]">
+            <p className="service-section-copy section-reading-copy mt-6 max-w-none lg:max-w-[500px]">
               <EditableText path="applications.description" defaultValue={DEFAULTS.description} multiline />
             </p>
           </motion.div>

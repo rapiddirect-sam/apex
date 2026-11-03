@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Lock } from "lucide-react";
+import { ArrowRight, Lock } from "lucide-react";
 import Link from "next/link";
 import { EditableText } from "@/components/cms";
 
@@ -68,7 +68,7 @@ export function EXWhyChoose() {
 
         {/* Grid: Custom columns - 2 narrow for features, 1 wider for CTA */}
         <div
-          className="grid grid-cols-1 lg:grid-cols-[1fr_1fr_1.4fr] gap-x-10 gap-y-8"
+          className="grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1.4fr]"
         >
           {/* Features 1 & 2 */}
           {DEFAULTS.reasons.slice(0, 2).map((reason, index) => (
@@ -100,7 +100,7 @@ export function EXWhyChoose() {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:row-span-2 flex flex-col items-center justify-center text-center self-center"
+            className="mx-auto flex w-full flex-col items-center justify-center self-center text-center md:col-span-2 md:w-4/5 lg:col-span-1 lg:row-span-2 lg:w-full"
             style={{
               background: "linear-gradient(180deg, #0A1628 0%, #0D1117 100%)",
               borderRadius: "16px",
@@ -124,9 +124,10 @@ export function EXWhyChoose() {
             <Link
               href="https://app.apexbatch.com/"
               rel="nofollow"
-              className="inline-flex items-center justify-center gap-2 w-full bg-[#D09947] hover:bg-[#EEC569] text-[#000000] font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider group"
+              className="cta-primary group"
             >
               <EditableText path="whychoose.ctaButton" defaultValue={DEFAULTS.ctaButton} />
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </Link>
 
             {/* IP Protection note */}

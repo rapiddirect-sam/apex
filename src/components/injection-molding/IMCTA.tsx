@@ -1,84 +1,60 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { EditableText, EditableImage } from "@/components/cms";
+import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
-  backgroundImage: "/quality/apexbatch-cnc-machining-workshop-with-operators.webp",
-  heading: "Start Your Injection Molding Project Today",
-  description: "Upload your design files and get a detailed quote and free DFM analysis within 24 hours",
-  primaryCta: "Upload files for an instant quote",
-  secondaryCta: "Contact our engineers",
+  heading: "Start Your Injection Molding Project",
+  description: "Upload your CAD model and drawings for an engineering review of the molding route, tooling approach, critical requirements, and production plan.",
+  primaryCta: "Request an Injection Molding Quote",
+  secondaryCta: "Discuss Your Part With an Engineer",
 };
 
-export function IMCTA() {
+export function IMCTA({ content = DEFAULTS }: { content?: typeof DEFAULTS }) {
   return (
-    <section className="relative overflow-hidden" style={{ padding: "120px 0" }}>
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        <EditableImage
-          path="cta.backgroundImage"
-          defaultSrc={DEFAULTS.backgroundImage}
-          alt="Injection Molding Manufacturing"
-          fill
-          sizes="100vw"
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.6) 100%)",
-          }}
-        />
-      </div>
+    <section className="relative flex min-h-[440px] items-center overflow-hidden py-16 sm:min-h-[480px] sm:py-[72px] lg:min-h-[520px] lg:py-[88px]">
+      <Image
+        src="/injection-molding/apexbatch-plastic-injection-molding-production-line.avif"
+        alt="ApexBatch plastic injection molding production line"
+        fill
+        unoptimized
+        className="object-cover object-center"
+        sizes="100vw"
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/[0.90] via-black/[0.80] to-black/[0.64]" aria-hidden="true" />
 
-      <div className="relative max-w-[1200px] mx-auto px-6">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-2xl mx-auto text-center"
+          className="mx-auto max-w-[920px] text-center"
         >
-          <h2
-            className="text-white"
-            style={{
-              fontSize: "46px",
-              fontWeight: 700,
-              letterSpacing: "-0.015em",
-              lineHeight: 1.1,
-              marginBottom: "18px",
-            }}
-          >
-            <EditableText path="cta.heading" defaultValue={DEFAULTS.heading} />
+          <h2 className="text-[clamp(2.125rem,4vw,3.25rem)] font-bold leading-[1.1] tracking-[-0.015em] text-white">
+            <EditableText path="cta.heading" defaultValue={content.heading} />
           </h2>
-          <p
-            style={{
-              fontSize: "18px",
-              lineHeight: 1.6,
-              color: "#C5C6C9",
-              marginBottom: "36px",
-            }}
-          >
-            <EditableText path="cta.description" defaultValue={DEFAULTS.description} multiline />
+          <p className="mx-auto mt-6 max-w-[820px] text-base leading-[1.65] text-[#E2E2E3] sm:text-lg">
+            <EditableText path="cta.description" defaultValue={content.description} multiline />
           </p>
 
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               href="https://app.apexbatch.com/"
               rel="nofollow"
               className="cta-primary group"
             >
-              <EditableText path="cta.primaryCta" defaultValue={DEFAULTS.primaryCta} />
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <EditableText path="cta.primaryCta" defaultValue={content.primaryCta} />
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </Link>
             <Link
               href="/contact"
               rel="nofollow"
               className="cta-secondary"
             >
-              <EditableText path="cta.secondaryCta" defaultValue={DEFAULTS.secondaryCta} />
+              <EditableText path="cta.secondaryCta" defaultValue={content.secondaryCta} />
             </Link>
           </div>
         </motion.div>

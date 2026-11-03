@@ -131,15 +131,8 @@ export function AboutClientsAdvantages({
       {show !== "advantages" && (
       <section
         style={{
-          background: `
-            radial-gradient(
-              70% 50% at 50% 0%,
-              rgba(249,235,188,0.08),
-              rgba(0,0,0,0) 65%
-            ),
-            #000000
-          `,
-          padding: "clamp(40px, 8vw, 80px) clamp(16px, 4vw, 40px) clamp(40px, 6vw, 60px)",
+          background: "#000000",
+          padding: "clamp(48px, 8vw, 80px) clamp(16px, 4vw, 40px) clamp(48px, 6vw, 64px)",
           position: "relative",
         }}
       >
@@ -424,15 +417,8 @@ export function AboutClientsAdvantages({
       {show !== "clients" && (
       <section
         style={{
-          background: `
-            radial-gradient(
-              70% 50% at 50% 0%,
-              rgba(249,235,188,0.08),
-              rgba(0,0,0,0) 65%
-            ),
-            #000000
-          `,
-          padding: "clamp(40px, 8vw, 80px) clamp(16px, 4vw, 40px)",
+          background: "#000000",
+          padding: "clamp(48px, 8vw, 80px) clamp(16px, 4vw, 40px)",
           position: "relative",
         }}
       >
