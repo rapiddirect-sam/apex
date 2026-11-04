@@ -84,18 +84,6 @@ function uniqueHeadingId(baseId: string, usedIds: Set<string>): string {
   return uniqueId;
 }
 
-/**
- * The post title in the hero is the page's only H1. CMS article content can
- * occasionally include another H1, so normalize it to H2 before rendering to
- * preserve a valid document outline.
- */
-function normalizeArticleHeadingHierarchy(html: string): string {
-  return html.replace(
-    /<h1\b([^>]*)>([\s\S]*?)<\/h1>/gi,
-    (_, attrs, inner) => `<h2${attrs}>${inner}</h2>`
-  );
-}
-
 /** Assign stable ids to H2/H3 anchors while exposing only H2s in the TOC. */
 export function injectHeadingIds(html: string): { html: string; tocItems: BlogTocItem[] } {
   const tocItems: BlogTocItem[] = [];
@@ -382,8 +370,7 @@ function enhanceCtaLinksInBlock(inner: string): string {
 
 export function prepareBlogContentHtml(html: string): { html: string; tocItems: BlogTocItem[] } {
   const decoded = restoreRawBlocks(html);
-  const withNormalizedHeadings = normalizeArticleHeadingHierarchy(decoded);
-  const withLinks = normalizeBlogContentLinks(withNormalizedHeadings);
+  const withLinks = normalizeBlogContentLinks(decoded);
   const withCta = applyCtaBannerClass(enhanceBlogCtaHtml(withLinks));
   const withTables = wrapTablesForScroll(withCta);
   const { html: withIds, tocItems } = injectHeadingIds(withTables);

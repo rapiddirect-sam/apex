@@ -156,20 +156,6 @@ export function BlogPostContent({
                 {post.title}
               </h1>
 
-              {/* Excerpt */}
-              {post.excerpt && (
-                <p
-                  style={{
-                    color: "#CCCCCC",
-                    fontSize: "16px",
-                    lineHeight: 1.6,
-                    marginBottom: "28px",
-                  }}
-                >
-                  {post.excerpt}
-                </p>
-              )}
-
               {/* Author & Meta */}
               <div
                 className="blog-post-author-meta"
@@ -345,6 +331,16 @@ export function BlogPostContent({
             outline: 2px solid #EEC569;
             outline-offset: 4px;
           }
+          .related-articles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+          }
+          .author-bio-layout {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+          }
           @media (max-width: 1024px) {
             .blog-layout {
               grid-template-columns: 1fr 280px;
@@ -370,6 +366,16 @@ export function BlogPostContent({
               gap: 16px !important;
               width: 100%;
             }
+            .related-articles-grid {
+              grid-template-columns: minmax(0, 1fr);
+            }
+            .author-bio-layout {
+              flex-direction: column;
+              gap: 20px;
+            }
+            .author-bio-layout > :first-child {
+              margin-inline: auto;
+            }
           }
         `}</style>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 blog-layout">
@@ -377,9 +383,9 @@ export function BlogPostContent({
           <aside className="blog-sidebar-left">
             {tocItems.length > 0 && (
               <div>
-                <h3 style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
+                <p style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
                   Contents
-                </h3>
+                </p>
                 <div style={{ width: "40px", height: "3px", background: "#D09947", borderRadius: "2px", marginBottom: "20px" }} />
 
                 <div style={{ display: "flex", flexDirection: "column" }}>
@@ -907,7 +913,7 @@ export function BlogPostContent({
                   <h3 style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "20px" }}>
                     About {author.name}
                   </h3>
-                  <div style={{ display: "flex", gap: "24px", alignItems: "flex-start" }}>
+                  <div className="author-bio-layout">
                     {author.avatarUrl ? (
                       <div style={{ width: "80px", height: "80px", borderRadius: "50%", overflow: "hidden", flexShrink: 0 }}>
                         <Image
@@ -1030,13 +1036,7 @@ export function BlogPostContent({
                   Related Articles
                 </h2>
 
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(2, 1fr)",
-                    gap: "20px",
-                  }}
-                >
+                <div className="related-articles-grid">
                   {relatedPosts.slice(0, 4).map((rp) => {
                     const catName = getCategoryName(rp.categoryId);
                     const rpReadTime = estimateReadTime(rp.content);

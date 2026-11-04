@@ -39,9 +39,9 @@ const SHARED_DEFAULTS = {
   ],
   metrics: [
     { value: "Free DFM Feedback", label: "Optimize your design before production" },
-    { value: "\u00B10.005 mm Precision", label: "Consistent tight tolerances" },
+    { value: "\u00B10.005 mm", label: "Applicable Precision Features" },
     { value: "100+ Materials Available", label: "Metals & plastics supported" },
-    { value: "99.8% On-Time Delivery", label: "Reliable global fulfillment" },
+    { value: "98% On-Time Delivery", label: "Reliable global fulfillment" },
   ],
 };
 

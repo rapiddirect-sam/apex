@@ -40,7 +40,7 @@ const DEFAULTS = {
     { value: "Free DFM Feedback", label: "Optimize cut paths before production" },
     { value: "±0.1 mm Contour Precision", label: "Consistent edge quality on sheet parts" },
     { value: "20+ Sheet Materials", label: "Metals supported for laser cutting" },
-    { value: "99.8% On-Time Delivery", label: "Reliable global fulfillment" },
+    { value: "98% On-Time Delivery", label: "Reliable global fulfillment" },
   ],
 };
 

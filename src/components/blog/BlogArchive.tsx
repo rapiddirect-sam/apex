@@ -28,6 +28,8 @@ interface BlogArchiveProps {
 export function BlogArchive({ posts, categories }: BlogArchiveProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState("");
+  const getCardDescription = (post: BlogPost) =>
+    post.metaDescription?.trim() || post.excerpt?.trim() || "";
 
   const filteredPosts = useMemo(() => {
     return posts.filter((post) => {
@@ -36,7 +38,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
       const matchesSearch =
         !searchQuery ||
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+        getCardDescription(post).toLowerCase().includes(searchQuery.toLowerCase());
       return matchesCategory && matchesSearch;
     });
   }, [posts, selectedCategory, searchQuery]);
@@ -152,6 +154,13 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
 
       {/* Row 1: Filter Bar + Featured Post + Sidebar */}
       <section style={{ background: "#FFFFFF", padding: "0 0 48px" }}>
+        <style>{`
+          @media (max-width: 1023px) {
+            .blog-featured-layout {
+              grid-template-columns: minmax(0, 1fr) !important;
+            }
+          }
+        `}</style>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {!isFiltering && (
             <div
@@ -187,10 +196,10 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "1fr 320px",
-                gap: "32px",
+                gridTemplateColumns: "minmax(0, 0.9fr) 380px",
+                gap: "40px",
               }}
-              className="lg:!grid-cols-[1fr_320px] grid-cols-1"
+              className="blog-featured-layout"
             >
               {/* Featured Post - Large Card */}
               <article
@@ -213,7 +222,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                 }}
               >
                 <Link href={`/blog/${featuredPost.slug}`} style={{ textDecoration: "none" }}>
-                  <div style={{ position: "relative", aspectRatio: "3 / 2", background: "#F5F5F5", overflow: "hidden" }}>
+                  <div style={{ position: "relative", aspectRatio: "4 / 3", background: "#F5F5F5", overflow: "hidden" }}>
                     {featuredPost.featuredImage ? (
                       <Image
                         src={featuredPost.featuredImage}
@@ -241,7 +250,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                     )}
                   </div>
 
-                  <div style={{ padding: "24px 28px 28px" }}>
+                  <div style={{ padding: "20px 24px 24px" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "14px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "5px", color: "#B0960E", fontSize: "13px" }}>
                         <Calendar size={13} />
@@ -253,18 +262,18 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                       </div>
                     </div>
 
-                    <h3 style={{ color: "#1E1E1E", fontSize: "24px", fontWeight: 700, marginBottom: "12px", lineHeight: 1.3 }}>
+                    <h3 style={{ color: "#1E1E1E", fontSize: "21px", fontWeight: 700, marginBottom: "12px", lineHeight: 1.3 }}>
                       {featuredPost.title}
                     </h3>
 
-                    {featuredPost.excerpt && (
+                    {getCardDescription(featuredPost) && (
                       <p style={{
                         color: "#666", fontSize: "15px", lineHeight: 1.7,
                         marginBottom: "20px",
                         display: "-webkit-box", WebkitLineClamp: 3,
                         WebkitBoxOrient: "vertical", overflow: "hidden",
                       }}>
-                        {featuredPost.excerpt}
+                        {getCardDescription(featuredPost)}
                       </p>
                     )}
 
@@ -281,14 +290,14 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                 {/* Popular Posts */}
                 <div style={{
                   border: "1px solid #E8E8E8", borderRadius: "12px",
-                  padding: "24px",
+                  padding: "22px",
                 }}>
                   <h2 style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
                     Popular Posts
                   </h2>
                   <div style={{ width: "40px", height: "3px", background: "#2979C1", borderRadius: "2px", marginBottom: "20px" }} />
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
                     {popularPosts.map((post) => (
                       <Link
                         key={post.id}
@@ -301,7 +310,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                         }}
                       >
                         <div style={{
-                          width: "64px", height: "52px", borderRadius: "6px",
+                          width: "60px", height: "48px", borderRadius: "6px",
                           overflow: "hidden", flexShrink: 0, position: "relative",
                           background: "#F5F5F5",
                         }}>
@@ -316,13 +325,11 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <p style={{
                             color: "#1E1E1E", fontSize: "14px", fontWeight: 600,
-                            lineHeight: 1.4, marginBottom: "4px",
-                            display: "-webkit-box", WebkitLineClamp: 2,
-                            WebkitBoxOrient: "vertical", overflow: "hidden",
+                            lineHeight: 1.45, margin: 0,
                           }}>
                             {post.title}
                           </p>
-                          <span style={{ color: "#999", fontSize: "12px" }}>
+                          <span style={{ display: "block", color: "#999", fontSize: "12px", marginTop: "5px" }}>
                             {post.publishedAt?.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
                           </span>
                         </div>
@@ -334,7 +341,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                 {/* Newsletter Subscribe */}
                 <div style={{
                   border: "1px solid #E8E8E8", borderRadius: "12px",
-                  padding: "24px",
+                  padding: "22px",
                 }}>
                   <p style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
                     Subscribe to Newsletter
@@ -373,6 +380,22 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
       {/* Row 2: Categories Sidebar + All Articles Grid (always shown when there are posts or when filtering) */}
       {(gridPosts.length > 0 || isFiltering) && (
         <section style={{ background: "#FFFFFF", paddingBottom: "80px" }}>
+          <style>{`
+            .blog-categories-sidebar {
+              position: sticky;
+              top: 100px;
+              align-self: start;
+            }
+            @media (max-width: 767px) {
+              .blog-archive-layout {
+                grid-template-columns: minmax(0, 1fr) !important;
+                gap: 28px !important;
+              }
+              .blog-categories-sidebar {
+                position: static;
+              }
+            }
+          `}</style>
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             {isFiltering && (
               <h2 style={{
@@ -386,11 +409,11 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
             )}
 
             <div
-              style={{ display: "grid", gridTemplateColumns: "220px 1fr", gap: "32px" }}
-              className="lg:!grid-cols-[220px_1fr] grid-cols-1"
+              style={{ display: "grid", gridTemplateColumns: "220px minmax(0, 1fr)", gap: "32px" }}
+              className="blog-archive-layout"
             >
               {/* Categories Sidebar */}
-              <aside>
+              <aside className="blog-categories-sidebar">
                 <h2 style={{ fontSize: "16px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
                   Categories
                 </h2>
@@ -576,14 +599,14 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                             {post.title}
                           </h3>
 
-                          {post.excerpt && (
+                          {getCardDescription(post) && (
                             <p style={{
                               color: "#666", fontSize: "13px", lineHeight: 1.6,
                               marginBottom: "12px",
                               display: "-webkit-box", WebkitLineClamp: 3,
                               WebkitBoxOrient: "vertical", overflow: "hidden",
                             }}>
-                              {post.excerpt}
+                              {getCardDescription(post)}
                             </p>
                           )}
 

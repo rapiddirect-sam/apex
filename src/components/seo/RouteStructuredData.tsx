@@ -16,7 +16,7 @@ const IMAGES: Record<string, string> = {
   "/cnc-machining": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp",
   "/cnc-milling": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp",
   "/cnc-turning": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp",
-  "/die-casting": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/cnc-machining/1-custom-cnc-machining-services-banner.webp",
+  "/die-casting": `${SITE_URL}/die-casting/custom-die-cast-threaded-housings.avif`,
   "/injection-molding": `${SITE_URL}/injection-molding/injection-molding-services-custom-plastic-parts-housings-transparent-components.avif`,
   "/plastic-injection-molding": `${SITE_URL}/injection-molding/complex-injection-molded-plastic-parts-with-inserts.avif`,
   "/insert-molding": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp",
@@ -35,6 +35,7 @@ const IMAGE_CAPTIONS: Record<string, string> = {
   "/sheet-metal-fabrication": "ApexBatch sheet metal secondary operations factory",
   "/injection-molding": "Custom injection-molded plastic parts and housings",
   "/plastic-injection-molding": "Complex injection-molded plastic parts with inserts",
+  "/die-casting": "Custom die-cast threaded housings",
 };
 
 const LABELS: Record<string, string> = {

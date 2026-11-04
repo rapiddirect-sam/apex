@@ -22,7 +22,7 @@ const DEFAULTS = {
   ctaPrimary: "Get Production Quote",
   ctaSecondary: "Request DFM Review",
   backgroundImage: getImageUrl("home/1-homepage-banner.webp"),
-  certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 4001:2015"],
+  certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 14001:2015"],
   features: [
     "Fast Engineering Review & Quotation",
     "Precision Down to 0.003 mm",

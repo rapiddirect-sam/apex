@@ -21,11 +21,11 @@ const DEFAULTS = {
   titlePrefix: "Precision ",
   titleHighlight: "CNC Machining Services",
   description:
-    "From rapid prototyping to batch production, we ensure tolerances are strictly controlled within \u00B10.005 mm and offer global shipping services with delivery as fast as 3 days.",
+    "From rapid prototyping to batch production, applicable precision features can be evaluated to \u00B10.005 mm, subject to part geometry, material, process, and inspection requirements.",
   heroImage: CNC_HERO_DEFAULT_SRC,
   ctaPrimary: "Start Free Quote",
   ctaSecondary: "Upload Your Design",
-  certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 4001:2015"],
+  certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 14001:2015"],
   logos: [
     { alt: "Stryker", src: createLogoPlaceholder("stryker") },
     { alt: "Rockwell Automation", src: createLogoPlaceholder("Rockwell") },
@@ -36,9 +36,9 @@ const DEFAULTS = {
   ],
   metrics: [
     { value: "Free DFM Feedback", label: "Optimize your design before production" },
-    { value: "\u00B10.005 mm Precision", label: "Consistent tight tolerances" },
+    { value: "\u00B10.005 mm", label: "Applicable Precision Features" },
     { value: "100+ Materials Available", label: "Metals & plastics supported" },
-    { value: "99.8% On-Time Delivery", label: "Reliable global fulfillment" },
+    { value: "98% On-Time Delivery", label: "Reliable global fulfillment" },
   ],
 };
 

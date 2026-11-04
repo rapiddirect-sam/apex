@@ -13,10 +13,10 @@ const DEFAULTS = {
   ctaPrimary: "Request an Injection Molding Quote",
   ctaSecondary: "Get a Free DFM Review",
   metrics: [
-    { value: "Free DFM Review", label: "Before tooling" },
-    { value: "±0.05 mm Tolerance", label: "Critical features" },
-    { value: "Prototype to Production", label: "Validated batches" },
-    { value: "98% On-Time Delivery", label: "Planned delivery" },
+    { value: "Reduced Tooling Risk", label: "Free DFM review before release" },
+    { value: "One Integrated Partner", label: "Plastic, tooling, overmolding & inserts" },
+    { value: "Validated Before Scale", label: "Initial-part approval for key requirements" },
+    { value: "98% On-Time Delivery", label: "Planned support for repeat batches" },
   ],
 };
 

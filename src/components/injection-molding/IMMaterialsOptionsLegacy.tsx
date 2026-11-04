@@ -5,8 +5,8 @@ import { EditableText } from "@/components/cms";
 import { TechnicalDataTable } from "@/components/ui/TechnicalDataTable";
 
 const DEFAULTS = {
-  heading: "Injection Molding Materials and ",
-  headingHighlight: "Color Options",
+  heading: "Material Families Across Our Molding ",
+  headingHighlight: "Services",
   description: "We support material selection for custom molded parts, including standard plastics, engineering resins, reinforced grades, and high-performance options. Confirm the required material direction early when part performance, appearance, or production planning is critical.",
   headers: ["Material family", "Materials and variants available for project review"],
   rows: [
