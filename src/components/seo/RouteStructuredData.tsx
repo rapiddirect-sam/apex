@@ -20,7 +20,6 @@ const IMAGES: Record<string, string> = {
   "/injection-molding": `${SITE_URL}/injection-molding/injection-molding-services-custom-plastic-parts-housings-transparent-components.avif`,
   "/plastic-injection-molding": `${SITE_URL}/injection-molding/complex-injection-molded-plastic-parts-with-inserts.avif`,
   "/insert-molding": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp",
-  "/molding-services": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp",
   "/overmolding": "https://apex-batch-images.s3.us-east-1.amazonaws.com/services/injection-molding/1-plastic-injection-molding-manufacturer-banner.webp",
   "/sheet-metal-fabrication": `${SITE_URL}/sheet-metal/apexbatch-sheet-metal-secondary-operations-factory.avif`,
   "/aluminum-extrusion": `${SITE_URL}/images/services/aluminum-extrusion/custom-aluminum-extrusion-profiles-production.avif`,

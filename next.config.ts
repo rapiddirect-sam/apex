@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/molding-services",
+        destination: "/injection-mold-tooling",
+        statusCode: 301,
+      },
+      {
         source: "/extrusion-services",
         destination: "/aluminum-extrusion",
         statusCode: 301,

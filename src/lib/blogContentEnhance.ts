@@ -172,12 +172,32 @@ export function initBlogTableScrollBars(root: ParentNode | null) {
     const columnCount = table.querySelector("tr")?.children.length || 0;
     const rowCount = table.querySelectorAll("tbody tr").length;
 
+    const columnTextLengths = Array.from({ length: columnCount }, () => 0);
+    table.querySelectorAll("tr").forEach((row) => {
+      Array.from(row.children).forEach((cell, index) => {
+        const textLength = (cell.textContent || "").replace(/\s+/g, " ").trim().length;
+        columnTextLengths[index] = Math.max(columnTextLengths[index] || 0, textLength);
+      });
+    });
+
+    const minimumColumnWidth = (textLength: number) => {
+      if (textLength > 90) return 250;
+      if (textLength > 45) return 210;
+      if (textLength > 20) return 148;
+      return 104;
+    };
+    const recommendedTableWidth = columnTextLengths.reduce(
+      (total, textLength) => total + minimumColumnWidth(textLength),
+      0
+    );
+
     const updateTableLayout = () => {
-      const isMobile = window.matchMedia("(max-width: 768px)").matches;
-      const needsHorizontalScroll = columnCount >= 4 || (isMobile && columnCount >= 3);
+      const availableWidth = body!.clientWidth;
+      const needsHorizontalScroll = recommendedTableWidth > availableWidth + 8;
 
       wrapper.classList.toggle("blog-table-scroll--wide", needsHorizontalScroll);
       wrapper.classList.toggle("blog-table-scroll--tall", rowCount >= 10);
+      wrapper.style.setProperty("--blog-table-min-width", `${recommendedTableWidth}px`);
     };
 
     const updateTopTrack = () => {
@@ -209,7 +229,11 @@ export function initBlogTableScrollBars(root: ParentNode | null) {
           })
         : null;
     resizeObserver?.observe(table);
-    window.addEventListener("resize", updateTableLayout, { passive: true });
+    const handleResize = () => {
+      updateTableLayout();
+      updateTopTrack();
+    };
+    window.addEventListener("resize", handleResize, { passive: true });
 
     wrapper.dataset.scrollSynced = "true";
 
@@ -217,7 +241,7 @@ export function initBlogTableScrollBars(root: ParentNode | null) {
       "blog-table-destroy",
       () => {
         resizeObserver?.disconnect();
-        window.removeEventListener("resize", updateTableLayout);
+        window.removeEventListener("resize", handleResize);
       },
       { once: true }
     );
@@ -250,12 +274,23 @@ export function initBlogCallouts(root: ParentNode | null) {
     if (!kind || label.parentElement?.classList.contains(`blog-${kind}`)) return;
 
     const next = label.nextElementSibling as HTMLElement | null;
-    if (!next || !["P", "UL", "OL"].includes(next.tagName)) return;
+    if (!next || !["P", "UL", "OL", "BLOCKQUOTE"].includes(next.tagName)) return;
 
     const callout = document.createElement("aside");
     callout.className = `blog-${kind}`;
     label.parentNode?.insertBefore(callout, label);
-    callout.append(label, next);
+    const calloutLabel = document.createElement("p");
+    calloutLabel.className = "blog-callout-label";
+    calloutLabel.textContent = label.textContent;
+    label.replaceWith(calloutLabel);
+    callout.append(calloutLabel);
+
+    if (next.tagName === "BLOCKQUOTE") {
+      while (next.firstChild) callout.append(next.firstChild);
+      next.remove();
+    } else {
+      callout.append(next);
+    }
   });
 }
 

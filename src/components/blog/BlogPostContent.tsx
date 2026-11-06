@@ -782,16 +782,24 @@ export function BlogPostContent({
                 border: 1px solid #D9E1E5;
                 border-left: 4px solid #6D8592;
               }
-              .blog-content .blog-quick-take > :first-child,
-              .blog-content .blog-pro-tip > :first-child {
-                margin-top: 0;
+              .blog-content .blog-callout-label {
+                margin: 0 0 12px;
                 font-weight: 700;
-                letter-spacing: 0.02em;
+                letter-spacing: 0.1em;
+                font-size: 12px;
+                line-height: 1.35;
+                text-transform: uppercase;
               }
-              .blog-content .blog-quick-take > :first-child {
+              .blog-content .blog-callout-label::before {
+                content: "✦";
+                display: inline-block;
+                margin-right: 8px;
+                font-size: 11px;
+              }
+              .blog-content .blog-quick-take .blog-callout-label {
                 color: #80500A;
               }
-              .blog-content .blog-pro-tip > :first-child {
+              .blog-content .blog-pro-tip .blog-callout-label {
                 color: #47606D;
               }
               .blog-content .blog-quick-take > :last-child,
@@ -851,7 +859,7 @@ export function BlogPostContent({
               .blog-content .blog-table-scroll--wide .blog-table-scroll-body table {
                 table-layout: fixed;
                 width: max-content;
-                min-width: 720px;
+                min-width: var(--blog-table-min-width, 720px);
               }
               .blog-content .blog-table-scroll--wide th,
               .blog-content .blog-table-scroll--wide td {
@@ -876,7 +884,7 @@ export function BlogPostContent({
                   max-height: none;
                 }
                 .blog-content .blog-table-scroll--wide .blog-table-scroll-body table {
-                  min-width: 640px;
+                  min-width: var(--blog-table-min-width, 640px);
                 }
                 .blog-content .blog-table-scroll--wide th,
                 .blog-content .blog-table-scroll--wide td {
@@ -885,6 +893,17 @@ export function BlogPostContent({
                   min-width: 6rem;
                   font-size: 14px;
                   padding: 14px 16px;
+                }
+                .blog-content .blog-table-scroll--wide::before {
+                  content: "Swipe to view →";
+                  display: block;
+                  padding: 8px 14px;
+                  border-bottom: 1px solid #EBEBEB;
+                  color: #80500A;
+                  font-size: 11px;
+                  font-weight: 700;
+                  letter-spacing: 0.06em;
+                  text-transform: uppercase;
                 }
               }
               .blog-content table {
