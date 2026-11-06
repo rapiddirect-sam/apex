@@ -12,8 +12,10 @@ const ITEMS = [
   ["tooling-faq", "FAQ", 15],
 ] as const;
 
+type SectionId = (typeof ITEMS)[number][0];
+
 export function IMTSectionNav() {
-  const [activeId, setActiveId] = useState(ITEMS[0][0]);
+  const [activeId, setActiveId] = useState<SectionId>(ITEMS[0][0]);
 
   useEffect(() => {
     const headings = Array.from(document.querySelectorAll("main.injection-molding-page h2"));
@@ -31,7 +33,7 @@ export function IMTSectionNav() {
       const activeSection = sections.reduce((current, section) => (
         section.getBoundingClientRect().top <= marker ? section : current
       ), sections[0]);
-      if (activeSection) setActiveId(activeSection.id);
+      if (activeSection) setActiveId(activeSection.id as SectionId);
     };
 
     updateActiveSection();
