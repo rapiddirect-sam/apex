@@ -12,7 +12,7 @@ const DEFAULTS = {
   descriptionSecondary:
     "Unlike CNC machining or 3D printing, the final part geometry is built into the tool. This makes injection molding suitable for stable designs that need repeatable housings, covers, clips, connectors, brackets, mechanical features, or other production plastic parts.",
   descriptionTertiary:
-    "Tooling is an upfront decision. The process is most valuable when the design is mature enough for production and the project needs pilot batches, planned low-volume production, or repeat orders. Material selection, wall thickness, shrinkage, visible surfaces, critical dimensions, and inspection requirements should be resolved before tooling is released.",
+    "Tooling is an upfront decision. The process is most valuable when the design is sufficiently defined for tooling and the project needs molded prototypes, pilot batches, planned low-volume production, or repeat orders. Material selection, wall thickness, shrinkage, visible surfaces, critical dimensions, and inspection requirements should be resolved before tooling is released.",
   explorationPrefix:
     "Not sure whether your part needs standard plastic molding services, overmolding, or insert molding? Explore ",
   explorationLink: "Injection Molding Services for Custom Parts",

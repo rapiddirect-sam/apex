@@ -9,6 +9,7 @@ import {
   prepareBlogContentHtml,
   scrollToBlogHash,
   resolveBlogHashTarget,
+  initBlogCallouts,
   initBlogTableScrollBars,
 } from "@/lib/blogContentEnhance";
 import {
@@ -82,7 +83,9 @@ export function BlogPostContent({
     document.addEventListener("click", onHashClick);
 
     const initTables = () => {
-      initBlogTableScrollBars(document.querySelector(".blog-content"));
+      const blogRoot = document.querySelector(".blog-content");
+      initBlogTableScrollBars(blogRoot);
+      initBlogCallouts(blogRoot);
     };
     initTables();
     const timer = window.setTimeout(initTables, 0);
@@ -336,10 +339,21 @@ export function BlogPostContent({
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 20px;
           }
-          .author-bio-layout {
-            display: flex;
-            gap: 24px;
-            align-items: flex-start;
+          .author-bio-card {
+            display: grid;
+            grid-template-columns: 80px minmax(0, 1fr);
+            column-gap: 24px;
+            row-gap: 20px;
+          }
+          .author-bio-heading {
+            grid-column: 1 / -1;
+          }
+          .author-bio-avatar {
+            grid-column: 1;
+          }
+          .author-bio-copy {
+            grid-column: 2;
+            min-width: 0;
           }
           @media (max-width: 1024px) {
             .blog-layout {
@@ -369,12 +383,25 @@ export function BlogPostContent({
             .related-articles-grid {
               grid-template-columns: minmax(0, 1fr);
             }
-            .author-bio-layout {
+            .author-bio-card {
+              display: flex;
               flex-direction: column;
-              gap: 20px;
+              gap: 16px;
             }
-            .author-bio-layout > :first-child {
-              margin-inline: auto;
+            .author-bio-heading,
+            .author-bio-avatar,
+            .author-bio-copy {
+              display: block;
+            }
+            .author-bio-avatar {
+              order: 1;
+            }
+            .author-bio-heading {
+              order: 2;
+              margin-bottom: 0 !important;
+            }
+            .author-bio-copy {
+              order: 3;
             }
           }
         `}</style>
@@ -739,6 +766,38 @@ export function BlogPostContent({
                 color: #1E1E1E;
                 font-weight: 600;
               }
+              .blog-content .blog-quick-take,
+              .blog-content .blog-pro-tip {
+                margin: 2em 0;
+                padding: 24px 26px;
+                border-radius: 12px;
+              }
+              .blog-content .blog-quick-take {
+                background: #FFF8E9;
+                border: 1px solid #F0D99D;
+                border-left: 4px solid #D09947;
+              }
+              .blog-content .blog-pro-tip {
+                background: #F3F6F8;
+                border: 1px solid #D9E1E5;
+                border-left: 4px solid #6D8592;
+              }
+              .blog-content .blog-quick-take > :first-child,
+              .blog-content .blog-pro-tip > :first-child {
+                margin-top: 0;
+                font-weight: 700;
+                letter-spacing: 0.02em;
+              }
+              .blog-content .blog-quick-take > :first-child {
+                color: #80500A;
+              }
+              .blog-content .blog-pro-tip > :first-child {
+                color: #47606D;
+              }
+              .blog-content .blog-quick-take > :last-child,
+              .blog-content .blog-pro-tip > :last-child {
+                margin-bottom: 0;
+              }
               .blog-content .blog-table-scroll {
                 max-width: 100%;
                 margin: 1.5em 0;
@@ -748,6 +807,7 @@ export function BlogPostContent({
                 background: #FFFFFF;
               }
               .blog-content .blog-table-scroll-top {
+                display: none;
                 overflow-x: auto;
                 overflow-y: hidden;
                 height: 14px;
@@ -759,15 +819,14 @@ export function BlogPostContent({
                 height: 1px;
               }
               .blog-content .blog-table-scroll-body {
-                overflow: auto;
-                max-height: min(65vh, 520px);
+                overflow: visible;
                 -webkit-overflow-scrolling: touch;
                 scrollbar-width: thin;
                 scrollbar-color: #D09947 #F3F4F6;
               }
               .blog-content .blog-table-scroll-body table {
-                table-layout: fixed;
-                width: max(100%, 640px);
+                table-layout: auto;
+                width: 100%;
                 margin: 0;
                 border: none;
                 box-shadow: none;
@@ -775,28 +834,52 @@ export function BlogPostContent({
               }
               .blog-content .blog-table-scroll th,
               .blog-content .blog-table-scroll td {
-                max-width: 11rem;
-                width: 11rem;
-                min-width: 7rem;
+                max-width: none;
+                width: auto;
+                min-width: 0;
                 overflow-wrap: anywhere;
                 word-break: break-word;
                 vertical-align: top;
                 white-space: normal;
               }
-              .blog-content .blog-table-scroll thead th {
+              .blog-content .blog-table-scroll--wide .blog-table-scroll-top {
+                display: block;
+              }
+              .blog-content .blog-table-scroll--wide .blog-table-scroll-body {
+                overflow-x: auto;
+              }
+              .blog-content .blog-table-scroll--wide .blog-table-scroll-body table {
+                table-layout: fixed;
+                width: max-content;
+                min-width: 720px;
+              }
+              .blog-content .blog-table-scroll--wide th,
+              .blog-content .blog-table-scroll--wide td {
+                max-width: 11rem;
+                width: 11rem;
+                min-width: 7rem;
+              }
+              .blog-content .blog-table-scroll--wide thead th {
                 position: sticky;
                 top: 0;
                 z-index: 2;
               }
+              .blog-content .blog-table-scroll--tall .blog-table-scroll-body {
+                max-height: min(65vh, 520px);
+                overflow-y: auto;
+              }
               @media (max-width: 768px) {
-                .blog-content .blog-table-scroll-top {
+                .blog-content .blog-table-scroll--wide .blog-table-scroll-top {
                   display: none;
                 }
-                .blog-content .blog-table-scroll-body {
+                .blog-content .blog-table-scroll--tall .blog-table-scroll-body {
                   max-height: none;
                 }
-                .blog-content .blog-table-scroll th,
-                .blog-content .blog-table-scroll td {
+                .blog-content .blog-table-scroll--wide .blog-table-scroll-body table {
+                  min-width: 640px;
+                }
+                .blog-content .blog-table-scroll--wide th,
+                .blog-content .blog-table-scroll--wide td {
                   max-width: 9rem;
                   width: 9rem;
                   min-width: 6rem;
@@ -910,12 +993,9 @@ export function BlogPostContent({
                     border: "1px solid #E8E8E8",
                   }}
                 >
-                  <h3 style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "20px" }}>
-                    About {author.name}
-                  </h3>
-                  <div className="author-bio-layout">
+                  <div className="author-bio-card">
                     {author.avatarUrl ? (
-                      <div style={{ width: "80px", height: "80px", borderRadius: "50%", overflow: "hidden", flexShrink: 0 }}>
+                      <div className="author-bio-avatar" style={{ width: "80px", height: "80px", borderRadius: "50%", overflow: "hidden", flexShrink: 0 }}>
                         <Image
                           src={author.avatarUrl}
                           alt={author.name}
@@ -926,6 +1006,7 @@ export function BlogPostContent({
                       </div>
                     ) : (
                       <div
+                        className="author-bio-avatar"
                         style={{
                           width: "80px",
                           height: "80px",
@@ -943,7 +1024,10 @@ export function BlogPostContent({
                         {author.name[0]?.toUpperCase() || "A"}
                       </div>
                     )}
-                    <div style={{ flex: 1 }}>
+                    <p className="author-bio-heading" style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", margin: 0 }}>
+                      About {author.name}
+                    </p>
+                    <div className="author-bio-copy">
                       <SanitizedHTML html={author.bio} className="author-bio" />
                       <style>{`
                         .author-bio {
@@ -1032,9 +1116,9 @@ export function BlogPostContent({
             {/* Related Articles - inside content column */}
             {relatedPosts.length > 0 && (
               <div style={{ marginTop: "48px", paddingTop: "40px", borderTop: "1px solid #E5E5E5" }}>
-                <h2 style={{ fontSize: "24px", fontWeight: 700, color: "#1E1E1E", marginBottom: "24px" }}>
+                <h4 style={{ fontSize: "24px", fontWeight: 700, color: "#1E1E1E", marginBottom: "24px" }}>
                   Related Articles
-                </h2>
+                </h4>
 
                 <div className="related-articles-grid">
                   {relatedPosts.slice(0, 4).map((rp) => {
@@ -1109,7 +1193,7 @@ export function BlogPostContent({
                           </div>
 
                           <div style={{ padding: "14px 16px 18px" }}>
-                            <h3
+                            <p
                               style={{
                                 color: "#1E1E1E",
                                 fontSize: "14px",
@@ -1123,7 +1207,7 @@ export function BlogPostContent({
                               }}
                             >
                               {rp.title}
-                            </h3>
+                            </p>
 
                             <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                               <div style={{ display: "flex", alignItems: "center", gap: "4px", color: "#B0960E", fontSize: "11px" }}>
@@ -1162,9 +1246,9 @@ export function BlogPostContent({
                 padding: "20px",
               }}
             >
-              <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
+              <h4 style={{ fontSize: "16px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
                 Popular Posts
-              </h3>
+              </h4>
               <div style={{ width: "32px", height: "3px", background: "#D09947", borderRadius: "2px", marginBottom: "16px" }} />
 
               <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
@@ -1199,7 +1283,7 @@ export function BlogPostContent({
                       )}
                     </div>
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <h4
+                      <p
                         style={{
                           color: "#1E1E1E",
                           fontSize: "13px",
@@ -1213,7 +1297,7 @@ export function BlogPostContent({
                         }}
                       >
                         {p.title}
-                      </h4>
+                      </p>
                       <span style={{ color: "#D09947", fontSize: "12px" }}>
                         {p.publishedAt?.toLocaleDateString("en-US", {
                           year: "numeric",

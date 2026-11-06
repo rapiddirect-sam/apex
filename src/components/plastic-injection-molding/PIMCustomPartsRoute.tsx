@@ -21,7 +21,7 @@ const DEFAULTS = {
   insertLink: "Insert Molding",
   routeHeadingPrefix: "When Is Plastic Injection Molding the Right ",
   routeHeadingHighlight: "Route?",
-  routeIntroduction: "Choose plastic injection molding services when a stable design needs approved material, repeatable geometry, controlled appearance, and planned production beyond a one-off prototype.",
+  routeIntroduction: "Choose plastic injection molding services when your project needs molded parts for design validation, pilot builds, or repeat production, and the design is sufficiently stable to justify dedicated tooling.",
   headers: ["Consideration", "Plastic Injection Molding", "CNC Machining", "3D Printing"],
   rows: [
     ["Best fit", "Stable designs and planned repeat production", "Lower quantities or precision-machined geometry", "Early concepts and rapid iteration"],

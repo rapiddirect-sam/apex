@@ -62,6 +62,10 @@ export const DEFAULT_PAGE_META: Record<string, { title: string; description: str
     title: "Plastic Injection Molding Services for Custom Parts | ApexBatch",
     description: "Custom plastic injection molding for parts with defined resin, tolerance, surface, and quality requirements. Review design, materials, finishes, and initial-part approval.",
   },
+  "/injection-mold-tooling": {
+    title: "Injection Mold Tooling for Custom Plastic Parts | ApexBatch",
+    description: "Custom injection mold tooling with DFM review, P20 and S136 steel options, CNC and EDM machining, T1 samples, FAI, and mold-life planning.",
+  },
   "/overmolding": {
     title: "Overmolding Services - ApexBatch Manufacturing",
     description: "Professional overmolding services for multi-material parts. Two-shot, insert, and elastomer overmolding with material compatibility review and bond strength control.",

@@ -196,8 +196,9 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "minmax(0, 0.9fr) 380px",
+                gridTemplateColumns: "minmax(0, 1fr) minmax(360px, 0.45fr)",
                 gap: "40px",
+                width: "100%",
               }}
               className="blog-featured-layout"
             >
@@ -386,6 +387,16 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               top: 100px;
               align-self: start;
             }
+            .blog-articles-grid {
+              display: grid;
+              grid-template-columns: repeat(3, minmax(0, 1fr));
+              gap: 24px;
+            }
+            @media (max-width: 1023px) {
+              .blog-articles-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+              }
+            }
             @media (max-width: 767px) {
               .blog-archive-layout {
                 grid-template-columns: minmax(0, 1fr) !important;
@@ -393,6 +404,9 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               }
               .blog-categories-sidebar {
                 position: static;
+              }
+              .blog-articles-grid {
+                grid-template-columns: minmax(0, 1fr);
               }
             }
           `}</style>
@@ -511,14 +525,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                   </button>
                 </div>
               ) : (
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
-                  gap: "24px",
-                }}
-                className="lg:!grid-cols-3 md:!grid-cols-2 grid-cols-1"
-              >
+              <div className="blog-articles-grid">
                 {gridPosts.map((post) => {
                   const categoryName = getCategoryName(post.categoryId);
                   const readTime = estimateReadTime(post.content);

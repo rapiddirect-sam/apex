@@ -40,7 +40,7 @@ export function IMCTA({ content = DEFAULTS }: { content?: typeof DEFAULTS }) {
             <EditableText path="cta.description" defaultValue={content.description} multiline />
           </p>
 
-          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="https://app.apexbatch.com/"
               rel="nofollow"

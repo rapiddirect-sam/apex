@@ -631,7 +631,7 @@ html.cms-edit-mode a:has([data-editable-text]) {
 }
 
 /* Legacy page CTAs inherit the same system while their individual page markup is migrated. */
-a[href="https://app.apexbatch.com/"]:not(.cta-compact):not(.cta-account):not(.cta-secondary) {
+a[href="https://app.apexbatch.com/"]:not(.cta-compact):not(.cta-account):not(.cta-secondary):not(.body-text-link) {
   border: 1px solid transparent !important;
   border-radius: 0.375rem !important;
   padding: 0.875rem 1.75rem !important;

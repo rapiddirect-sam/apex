@@ -15,6 +15,7 @@ import {
   Building2,
   MessageSquare,
   ArrowRight,
+  LockKeyhole,
 } from "lucide-react";
 
 declare global {
@@ -37,7 +38,8 @@ const DEFAULTS = {
   uploadOr: "or",
   uploadBrowse: "Browse Files",
   uploadFormats: "Accepted: STEP, STL, IGES, SLDPRT, X_T, JPG, PNG, PDF, ZIP and RAR. Maximum 25 MB per file.",
-  privacyNotice: "Your files and project information are used only to review and respond to your inquiry. See our",
+  uploadConfidentiality: "Confidential file handling · NDA support available",
+  privacyNotice: "We use your submitted information only to respond to your inquiry. See our",
   privacyPolicyLabel: "Privacy Policy",
   // Success/error messages
   successMessage: "Thank you! Your message has been sent successfully. We'll get back to you within 24 hours.",
@@ -654,6 +656,10 @@ export function ContactForm() {
                     defaultValue={DEFAULTS.uploadFormats}
                   />
                 </p>
+                <p className="mt-3 flex items-center justify-center gap-2 text-xs leading-relaxed text-[#AAA7A3]">
+                  <LockKeyhole className="h-3.5 w-3.5 shrink-0 text-[#EEC569]" aria-hidden="true" />
+                  <EditableText path="form.uploadConfidentiality" defaultValue={DEFAULTS.uploadConfidentiality} />
+                </p>
 
                 {/* Display selected files */}
                 {files.length > 0 && (
@@ -753,10 +759,10 @@ export function ContactForm() {
               <button
                 type="submit"
                 disabled={isSubmitting || isUploading}
-                className={`w-full font-semibold py-4 px-8 rounded text-sm transition-all uppercase tracking-wider inline-flex items-center justify-center gap-2 group ${
+                className={`cta-primary group !w-full justify-center ${
                   isSubmitting || isUploading
-                    ? "bg-[#666] text-[#999] cursor-not-allowed"
-                    : "bg-[#D09947] hover:bg-[#EEC569] text-[#000000]"
+                    ? "!border-[#666] !bg-[#666] !text-[#999] cursor-not-allowed"
+                    : ""
                 }`}
               >
                 {isUploading ? "Uploading files..." : isSubmitting ? "Sending..." : "Send Message"}
@@ -1082,7 +1088,7 @@ export function ContactForm() {
                   href={MAPS_URL_SHENZHEN}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded bg-[#D09947] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[#000000] transition-all hover:bg-[#EEC569]"
+                  className="cta-secondary !w-full justify-center gap-2 sm:!w-auto"
                 >
                   Directions — Shenzhen
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -1130,7 +1136,7 @@ export function ContactForm() {
                   href={MAPS_URL_HEAD_OFFICE_HK}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded bg-[#D09947] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-[#000000] transition-all hover:bg-[#EEC569]"
+                  className="cta-secondary !w-full justify-center gap-2 sm:!w-auto"
                 >
                   <EditableText
                     path="sidebar.headOfficeDirectionsLabel"

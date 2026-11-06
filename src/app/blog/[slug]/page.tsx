@@ -7,6 +7,7 @@ import { getPostBySlug, getPublishedPosts } from "@/lib/blog";
 import { getAllCategories } from "@/lib/categories";
 import { getAuthorById } from "@/lib/authors";
 import { ArticleStructuredData } from "@/components/seo/ArticleStructuredData";
+import { BlogFaqStructuredData } from "@/components/seo/BlogFaqStructuredData";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -85,6 +86,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <>
       <ArticleStructuredData post={post} author={author} />
+      <BlogFaqStructuredData content={post.content} />
       <Home3Header />
       <div className="blog-scrollbar-theme">
         <BlogPostContent

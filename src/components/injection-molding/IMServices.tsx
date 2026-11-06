@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "@/components/ui/StaticMotion";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { EditableText } from "@/components/cms";
 import { StaticImage } from "@/components/ui/StaticImage";
@@ -18,6 +19,8 @@ const DEFAULTS = {
         "Produce custom thermoplastic parts with repeatable geometry, defined material performance, and controlled cosmetic or functional requirements.",
       detail: "Suitable for housings, enclosures, covers, clips, brackets, connectors, handles, and other custom plastic parts.",
       image: "/injection-molding/custom-plastic-injection-molded-housings-covers-connectors-handles.webp",
+      cta: "Explore Plastic Injection Molding",
+      href: "/plastic-injection-molding",
     },
     {
       title: "Injection Mold Tooling",
@@ -25,6 +28,8 @@ const DEFAULTS = {
         "Build a dedicated mold for prototype validation, pilot production, or repeat manufacturing. Before tooling begins, review part geometry, material, expected quantity, critical features, appearance requirements, and the validation plan.",
       detail: "",
       image: "/injection-molding/precision-steel-injection-mold-cavity-core-guide-pillars-cooling-fittings.webp",
+      cta: "Discuss Your Tooling Plan",
+      href: "/injection-mold-tooling",
     },
     {
       title: "Overmolding",
@@ -32,6 +37,8 @@ const DEFAULTS = {
         "Add a soft, flexible, sealing, protective, or grip-enhancing material to a rigid plastic or metal substrate.",
       detail: "",
       image: "/injection-molding/two-material-overmolded-industrial-grip-soft-touch-tpe.webp",
+      cta: "Explore Overmolding",
+      href: "/overmolding",
     },
     {
       title: "Insert Molding",
@@ -39,6 +46,8 @@ const DEFAULTS = {
         "Integrate threaded inserts, bushings, terminals, pins, magnets, stamped components, or other functional features directly into a molded part.",
       detail: "",
       image: "/injection-molding/insert-molded-plastic-parts-brass-threaded-inserts-terminals.webp",
+      cta: "Explore Insert Molding",
+      href: "/insert-molding",
     },
   ],
 };
@@ -120,10 +129,10 @@ export function IMServices() {
                       <EditableText path={`services.items.${index}.detail`} defaultValue={service.detail} multiline />
                     </p>
                   ) : null}
-                  <a href="https://app.apexbatch.com/" target="_blank" rel="noopener noreferrer" className="cta-primary group mt-auto self-start">
-                    Get a Quote
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                  </a>
+                  <Link href={service.href} className="body-text-link body-text-link--dark mt-auto inline-flex items-center gap-2 self-start pt-6 text-sm">
+                    {service.cta}
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
                 </div>
               </motion.div>
             ))}

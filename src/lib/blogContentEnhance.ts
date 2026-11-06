@@ -4,6 +4,11 @@ export interface BlogTocItem {
   level: number;
 }
 
+export interface BlogFaqItem {
+  question: string;
+  answer: string;
+}
+
 const SITE_HOSTS = new Set(["apexbatch.com", "www.apexbatch.com"]);
 
 /** True for same-site paths and in-page anchors; false for external URLs. */
@@ -137,7 +142,7 @@ export function wrapTablesForScroll(html: string): string {
   });
 }
 
-/** Sync a top horizontal scrollbar with the table body (desktop-friendly for long tables). */
+/** Use native-width tables by default and only enable horizontal scrolling for genuinely wide tables. */
 export function initBlogTableScrollBars(root: ParentNode | null) {
   if (!root) return;
 
@@ -164,6 +169,17 @@ export function initBlogTableScrollBars(root: ParentNode | null) {
       wrapper.insertBefore(top, body);
     }
 
+    const columnCount = table.querySelector("tr")?.children.length || 0;
+    const rowCount = table.querySelectorAll("tbody tr").length;
+
+    const updateTableLayout = () => {
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      const needsHorizontalScroll = columnCount >= 4 || (isMobile && columnCount >= 3);
+
+      wrapper.classList.toggle("blog-table-scroll--wide", needsHorizontalScroll);
+      wrapper.classList.toggle("blog-table-scroll--tall", rowCount >= 10);
+    };
+
     const updateTopTrack = () => {
       top!.innerHTML = "";
       const track = document.createElement("div");
@@ -172,6 +188,7 @@ export function initBlogTableScrollBars(root: ParentNode | null) {
       top!.appendChild(track);
     };
 
+    updateTableLayout();
     updateTopTrack();
 
     const syncFromTop = () => {
@@ -186,9 +203,13 @@ export function initBlogTableScrollBars(root: ParentNode | null) {
 
     const resizeObserver =
       typeof ResizeObserver !== "undefined"
-        ? new ResizeObserver(() => updateTopTrack())
+        ? new ResizeObserver(() => {
+            updateTableLayout();
+            updateTopTrack();
+          })
         : null;
     resizeObserver?.observe(table);
+    window.addEventListener("resize", updateTableLayout, { passive: true });
 
     wrapper.dataset.scrollSynced = "true";
 
@@ -196,9 +217,45 @@ export function initBlogTableScrollBars(root: ParentNode | null) {
       "blog-table-destroy",
       () => {
         resizeObserver?.disconnect();
+        window.removeEventListener("resize", updateTableLayout);
       },
       { once: true }
     );
+  });
+}
+
+type BlogCalloutKind = "quick-take" | "pro-tip";
+
+function getCalloutKind(value: string): BlogCalloutKind | null {
+  const label = value.trim().replace(/[:：]+$/, "").toLowerCase();
+  if (label === "quick take" || label === "quick takeaway") return "quick-take";
+  if (label === "pro tip" || label === "pro-tip") return "pro-tip";
+  return null;
+}
+
+/** Add presentation classes to common Quick Take / Pro Tip CMS markup without changing article copy. */
+export function initBlogCallouts(root: ParentNode | null) {
+  if (!root) return;
+
+  root.querySelectorAll<HTMLElement>("blockquote, aside, div").forEach((element) => {
+    if (element.classList.contains("blog-cta")) return;
+
+    const firstLabel = element.querySelector<HTMLElement>("h2, h3, h4, p, strong, b")?.textContent || "";
+    const kind = getCalloutKind(firstLabel);
+    if (kind) element.classList.add(`blog-${kind}`);
+  });
+
+  root.querySelectorAll<HTMLElement>("h2, h3, h4, p").forEach((label) => {
+    const kind = getCalloutKind(label.textContent || "");
+    if (!kind || label.parentElement?.classList.contains(`blog-${kind}`)) return;
+
+    const next = label.nextElementSibling as HTMLElement | null;
+    if (!next || !["P", "UL", "OL"].includes(next.tagName)) return;
+
+    const callout = document.createElement("aside");
+    callout.className = `blog-${kind}`;
+    label.parentNode?.insertBefore(callout, label);
+    callout.append(label, next);
   });
 }
 
@@ -375,6 +432,53 @@ export function prepareBlogContentHtml(html: string): { html: string; tocItems: 
   const withTables = wrapTablesForScroll(withCta);
   const { html: withIds, tocItems } = injectHeadingIds(withTables);
   return { html: withIds, tocItems };
+}
+
+function htmlToPlainText(value: string): string {
+  return value
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Extract FAQ items only from a clearly labelled FAQ section in CMS article HTML.
+ * Requiring the section label and question-form subheadings prevents ordinary
+ * blog headings from being exposed as FAQ structured data.
+ */
+export function extractBlogFaqItems(html: string): BlogFaqItem[] {
+  const source = restoreRawBlocks(html);
+  const sectionMatch = source.match(
+    /<h2\b[^>]*>\s*(?:frequently\s+asked\s+questions|faqs?)\s*<\/h2>([\s\S]*?)(?=<h2\b|$)/i
+  );
+
+  if (!sectionMatch?.[1]) return [];
+
+  const items: BlogFaqItem[] = [];
+  const seenQuestions = new Set<string>();
+  const entryPattern = /<h([3-4])\b[^>]*>([\s\S]*?)<\/h\1>([\s\S]*?)(?=<h[2-4]\b|$)/gi;
+
+  for (const match of sectionMatch[1].matchAll(entryPattern)) {
+    const question = htmlToPlainText(match[2]);
+    const answerMatch = match[3].match(/<p\b[^>]*>([\s\S]*?)<\/p>/i);
+    const answer = answerMatch ? htmlToPlainText(answerMatch[1]) : "";
+    const normalizedQuestion = question.toLowerCase();
+
+    if (!question.endsWith("?") || answer.length < 20 || seenQuestions.has(normalizedQuestion)) continue;
+
+    seenQuestions.add(normalizedQuestion);
+    items.push({ question, answer });
+  }
+
+  return items.slice(0, 10);
 }
 
 export const BLOG_HEADER_SCROLL_OFFSET = 96;
