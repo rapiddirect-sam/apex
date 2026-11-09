@@ -9,7 +9,7 @@ import {
   ReactNode,
 } from "react";
 import { useAuthOptional } from "./AuthContext";
-import { getNestedValue, setNestedValue } from "@/lib/pageContent";
+import { getNestedValue, setNestedValue } from "@/lib/contentPath";
 
 interface PendingChange {
   path: string;

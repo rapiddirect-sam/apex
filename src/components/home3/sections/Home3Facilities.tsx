@@ -320,10 +320,8 @@ export function Home3Facilities() {
             className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {DEFAULTS.workshops.map((workshop, index) => (
-              <Link
+              <div
                 key={workshop.title}
-                href="/about"
-                aria-label={`Explore ${workshop.title}`}
                 className="group relative aspect-[4/3] w-[82vw] shrink-0 snap-start overflow-hidden rounded-xl outline outline-1 outline-[#D09947]/25 sm:w-[calc((100%_-_1rem)/2)] lg:w-[calc((100%_-_2rem)/3)]"
               >
                 <EditableImage
@@ -343,7 +341,7 @@ export function Home3Facilities() {
                     />
                   </p>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
 

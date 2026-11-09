@@ -159,6 +159,26 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
             .blog-featured-layout {
               grid-template-columns: minmax(0, 1fr) !important;
             }
+            .blog-featured-card-link {
+              grid-template-columns: minmax(0, 1fr) !important;
+            }
+            .blog-featured-image {
+              min-height: 0 !important;
+              aspect-ratio: 4 / 3;
+            }
+            .blog-newsletter-bar {
+              grid-template-columns: minmax(0, 1fr) minmax(220px, 0.6fr) auto !important;
+            }
+          }
+          @media (max-width: 767px) {
+            .blog-newsletter-bar {
+              grid-template-columns: minmax(0, 1fr) !important;
+              gap: 14px !important;
+            }
+            .blog-newsletter-bar input,
+            .blog-newsletter-bar button {
+              width: 100% !important;
+            }
           }
         `}</style>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -193,16 +213,18 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
           )}
 
           {!isFiltering && featuredPost && (
+            <>
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "minmax(0, 1fr) minmax(360px, 0.45fr)",
+                gridTemplateColumns: "minmax(0, 1.15fr) minmax(340px, 0.85fr)",
                 gap: "40px",
                 width: "100%",
+                alignItems: "stretch",
               }}
               className="blog-featured-layout"
             >
-              {/* Featured Post - Large Card */}
+              {/* Featured Post */}
               <article
                 className="group"
                 style={{
@@ -210,6 +232,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                   border: "2px solid transparent",
                   boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
                   transition: "transform 0.3s, box-shadow 0.3s, border-color 0.3s",
+                  height: "100%",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-4px)";
@@ -222,8 +245,20 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                   e.currentTarget.style.borderColor = "transparent";
                 }}
               >
-                <Link href={`/blog/${featuredPost.slug}`} style={{ textDecoration: "none" }}>
-                  <div style={{ position: "relative", aspectRatio: "4 / 3", background: "#F5F5F5", overflow: "hidden" }}>
+                <Link
+                  href={`/blog/${featuredPost.slug}`}
+                  className="blog-featured-card-link"
+                  style={{
+                    textDecoration: "none",
+                    display: "grid",
+                    gridTemplateColumns: "minmax(260px, 0.95fr) minmax(0, 1.05fr)",
+                    height: "100%",
+                  }}
+                >
+                  <div
+                    className="blog-featured-image"
+                    style={{ position: "relative", aspectRatio: "4 / 3", background: "#F5F5F5", overflow: "hidden" }}
+                  >
                     {featuredPost.featuredImage ? (
                       <Image
                         src={featuredPost.featuredImage}
@@ -251,7 +286,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                     )}
                   </div>
 
-                  <div style={{ padding: "20px 24px 24px" }}>
+                  <div style={{ padding: "24px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "14px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "5px", color: "#B0960E", fontSize: "13px" }}>
                         <Calendar size={13} />
@@ -286,19 +321,22 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                 </Link>
               </article>
 
-              {/* Right Sidebar: Popular Posts + Newsletter */}
-              <aside style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+              {/* Right: Popular Posts */}
+              <aside style={{ display: "flex", flexDirection: "column" }}>
                 {/* Popular Posts */}
                 <div style={{
                   border: "1px solid #E8E8E8", borderRadius: "12px",
-                  padding: "22px",
+                  padding: "24px",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
                 }}>
                   <h2 style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
                     Popular Posts
                   </h2>
                   <div style={{ width: "40px", height: "3px", background: "#2979C1", borderRadius: "2px", marginBottom: "20px" }} />
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+                  <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "18px", flex: 1 }}>
                     {popularPosts.map((post) => (
                       <Link
                         key={post.id}
@@ -306,17 +344,17 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                         style={{
                           textDecoration: "none",
                           display: "flex",
-                          gap: "12px",
+                          gap: "14px",
                           alignItems: "flex-start",
                         }}
                       >
                         <div style={{
-                          width: "60px", height: "48px", borderRadius: "6px",
+                          width: "88px", height: "66px", borderRadius: "7px",
                           overflow: "hidden", flexShrink: 0, position: "relative",
                           background: "#F5F5F5",
                         }}>
                           {post.featuredImage ? (
-                            <Image src={post.featuredImage} alt={post.title} fill sizes="64px" style={{ objectFit: "cover" }} />
+                            <Image src={post.featuredImage} alt={post.title} fill sizes="88px" style={{ objectFit: "cover" }} />
                           ) : (
                             <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
                               <FileText size={16} style={{ color: "#D4D4D4" }} />
@@ -339,41 +377,52 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                   </div>
                 </div>
 
-                {/* Newsletter Subscribe */}
-                <div style={{
-                  border: "1px solid #E8E8E8", borderRadius: "12px",
-                  padding: "22px",
-                }}>
-                  <p style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
-                    Subscribe to Newsletter
-                  </p>
-                  <div style={{ width: "40px", height: "3px", background: "#D09947", borderRadius: "2px", marginBottom: "16px" }} />
-                  <p style={{ color: "#888", fontSize: "14px", lineHeight: 1.6, marginBottom: "16px" }}>
-                    Get the latest manufacturing insights delivered to your inbox.
-                  </p>
-                  <input
-                    type="email"
-                    placeholder="Your email address"
-                    style={{
-                      width: "100%", padding: "11px 14px",
-                      border: "1px solid #D4D4D4", borderRadius: "8px",
-                      fontSize: "14px", color: "#1E1E1E", outline: "none",
-                      marginBottom: "10px",
-                    }}
-                  />
-                  <button
-                    style={{
-                      width: "100%", padding: "11px",
-                      background: "linear-gradient(135deg, #D09947, #EEC569)",
-                      color: "#FFFFFF", border: "none", borderRadius: "8px",
-                      fontSize: "14px", fontWeight: 600, cursor: "pointer",
-                    }}
-                  >
-                    Subscribe
-                  </button>
-                </div>
               </aside>
             </div>
+
+            {/* Full-width newsletter bar */}
+            <div
+              className="blog-newsletter-bar"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "minmax(0, 1fr) minmax(260px, 0.55fr) auto",
+                alignItems: "center",
+                gap: "20px",
+                marginTop: "24px",
+                width: "100%",
+                padding: "18px 22px",
+                border: "1px solid #E8E8E8",
+                borderRadius: "12px",
+                background: "#FCFBF8",
+              }}
+            >
+              <div>
+                <p style={{ fontSize: "17px", fontWeight: 700, color: "#1E1E1E", margin: "0 0 4px" }}>
+                  Subscribe to Newsletter
+                </p>
+                <p style={{ color: "#777", fontSize: "14px", lineHeight: 1.5, margin: 0 }}>
+                  Get practical manufacturing insights in your inbox.
+                </p>
+              </div>
+              <input
+                type="email"
+                placeholder="Your email address"
+                style={{
+                  width: "100%", padding: "11px 14px", border: "1px solid #D4D4D4",
+                  borderRadius: "8px", fontSize: "14px", color: "#1E1E1E", outline: "none",
+                }}
+              />
+              <button
+                style={{
+                  width: "auto", whiteSpace: "nowrap", padding: "11px 22px",
+                  background: "linear-gradient(135deg, #D09947, #EEC569)", color: "#FFFFFF",
+                  border: "none", borderRadius: "8px", fontSize: "14px", fontWeight: 600, cursor: "pointer",
+                }}
+              >
+                Subscribe
+              </button>
+            </div>
+            </>
           )}
         </div>
       </section>

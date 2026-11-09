@@ -181,10 +181,13 @@ export function initBlogTableScrollBars(root: ParentNode | null) {
     });
 
     const minimumColumnWidth = (textLength: number) => {
-      if (textLength > 90) return 250;
-      if (textLength > 45) return 210;
-      if (textLength > 20) return 148;
-      return 104;
+      // Preserve enough width for a complete short term or heading. If the
+      // combined reading width exceeds its container, the table scrolls
+      // instead of compressing a word into a letter-by-letter column.
+      if (textLength > 90) return 320;
+      if (textLength > 45) return 256;
+      if (textLength > 20) return 192;
+      return 132;
     };
     const recommendedTableWidth = columnTextLengths.reduce(
       (total, textLength) => total + minimumColumnWidth(textLength),
@@ -245,52 +248,6 @@ export function initBlogTableScrollBars(root: ParentNode | null) {
       },
       { once: true }
     );
-  });
-}
-
-type BlogCalloutKind = "quick-take" | "pro-tip";
-
-function getCalloutKind(value: string): BlogCalloutKind | null {
-  const label = value.trim().replace(/[:：]+$/, "").toLowerCase();
-  if (label === "quick take" || label === "quick takeaway") return "quick-take";
-  if (label === "pro tip" || label === "pro-tip") return "pro-tip";
-  return null;
-}
-
-/** Add presentation classes to common Quick Take / Pro Tip CMS markup without changing article copy. */
-export function initBlogCallouts(root: ParentNode | null) {
-  if (!root) return;
-
-  root.querySelectorAll<HTMLElement>("blockquote, aside, div").forEach((element) => {
-    if (element.classList.contains("blog-cta")) return;
-
-    const firstLabel = element.querySelector<HTMLElement>("h2, h3, h4, p, strong, b")?.textContent || "";
-    const kind = getCalloutKind(firstLabel);
-    if (kind) element.classList.add(`blog-${kind}`);
-  });
-
-  root.querySelectorAll<HTMLElement>("h2, h3, h4, p").forEach((label) => {
-    const kind = getCalloutKind(label.textContent || "");
-    if (!kind || label.parentElement?.classList.contains(`blog-${kind}`)) return;
-
-    const next = label.nextElementSibling as HTMLElement | null;
-    if (!next || !["P", "UL", "OL", "BLOCKQUOTE"].includes(next.tagName)) return;
-
-    const callout = document.createElement("aside");
-    callout.className = `blog-${kind}`;
-    label.parentNode?.insertBefore(callout, label);
-    const calloutLabel = document.createElement("p");
-    calloutLabel.className = "blog-callout-label";
-    calloutLabel.textContent = label.textContent;
-    label.replaceWith(calloutLabel);
-    callout.append(calloutLabel);
-
-    if (next.tagName === "BLOCKQUOTE") {
-      while (next.firstChild) callout.append(next.firstChild);
-      next.remove();
-    } else {
-      callout.append(next);
-    }
   });
 }
 
@@ -491,23 +448,34 @@ function htmlToPlainText(value: string): string {
  */
 export function extractBlogFaqItems(html: string): BlogFaqItem[] {
   const source = restoreRawBlocks(html);
-  const sectionMatch = source.match(
-    /<h2\b[^>]*>\s*(?:frequently\s+asked\s+questions|faqs?)\s*<\/h2>([\s\S]*?)(?=<h2\b|$)/i
-  );
+  const h2Pattern = /<h2\b[^>]*>([\s\S]*?)<\/h2>/gi;
+  const h2Matches = Array.from(source.matchAll(h2Pattern));
+  const faqHeadingIndex = h2Matches.findIndex((match) => {
+    const heading = htmlToPlainText(match[1]).replace(/[:：]+$/, "").toLowerCase();
+    return heading === "frequently asked questions" || heading === "faq" || heading === "faqs";
+  });
 
-  if (!sectionMatch?.[1]) return [];
+  if (faqHeadingIndex === -1) return [];
+
+  const faqHeading = h2Matches[faqHeadingIndex];
+  const nextSection = h2Matches[faqHeadingIndex + 1];
+  const sectionStart = (faqHeading.index ?? 0) + faqHeading[0].length;
+  const sectionEnd = nextSection?.index ?? source.length;
+  const sectionHtml = source.slice(sectionStart, sectionEnd);
 
   const items: BlogFaqItem[] = [];
   const seenQuestions = new Set<string>();
   const entryPattern = /<h([3-4])\b[^>]*>([\s\S]*?)<\/h\1>([\s\S]*?)(?=<h[2-4]\b|$)/gi;
 
-  for (const match of sectionMatch[1].matchAll(entryPattern)) {
+  for (const match of sectionHtml.matchAll(entryPattern)) {
     const question = htmlToPlainText(match[2]);
-    const answerMatch = match[3].match(/<p\b[^>]*>([\s\S]*?)<\/p>/i);
-    const answer = answerMatch ? htmlToPlainText(answerMatch[1]) : "";
+    const answer = Array.from(match[3].matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi))
+      .map((paragraph) => htmlToPlainText(paragraph[1]))
+      .filter(Boolean)
+      .join(" ");
     const normalizedQuestion = question.toLowerCase();
 
-    if (!question.endsWith("?") || answer.length < 20 || seenQuestions.has(normalizedQuestion)) continue;
+    if (!/[?？]$/.test(question) || answer.length < 20 || seenQuestions.has(normalizedQuestion)) continue;
 
     seenQuestions.add(normalizedQuestion);
     items.push({ question, answer });

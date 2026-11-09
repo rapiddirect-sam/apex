@@ -1,5 +1,6 @@
 import { supabase, isSupabaseConfigured } from "./supabase";
 import { unstable_cache } from "next/cache";
+export { getNestedValue, setNestedValue } from "./contentPath";
 
 const TABLE_NAME = "page_content";
 
@@ -146,47 +147,4 @@ export async function upsertPageContent<T = Record<string, unknown>>(
   }
 
   return { success: true, version: newVersion };
-}
-
-/**
- * Get nested value from object by dot-notation path
- */
-export function getNestedValue(
-  obj: Record<string, unknown> | null | undefined,
-  path: string
-): unknown {
-  if (!obj) return undefined;
-
-  const keys = path.split(".");
-  let current: unknown = obj;
-
-  for (const key of keys) {
-    if (current === null || current === undefined) return undefined;
-    if (typeof current !== "object") return undefined;
-    current = (current as Record<string, unknown>)[key];
-  }
-
-  return current;
-}
-
-/**
- * Set nested value in object by dot-notation path
- */
-export function setNestedValue(
-  obj: Record<string, unknown>,
-  path: string,
-  value: unknown
-): void {
-  const keys = path.split(".");
-  let current: Record<string, unknown> = obj;
-
-  for (let i = 0; i < keys.length - 1; i++) {
-    const key = keys[i];
-    if (!(key in current) || typeof current[key] !== "object") {
-      current[key] = {};
-    }
-    current = current[key] as Record<string, unknown>;
-  }
-
-  current[keys[keys.length - 1]] = value;
 }

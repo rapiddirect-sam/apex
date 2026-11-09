@@ -4,11 +4,11 @@
  */
 
 export const HOME_HERO_IMAGE_SIZES =
-  "(max-width: 640px) 100vw, (max-width: 1280px) 90vw, 1240px";
+  "(max-width: 1280px) 100vw, 1240px";
 
 export const HOME_HERO_IMAGE_QUALITY = 64;
 
-export const CNC_HERO_IMAGE_SIZES = "(max-width: 640px) 100vw, 1240px";
+export const CNC_HERO_IMAGE_SIZES = "(max-width: 1024px) 100vw, 1240px";
 
 export const CNC_HERO_IMAGE_QUALITY = 62;
 

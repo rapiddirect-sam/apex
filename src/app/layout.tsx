@@ -28,11 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-q4-announcement="hidden" data-q4-project-support="hidden" suppressHydrationWarning className={`${inter.variable} ${playfair.variable}`}>
       <head>
-        <link rel="preconnect" href="https://apex-batch-images.s3.us-east-1.amazonaws.com" crossOrigin="" />
-        <link rel="dns-prefetch" href="https://apex-batch-images.s3.us-east-1.amazonaws.com" />
-        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="" />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        {/* Defer GTM to reduce main-thread work on mobile (helps TBT / INP); loads after page is interactive */}
+        {/* GTM is intentionally lazy. Do not preconnect: a deferred tag should not compete with LCP resources. */}
         <Script id="gtm" strategy="lazyOnload">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

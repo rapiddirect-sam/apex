@@ -9,7 +9,6 @@ import {
   prepareBlogContentHtml,
   scrollToBlogHash,
   resolveBlogHashTarget,
-  initBlogCallouts,
   initBlogTableScrollBars,
 } from "@/lib/blogContentEnhance";
 import {
@@ -85,14 +84,21 @@ export function BlogPostContent({
     const initTables = () => {
       const blogRoot = document.querySelector(".blog-content");
       initBlogTableScrollBars(blogRoot);
-      initBlogCallouts(blogRoot);
     };
     initTables();
-    const timer = window.setTimeout(initTables, 0);
+
+    // SanitizedHTML inserts the finished article after its own effect. Observe
+    // that insertion so wide-table detection always runs against real table DOM.
+    const blogRoot = document.querySelector(".blog-content");
+    let observer: MutationObserver | null = null;
+    if (blogRoot) {
+      observer = new MutationObserver(initTables);
+      observer.observe(blogRoot, { childList: true });
+    }
 
     return () => {
       document.removeEventListener("click", onHashClick);
-      window.clearTimeout(timer);
+      observer?.disconnect();
     };
   }, [preparedContent]);
 
@@ -766,23 +772,22 @@ export function BlogPostContent({
                 color: #1E1E1E;
                 font-weight: 600;
               }
-              .blog-content .blog-quick-take,
-              .blog-content .blog-pro-tip {
+              .blog-content .blog-callout {
                 margin: 2em 0;
                 padding: 24px 26px;
                 border-radius: 12px;
               }
-              .blog-content .blog-quick-take {
+              .blog-content .blog-callout--quick-take {
                 background: #FFF8E9;
                 border: 1px solid #F0D99D;
                 border-left: 4px solid #D09947;
               }
-              .blog-content .blog-pro-tip {
+              .blog-content .blog-callout--pro-tip {
                 background: #F3F6F8;
                 border: 1px solid #D9E1E5;
                 border-left: 4px solid #6D8592;
               }
-              .blog-content .blog-callout-label {
+              .blog-content .blog-callout__label {
                 margin: 0 0 12px;
                 font-weight: 700;
                 letter-spacing: 0.1em;
@@ -790,20 +795,19 @@ export function BlogPostContent({
                 line-height: 1.35;
                 text-transform: uppercase;
               }
-              .blog-content .blog-callout-label::before {
+              .blog-content .blog-callout__label::before {
                 content: "✦";
                 display: inline-block;
                 margin-right: 8px;
                 font-size: 11px;
               }
-              .blog-content .blog-quick-take .blog-callout-label {
+              .blog-content .blog-callout--quick-take .blog-callout__label {
                 color: #80500A;
               }
-              .blog-content .blog-pro-tip .blog-callout-label {
+              .blog-content .blog-callout--pro-tip .blog-callout__label {
                 color: #47606D;
               }
-              .blog-content .blog-quick-take > :last-child,
-              .blog-content .blog-pro-tip > :last-child {
+              .blog-content .blog-callout > :last-child {
                 margin-bottom: 0;
               }
               .blog-content .blog-table-scroll {
@@ -845,10 +849,14 @@ export function BlogPostContent({
                 max-width: none;
                 width: auto;
                 min-width: 0;
-                overflow-wrap: anywhere;
-                word-break: break-word;
+                overflow-wrap: break-word;
+                word-break: normal;
                 vertical-align: top;
                 white-space: normal;
+              }
+              .blog-content .blog-table-scroll th:first-child,
+              .blog-content .blog-table-scroll td:first-child {
+                min-width: 8.5rem;
               }
               .blog-content .blog-table-scroll--wide .blog-table-scroll-top {
                 display: block;
@@ -894,17 +902,6 @@ export function BlogPostContent({
                   font-size: 14px;
                   padding: 14px 16px;
                 }
-                .blog-content .blog-table-scroll--wide::before {
-                  content: "Swipe to view →";
-                  display: block;
-                  padding: 8px 14px;
-                  border-bottom: 1px solid #EBEBEB;
-                  color: #80500A;
-                  font-size: 11px;
-                  font-weight: 700;
-                  letter-spacing: 0.06em;
-                  text-transform: uppercase;
-                }
               }
               .blog-content table {
                 width: 100%;
@@ -917,14 +914,14 @@ export function BlogPostContent({
                 box-shadow: 0 1px 4px rgba(0,0,0,0.04);
               }
               .blog-content thead th {
-                background: linear-gradient(135deg, #D09947, #E8C46A);
-                color: #FFFFFF;
+                background: #F2D485;
+                color: #2B210F;
                 font-weight: 700;
                 text-align: left;
-                padding: 18px 24px;
+                padding: 14px 20px;
                 font-size: 16px;
                 letter-spacing: 0.2px;
-                border-bottom: none;
+                border-bottom: 1px solid #D8B65F;
               }
               .blog-content tbody td {
                 padding: 20px 24px;
