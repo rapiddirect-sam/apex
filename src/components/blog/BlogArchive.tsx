@@ -220,7 +220,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                 gridTemplateColumns: "minmax(0, 1.15fr) minmax(340px, 0.85fr)",
                 gap: "40px",
                 width: "100%",
-                alignItems: "stretch",
+                alignItems: "start",
               }}
               className="blog-featured-layout"
             >
@@ -232,7 +232,6 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                   border: "2px solid transparent",
                   boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
                   transition: "transform 0.3s, box-shadow 0.3s, border-color 0.3s",
-                  height: "100%",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-4px)";
@@ -252,7 +251,6 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                     textDecoration: "none",
                     display: "grid",
                     gridTemplateColumns: "minmax(260px, 0.95fr) minmax(0, 1.05fr)",
-                    height: "100%",
                   }}
                 >
                   <div
@@ -322,12 +320,11 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               </article>
 
               {/* Right: Popular Posts */}
-              <aside style={{ display: "flex", flexDirection: "column" }}>
+              <aside>
                 {/* Popular Posts */}
                 <div style={{
                   border: "1px solid #E8E8E8", borderRadius: "12px",
                   padding: "24px",
-                  height: "100%",
                   display: "flex",
                   flexDirection: "column",
                 }}>
@@ -336,7 +333,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                   </h2>
                   <div style={{ width: "40px", height: "3px", background: "#2979C1", borderRadius: "2px", marginBottom: "20px" }} />
 
-                  <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "18px", flex: 1 }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
                     {popularPosts.map((post) => (
                       <Link
                         key={post.id}
@@ -380,47 +377,54 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               </aside>
             </div>
 
-            {/* Full-width newsletter bar */}
+            {/* Full-viewport newsletter strip; its content stays aligned to the site container. */}
             <div
-              className="blog-newsletter-bar"
               style={{
-                display: "grid",
-                gridTemplateColumns: "minmax(0, 1fr) minmax(260px, 0.55fr) auto",
-                alignItems: "center",
-                gap: "20px",
                 marginTop: "24px",
-                width: "100%",
-                padding: "18px 22px",
-                border: "1px solid #E8E8E8",
-                borderRadius: "12px",
+                width: "100vw",
+                marginLeft: "calc(50% - 50vw)",
                 background: "#FCFBF8",
+                borderTop: "1px solid #E8E8E8",
+                borderBottom: "1px solid #E8E8E8",
               }}
             >
-              <div>
-                <p style={{ fontSize: "17px", fontWeight: 700, color: "#1E1E1E", margin: "0 0 4px" }}>
-                  Subscribe to Newsletter
-                </p>
-                <p style={{ color: "#777", fontSize: "14px", lineHeight: 1.5, margin: 0 }}>
-                  Get practical manufacturing insights in your inbox.
-                </p>
-              </div>
-              <input
-                type="email"
-                placeholder="Your email address"
+              <div
+                className="blog-newsletter-bar max-w-7xl mx-auto px-6 lg:px-8"
                 style={{
-                  width: "100%", padding: "11px 14px", border: "1px solid #D4D4D4",
-                  borderRadius: "8px", fontSize: "14px", color: "#1E1E1E", outline: "none",
-                }}
-              />
-              <button
-                style={{
-                  width: "auto", whiteSpace: "nowrap", padding: "11px 22px",
-                  background: "linear-gradient(135deg, #D09947, #EEC569)", color: "#FFFFFF",
-                  border: "none", borderRadius: "8px", fontSize: "14px", fontWeight: 600, cursor: "pointer",
+                  display: "grid",
+                  gridTemplateColumns: "minmax(0, 1fr) minmax(260px, 0.55fr) auto",
+                  alignItems: "center",
+                  gap: "20px",
+                  paddingTop: "18px",
+                  paddingBottom: "18px",
                 }}
               >
-                Subscribe
-              </button>
+                <div>
+                  <p style={{ fontSize: "17px", fontWeight: 700, color: "#1E1E1E", margin: "0 0 4px" }}>
+                    Subscribe to Newsletter
+                  </p>
+                  <p style={{ color: "#777", fontSize: "14px", lineHeight: 1.5, margin: 0 }}>
+                    Get practical manufacturing insights in your inbox.
+                  </p>
+                </div>
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  style={{
+                    width: "100%", padding: "11px 14px", border: "1px solid #D4D4D4",
+                    borderRadius: "8px", fontSize: "14px", color: "#1E1E1E", outline: "none",
+                  }}
+                />
+                <button
+                  style={{
+                    width: "auto", whiteSpace: "nowrap", padding: "11px 22px",
+                    background: "linear-gradient(135deg, #D09947, #EEC569)", color: "#FFFFFF",
+                    border: "none", borderRadius: "8px", fontSize: "14px", fontWeight: 600, cursor: "pointer",
+                  }}
+                >
+                  Subscribe
+                </button>
+              </div>
             </div>
             </>
           )}

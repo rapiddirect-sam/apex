@@ -104,7 +104,8 @@ export function CMMDesignGuidelines() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="overflow-x-auto"
+          className="overflow-x-auto overscroll-x-contain pb-2"
+          style={{ WebkitOverflowScrolling: "touch" }}
         >
           <div
             style={{
@@ -112,10 +113,10 @@ export function CMMDesignGuidelines() {
               border: "2px solid #7F4D0F",
               boxShadow: "inset 0 0 0 1px rgba(208,153,71,0.15), 0 24px 48px rgba(0,0,0,0.6)",
               overflow: "hidden",
-              width: "100%",
+              minWidth: "680px",
             }}
           >
-            <table className="w-full" style={{ borderCollapse: "collapse" }}>
+            <table className="w-full" style={{ borderCollapse: "collapse", minWidth: "680px" }}>
               <thead>
                 <tr>
                   {["Design Element", "Recommended Value"].map((label) => (

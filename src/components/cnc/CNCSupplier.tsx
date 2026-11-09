@@ -85,7 +85,6 @@ export function CNCSupplier() {
                 lineHeight: 1.1,
                 marginTop: "10px",
                 marginBottom: "34px",
-                whiteSpace: "nowrap",
               }}
             >
               <span className="service-title-accent">

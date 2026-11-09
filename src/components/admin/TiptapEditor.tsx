@@ -139,6 +139,55 @@ const RawCtaNode = Node.create({
   },
 });
 
+// Preserve explicit Quick Take / Pro Tip callouts. TipTap's default div node
+// drops custom classes during an edit-save cycle, which turns them into plain text.
+const RawCalloutNode = Node.create({
+  name: "rawCallout",
+  group: "block",
+  atom: true,
+  draggable: false,
+  addAttributes() {
+    return {
+      rawHtml: { default: "" },
+    };
+  },
+  parseHTML() {
+    return [
+      {
+        tag: "div.blog-callout",
+        priority: 1000,
+        getAttrs(node: HTMLElement) {
+          return { rawHtml: node.outerHTML };
+        },
+      },
+      {
+        tag: "div[data-raw-callout]",
+        priority: 1000,
+        getAttrs(node: HTMLElement) {
+          const encoded = node.getAttribute("data-raw-callout") || "";
+          try {
+            return { rawHtml: decodeURIComponent(encoded) };
+          } catch {
+            return { rawHtml: "" };
+          }
+        },
+      },
+    ];
+  },
+  renderHTML({ node }) {
+    return ["div", { "data-raw-callout": encodeURIComponent(node.attrs.rawHtml || "") }];
+  },
+  addNodeView() {
+    return ({ node }) => {
+      const wrapper = document.createElement("div");
+      wrapper.classList.add("raw-callout-wrapper");
+      wrapper.contentEditable = "false";
+      wrapper.innerHTML = node.attrs.rawHtml || "";
+      return { dom: wrapper };
+    };
+  },
+});
+
 const DetailsNode = Node.create({
   name: "details",
   group: "block",
@@ -229,8 +278,18 @@ function restoreRawCtas(html: string): string {
   });
 }
 
+function restoreRawCallouts(html: string): string {
+  return html.replace(/<div data-raw-callout="([^"]+)"[^>]*><\/div>/g, (_, encoded) => {
+    try {
+      return decodeURIComponent(encoded);
+    } catch {
+      return "";
+    }
+  });
+}
+
 function restoreRawBlocks(html: string): string {
-  return restoreRawCtas(restoreRawTables(html));
+  return restoreRawCallouts(restoreRawCtas(restoreRawTables(html)));
 }
 
 export function TiptapEditor({
@@ -264,6 +323,7 @@ export function TiptapEditor({
       }),
       RawTableNode,
       RawCtaNode,
+      RawCalloutNode,
       DetailsNode,
       DetailsSummaryNode,
       DetailsContentNode,
@@ -694,6 +754,39 @@ export function TiptapEditor({
             }
             .tiptap-editor-content tbody tr:nth-child(even) {
               background: rgba(255,255,255,0.03);
+            }
+            .tiptap-editor-content .raw-callout-wrapper {
+              margin: 1.5em 0;
+            }
+            .tiptap-editor-content .blog-callout {
+              padding: 20px 22px;
+              border-radius: 10px;
+              font-style: normal;
+            }
+            .tiptap-editor-content .blog-callout--quick-take {
+              background: #3a3020;
+              border: 1px solid #70572b;
+              border-left: 4px solid #D09947;
+            }
+            .tiptap-editor-content .blog-callout--pro-tip {
+              background: #263038;
+              border: 1px solid #465965;
+              border-left: 4px solid #8BA5B3;
+            }
+            .tiptap-editor-content .blog-callout__label {
+              margin: 0 0 10px;
+              color: #EEC569;
+              font-size: 12px;
+              font-weight: 700;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+            }
+            .tiptap-editor-content .blog-callout__label::before {
+              content: "✦";
+              margin-right: 8px;
+            }
+            .tiptap-editor-content .blog-callout > :last-child {
+              margin-bottom: 0;
             }
             .tiptap-editor-content details {
               border: 1px solid #444;

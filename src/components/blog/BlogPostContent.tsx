@@ -349,10 +349,7 @@ export function BlogPostContent({
             display: grid;
             grid-template-columns: 80px minmax(0, 1fr);
             column-gap: 24px;
-            row-gap: 20px;
-          }
-          .author-bio-heading {
-            grid-column: 1 / -1;
+            align-items: start;
           }
           .author-bio-avatar {
             grid-column: 1;
@@ -394,7 +391,6 @@ export function BlogPostContent({
               flex-direction: column;
               gap: 16px;
             }
-            .author-bio-heading,
             .author-bio-avatar,
             .author-bio-copy {
               display: block;
@@ -402,12 +398,8 @@ export function BlogPostContent({
             .author-bio-avatar {
               order: 1;
             }
-            .author-bio-heading {
-              order: 2;
-              margin-bottom: 0 !important;
-            }
             .author-bio-copy {
-              order: 3;
+              order: 2;
             }
           }
         `}</style>
@@ -818,18 +810,6 @@ export function BlogPostContent({
                 box-shadow: 0 1px 4px rgba(0,0,0,0.04);
                 background: #FFFFFF;
               }
-              .blog-content .blog-table-scroll-top {
-                display: none;
-                overflow-x: auto;
-                overflow-y: hidden;
-                height: 14px;
-                border-bottom: 1px solid #EBEBEB;
-                scrollbar-width: thin;
-                scrollbar-color: #D09947 #F3F4F6;
-              }
-              .blog-content .blog-table-scroll-top-inner {
-                height: 1px;
-              }
               .blog-content .blog-table-scroll-body {
                 overflow: visible;
                 -webkit-overflow-scrolling: touch;
@@ -858,9 +838,6 @@ export function BlogPostContent({
               .blog-content .blog-table-scroll td:first-child {
                 min-width: 8.5rem;
               }
-              .blog-content .blog-table-scroll--wide .blog-table-scroll-top {
-                display: block;
-              }
               .blog-content .blog-table-scroll--wide .blog-table-scroll-body {
                 overflow-x: auto;
               }
@@ -885,9 +862,6 @@ export function BlogPostContent({
                 overflow-y: auto;
               }
               @media (max-width: 768px) {
-                .blog-content .blog-table-scroll--wide .blog-table-scroll-top {
-                  display: none;
-                }
                 .blog-content .blog-table-scroll--tall .blog-table-scroll-body {
                   max-height: none;
                 }
@@ -914,14 +888,14 @@ export function BlogPostContent({
                 box-shadow: 0 1px 4px rgba(0,0,0,0.04);
               }
               .blog-content thead th {
-                background: #F2D485;
-                color: #2B210F;
+                background: linear-gradient(135deg, #D09947, #E8C46A);
+                color: #FFFFFF;
                 font-weight: 700;
                 text-align: left;
-                padding: 14px 20px;
+                padding: 18px 24px;
                 font-size: 16px;
                 letter-spacing: 0.2px;
-                border-bottom: 1px solid #D8B65F;
+                border-bottom: none;
               }
               .blog-content tbody td {
                 padding: 20px 24px;
@@ -1040,10 +1014,18 @@ export function BlogPostContent({
                         {author.name[0]?.toUpperCase() || "A"}
                       </div>
                     )}
-                    <p className="author-bio-heading" style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", margin: 0 }}>
-                      About {author.name}
-                    </p>
                     <div className="author-bio-copy">
+                      <p
+                        className="author-bio-heading"
+                        style={{
+                          fontSize: "18px",
+                          fontWeight: 700,
+                          color: "#1E1E1E",
+                          margin: "0 0 12px",
+                        }}
+                      >
+                        About {author.name}
+                      </p>
                       <SanitizedHTML html={author.bio} className="author-bio" />
                       <style>{`
                         .author-bio {

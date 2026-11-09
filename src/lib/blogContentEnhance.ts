@@ -126,7 +126,7 @@ export function injectHeadingIds(html: string): { html: string; tocItems: BlogTo
   return { html: enhancedHtml, tocItems };
 }
 
-/** Wrap tables for contained scrolling (vertical + horizontal) with a top scrollbar. */
+/** Wrap tables for contained scrolling. Wide tables keep one native scrollbar at the bottom. */
 export function wrapTablesForScroll(html: string): string {
   return html.replace(/<table\b[\s\S]*?<\/table>/gi, (tableHtml) => {
     if (tableHtml.includes("blog-table-scroll-body")) return tableHtml;
@@ -134,11 +134,11 @@ export function wrapTablesForScroll(html: string): string {
     if (tableHtml.includes("blog-table-scroll")) {
       return tableHtml.replace(
         /<div class="blog-table-scroll">([\s\S]*?)<\/div>/i,
-        '<div class="blog-table-scroll"><div class="blog-table-scroll-top" aria-hidden="true"></div><div class="blog-table-scroll-body">$1</div></div>'
+        '<div class="blog-table-scroll"><div class="blog-table-scroll-body">$1</div></div>'
       );
     }
 
-    return `<div class="blog-table-scroll"><div class="blog-table-scroll-top" aria-hidden="true"></div><div class="blog-table-scroll-body">${tableHtml}</div></div>`;
+    return `<div class="blog-table-scroll"><div class="blog-table-scroll-body">${tableHtml}</div></div>`;
   });
 }
 
@@ -150,7 +150,6 @@ export function initBlogTableScrollBars(root: ParentNode | null) {
     if (wrapper.dataset.scrollSynced === "true") return;
 
     let body = wrapper.querySelector<HTMLElement>(".blog-table-scroll-body");
-    let top = wrapper.querySelector<HTMLElement>(".blog-table-scroll-top");
     const table = wrapper.querySelector("table");
 
     if (!table) return;
@@ -160,13 +159,6 @@ export function initBlogTableScrollBars(root: ParentNode | null) {
       body.className = "blog-table-scroll-body";
       body.appendChild(table);
       wrapper.appendChild(body);
-    }
-
-    if (!top) {
-      top = document.createElement("div");
-      top.className = "blog-table-scroll-top";
-      top.setAttribute("aria-hidden", "true");
-      wrapper.insertBefore(top, body);
     }
 
     const columnCount = table.querySelector("tr")?.children.length || 0;
@@ -203,38 +195,17 @@ export function initBlogTableScrollBars(root: ParentNode | null) {
       wrapper.style.setProperty("--blog-table-min-width", `${recommendedTableWidth}px`);
     };
 
-    const updateTopTrack = () => {
-      top!.innerHTML = "";
-      const track = document.createElement("div");
-      track.className = "blog-table-scroll-top-inner";
-      track.style.width = `${table.scrollWidth}px`;
-      top!.appendChild(track);
-    };
-
     updateTableLayout();
-    updateTopTrack();
-
-    const syncFromTop = () => {
-      body!.scrollLeft = top!.scrollLeft;
-    };
-    const syncFromBody = () => {
-      top!.scrollLeft = body!.scrollLeft;
-    };
-
-    top.addEventListener("scroll", syncFromTop, { passive: true });
-    body.addEventListener("scroll", syncFromBody, { passive: true });
 
     const resizeObserver =
       typeof ResizeObserver !== "undefined"
         ? new ResizeObserver(() => {
             updateTableLayout();
-            updateTopTrack();
           })
         : null;
     resizeObserver?.observe(table);
     const handleResize = () => {
       updateTableLayout();
-      updateTopTrack();
     };
     window.addEventListener("resize", handleResize, { passive: true });
 
@@ -272,8 +243,19 @@ export function restoreRawCtas(html: string): string {
   });
 }
 
+/** Restore explicit Quick Take / Pro Tip callouts saved by the visual editor. */
+export function restoreRawCallouts(html: string): string {
+  return html.replace(/<div data-raw-callout="([^"]+)"[^>]*><\/div>/gi, (_, encoded) => {
+    try {
+      return decodeURIComponent(encoded);
+    } catch {
+      return "";
+    }
+  });
+}
+
 function restoreRawBlocks(html: string): string {
-  return restoreRawCtas(restoreRawTables(html));
+  return restoreRawCallouts(restoreRawCtas(restoreRawTables(html)));
 }
 
 function splitHtmlClasses(classAttr: string): string[] {

@@ -50,7 +50,8 @@ export function CNCTolerance() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="overflow-x-auto"
+          className="overflow-x-auto overscroll-x-contain pb-2"
+          style={{ WebkitOverflowScrolling: "touch" }}
         >
           <div
             style={{
@@ -59,10 +60,10 @@ export function CNCTolerance() {
               boxShadow: "inset 0 0 0 1px rgba(208,153,71,0.15), 0 24px 48px rgba(0,0,0,0.6)",
               overflow: "hidden",
               maxWidth: "100%",
-              width: "100%",
+              minWidth: "760px",
             }}
           >
-            <table className="w-full" style={{ borderCollapse: "collapse" }}>
+            <table className="w-full" style={{ borderCollapse: "collapse", minWidth: "760px" }}>
               <thead>
                 <tr>
                   {["Specification", "Capability", "Standard"].map((header) => (

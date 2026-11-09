@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { EditableText, EditableImage } from "@/components/cms";
+import { useCMS } from "@/contexts/CMSContext";
 import {
   CNC_HERO_DEFAULT_SRC,
   CNC_HERO_IMAGE_QUALITY,
@@ -43,9 +44,12 @@ const DEFAULTS = {
 };
 
 export function CNCHero() {
+  const { isEditMode } = useCMS();
+  const marqueeLogos = [...DEFAULTS.logos, ...DEFAULTS.logos];
+
   return (
     <section className="relative bg-[#060606] pt-16 overflow-hidden">
-      <div className="absolute inset-0">
+      <div className={`absolute inset-0${isEditMode ? " z-[1]" : ""}`}>
         <EditableImage
           path="hero.image"
           defaultSrc={DEFAULTS.heroImage}
@@ -73,7 +77,13 @@ export function CNCHero() {
         }}
       />
 
-      <div className="relative max-w-[1240px] mx-auto px-6 lg:px-8 min-h-[620px] flex items-center">
+      <div
+        className={`relative max-w-[1240px] mx-auto px-6 lg:px-8 min-h-[620px] flex items-center${
+          isEditMode
+            ? " z-[2] pointer-events-none [&_a]:pointer-events-auto [&_[data-editable-text]]:pointer-events-auto [&_.cms-editable-image]:pointer-events-auto"
+            : ""
+        }`}
+      >
         <div className="w-full pt-14 pb-5 lg:pt-16 lg:pb-4">
           <div className="max-w-[920px]">
             <h1
@@ -158,29 +168,66 @@ export function CNCHero() {
               </Link>
             </div>
 
-            <div className="mt-6 overflow-hidden max-w-[760px] pt-2">
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-3">
-                {DEFAULTS.logos.map((logo, index) => (
-                  <div
-                    key={`${logo.alt}-${index}`}
-                    className="flex items-center justify-center"
-                    style={{ minWidth: "120px" }}
-                  >
-                    <div className="relative w-full h-7 opacity-90">
-                      <EditableImage
-                        path={`hero.logos.${index}.src`}
-                        defaultSrc={logo.src}
-                        alt={logo.alt}
-                        fill
-                        sizes="140px"
-                        quality={85}
-                        unoptimized
-                        style={{ objectFit: "contain" }}
-                      />
-                    </div>
+            <div
+              className={`mt-6 w-full max-w-[920px] pt-2${
+                isEditMode
+                  ? " pointer-events-auto rounded-lg border border-dashed border-[#D09947]/40 bg-black/50 p-4"
+                  : " overflow-hidden"
+              }`}
+            >
+              {isEditMode ? (
+                <>
+                  <p className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-[#D09947]">
+                    Client logos — click a logo or its Upload button to replace
+                  </p>
+                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                    {DEFAULTS.logos.map((logo, index) => (
+                      <div key={logo.alt} className="flex flex-col items-center gap-2">
+                        <span className="text-[10px] text-[#999]">{logo.alt}</span>
+                        <div className="relative mx-auto h-10 w-full max-w-[140px]">
+                          <EditableImage
+                            path={`hero.logos.${index}.src`}
+                            defaultSrc={logo.src}
+                            alt={logo.alt}
+                            fill
+                            sizes="140px"
+                            quality={85}
+                            unoptimized
+                            style={{ objectFit: "contain" }}
+                          />
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </>
+              ) : (
+                <div className="h3-hero-logo-marquee flex items-center">
+                  {marqueeLogos.map((logo, index) => {
+                    const editableIndex = index % DEFAULTS.logos.length;
+
+                    return (
+                      <div
+                        key={`${logo.alt}-${index}`}
+                        className="flex shrink-0 items-center justify-center"
+                        style={{ width: "16.6667%", minWidth: "132px", paddingInline: "10px" }}
+                      >
+                        <div className="relative mx-auto h-7 w-full max-w-[112px] opacity-90">
+                          <EditableImage
+                            path={`hero.logos.${editableIndex}.src`}
+                            defaultSrc={logo.src}
+                            alt={logo.alt}
+                            fill
+                            sizes="112px"
+                            quality={85}
+                            unoptimized
+                            style={{ objectFit: "contain" }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>

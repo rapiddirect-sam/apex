@@ -76,7 +76,8 @@ export function CMMTolerance() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="overflow-x-auto"
+          className="overflow-x-auto overscroll-x-contain pb-2"
+          style={{ WebkitOverflowScrolling: "touch" }}
         >
           <div
             style={{
@@ -86,10 +87,10 @@ export function CMMTolerance() {
               background: "#000000",
               overflow: "hidden",
               maxWidth: "100%",
-              width: "100%",
+              minWidth: "820px",
             }}
           >
-            <table className="w-full" style={{ borderCollapse: "collapse" }}>
+            <table className="w-full" style={{ borderCollapse: "collapse", minWidth: "820px" }}>
               <thead>
                 <tr>
                   {[
