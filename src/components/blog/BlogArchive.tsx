@@ -164,6 +164,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
             }
             .blog-featured-image {
               min-height: 0 !important;
+              height: auto !important;
               aspect-ratio: 4 / 3;
             }
             .blog-newsletter-bar {
@@ -224,8 +225,9 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               }}
               className="blog-featured-layout"
             >
-              {/* Featured Post */}
-              <article
+              <div className="blog-featured-column" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                {/* Featured Post */}
+                <article
                 className="group"
                 style={{
                   borderRadius: "12px", overflow: "hidden",
@@ -243,7 +245,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                   e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.08)";
                   e.currentTarget.style.borderColor = "transparent";
                 }}
-              >
+                >
                 <Link
                   href={`/blog/${featuredPost.slug}`}
                   className="blog-featured-card-link"
@@ -255,7 +257,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                 >
                   <div
                     className="blog-featured-image"
-                    style={{ position: "relative", aspectRatio: "4 / 3", background: "#F5F5F5", overflow: "hidden" }}
+                    style={{ position: "relative", height: "100%", minHeight: "100%", background: "#F5F5F5", overflow: "hidden" }}
                   >
                     {featuredPost.featuredImage ? (
                       <Image
@@ -317,7 +319,48 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                     </div>
                   </div>
                 </Link>
-              </article>
+                </article>
+
+                <div
+                  className="blog-newsletter-bar"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "minmax(0, 1fr) minmax(220px, 0.7fr) auto",
+                    alignItems: "center",
+                    gap: "16px",
+                    padding: "18px 20px",
+                    background: "#FCFBF8",
+                    border: "1px solid #E8E8E8",
+                    borderRadius: "12px",
+                  }}
+                >
+                  <div>
+                    <p style={{ fontSize: "16px", fontWeight: 700, color: "#1E1E1E", margin: "0 0 4px" }}>
+                      Subscribe to Newsletter
+                    </p>
+                    <p style={{ color: "#777", fontSize: "13px", lineHeight: 1.5, margin: 0 }}>
+                      Get practical manufacturing insights in your inbox.
+                    </p>
+                  </div>
+                  <input
+                    type="email"
+                    placeholder="Your email address"
+                    style={{
+                      width: "100%", padding: "10px 12px", border: "1px solid #D4D4D4",
+                      borderRadius: "8px", fontSize: "14px", color: "#1E1E1E", outline: "none",
+                    }}
+                  />
+                  <button
+                    style={{
+                      width: "auto", whiteSpace: "nowrap", padding: "10px 18px",
+                      background: "linear-gradient(135deg, #D09947, #EEC569)", color: "#FFFFFF",
+                      border: "none", borderRadius: "8px", fontSize: "14px", fontWeight: 600, cursor: "pointer",
+                    }}
+                  >
+                    Subscribe
+                  </button>
+                </div>
+              </div>
 
               {/* Right: Popular Posts */}
               <aside>
@@ -377,55 +420,6 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               </aside>
             </div>
 
-            {/* Full-viewport newsletter strip; its content stays aligned to the site container. */}
-            <div
-              style={{
-                marginTop: "24px",
-                width: "100vw",
-                marginLeft: "calc(50% - 50vw)",
-                background: "#FCFBF8",
-                borderTop: "1px solid #E8E8E8",
-                borderBottom: "1px solid #E8E8E8",
-              }}
-            >
-              <div
-                className="blog-newsletter-bar max-w-7xl mx-auto px-6 lg:px-8"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "minmax(0, 1fr) minmax(260px, 0.55fr) auto",
-                  alignItems: "center",
-                  gap: "20px",
-                  paddingTop: "18px",
-                  paddingBottom: "18px",
-                }}
-              >
-                <div>
-                  <p style={{ fontSize: "17px", fontWeight: 700, color: "#1E1E1E", margin: "0 0 4px" }}>
-                    Subscribe to Newsletter
-                  </p>
-                  <p style={{ color: "#777", fontSize: "14px", lineHeight: 1.5, margin: 0 }}>
-                    Get practical manufacturing insights in your inbox.
-                  </p>
-                </div>
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  style={{
-                    width: "100%", padding: "11px 14px", border: "1px solid #D4D4D4",
-                    borderRadius: "8px", fontSize: "14px", color: "#1E1E1E", outline: "none",
-                  }}
-                />
-                <button
-                  style={{
-                    width: "auto", whiteSpace: "nowrap", padding: "11px 22px",
-                    background: "linear-gradient(135deg, #D09947, #EEC569)", color: "#FFFFFF",
-                    border: "none", borderRadius: "8px", fontSize: "14px", fontWeight: 600, cursor: "pointer",
-                  }}
-                >
-                  Subscribe
-                </button>
-              </div>
-            </div>
             </>
           )}
         </div>

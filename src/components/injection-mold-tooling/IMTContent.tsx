@@ -78,7 +78,6 @@ const DEFAULTS = {
   toolingRoutesLink: "Custom Plastic Injection Molding",
   steelMaterialsHeading: "Tool Steel and Insert ",
   steelMaterialsHighlight: "Materials",
-  steelMaterialsIntro: "Tool steel and insert material are selected around resin, expected wear, surface requirements, cooling needs, and planned mold life.",
   steelMaterialsImageAlt: "Precision mold steel blocks, machined mold components, and a copper cooling insert on an inspection bench",
   steelMaterials: [
     {
@@ -90,7 +89,6 @@ const DEFAULTS = {
       title: "P20 and 718H Tool Steel",
       bestFit: "P20 and 718H are pre-hardened tool steels, commonly supplied around 28–34 HRC. They offer practical machinability, polishability, and texture capability for suitable plastic injection molds.",
       consideration: "We may evaluate P20 or 718H for housings, appliance components, general industrial plastic parts, pilot tools, and lower-volume repeat production. Their uniform material properties and machining performance can reduce the need for additional hardening steps in suitable tooling programs.",
-      note: "The final selection is based on resin, filler content, expected wear, cavity count, finish requirement, expected mold life, and maintenance plan.",
     },
     {
       title: "S136 Tool Steel",
@@ -336,13 +334,12 @@ export function IMTContent() {
           <StaticImage path="tooling.steelMaterialsImage" defaultSrc="/injection-molding/apexbatch-injection-mold-tool-steel-and-inserts-materials.avif" alt={DEFAULTS.steelMaterialsImageAlt} fill sizes="100vw" className="object-cover object-center" />
           <div className="absolute inset-0 bg-black/70" aria-hidden="true" />
           <div className="relative z-10 mx-auto flex min-h-[250px] max-w-[1200px] flex-col justify-center px-6 py-10 sm:min-h-[290px] lg:min-h-[320px]">
-            <h2 className="service-section-title text-white"><EditableText path="tooling.steelMaterialsHeading" defaultValue={DEFAULTS.steelMaterialsHeading} /><span className="service-title-accent"><EditableText path="tooling.steelMaterialsHighlight" defaultValue={DEFAULTS.steelMaterialsHighlight} /></span></h2>
-            <p className="service-section-copy mt-6 text-[#E5E1DC]"><EditableText path="tooling.steelMaterialsIntro" defaultValue={DEFAULTS.steelMaterialsIntro} multiline /></p>
+            <h2 className="service-section-title text-white">{DEFAULTS.steelMaterialsHeading}<span className="service-title-accent">{DEFAULTS.steelMaterialsHighlight}</span></h2>
           </div>
         </div>
         <div className="mx-auto max-w-[1200px] px-6">
-          <div className="mt-12 grid gap-5 md:grid-cols-2">{DEFAULTS.steelMaterials.map((material, index) => <article key={material.title} className="border border-white/10 bg-[#1A1918] p-6 sm:p-7"><h3 className="text-xl font-semibold leading-snug text-white sm:text-2xl"><EditableText path={`tooling.steelMaterials.${index}.title`} defaultValue={material.title} /></h3><div className="mt-6"><p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]">Best suited to</p><p className="mt-3 text-[15px] leading-relaxed text-[#E5E1DC]"><EditableText path={`tooling.steelMaterials.${index}.bestFit`} defaultValue={material.bestFit} multiline /></p></div><div className="mt-6 border-t border-white/10 pt-6"><p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]">Planning consideration</p><p className="mt-3 text-[15px] leading-relaxed text-[#C5C1BD]"><EditableText path={`tooling.steelMaterials.${index}.consideration`} defaultValue={material.consideration} multiline /></p>{material.note ? <p className="mt-4 text-sm leading-relaxed text-[#C5C1BD]"><EditableText path={`tooling.steelMaterials.${index}.note`} defaultValue={material.note} multiline /></p> : null}</div></article>)}</div>
-          <div className="section-note mx-auto mt-8 max-w-[1000px]"><p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]"><EditableText path="tooling.steelCompatibilityHeading" defaultValue={DEFAULTS.steelCompatibilityHeading} /></p><p className="mt-3"><EditableText path="tooling.steelCompatibility" defaultValue={DEFAULTS.steelCompatibility} multiline /></p><p className="mt-4"><EditableText path="tooling.steelTestingPrefix" defaultValue={DEFAULTS.steelTestingPrefix} /><a href="https://store.astm.org/d0638-00.html" target="_blank" rel="noopener noreferrer" className="body-text-link body-text-link--dark">ASTM D638</a><EditableText path="tooling.steelTestingMiddle" defaultValue={DEFAULTS.steelTestingMiddle} /><a href="https://store.astm.org/standards/d256" target="_blank" rel="noopener noreferrer" className="body-text-link body-text-link--dark">ASTM D256</a><EditableText path="tooling.steelTestingSuffix" defaultValue={DEFAULTS.steelTestingSuffix} /></p></div>
+          <div className="mt-12 grid gap-5 md:grid-cols-2">{DEFAULTS.steelMaterials.map((material) => <article key={material.title} className="border border-white/10 bg-[#1A1918] p-6 sm:p-7"><h3 className="text-xl font-semibold leading-snug text-white sm:text-2xl">{material.title}</h3><div className="mt-6"><p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]">Best suited to</p><p className="mt-3 text-[15px] leading-relaxed text-[#E5E1DC]">{material.bestFit}</p></div><div className="mt-6 border-t border-white/10 pt-6"><p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]">Planning consideration</p><p className="mt-3 text-[15px] leading-relaxed text-[#C5C1BD]">{material.consideration}</p>{material.note ? <p className="mt-4 text-sm leading-relaxed text-[#C5C1BD]">{material.note}</p> : null}</div></article>)}</div>
+          <div className="section-note mx-auto mt-8 max-w-[1000px]"><p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]">{DEFAULTS.steelCompatibilityHeading}</p><p className="mt-3">{DEFAULTS.steelCompatibility}</p><p className="mt-4">{DEFAULTS.steelTestingPrefix}<a href="https://store.astm.org/d0638-00.html" target="_blank" rel="noopener noreferrer" className="body-text-link body-text-link--dark">ASTM D638</a>{DEFAULTS.steelTestingMiddle}<a href="https://store.astm.org/standards/d256" target="_blank" rel="noopener noreferrer" className="body-text-link body-text-link--dark">ASTM D256</a>{DEFAULTS.steelTestingSuffix}</p></div>
         </div>
       </section>
 

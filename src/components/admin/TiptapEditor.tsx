@@ -1,7 +1,7 @@
 "use client";
 
 import { useEditor, EditorContent } from "@tiptap/react";
-import { Node, mergeAttributes } from "@tiptap/core";
+import { Node, mergeAttributes, type Editor } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
@@ -161,6 +161,13 @@ const RawCalloutNode = Node.create({
         },
       },
       {
+        tag: "div.blog-quick-take, div.blog-pro-tip",
+        priority: 1000,
+        getAttrs(node: HTMLElement) {
+          return { rawHtml: node.outerHTML };
+        },
+      },
+      {
         tag: "div[data-raw-callout]",
         priority: 1000,
         getAttrs(node: HTMLElement) {
@@ -307,6 +314,15 @@ export function TiptapEditor({
   const [imageAlt, setImageAlt] = useState("");
   const imageInputRef = useRef<HTMLInputElement>(null);
 
+  // The form saves its React state, while TipTap owns a separate document.
+  // Always serialize the current document when it is parsed or mode-switched
+  // so an atom such as RawCallout cannot exist only in the visual preview.
+  const syncEditorContent = useCallback((currentEditor: Editor) => {
+    const html = restoreRawBlocks(currentEditor.getHTML());
+    onChange(html);
+    setHtmlContent(html);
+  }, [onChange]);
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -330,11 +346,8 @@ export function TiptapEditor({
     ],
     content,
     immediatelyRender: false,
-    onUpdate: ({ editor }) => {
-      const html = restoreRawBlocks(editor.getHTML());
-      onChange(html);
-      setHtmlContent(html);
-    },
+    onCreate: ({ editor }) => syncEditorContent(editor),
+    onUpdate: ({ editor }) => syncEditorContent(editor),
     editorProps: {
       attributes: {
         class: "tiptap-editor-content",
@@ -609,9 +622,10 @@ export function TiptapEditor({
           type="button"
           onClick={() => {
             if (showHtml && editor) {
-              editor.commands.setContent(htmlContent);
+              editor.commands.setContent(htmlContent, { emitUpdate: false });
+              syncEditorContent(editor);
             } else if (!showHtml && editor) {
-              setHtmlContent(restoreRawBlocks(editor.getHTML()));
+              syncEditorContent(editor);
             }
             setShowHtml(!showHtml);
           }}
@@ -758,17 +772,21 @@ export function TiptapEditor({
             .tiptap-editor-content .raw-callout-wrapper {
               margin: 1.5em 0;
             }
-            .tiptap-editor-content .blog-callout {
+            .tiptap-editor-content .blog-callout,
+            .tiptap-editor-content .blog-quick-take,
+            .tiptap-editor-content .blog-pro-tip {
               padding: 20px 22px;
               border-radius: 10px;
               font-style: normal;
             }
-            .tiptap-editor-content .blog-callout--quick-take {
+            .tiptap-editor-content .blog-callout--quick-take,
+            .tiptap-editor-content .blog-quick-take {
               background: #3a3020;
               border: 1px solid #70572b;
               border-left: 4px solid #D09947;
             }
-            .tiptap-editor-content .blog-callout--pro-tip {
+            .tiptap-editor-content .blog-callout--pro-tip,
+            .tiptap-editor-content .blog-pro-tip {
               background: #263038;
               border: 1px solid #465965;
               border-left: 4px solid #8BA5B3;
@@ -786,6 +804,20 @@ export function TiptapEditor({
               margin-right: 8px;
             }
             .tiptap-editor-content .blog-callout > :last-child {
+              margin-bottom: 0;
+            }
+            .tiptap-editor-content .blog-quick-take > :first-child,
+            .tiptap-editor-content .blog-pro-tip > :first-child {
+              margin-top: 0;
+              margin-bottom: 10px;
+              color: #EEC569;
+              font-size: 12px;
+              font-weight: 700;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+            }
+            .tiptap-editor-content .blog-quick-take > :last-child,
+            .tiptap-editor-content .blog-pro-tip > :last-child {
               margin-bottom: 0;
             }
             .tiptap-editor-content details {
