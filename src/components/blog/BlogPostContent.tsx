@@ -770,6 +770,23 @@ export function BlogPostContent({
                 margin: 2em 0;
                 padding: 24px 26px;
                 border-radius: 12px;
+                position: static;
+                overflow: visible;
+                text-align: left;
+              }
+              .blog-content .blog-callout::before,
+              .blog-content .blog-callout::after,
+              .blog-content .blog-quick-take::before,
+              .blog-content .blog-quick-take::after,
+              .blog-content .blog-pro-tip::before,
+              .blog-content .blog-pro-tip::after {
+                content: none;
+              }
+              .blog-content .blog-callout > *,
+              .blog-content .blog-quick-take > *,
+              .blog-content .blog-pro-tip > * {
+                position: static;
+                z-index: auto;
               }
               .blog-content .blog-callout--quick-take,
               .blog-content .blog-quick-take {

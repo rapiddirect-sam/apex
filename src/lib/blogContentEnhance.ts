@@ -326,7 +326,10 @@ export function enhanceBlogCtaHtml(html: string): string {
   result = result.replace(
     /<div(?![^>]*\bblog-cta\b)([^>]*)>([\s\S]*?<div class="blog-cta-actions">[\s\S]*?<\/div>[\s\S]*?)<\/div>/gi,
     (full, attrs, inner) => {
-      if (attrs.includes("blog-cta-actions")) return full;
+      // A callout can appear before a CTA later in the article. This legacy
+      // pattern cannot safely span nested divs, so never promote a callout
+      // wrapper to a CTA merely because it contains a later action row.
+      if (attrs.includes("blog-cta-actions") || attrs.includes("blog-callout") || attrs.includes("blog-quick-take") || attrs.includes("blog-pro-tip")) return full;
       return `<div class="blog-cta"${attrs}>${inner}</div>`;
     }
   );
