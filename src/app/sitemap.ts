@@ -3,6 +3,10 @@ import { getPublishedPosts } from "@/lib/blog";
 import fs from "fs";
 import path from "path";
 
+// Fallback for changes made outside the admin UI. Admin saves also invalidate
+// this route immediately, so published URLs reach the sitemap without a redeploy.
+export const revalidate = 60;
+
 // Directories to exclude from the sitemap
 const EXCLUDED_DIRS = new Set(["admin", "api", "blog"]);
 

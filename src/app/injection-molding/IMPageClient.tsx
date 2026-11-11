@@ -5,7 +5,6 @@ import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { IMHero } from "@/components/injection-molding/IMHero";
 import { IMSupplier } from "@/components/injection-molding/IMSupplier";
 import { IMServices } from "@/components/injection-molding/IMServices";
-import { IMRouteComparison } from "@/components/injection-molding/IMRouteComparison";
 import { IMFitAndToolingReview } from "@/components/injection-molding/IMFitAndToolingReview";
 import { IMFAQ } from "@/components/injection-molding/IMFAQ";
 import { IMQuoteReadiness } from "@/components/injection-molding/IMQuoteReadiness";
@@ -31,7 +30,6 @@ export function IMPageClient({ initialContent, initialVersion }: IMPageClientPro
         <IMMaterialsOptionsLegacy />
         <IMSupplier />
         <IMFitAndToolingReview showLifecycle={false} />
-        <IMRouteComparison />
         <IMParts />
         <IMFitAndToolingReview showFit={false} />
         <IMSpecializedRequirements />

@@ -9,7 +9,7 @@ const DEFAULTS = {
   heading: "Get a More Useful ",
   headingHighlight: "Injection Molding Quote",
   introduction:
-    "To scope tooling and production accurately, send your available CAD and the information below.",
+    "To scope injection molding services, tooling, and production accurately, send your available CAD and the information below.",
   listHeading: "What to send",
   items: [
     "3D CAD model, drawing revision, and critical dimensions",

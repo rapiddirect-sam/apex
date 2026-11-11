@@ -254,7 +254,7 @@ import {
 } from "lucide-react";
 import { auth } from "@/lib/firebaseClient";
 import { setAuthSessionCookie } from "@/lib/authSessionCookie";
-import { defaultImageDescriptionFromFilename } from "@/lib/cmsImageUpload";
+import { defaultImageAltFromFilename, defaultImageDescriptionFromFilename } from "@/lib/cmsImageUpload";
 
 interface TiptapEditorProps {
   content: string;
@@ -420,9 +420,10 @@ export function TiptapEditor({
     }
 
     const defaultDescription = defaultImageDescriptionFromFilename(file.name);
+    const defaultAlt = defaultImageAltFromFilename(file.name);
     setPendingImageFile(file);
     setImageDescription(defaultDescription === "image" ? "" : defaultDescription);
-    setImageAlt("");
+    setImageAlt(defaultAlt);
     setShowImageModal(true);
   }, [postSlug]);
 
@@ -485,17 +486,23 @@ export function TiptapEditor({
   );
 
   return (
-    <div style={{ border: "1px solid #444", borderRadius: "8px", overflow: "hidden" }}>
+    <div style={{ border: "1px solid #444", borderRadius: "8px", overflow: "visible" }}>
       {/* Toolbar */}
       <div
         style={{
+          position: "sticky",
+          top: "12px",
+          zIndex: 20,
           display: "flex",
           flexWrap: "wrap",
           gap: "4px",
           padding: "8px 12px",
           background: "#1a1a1a",
           borderBottom: "1px solid #444",
+          borderTopLeftRadius: "7px",
+          borderTopRightRadius: "7px",
           alignItems: "center",
+          boxShadow: "0 6px 14px rgba(0, 0, 0, 0.28)",
         }}
       >
         <ToolbarButton

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "@/components/ui/StaticMotion";
+import Link from "next/link";
 import { EditableText } from "@/components/cms";
 
 const DEFAULTS = {
@@ -41,8 +42,8 @@ export function IMSpecializedRequirements() {
   return (
     <section className="bg-black py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-[1200px] px-6">
-        <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-3xl">
-          <h2 className="service-section-title text-white">
+        <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-3xl lg:max-w-none">
+          <h2 className="service-section-title text-white lg:whitespace-nowrap">
             <EditableText path="specializedRequirements.headingPrefix" defaultValue={DEFAULTS.heading} />
             <span className="service-title-accent"><EditableText path="specializedRequirements.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
           </h2>
@@ -61,7 +62,16 @@ export function IMSpecializedRequirements() {
                 <EditableText path={`specializedRequirements.requirements.${index}.title`} defaultValue={requirement.title} />
               </h3>
               <p className="service-section-copy mt-4 text-[15px] leading-6">
-                <EditableText path={`specializedRequirements.requirements.${index}.description`} defaultValue={requirement.description} multiline />
+                {index === 0 ? (
+                  <>
+                    Evaluate production-intent geometry, material direction, and critical features before committing to repeat production. Lead time is confirmed after part and tooling scope review. {" "}
+                    <Link href="/blog/prototype-injection-molding-guide" className="body-text-link body-text-link--dark">
+                      Learn when prototype injection molding fits.
+                    </Link>
+                  </>
+                ) : (
+                  <EditableText path={`specializedRequirements.requirements.${index}.description`} defaultValue={requirement.description} multiline />
+                )}
               </p>
             </motion.article>
           ))}

@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { uploadToS3AtKey, resolveUniqueS3Key } from "@/lib/s3";
 import {
   buildCmsImageObjectKey,
+  defaultImageAltFromFilename,
   normalizeCmsUploadSlug,
 } from "@/lib/cmsImageUpload";
 import { verifyIdToken } from "@/lib/firebaseAdmin";
@@ -115,7 +116,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       url,
-      alt: alt || description,
+      alt: alt || defaultImageAltFromFilename(file.name) || description,
       key,
     });
   } catch (error) {

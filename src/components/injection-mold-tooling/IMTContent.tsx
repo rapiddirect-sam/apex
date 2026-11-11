@@ -72,7 +72,6 @@ const DEFAULTS = {
     ["Hardened production tooling", "S136 or other project-approved hardened steel", "300,000–1,000,000+ cycles", "Stable designs, repeat production, high-volume programs, or demanding precision requirements"],
   ],
   toolingRoutesNote: "Planning life ranges are not universal guarantees. Resin, glass-fiber content, cavity count, cooling, injection pressure, geometry, maintenance, and actual operating conditions affect mold life.",
-  toolingRoutesRapid: "For projects that need molded samples quickly, this route can support rapid injection molding and rapid prototype injection molding when the part definition, specified resin, and approval requirements are sufficiently clear.",
   toolingRoutesAssessment: "For each planned plastic injection tooling program, we assess whether prototype tooling, soft-steel tooling, or an initial production tool offers the better balance of flexibility, tool life, and total program cost.",
   toolingRoutesLinkPrefix: "For parts that have moved beyond early validation, see our ",
   toolingRoutesLink: "Custom Plastic Injection Molding",
@@ -325,7 +324,13 @@ export function IMTContent() {
           </div>
           <div className="mt-10"><ServiceTable columns={DEFAULTS.toolingRoutesColumns.map((column, index) => ({ header: <EditableText key={column} path={`tooling.toolingRoutesColumns.${index}`} defaultValue={column} />, width: ["22%", "31%", "18%", "29%"][index], tone: index === 2 ? "accent" as const : index === 0 ? "primary" as const : "default" as const }))} rows={DEFAULTS.toolingRoutesRows.map((row, rowIndex) => row.map((cell, cellIndex) => <EditableText key={`${rowIndex}-${cellIndex}`} path={`tooling.toolingRoutesRows.${rowIndex}.${cellIndex}`} defaultValue={cell} multiline />))} variant="standard" headerCase="uppercase" bodyDensity="dense" minTableWidth="680px" /></div>
           <div className="section-note mt-7"><p><EditableText path="tooling.toolingRoutesNote" defaultValue={DEFAULTS.toolingRoutesNote} multiline /></p></div>
-          <div className="mx-auto mt-8 max-w-4xl space-y-4 text-left lg:text-center"><p className="service-section-copy text-[15px]"><EditableText path="tooling.toolingRoutesRapid" defaultValue={DEFAULTS.toolingRoutesRapid} multiline /></p><p className="service-section-copy text-[15px]"><EditableText path="tooling.toolingRoutesAssessment" defaultValue={DEFAULTS.toolingRoutesAssessment} multiline /></p><p className="service-section-copy text-[15px]"><EditableText path="tooling.toolingRoutesLinkPrefix" defaultValue={DEFAULTS.toolingRoutesLinkPrefix} /><Link href="/plastic-injection-molding" className="body-text-link body-text-link--dark"><EditableText path="tooling.toolingRoutesLink" defaultValue={DEFAULTS.toolingRoutesLink} /></Link>.</p></div>
+          <div className="mx-auto mt-8 max-w-4xl space-y-4 text-left lg:text-center">
+            <p className="service-section-copy text-[15px]">
+              For projects that need molded samples quickly, <Link href="/blog/prototype-injection-molding-guide" className="body-text-link body-text-link--dark">rapid prototype tooling</Link> can support early validation when the part definition, selected resin, and approval requirements are sufficiently clear.
+            </p>
+            <p className="service-section-copy text-[15px]"><EditableText path="tooling.toolingRoutesAssessment" defaultValue={DEFAULTS.toolingRoutesAssessment} multiline /></p>
+            <p className="service-section-copy text-[15px]"><EditableText path="tooling.toolingRoutesLinkPrefix" defaultValue={DEFAULTS.toolingRoutesLinkPrefix} /><Link href="/plastic-injection-molding" className="body-text-link body-text-link--dark"><EditableText path="tooling.toolingRoutesLink" defaultValue={DEFAULTS.toolingRoutesLink} /></Link>.</p>
+          </div>
         </div>
       </section>
 

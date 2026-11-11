@@ -6,6 +6,7 @@ import { Upload, Loader2 } from "lucide-react";
 import { useCMS } from "@/contexts/CMSContext";
 import { setAuthSessionCookie } from "@/lib/authSessionCookie";
 import {
+  defaultImageAltFromFilename,
   defaultImageDescriptionFromFilename,
   slugifyImageDescription,
 } from "@/lib/cmsImageUpload";
@@ -157,10 +158,11 @@ export function EditableImage({
     }
 
     const fromName = defaultImageDescriptionFromFilename(file.name);
+    const defaultAlt = defaultImageAltFromFilename(file.name);
     const fromPath = defaultDescriptionFromCmsPath(path);
     setPendingFile(file);
     setImageDescription(fromName !== "image" ? fromName : fromPath);
-    setImageAlt(alt);
+    setImageAlt(alt || defaultAlt);
     setModalError("");
     setShowModal(true);
   };

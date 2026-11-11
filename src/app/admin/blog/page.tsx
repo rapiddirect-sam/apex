@@ -28,7 +28,7 @@ export default function AdminBlogPage() {
     }
   };
 
-  const handleDelete = async (id: string, title: string) => {
+  const handleDelete = async (id: string, title: string, slug: string) => {
     if (!confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) {
       return;
     }
@@ -37,7 +37,17 @@ export default function AdminBlogPage() {
 
     try {
       await deletePost(id);
-      setPosts(posts.filter((p) => p.id !== id));
+      const revalidation = await fetch("/api/admin/blog/revalidate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug }),
+      });
+
+      if (!revalidation.ok) {
+        console.warn("Blog post deleted, but page cache revalidation failed.");
+      }
+
+      setPosts((currentPosts) => currentPosts.filter((p) => p.id !== id));
     } catch (error) {
       console.error("Error deleting post:", error);
       alert("Failed to delete post. Please try again.");
@@ -305,7 +315,7 @@ export default function AdminBlogPage() {
                         <Edit size={16} />
                       </Link>
                       <button
-                        onClick={() => handleDelete(post.id, post.title)}
+                        onClick={() => handleDelete(post.id, post.title, post.slug)}
                         disabled={deleting === post.id}
                         style={{
                           display: "flex",

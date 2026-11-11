@@ -115,8 +115,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                 margin: "0 auto 32px",
               }}
             >
-              Created for Manufacturing Professionals, actionable knowledge you
-              can apply directly.
+              Practical manufacturing insights for engineers, buyers, and product teams.
             </p>
 
             {/* Search Bar */}
@@ -155,12 +154,44 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
       {/* Row 1: Filter Bar + Featured Post + Sidebar */}
       <section style={{ background: "#FFFFFF", padding: "0 0 48px" }}>
         <style>{`
+          .blog-featured-layout {
+            --blog-featured-row-height: clamp(400px, 30vw, 430px);
+          }
+          .blog-featured-card {
+            height: var(--blog-featured-row-height);
+          }
+          .blog-featured-card-link {
+            height: 100%;
+            align-items: stretch;
+          }
+          .blog-featured-image {
+            height: 100% !important;
+            min-height: 0 !important;
+          }
+          .blog-featured-sidebar {
+            height: var(--blog-featured-row-height);
+            display: grid !important;
+            grid-template-rows: minmax(0, 1fr) 126px;
+            gap: 16px !important;
+          }
+          .blog-popular-posts {
+            min-height: 0;
+            overflow: hidden;
+          }
           @media (max-width: 1023px) {
             .blog-featured-layout {
               grid-template-columns: minmax(0, 1fr) !important;
             }
+            .blog-featured-card,
+            .blog-featured-sidebar {
+              height: auto;
+            }
+            .blog-featured-sidebar {
+              display: flex !important;
+            }
             .blog-featured-card-link {
-              grid-template-columns: minmax(0, 1fr) !important;
+              grid-template-columns: minmax(280px, 0.42fr) minmax(0, 0.58fr) !important;
+              height: auto;
             }
             .blog-featured-image {
               min-height: 0 !important;
@@ -172,6 +203,9 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
             }
           }
           @media (max-width: 767px) {
+            .blog-featured-card-link {
+              grid-template-columns: minmax(0, 1fr) !important;
+            }
             .blog-sidebar-newsletter {
               grid-template-columns: minmax(0, 1fr) !important;
               gap: 14px !important;
@@ -228,9 +262,9 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               <div className="blog-featured-column" style={{ minWidth: 0 }}>
                 {/* Featured Post */}
                 <article
-                className="group"
+                className="group blog-featured-card"
                 style={{
-                  borderRadius: "12px", overflow: "hidden", minHeight: "360px",
+                  borderRadius: "12px", overflow: "hidden",
                   border: "2px solid transparent",
                   boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
                   transition: "transform 0.3s, box-shadow 0.3s, border-color 0.3s",
@@ -264,7 +298,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                         src={featuredPost.featuredImage}
                         alt={featuredPost.title}
                         fill
-                        sizes="(max-width: 768px) 100vw, 60vw"
+                        sizes="(max-width: 1023px) 100vw, (max-width: 1280px) 42vw, 34vw"
                         style={{ objectFit: "cover", transition: "transform 0.5s" }}
                         className="group-hover:scale-105"
                       />
@@ -324,11 +358,11 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               </div>
 
               {/* Right: Popular Posts + Newsletter */}
-              <aside style={{ display: "flex", minWidth: 0, minHeight: "360px", flexDirection: "column", gap: "16px" }}>
+              <aside className="blog-featured-sidebar" style={{ minWidth: 0 }}>
                 {/* Popular Posts */}
-                <div style={{
+                <div className="blog-popular-posts" style={{
                   border: "1px solid #E8E8E8", borderRadius: "12px",
-                  padding: "24px",
+                  padding: "20px",
                   display: "flex",
                   flex: 1,
                   flexDirection: "column",
@@ -336,9 +370,9 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                   <h2 style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
                     Popular Posts
                   </h2>
-                  <div style={{ width: "40px", height: "3px", background: "#2979C1", borderRadius: "2px", marginBottom: "20px" }} />
+                  <div style={{ width: "40px", height: "3px", background: "#D09947", borderRadius: "2px", marginBottom: "14px" }} />
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                     {popularPosts.map((post) => (
                       <Link
                         key={post.id}
@@ -350,12 +384,13 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                       >
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <p style={{
-                            color: "#1E1E1E", fontSize: "14px", fontWeight: 600,
-                            lineHeight: 1.45, margin: 0,
+                            color: "#1E1E1E", fontSize: "13px", fontWeight: 600,
+                            lineHeight: 1.35, margin: 0, display: "-webkit-box",
+                            WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden",
                           }}>
                             {post.title}
                           </p>
-                          <span style={{ display: "block", color: "#999", fontSize: "12px", marginTop: "5px" }}>
+                          <span style={{ display: "block", color: "#999", fontSize: "11px", marginTop: "3px" }}>
                             {post.publishedAt?.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
                           </span>
                         </div>
@@ -368,12 +403,12 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                   className="blog-sidebar-newsletter"
                   style={{
                     display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto", gap: "12px", alignItems: "center",
-                    padding: "16px 18px", background: "#FCFBF8", border: "1px solid #E8E8E8", borderRadius: "12px",
+                    padding: "14px 16px", background: "#FCFBF8", border: "1px solid #E8E8E8", borderRadius: "12px",
                   }}
                 >
                   <div style={{ gridColumn: "1 / -1" }}>
                     <p style={{ fontSize: "15px", fontWeight: 700, color: "#1E1E1E", margin: "0 0 3px" }}>Subscribe to Newsletter</p>
-                    <p style={{ color: "#777", fontSize: "12px", lineHeight: 1.45, margin: 0 }}>Get practical manufacturing insights in your inbox.</p>
+                    <p style={{ color: "#777", fontSize: "12px", lineHeight: 1.35, margin: 0 }}>Get practical manufacturing insights in your inbox.</p>
                   </div>
                   <input type="email" placeholder="Your email address" style={{ width: "100%", padding: "10px 12px", border: "1px solid #D4D4D4", borderRadius: "8px", fontSize: "13px", color: "#1E1E1E", outline: "none" }} />
                   <button style={{ whiteSpace: "nowrap", padding: "10px 16px", background: "linear-gradient(135deg, #D09947, #EEC569)", color: "#FFFFFF", border: "none", borderRadius: "8px", fontSize: "13px", fontWeight: 600, cursor: "pointer" }}>Subscribe</button>

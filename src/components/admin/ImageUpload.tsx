@@ -5,7 +5,7 @@ import { Upload, X, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { auth } from "@/lib/firebaseClient";
 import { setAuthSessionCookie } from "@/lib/authSessionCookie";
-import { defaultImageDescriptionFromFilename } from "@/lib/cmsImageUpload";
+import { defaultImageAltFromFilename, defaultImageDescriptionFromFilename } from "@/lib/cmsImageUpload";
 
 interface ImageUploadProps {
   value: string;
@@ -60,9 +60,10 @@ export function ImageUpload({
     }
 
     const fromName = defaultImageDescriptionFromFilename(file.name);
+    const defaultAlt = defaultImageAltFromFilename(file.name);
     setPendingFile(file);
     setImageDescription(fromName === "image" ? defaultDescription : fromName);
-    setImageAlt("");
+    setImageAlt(defaultAlt);
     setShowModal(true);
   };
 

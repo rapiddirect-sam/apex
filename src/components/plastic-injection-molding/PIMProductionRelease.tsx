@@ -29,7 +29,17 @@ export function PIMProductionRelease() {
           {DEFAULTS.paragraphs.map((paragraph, index) => (
             <div key={paragraph} className="border-b border-white/10 py-5 sm:py-6">
               <p className="text-[15px] leading-relaxed text-[#CFCFD2]">
-                <EditableText path={`productionRelease.paragraphs.${index}`} defaultValue={paragraph} multiline />
+                {index === 1 ? (
+                  <>
+                    Before tooling and production begin, we define the validation requirements and review initial samples against the agreed drawing, critical interfaces, cosmetic criteria, and inspection scope. We also confirm secondary operations, marking, finishing, assembly, packaging, and delivery requirements before release. For more detail, see our {" "}
+                    <Link href="/blog/prototype-injection-molding-guide" className="body-text-link body-text-link--dark">
+                      prototype injection molding
+                    </Link>{" "}
+                    guide.
+                  </>
+                ) : (
+                  <EditableText path={`productionRelease.paragraphs.${index}`} defaultValue={paragraph} multiline />
+                )}
               </p>
             </div>
           ))}

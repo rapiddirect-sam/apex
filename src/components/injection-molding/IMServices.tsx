@@ -19,7 +19,7 @@ const DEFAULTS = {
         "Produce custom thermoplastic parts with repeatable geometry, defined material performance, and controlled cosmetic or functional requirements.",
       detail: "Suitable for housings, enclosures, covers, clips, brackets, connectors, handles, and other custom plastic parts.",
       image: "/injection-molding/custom-plastic-injection-molded-housings-covers-connectors-handles.webp",
-      cta: "Explore Plastic Injection Molding",
+      cta: "Explore Plastic Molding",
       href: "/plastic-injection-molding",
     },
     {

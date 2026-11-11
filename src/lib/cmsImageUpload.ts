@@ -48,3 +48,13 @@ export function defaultImageDescriptionFromFilename(filename: string): string {
   const stem = basename.replace(/\.[^.]+$/, "");
   return slugifyImageDescription(stem.replace(/[-_]+/g, " "));
 }
+
+/** Readable default alt text based on the original uploaded filename. */
+export function defaultImageAltFromFilename(filename: string): string {
+  const basename = filename.split(/[/\\]/).pop() || "";
+  const stem = basename.replace(/\.[^.]+$/, "");
+  return stem
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}

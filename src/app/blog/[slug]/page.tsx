@@ -9,6 +9,10 @@ import { getAuthorById } from "@/lib/authors";
 import { ArticleStructuredData } from "@/components/seo/ArticleStructuredData";
 import { BlogFaqStructuredData } from "@/components/seo/BlogFaqStructuredData";
 
+// A post can be published after this route has first been visited as a draft.
+// Keep a cached 404 short-lived; the admin save flow also invalidates it immediately.
+export const revalidate = 60;
+
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
 }

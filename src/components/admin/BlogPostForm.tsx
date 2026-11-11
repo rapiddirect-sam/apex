@@ -74,6 +74,18 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
         await createPost(input, user.uid, user.email || "");
       }
 
+      // A slug may previously have been visited while its post was a draft.
+      // Clear that cached 404 and refresh the archive after every save or publish.
+      const revalidation = await fetch("/api/admin/blog/revalidate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug, previousSlug: post?.slug }),
+      });
+
+      if (!revalidation.ok) {
+        console.warn("Blog post saved, but page cache revalidation failed.");
+      }
+
       router.push("/admin/blog");
     } catch (error) {
       console.error("Error saving post:", error);
