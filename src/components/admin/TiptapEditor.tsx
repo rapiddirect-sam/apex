@@ -486,23 +486,17 @@ export function TiptapEditor({
   );
 
   return (
-    <div style={{ border: "1px solid #444", borderRadius: "8px", overflow: "visible" }}>
+    <div style={{ border: "1px solid #444", borderRadius: "8px", overflow: "hidden" }}>
       {/* Toolbar */}
       <div
         style={{
-          position: "sticky",
-          top: "12px",
-          zIndex: 20,
           display: "flex",
           flexWrap: "wrap",
           gap: "4px",
           padding: "8px 12px",
           background: "#1a1a1a",
           borderBottom: "1px solid #444",
-          borderTopLeftRadius: "7px",
-          borderTopRightRadius: "7px",
           alignItems: "center",
-          boxShadow: "0 6px 14px rgba(0, 0, 0, 0.28)",
         }}
       >
         <ToolbarButton
@@ -600,7 +594,7 @@ export function TiptapEditor({
         <input
           ref={imageInputRef}
           type="file"
-          accept="image/jpeg,image/png,image/gif,image/webp"
+          accept="image/jpeg,image/png,image/gif,image/webp,image/avif"
           onChange={(e) => {
             const file = e.target.files?.[0];
             if (file) handleImageFileSelected(file);
@@ -651,32 +645,40 @@ export function TiptapEditor({
         </button>
       </div>
 
-      {/* Editor content */}
-      {showHtml ? (
-        <textarea
-          value={htmlContent}
-          onChange={(e) => handleHtmlChange(e.target.value)}
-          style={{
-            width: "100%",
-            minHeight: "400px",
-            padding: "16px",
-            background: "#2a2a2a",
-            color: "#C5C6C9",
-            border: "none",
-            outline: "none",
-            resize: "vertical",
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: "14px",
-            lineHeight: 1.6,
-          }}
-        />
-      ) : (
-        <div
-          style={{
-            background: "#2a2a2a",
-            minHeight: "400px",
-          }}
-        >
+      {/* The document scrolls inside this pane, leaving the formatting controls in view. */}
+      <div
+        style={{
+          background: "#2a2a2a",
+          maxHeight: "min(72vh, 880px)",
+          minHeight: "400px",
+          overflowY: "auto",
+          overscrollBehavior: "contain",
+        }}
+      >
+        {showHtml ? (
+          <textarea
+            value={htmlContent}
+            onChange={(e) => handleHtmlChange(e.target.value)}
+            style={{
+              width: "100%",
+              minHeight: "400px",
+              padding: "16px",
+              background: "#2a2a2a",
+              color: "#C5C6C9",
+              border: "none",
+              outline: "none",
+              resize: "vertical",
+              fontFamily: "var(--font-inter), system-ui, sans-serif",
+              fontSize: "14px",
+              lineHeight: 1.6,
+            }}
+          />
+        ) : (
+          <div
+            style={{
+              minHeight: "400px",
+            }}
+          >
           <style jsx global>{`
             .tiptap-editor-content {
               padding: 16px;
@@ -744,10 +746,15 @@ export function TiptapEditor({
             .tiptap-editor-content a.blog-link {
               color: #986116;
               font-weight: 600;
-              text-decoration-line: underline;
-              text-decoration-color: rgba(152, 97, 22, 0.55);
+              text-decoration-line: none;
+              text-decoration-color: transparent;
               text-decoration-thickness: 1px;
               text-underline-offset: 3px;
+              transition: text-decoration-color 160ms ease;
+            }
+            .tiptap-editor-content a.blog-link:hover {
+              text-decoration-line: underline;
+              text-decoration-color: currentColor;
             }
             .tiptap-editor-content table {
               width: 100%;
@@ -934,9 +941,10 @@ export function TiptapEditor({
               to { transform: rotate(360deg); }
             }
           `}</style>
-          <EditorContent editor={editor} />
-        </div>
-      )}
+            <EditorContent editor={editor} />
+          </div>
+        )}
+      </div>
 
       {showImageModal && pendingImageFile && (
         <div

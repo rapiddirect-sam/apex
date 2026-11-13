@@ -8,6 +8,7 @@ import {
   CNC_HERO_DEFAULT_SRC,
   CNC_HERO_IMAGE_QUALITY,
   CNC_HERO_IMAGE_SIZES,
+  CNC_HERO_RETIRED_SOURCES,
 } from "@/lib/heroImageDefaults";
 
 function createLogoPlaceholder(label: string): string {
@@ -53,6 +54,7 @@ export function CNCHero() {
         <EditableImage
           path="hero.image"
           defaultSrc={DEFAULTS.heroImage}
+          retiredSources={CNC_HERO_RETIRED_SOURCES}
           alt="Custom CNC Machining Services"
           fill
           priority

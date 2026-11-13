@@ -22,6 +22,14 @@ const FILE_SIGNATURES: Record<string, number[][]> = {
 
 // Verify file type by checking magic numbers
 function verifyFileSignature(buffer: Buffer, mimeType: string): boolean {
+  if (mimeType === "image/avif") {
+    // AVIF uses an ISO base media file container. Require its ftyp box and
+    // an AVIF-compatible brand rather than trusting the browser MIME value.
+    if (buffer.length < 16 || buffer.subarray(4, 8).toString("ascii") !== "ftyp") return false;
+    const brands = buffer.subarray(8, Math.min(buffer.length, 64)).toString("ascii");
+    return brands.includes("avif") || brands.includes("avis");
+  }
+
   const signatures = FILE_SIGNATURES[mimeType];
   if (!signatures) return false;
 
@@ -83,10 +91,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate MIME type
-    const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp", "image/avif"];
     if (!allowedTypes.includes(file.type)) {
       return NextResponse.json(
-        { error: "Invalid file type. Only JPEG, PNG, GIF, and WebP are allowed." },
+        { error: "Invalid file type. Only JPEG, PNG, GIF, WebP, and AVIF are allowed." },
         { status: 400 }
       );
     }

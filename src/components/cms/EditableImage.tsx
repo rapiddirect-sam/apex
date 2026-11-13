@@ -28,6 +28,8 @@ interface EditableImageProps {
   unoptimized?: boolean;
   /** Hint LCP image loading (pass `"high"` on above-the-fold hero). */
   fetchPriority?: "high" | "low" | "auto";
+  /** Replaced CMS URLs that should safely fall back to the current page asset. */
+  retiredSources?: readonly string[];
 }
 
 function defaultDescriptionFromCmsPath(path: string): string {
@@ -50,6 +52,7 @@ export function EditableImage({
   quality,
   unoptimized = false,
   fetchPriority,
+  retiredSources = [],
 }: EditableImageProps) {
   const { isEditMode, getContentValue, updateContent, pageSlug } = useCMS();
   const [isUploading, setIsUploading] = useState(false);
@@ -60,14 +63,18 @@ export function EditableImage({
   const [imageAlt, setImageAlt] = useState("");
   const [modalError, setModalError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+  const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp", "image/avif"];
   const MAX_UPLOAD_SIZE = 10 * 1024 * 1024;
 
   const uploadSlug = pageSlug.replace(/^\/+|\/+$/g, "");
 
   const rawSrc = getContentValue(path, defaultSrc);
-  const currentSrc =
+  const storedSrc =
     typeof rawSrc === "string" && rawSrc.trim() === "" ? defaultSrc : rawSrc;
+  const currentSrc =
+    typeof storedSrc === "string" && retiredSources.includes(storedSrc.trim())
+      ? defaultSrc
+      : storedSrc;
   // Use <img> for GIFs and data URLs (Next/Image does not reliably render inline SVG/data URIs).
   const isGif = currentSrc.toLowerCase().includes(".gif");
   const isDataUrl = currentSrc.startsWith("data:");
@@ -171,7 +178,7 @@ export function EditableImage({
     const file = e.target.files?.[0];
     if (file) {
       if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-        alert("Unsupported format. Please upload JPG, PNG, GIF, or WebP.");
+        alert("Unsupported format. Please upload JPG, PNG, GIF, WebP, or AVIF.");
         e.target.value = "";
         return;
       }

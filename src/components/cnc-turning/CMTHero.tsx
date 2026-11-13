@@ -5,9 +5,10 @@ import { ArrowRight } from "lucide-react";
 import { EditableText, EditableImage } from "@/components/cms";
 import { useCMS } from "@/contexts/CMSContext";
 import {
-  CNC_HERO_DEFAULT_SRC,
+  CNC_TURNING_HERO_DEFAULT_SRC,
   CNC_HERO_IMAGE_QUALITY,
   CNC_HERO_IMAGE_SIZES,
+  CNC_TURNING_HERO_RETIRED_SOURCES,
 } from "@/lib/heroImageDefaults";
 
 function createLogoPlaceholder(label: string): string {
@@ -25,7 +26,7 @@ const DEFAULTS = {
   titleSuffix: " for Precision Turned Parts",
   description:
     "Upload your CAD files and drawings online for free DFM feedback, tolerance review, and a detailed CNC turning quote within 24 hours. ApexBatch supports 2-axis, live-tool, and Swiss-type CNC turning for custom turned parts, with standard tolerances to ±0.05 mm and selected tight tolerances reviewed down to ±0.01 mm.",
-  heroImage: CNC_HERO_DEFAULT_SRC,
+  heroImage: CNC_TURNING_HERO_DEFAULT_SRC,
   ctaPrimary: "Start Your Project",
   ctaSecondary: "Get Production Quote",
   certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 14001:2015"],
@@ -55,6 +56,7 @@ export function CMTHero() {
         <EditableImage
           path="hero.image"
           defaultSrc={DEFAULTS.heroImage}
+          retiredSources={CNC_TURNING_HERO_RETIRED_SOURCES}
           alt="Custom CNC Turning Services"
           fill
           priority

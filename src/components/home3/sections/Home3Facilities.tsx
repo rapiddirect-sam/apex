@@ -329,7 +329,6 @@ export function Home3Facilities() {
                   defaultSrc={workshop.image}
                   alt={workshop.title}
                   fill
-                  priority={index < 3}
                   sizes="(max-width: 640px) 82vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.035]"
                 />

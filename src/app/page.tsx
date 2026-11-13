@@ -3,8 +3,13 @@ import { getImageProps } from "next/image";
 import { getPageMetaWithDefaults } from "@/lib/pageMeta";
 import { getPageContent } from "@/lib/pageContent";
 import { getPublishedPosts } from "@/lib/blog";
-import { getImageUrl } from "@/lib/utils";
-import { HOME_HERO_IMAGE_QUALITY, HOME_HERO_IMAGE_SIZES } from "@/lib/heroImageDefaults";
+import {
+  HOME_HERO_DEFAULT_SRC,
+  HOME_HERO_IMAGE_QUALITY,
+  HOME_HERO_IMAGE_SIZES,
+  HOME_HERO_RETIRED_SOURCES,
+} from "@/lib/heroImageDefaults";
+import { resolveHeroImageSource } from "@/lib/heroImageSource";
 import { HomePageClient } from "./HomePageClient";
 
 // Refresh the homepage resource cards regularly as new published articles become available.
@@ -35,12 +40,19 @@ export default async function Home() {
     publishedAt: post.publishedAt?.toISOString() ?? null,
   }));
 
+  const heroImage = resolveHeroImageSource(
+    content,
+    "hero.backgroundImage",
+    HOME_HERO_DEFAULT_SRC,
+    HOME_HERO_RETIRED_SOURCES
+  );
+
   // Preload the same optimized URL `next/image` will request (raw S3 preload would duplicate work and hurt LCP).
   const {
     props: { src, srcSet, sizes },
   } = getImageProps({
     alt: "Manufacturing background",
-    src: getImageUrl("home/1-homepage-banner.webp"),
+    src: heroImage,
     fill: true,
     sizes: HOME_HERO_IMAGE_SIZES,
     quality: HOME_HERO_IMAGE_QUALITY,

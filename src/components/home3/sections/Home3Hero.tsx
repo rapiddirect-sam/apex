@@ -2,8 +2,12 @@
 
 import { Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { getImageUrl } from "@/lib/utils";
-import { HOME_HERO_IMAGE_QUALITY, HOME_HERO_IMAGE_SIZES } from "@/lib/heroImageDefaults";
+import {
+  HOME_HERO_DEFAULT_SRC,
+  HOME_HERO_IMAGE_QUALITY,
+  HOME_HERO_IMAGE_SIZES,
+  HOME_HERO_RETIRED_SOURCES,
+} from "@/lib/heroImageDefaults";
 import { EditableText, EditableImage } from "@/components/cms";
 
 function createLogoPlaceholder(label: string): string {
@@ -21,7 +25,7 @@ const DEFAULTS = {
     "From pilot builds to repeat production, ApexBatch integrates precision machining, fabrication, molding, finishing and assembly—giving complex manufacturing programs greater control, repeatable quality and scalable capacity.",
   ctaPrimary: "Get Production Quote",
   ctaSecondary: "Request DFM Review",
-  backgroundImage: getImageUrl("home/1-homepage-banner.webp"),
+  backgroundImage: HOME_HERO_DEFAULT_SRC,
   certifications: ["ISO 9001:2015", "ISO 13485:2016", "ISO 14001:2015"],
   features: [
     "Fast Engineering Review & Quotation",
@@ -53,6 +57,7 @@ export function Home3Hero() {
         <EditableImage
           path="hero.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
+          retiredSources={HOME_HERO_RETIRED_SOURCES}
           alt="Manufacturing background"
           fill
           priority
