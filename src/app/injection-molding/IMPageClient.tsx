@@ -13,7 +13,7 @@ import { IMParts } from "@/components/injection-molding/IMParts";
 import { IMMaterialsOptionsLegacy } from "@/components/injection-molding/IMMaterialsOptionsLegacy";
 import { IMCTA } from "@/components/injection-molding/IMCTA";
 import { CMSProvider } from "@/contexts/CMSContext";
-import { CMSToolbar } from "@/components/cms";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 
 interface IMPageClientProps {
   initialContent: Record<string, unknown> | null;
@@ -38,7 +38,7 @@ export function IMPageClient({ initialContent, initialVersion }: IMPageClientPro
         <IMCTA />
       </main>
       <Home3Footer />
-      <CMSToolbar />
+      <CMSPageToolbar />
     </CMSProvider>
   );
 }

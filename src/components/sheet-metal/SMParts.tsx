@@ -44,7 +44,14 @@ export function SMParts() {
             </span>
           </h2>
           <p className="service-section-copy mt-6 max-w-4xl lg:mx-auto">
-            <EditableText path="parts.description" defaultValue={DEFAULTS.description} multiline />
+            <EditableText
+              path="parts.description"
+              defaultValue={DEFAULTS.description}
+              multiline
+              linkText="Sheet metal prototyping"
+              linkHref="/blog/sheet-metal-prototyping"
+              linkClassName="font-medium text-[#EEC569] underline-offset-4 hover:underline"
+            />
           </p>
         </motion.div>
 

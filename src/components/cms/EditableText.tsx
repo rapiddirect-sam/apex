@@ -19,6 +19,9 @@ interface EditableTextProps {
   style?: CSSProperties;
   deletable?: boolean;
   onDelete?: () => void;
+  linkText?: string;
+  linkHref?: string;
+  linkClassName?: string;
 }
 
 export function EditableText({
@@ -30,6 +33,9 @@ export function EditableText({
   style,
   deletable = true,
   onDelete,
+  linkText,
+  linkHref,
+  linkClassName,
 }: EditableTextProps) {
   const { isEditMode, getContentValue, updateContent } = useCMS();
   const [isEditing, setIsEditing] = useState(false);
@@ -76,9 +82,23 @@ export function EditableText({
   // Non-edit mode - render normally (hide deleted items)
   if (!isEditMode) {
     if (isDeleted) return null;
+
+    const linkIndex = linkText && linkHref ? currentValue.indexOf(linkText) : -1;
+    const hasInlineLink = linkIndex !== -1 && linkText && linkHref;
+
     return (
       <Component className={className} style={style}>
-        {currentValue}
+        {hasInlineLink ? (
+          <>
+            {currentValue.slice(0, linkIndex)}
+            <a href={linkHref} className={linkClassName}>
+              {linkText}
+            </a>
+            {currentValue.slice(linkIndex + linkText.length)}
+          </>
+        ) : (
+          currentValue
+        )}
       </Component>
     );
   }

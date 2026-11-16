@@ -38,7 +38,7 @@ const DEFAULTS = {
 
 export function IMSupplier() {
   return (
-    <section className="bg-black py-20 sm:py-24 lg:py-28">
+    <section className="bg-[#34312F] py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-[1200px] px-6">
         <div className="grid items-center gap-10 md:grid-cols-[minmax(0,0.45fr)_minmax(0,0.55fr)] md:gap-12 lg:gap-16">
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>

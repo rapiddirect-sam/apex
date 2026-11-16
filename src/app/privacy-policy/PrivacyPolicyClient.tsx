@@ -3,7 +3,7 @@
 import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { CMSProvider } from "@/contexts/CMSContext";
-import { CMSToolbar } from "@/components/cms";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 import { EditableText } from "@/components/cms";
 
 interface PrivacyPolicyClientProps {
@@ -139,7 +139,7 @@ export function PrivacyPolicyClient({
         </div>
       </main>
       <Home3Footer />
-      <CMSToolbar />
+      <CMSPageToolbar />
     </CMSProvider>
   );
 }

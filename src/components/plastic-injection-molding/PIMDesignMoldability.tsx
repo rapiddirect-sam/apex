@@ -10,8 +10,8 @@ const DEFAULTS = {
   headingPrefix: "Design for Moldability: Standard Guidance and ",
   headingHighlight: "Advanced Feature Evaluation",
   introduction:
-    "Use these values as practical starting points for plastic part design. Thin-wall, low-draft, deep-rib, and tight-tolerance features can be evaluated when the material, geometry, tooling route, and inspection plan are defined.",
-  headers: ["Design element", "Recommended starting point", "Advanced feature evaluation", "Design focus"],
+    "Use these values as practical starting points for plastic part design. During DFM review, ApexBatch evaluates thin-wall, low-draft, deep-rib, and tight-tolerance features against the selected resin, part geometry, tooling route, and inspection plan.",
+  headers: ["Design element", "Recommended starting point", "ApexBatch feature review", "Design focus"],
   rows: [
     [
       "Wall thickness",

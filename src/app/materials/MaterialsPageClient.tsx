@@ -7,7 +7,7 @@ import { MaterialsContent } from "@/components/materials/MaterialsContent";
 import { MaterialsSourcingControl } from "@/components/materials/MaterialsSourcingControl";
 import { MaterialsCTA } from "@/components/materials/MaterialsCTA";
 import { CMSProvider } from "@/contexts/CMSContext";
-import { CMSToolbar } from "@/components/cms";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 
 interface MaterialsPageClientProps {
   initialContent: Record<string, unknown> | null;
@@ -29,7 +29,7 @@ export function MaterialsPageClient({ initialContent, initialVersion }: Material
         <MaterialsCTA />
       </main>
       <Home3Footer />
-      <CMSToolbar />
+      <CMSPageToolbar />
     </CMSProvider>
   );
 }

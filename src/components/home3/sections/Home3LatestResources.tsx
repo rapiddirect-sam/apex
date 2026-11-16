@@ -17,7 +17,7 @@ export function Home3LatestResources({ posts }: { posts: LatestResourcePost[] })
   if (posts.length === 0) return null;
 
   return (
-    <section className="bg-[#171615] py-14 sm:py-16 lg:py-20">
+    <section className="bg-[#34312F] py-14 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end">
           <h2 className="section-title">

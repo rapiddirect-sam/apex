@@ -22,7 +22,7 @@ const DEFAULTS = {
 
 export function IMMaterialsOptionsLegacy() {
   return (
-    <section className="bg-[#34312F] py-20 sm:py-24 lg:py-28">
+    <section className="bg-[#171615] py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-[1200px] px-6">
         <h2 className="service-section-title text-white"><EditableText path="materialsOptions.headingPrefix" defaultValue={DEFAULTS.heading} /><span className="service-title-accent"><EditableText path="materialsOptions.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span></h2>
         <p className="service-section-copy mt-6 max-w-4xl"><EditableText path="materialsOptions.description" defaultValue={DEFAULTS.description} multiline /></p>

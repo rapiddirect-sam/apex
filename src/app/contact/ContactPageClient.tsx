@@ -6,7 +6,7 @@ import { ContactHero } from "@/components/contact/ContactHero";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ContactNextSteps } from "@/components/contact/ContactNextSteps";
 import { CMSProvider } from "@/contexts/CMSContext";
-import { CMSToolbar } from "@/components/cms";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 
 interface ContactPageClientProps {
   initialContent: Record<string, unknown> | null;
@@ -27,7 +27,7 @@ export function ContactPageClient({ initialContent, initialVersion }: ContactPag
         <ContactNextSteps />
       </main>
       <Home3Footer />
-      <CMSToolbar />
+      <CMSPageToolbar />
     </CMSProvider>
   );
 }

@@ -10,7 +10,7 @@ import { AboutManufacturingHub } from "@/components/about/AboutManufacturingHub"
 import { AboutClientsAdvantages } from "@/components/about/AboutClientsAdvantages";
 import { AboutCTA } from "@/components/about/AboutCTA";
 import { CMSProvider } from "@/contexts/CMSContext";
-import { CMSToolbar } from "@/components/cms";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 
 interface AboutPageClientProps {
   initialContent: Record<string, unknown> | null;
@@ -36,7 +36,7 @@ export function AboutPageClient({ initialContent, initialVersion }: AboutPageCli
         <AboutCTA />
       </main>
       <Home3Footer />
-      <CMSToolbar />
+      <CMSPageToolbar />
     </CMSProvider>
   );
 }

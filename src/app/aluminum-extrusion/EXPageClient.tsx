@@ -13,7 +13,7 @@ import { EXFAQ } from "@/components/extrusion-services/EXFAQ";
 import { EXCTA } from "@/components/extrusion-services/EXCTA";
 import { Home3Certifications } from "@/components/home3/sections/Home3Certifications";
 import { CMSProvider } from "@/contexts/CMSContext";
-import { CMSToolbar } from "@/components/cms";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 
 interface EXPageClientProps {
   initialContent: Record<string, unknown> | null;
@@ -37,7 +37,7 @@ export function EXPageClient({ initialContent, initialVersion }: EXPageClientPro
         <EXCTA />
       </main>
       <Home3Footer />
-      <CMSToolbar />
+      <CMSPageToolbar />
     </CMSProvider>
   );
 }

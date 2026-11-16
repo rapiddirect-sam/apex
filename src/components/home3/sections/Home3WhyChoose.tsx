@@ -69,7 +69,7 @@ export function Home3WhyChoose() {
             rgba(249,235,188,0.08),
             rgba(0,0,0,0) 65%
           ),
-          #2B2826
+          #34312F
         `,
       }}
     >
@@ -96,19 +96,19 @@ export function Home3WhyChoose() {
           </h2>
         </motion.div>
 
-        <div className="grid items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
+        <div className="grid items-stretch gap-8 md:grid-cols-2 md:gap-10 lg:gap-12">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative min-h-[320px] overflow-hidden rounded-2xl border-2 border-[#7F4D0F] bg-[#171717] shadow-[inset_0_0_0_1px_rgba(208,153,71,0.15),0_24px_48px_rgba(0,0,0,0.6)] lg:min-h-0"
+            className="relative min-h-[320px] overflow-hidden rounded-2xl border-2 border-[#7F4D0F] bg-[#171717] shadow-[inset_0_0_0_1px_rgba(208,153,71,0.15),0_24px_48px_rgba(0,0,0,0.6)] md:min-h-0"
           >
             <EditableImage
               path="homeWhyChoose.image"
               defaultSrc={DEFAULTS.image}
               alt={DEFAULTS.imageAlt}
               fill
-              sizes="(max-width: 1023px) 100vw, 50vw"
+              sizes="(max-width: 767px) 100vw, 50vw"
               className="object-cover"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
@@ -126,7 +126,7 @@ export function Home3WhyChoose() {
                 <h3 key={item.number}>{item.title}</h3>
               ))}
             </div>
-            <div className="flex min-h-[320px] flex-1 flex-col rounded-2xl border border-[#D09947]/20 bg-white/[0.035] p-7 sm:p-8 lg:min-h-0">
+            <div className="flex min-h-[320px] flex-1 flex-col rounded-2xl border border-[#D09947]/20 bg-white/[0.035] p-7 sm:p-8 md:min-h-0">
               <motion.div
                 key={currentItem.number}
                 initial={{ opacity: 0, y: 12 }}

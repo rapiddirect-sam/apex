@@ -39,7 +39,7 @@ export function IMParts() {
       className="relative overflow-hidden"
       style={{
         padding: "112px 0 120px",
-        background: "#000000",
+        background: "#34312F",
       }}
     >
       <div className="max-w-[1200px] mx-auto px-6">

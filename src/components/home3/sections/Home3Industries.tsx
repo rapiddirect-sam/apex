@@ -66,7 +66,7 @@ export function Home3Industries() {
             rgba(249,235,188,0.08),
             rgba(0,0,0,0) 65%
           ),
-          #000000
+          #34312F
         `,
       }}
     >

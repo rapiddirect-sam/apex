@@ -11,7 +11,7 @@ export function Home3Q4ProjectSupport() {
     <section
       id="q4-project-support"
       aria-labelledby="q4-project-support-title"
-      className="bg-[linear-gradient(180deg,#0A0A0A_0%,#100D08_100%)] px-4 py-12 min-[320px]:px-6 sm:py-16 lg:px-8 lg:py-20"
+      className="bg-[#171615] px-4 py-12 min-[320px]:px-6 sm:py-16 lg:px-8 lg:py-20"
       style={{ scrollMarginTop: "calc(4rem + var(--q4-announcement-height))" }}
     >
       <div className="mx-auto max-w-[1240px]">

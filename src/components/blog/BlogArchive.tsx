@@ -61,7 +61,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
 
   const isFiltering = Boolean(searchQuery || selectedCategory);
   const featuredPost = isFiltering ? null : filteredPosts[0];
-  const popularPosts = posts.slice(0, 3);
+  const popularPosts = posts.filter((post) => post.id !== featuredPost?.id).slice(0, 3);
   const gridPosts = isFiltering ? filteredPosts : filteredPosts.slice(1);
 
   return (
@@ -170,13 +170,16 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
           }
           .blog-featured-sidebar {
             height: var(--blog-featured-row-height);
-            display: grid !important;
-            grid-template-rows: minmax(0, 1fr) 126px;
-            gap: 16px !important;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
           }
           .blog-popular-posts {
+            box-sizing: border-box;
             min-height: 0;
-            overflow: hidden;
+          }
+          .blog-sidebar-cta {
+            flex: 0 0 auto;
           }
           @media (max-width: 1023px) {
             .blog-featured-layout {
@@ -187,7 +190,15 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               height: auto;
             }
             .blog-featured-sidebar {
-              display: flex !important;
+              display: block !important;
+              width: 100%;
+            }
+            .blog-popular-posts {
+              height: auto;
+              overflow: visible;
+            }
+            .blog-sidebar-cta {
+              margin-top: 14px;
             }
             .blog-featured-card-link {
               grid-template-columns: minmax(280px, 0.42fr) minmax(0, 0.58fr) !important;
@@ -198,21 +209,10 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               height: auto !important;
               aspect-ratio: 4 / 3;
             }
-            .blog-sidebar-newsletter {
-              grid-template-columns: minmax(0, 1fr) auto !important;
-            }
           }
           @media (max-width: 767px) {
             .blog-featured-card-link {
               grid-template-columns: minmax(0, 1fr) !important;
-            }
-            .blog-sidebar-newsletter {
-              grid-template-columns: minmax(0, 1fr) !important;
-              gap: 14px !important;
-            }
-            .blog-sidebar-newsletter input,
-            .blog-sidebar-newsletter button {
-              width: 100% !important;
             }
           }
         `}</style>
@@ -357,7 +357,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
 
               </div>
 
-              {/* Right: Popular Posts + Newsletter */}
+              {/* Right: Popular Posts */}
               <aside className="blog-featured-sidebar" style={{ minWidth: 0 }}>
                 {/* Popular Posts */}
                 <div className="blog-popular-posts" style={{
@@ -400,18 +400,24 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                 </div>
 
                 <div
-                  className="blog-sidebar-newsletter"
+                  className="blog-sidebar-cta"
                   style={{
-                    display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto", gap: "12px", alignItems: "center",
-                    padding: "14px 16px", background: "#FCFBF8", border: "1px solid #E8E8E8", borderRadius: "12px",
+                    border: "1px solid #E8E8E8",
+                    borderRadius: "12px",
+                    padding: "20px",
                   }}
                 >
-                  <div style={{ gridColumn: "1 / -1" }}>
-                    <p style={{ fontSize: "15px", fontWeight: 700, color: "#1E1E1E", margin: "0 0 3px" }}>Subscribe to Newsletter</p>
-                    <p style={{ color: "#777", fontSize: "12px", lineHeight: 1.35, margin: 0 }}>Get practical manufacturing insights in your inbox.</p>
-                  </div>
-                  <input type="email" placeholder="Your email address" style={{ width: "100%", padding: "10px 12px", border: "1px solid #D4D4D4", borderRadius: "8px", fontSize: "13px", color: "#1E1E1E", outline: "none" }} />
-                  <button style={{ whiteSpace: "nowrap", padding: "10px 16px", background: "linear-gradient(135deg, #D09947, #EEC569)", color: "#FFFFFF", border: "none", borderRadius: "8px", fontSize: "13px", fontWeight: 600, cursor: "pointer" }}>Subscribe</button>
+                  <h2 style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
+                    Ready to Make Your Part?
+                  </h2>
+                  <div style={{ width: "40px", height: "3px", background: "#D09947", borderRadius: "2px", marginBottom: "12px" }} />
+                  <p style={{ color: "#666", fontSize: "14px", lineHeight: 1.55, margin: "0 0 16px" }}>
+                    Upload your CAD and get a practical quote.
+                  </p>
+                  <Link href="https://app.apexbatch.com/" rel="nofollow" className="cta-primary group">
+                    Get Instant Quote
+                    <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </Link>
                 </div>
 
               </aside>

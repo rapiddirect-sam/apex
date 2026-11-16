@@ -3,7 +3,7 @@
 import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { CMSProvider } from "@/contexts/CMSContext";
-import { CMSToolbar } from "@/components/cms";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 import { IMTHero } from "@/components/injection-mold-tooling/IMTHero";
 import { IMTContent } from "@/components/injection-mold-tooling/IMTContent";
 import { IMTSectionNav } from "@/components/injection-mold-tooling/IMTSectionNav";
@@ -20,5 +20,5 @@ const TOOLING_CTA = {
 };
 
 export function InjectionMoldToolingPageClient({ initialContent, initialVersion }: Props) {
-  return <CMSProvider pageSlug="/injection-mold-tooling" initialContent={initialContent} initialVersion={initialVersion}><Home3Header /><main className="injection-molding-page"><IMTHero /><IMTSectionNav /><IMTContent /><IMTFAQ /><IMCTA content={TOOLING_CTA} /></main><Home3Footer /><CMSToolbar /></CMSProvider>;
+  return <CMSProvider pageSlug="/injection-mold-tooling" initialContent={initialContent} initialVersion={initialVersion}><Home3Header /><main className="injection-molding-page"><IMTHero /><IMTSectionNav /><IMTContent /><IMTFAQ /><IMCTA content={TOOLING_CTA} /></main><Home3Footer /><CMSPageToolbar /></CMSProvider>;
 }

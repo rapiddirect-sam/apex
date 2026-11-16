@@ -57,6 +57,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "www.apexbatch.com",
       },
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+      },
     ],
   },
 };

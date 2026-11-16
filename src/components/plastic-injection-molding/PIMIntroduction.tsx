@@ -11,6 +11,9 @@ const DEFAULTS = {
     "Plastic injection molding makes custom plastic parts from a dedicated metal mold. Molten resin fills the mold cavity, cools, and is released as a finished part with defined geometry, material, surface appearance, and functional features.",
   descriptionSecondary:
     "Unlike CNC machining or 3D printing, the final part geometry is built into the tool. This makes injection molding suitable for stable designs that need repeatable housings, covers, clips, connectors, brackets, mechanical features, or other production plastic parts.",
+  processGuidePrefix: "If you are evaluating plastic molding for the first time, start with ",
+  processGuideLink: "what injection molding is and how it works",
+  processGuideSuffix: " for a practical introduction to materials, tooling, and project fit.",
   descriptionTertiary:
     "Tooling is an upfront decision. The process is most valuable when the design is sufficiently defined for tooling and the project needs molded prototypes, pilot batches, planned low-volume production, or repeat orders. Material selection, wall thickness, shrinkage, visible surfaces, critical dimensions, and inspection requirements should be resolved before tooling is released.",
   explorationPrefix:
@@ -43,6 +46,13 @@ export function PIMIntroduction() {
               <div className="mt-4 space-y-4">
                 <p>
                   <EditableText path="plasticInjectionIntroduction.descriptionSecondary" defaultValue={DEFAULTS.descriptionSecondary} multiline />
+                </p>
+                <p>
+                  <EditableText path="plasticInjectionIntroduction.processGuidePrefix" defaultValue={DEFAULTS.processGuidePrefix} />
+                  <Link href="/blog/what-is-injection-molding-process" className="body-text-link body-text-link--dark">
+                    <EditableText path="plasticInjectionIntroduction.processGuideLink" defaultValue={DEFAULTS.processGuideLink} />
+                  </Link>
+                  <EditableText path="plasticInjectionIntroduction.processGuideSuffix" defaultValue={DEFAULTS.processGuideSuffix} />
                 </p>
                 <p>
                   <EditableText path="plasticInjectionIntroduction.descriptionTertiary" defaultValue={DEFAULTS.descriptionTertiary} multiline />

@@ -6,12 +6,9 @@ import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { CMTHero } from "@/components/cnc-turning/CMTHero";
 import { CMSProvider } from "@/contexts/CMSContext";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 import { scheduleIdleTask } from "@/lib/scheduleIdleTask";
 
-const CMSToolbar = dynamic(
-  () => import("@/components/cms").then((m) => ({ default: m.CMSToolbar })),
-  { ssr: false }
-);
 const CMTServices = dynamic(() =>
   import("@/components/cnc-turning/CMTServices").then((m) => ({ default: m.CMTServices }))
 );
@@ -101,7 +98,7 @@ export function CNCTurningPageClient({ initialContent, initialVersion }: CNCTurn
         ) : null}
       </main>
       <Home3Footer />
-      <CMSToolbar />
+      <CMSPageToolbar />
     </CMSProvider>
   );
 }

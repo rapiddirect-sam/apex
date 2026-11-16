@@ -12,7 +12,7 @@ import { InsWhyUs } from "@/components/insert-molding/InsWhyUs";
 import { InsFAQ } from "@/components/insert-molding/InsFAQ";
 import { InsCTA } from "@/components/insert-molding/InsCTA";
 import { CMSProvider } from "@/contexts/CMSContext";
-import { CMSToolbar } from "@/components/cms";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 
 interface InsertMoldingPageClientProps {
   initialContent: Record<string, unknown> | null;
@@ -35,7 +35,7 @@ export function InsertMoldingPageClient({ initialContent, initialVersion }: Inse
         <InsCTA />
       </main>
       <Home3Footer />
-      <CMSToolbar />
+      <CMSPageToolbar />
     </CMSProvider>
   );
 }

@@ -6,12 +6,9 @@ import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { LCHero } from "@/components/laser-cutting/LCHero";
 import { CMSProvider } from "@/contexts/CMSContext";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 import { scheduleIdleTask } from "@/lib/scheduleIdleTask";
 
-const CMSToolbar = dynamic(
-  () => import("@/components/cms").then((m) => ({ default: m.CMSToolbar })),
-  { ssr: false }
-);
 const LCCapabilities = dynamic(() =>
   import("@/components/laser-cutting/LCCapabilities").then((m) => ({ default: m.LCCapabilities }))
 );
@@ -89,7 +86,7 @@ export function LaserCuttingPageClient({ initialContent, initialVersion }: Laser
         ) : null}
       </main>
       <Home3Footer />
-      <CMSToolbar />
+      <CMSPageToolbar />
     </CMSProvider>
   );
 }

@@ -8,7 +8,6 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { useAuthOptional } from "./AuthContext";
 import { getNestedValue, setNestedValue } from "@/lib/contentPath";
 
 interface PendingChange {
@@ -18,6 +17,7 @@ interface PendingChange {
 }
 
 interface CMSContextType {
+  isAdmin: boolean;
   isEditMode: boolean;
   toggleEditMode: () => void;
   pageContent: Record<string, unknown> | null;
@@ -69,9 +69,10 @@ export function CMSProvider({
   pageSlug,
   initialVersion = 1,
 }: CMSProviderProps) {
-  const auth = useAuthOptional();
-  const isAdmin = auth?.isAdmin ?? false;
-  const user = auth?.user ?? null;
+  // Marketing pages do not mount the admin auth provider. Read the existing
+  // first-party session marker instead, then let the save API verify the token.
+  // This keeps Firebase and Supabase out of every public page bundle.
+  const [isAdmin, setIsAdmin] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [pageContent, setPageContent] = useState<Record<string, unknown> | null>(
     initialContent
@@ -81,6 +82,14 @@ export function CMSProvider({
   );
   const [isSaving, setIsSaving] = useState(false);
   const [contentVersion, setContentVersion] = useState(initialVersion);
+
+  useEffect(() => {
+    setIsAdmin(
+      document.cookie
+        .split("; ")
+        .some((cookie) => cookie.startsWith("auth-session="))
+    );
+  }, []);
 
   const toggleEditMode = useCallback(() => {
     if (!isAdmin) return;
@@ -122,7 +131,7 @@ export function CMSProvider({
   );
 
   const saveAllChanges = useCallback(async () => {
-    if (pendingChanges.size === 0 || !user?.email) return;
+    if (pendingChanges.size === 0 || !isAdmin) return;
 
     setIsSaving(true);
     try {
@@ -158,7 +167,7 @@ export function CMSProvider({
     } finally {
       setIsSaving(false);
     }
-  }, [pendingChanges, pageContent, pageSlug, contentVersion, user?.email]);
+  }, [pendingChanges, pageContent, pageSlug, contentVersion, isAdmin]);
 
   const discardChanges = useCallback(() => {
     setPendingChanges(new Map());
@@ -201,6 +210,7 @@ export function CMSProvider({
   }, [editModeActive]);
 
   const value: CMSContextType = {
+    isAdmin,
     isEditMode: editModeActive,
     toggleEditMode,
     pageContent,

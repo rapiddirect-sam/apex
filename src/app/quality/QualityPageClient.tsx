@@ -12,7 +12,7 @@ import { QualityFAQ } from "@/components/quality/QualityFAQ";
 import { QualityCertifications } from "@/components/quality/QualityCertifications";
 import { QualityCTA } from "@/components/quality/QualityCTA";
 import { CMSProvider } from "@/contexts/CMSContext";
-import { CMSToolbar } from "@/components/cms";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 
 interface QualityPageClientProps {
   initialContent: Record<string, unknown> | null;
@@ -39,7 +39,7 @@ export function QualityPageClient({ initialContent, initialVersion }: QualityPag
         <QualityCTA />
       </main>
       <Home3Footer />
-      <CMSToolbar />
+      <CMSPageToolbar />
     </CMSProvider>
   );
 }

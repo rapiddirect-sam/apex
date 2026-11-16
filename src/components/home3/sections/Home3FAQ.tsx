@@ -67,7 +67,7 @@ export function Home3FAQ() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-[#34312F] py-20 lg:py-28"
+      className="relative overflow-hidden bg-[#171615] py-20 lg:py-28"
       style={{
         background: `
           radial-gradient(
@@ -75,17 +75,17 @@ export function Home3FAQ() {
             rgba(208,153,71,0.12),
             transparent 58%
           ),
-          #34312F
+          #171615
         `
       }}
     >
       <div className="mx-auto max-w-[1200px] px-6">
-        <div className="grid gap-10 lg:grid-cols-[minmax(280px,34fr)_minmax(0,66fr)] lg:gap-16">
+        <div className="grid gap-10 md:grid-cols-[minmax(280px,34fr)_minmax(0,66fr)] md:gap-10 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:sticky lg:top-32 lg:self-start"
+            className="md:sticky md:top-32 md:self-start"
           >
             <h2 className="service-section-title">
             <EditableText

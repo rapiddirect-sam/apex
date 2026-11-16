@@ -6,6 +6,9 @@ import { AuthorProfile } from "@/components/blog/AuthorProfile";
 import { getAuthorBySlug, getAllAuthors } from "@/lib/authors";
 import { getPublishedPosts } from "@/lib/blog";
 
+// Publish saves invalidate this route immediately; this is the fallback for any missed refresh.
+export const revalidate = 60;
+
 interface AuthorPageProps {
   params: Promise<{ slug: string }>;
 }

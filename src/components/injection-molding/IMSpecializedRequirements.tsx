@@ -40,7 +40,7 @@ const DEFAULTS = {
 
 export function IMSpecializedRequirements() {
   return (
-    <section className="bg-black py-20 sm:py-24 lg:py-28">
+    <section className="bg-[#34312F] py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-[1200px] px-6">
         <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-3xl lg:max-w-none">
           <h2 className="service-section-title text-white lg:whitespace-nowrap">

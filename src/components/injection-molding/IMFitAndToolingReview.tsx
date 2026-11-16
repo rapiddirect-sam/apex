@@ -60,7 +60,7 @@ export function IMFitAndToolingReview({ showFit = true, showLifecycle = true }: 
   return (
     <>
       {showFit ? (
-      <section className="bg-black py-20 sm:py-24 lg:py-28">
+      <section className="bg-[#171615] py-20 sm:py-24 lg:py-28">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 md:grid-cols-[minmax(0,0.55fr)_minmax(0,0.45fr)] md:gap-12 lg:gap-16">
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <h2 className="service-section-title text-white">
@@ -91,7 +91,7 @@ export function IMFitAndToolingReview({ showFit = true, showLifecycle = true }: 
       ) : null}
 
       {showLifecycle ? (
-      <section className="bg-[#34312F] py-20 sm:py-24 lg:py-28">
+      <section className="bg-[#171615] py-20 sm:py-24 lg:py-28">
         <div className="mx-auto max-w-[1200px] px-6">
           <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl">
             <h2 className="service-section-title text-white">

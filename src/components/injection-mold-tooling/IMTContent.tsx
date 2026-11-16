@@ -32,10 +32,11 @@ const DEFAULTS = {
   definitionHighlight: "Tooling?",
   definitionPrimary: "Injection mold tooling is the engineered, removable mold system installed in an injection molding press to form molten plastic into repeatable parts. A plastic injection mold includes the core and cavity, runner and gate system, cooling channels, vents, ejection system, and any slides, lifters, inserts, or moving components needed to form and release the part.",
   definitionSecondary: "The tool controls more than geometry. It affects material flow, cooling behavior, surface appearance, parting lines, gate witness marks, cycle time, repeatability, and long-term piece-part cost.",
+  definitionGuidePrefix: "Need a broader process overview? Our ",
+  definitionGuideLink: "guide to the injection molding process",
+  definitionGuideSuffix: " explains how material, part geometry, and production goals inform a tooling plan.",
   definitionTertiary: "Before injection mold manufacturing begins, we define the requirements that shape the tool: critical dimensions, mating features, sealing surfaces, visible faces, texture, resin, expected demand, inspection needs, and planned production life.",
-  definitionLinkPrefix: "Once the tool is complete, ",
-  definitionLink: "Injection Molding Services",
-  definitionLinkSuffix: " covers the molding process, sample validation, and repeat production.",
+  definitionProduction: "Once the tool is built, T1 samples are reviewed against the agreed material, dimensions, appearance, and inspection scope before repeat production is released.",
   definitionDetailsLabel: "Read more about mold construction and production planning",
   toolingTypesHeading: "Types of Injection Molding ",
   toolingTypesHighlight: "Tools",
@@ -304,8 +305,9 @@ export function IMTContent() {
                 <summary className="flex cursor-pointer list-none items-center gap-2 text-sm font-semibold text-[#EEC569] marker:hidden [&::-webkit-details-marker]:hidden"><EditableText path="tooling.definitionDetailsLabel" defaultValue={DEFAULTS.definitionDetailsLabel} /><span className="transition-transform duration-200 group-open:rotate-180" aria-hidden="true">↓</span></summary>
                 <div className="mt-4 space-y-4">
                   <p><EditableText path="tooling.definitionSecondary" defaultValue={DEFAULTS.definitionSecondary} multiline /></p>
+                  <p><EditableText path="tooling.definitionGuidePrefix" defaultValue={DEFAULTS.definitionGuidePrefix} /><Link href="/blog/what-is-injection-molding-process" className="body-text-link body-text-link--dark"><EditableText path="tooling.definitionGuideLink" defaultValue={DEFAULTS.definitionGuideLink} /></Link><EditableText path="tooling.definitionGuideSuffix" defaultValue={DEFAULTS.definitionGuideSuffix} /></p>
                   <p><EditableText path="tooling.definitionTertiary" defaultValue={DEFAULTS.definitionTertiary} multiline /></p>
-                  <p><EditableText path="tooling.definitionLinkPrefix" defaultValue={DEFAULTS.definitionLinkPrefix} /><Link href="/injection-molding" className="body-text-link body-text-link--dark"><EditableText path="tooling.definitionLink" defaultValue={DEFAULTS.definitionLink} /></Link><EditableText path="tooling.definitionLinkSuffix" defaultValue={DEFAULTS.definitionLinkSuffix} /></p>
+                  <p><EditableText path="tooling.definitionProduction" defaultValue={DEFAULTS.definitionProduction} multiline /></p>
                 </div>
               </details>
             </div>

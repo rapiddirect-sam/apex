@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Check, ClipboardCheck, FileUp, LockKeyhole, Settings2, ShieldCheck } from "lucide-react";
+import { ArrowRight, Check, ClipboardCheck, FileUp, LockKeyhole, Play, Settings2, ShieldCheck } from "lucide-react";
 import { EditableImage, EditableText } from "@/components/cms";
 
 const DEFAULTS = {
@@ -27,7 +27,7 @@ export function AboutQuoteWorkflow() {
   return (
     <section id="quoting-workflow" className="bg-[#171615] py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-        <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-16">
+        <div className="grid items-start gap-10 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:items-center md:gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
           <div>
             <h2 className="section-title max-w-3xl">
               <EditableText
@@ -58,11 +58,23 @@ export function AboutQuoteWorkflow() {
                 )
               )}
             </ul>
-            <div className="mt-8">
-              <Link href="https://app.apexbatch.com/" rel="nofollow" className="cta-primary group">
+            <div className="mt-8 flex flex-nowrap items-center gap-2 sm:gap-3">
+              <Link href="https://app.apexbatch.com/" rel="nofollow" className="cta-primary group shrink-0 !px-3 !text-[10px] sm:!px-4 sm:!text-[11px] xl:!px-7 xl:!text-xs">
                 Upload Your Design
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 xl:h-5 xl:w-5" aria-hidden="true" />
               </Link>
+              <a
+                href="https://youtu.be/0n4bnUYeiXM"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Watch tutorial: How to Upload Your Drawing"
+                className="cta-secondary group shrink-0 !px-3 !text-[10px] sm:!px-4 sm:!text-[11px] xl:!px-7 xl:!text-xs"
+              >
+                <Play className="h-4 w-4 fill-current" aria-hidden="true" />
+                <span className="sm:hidden">Watch guide</span>
+                <span className="hidden sm:inline xl:hidden">Watch upload guide</span>
+                <span className="hidden xl:inline">Watch: How to Upload Your Drawing</span>
+              </a>
             </div>
             <p className="mt-4 flex items-center gap-2 text-xs leading-relaxed text-[#AAA7A3]">
               <LockKeyhole className="h-3.5 w-3.5 shrink-0 text-[#EEC569]" aria-hidden="true" />
@@ -77,7 +89,7 @@ export function AboutQuoteWorkflow() {
                 defaultSrc={DEFAULTS.platformImage}
                 alt="ApexBatch online quotation platform"
                 fill
-                sizes="(max-width: 1023px) 100vw, 48vw"
+                sizes="(max-width: 767px) 100vw, 48vw"
                 className="object-contain"
               />
             </div>

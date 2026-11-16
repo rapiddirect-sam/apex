@@ -18,7 +18,7 @@ async function getAdminEmail(): Promise<string | null> {
   return token.email;
 }
 
-/** Clears cached blog archive and detail routes after an admin saves a post. */
+/** Clears cached blog archive, article, and author routes after an admin saves a post. */
 export async function POST(request: NextRequest) {
   try {
     if (!(await getAdminEmail())) {
@@ -32,6 +32,7 @@ export async function POST(request: NextRequest) {
 
     revalidatePath("/blog");
     revalidatePath("/sitemap.xml");
+    revalidatePath("/blog/author/[slug]", "page");
     revalidatePath(`/blog/${slug}`);
     if (previousSlug && previousSlug !== slug) {
       revalidatePath(`/blog/${previousSlug}`);

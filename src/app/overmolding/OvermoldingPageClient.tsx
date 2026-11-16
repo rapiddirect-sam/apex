@@ -13,7 +13,7 @@ import { OMWhyChoose } from "@/components/overmolding/OMWhyChoose";
 import { OMFAQ } from "@/components/overmolding/OMFAQ";
 import { OMCTA } from "@/components/overmolding/OMCTA";
 import { CMSProvider } from "@/contexts/CMSContext";
-import { CMSToolbar } from "@/components/cms";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 
 interface OvermoldingPageClientProps {
   initialContent: Record<string, unknown> | null;
@@ -37,7 +37,7 @@ export function OvermoldingPageClient({ initialContent, initialVersion }: Overmo
         <OMCTA />
       </main>
       <Home3Footer />
-      <CMSToolbar />
+      <CMSPageToolbar />
     </CMSProvider>
   );
 }

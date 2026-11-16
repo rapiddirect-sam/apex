@@ -7,13 +7,10 @@ import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { Home3Hero } from "@/components/home3/sections/Home3Hero";
 import { Home3Q4ProjectSupport } from "@/components/home3/sections/Home3Q4ProjectSupport";
 import { CMSProvider } from "@/contexts/CMSContext";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 import { scheduleIdleTask } from "@/lib/scheduleIdleTask";
 import type { LatestResourcePost } from "@/components/home3/sections/Home3LatestResources";
 
-const CMSToolbar = dynamic(
-  () => import("@/components/cms").then((m) => ({ default: m.CMSToolbar })),
-  { ssr: false }
-);
 
 /** Below-the-fold sections are code-split; render immediately (no delayed mount — avoids CLS / Speed Index regressions). */
 const Home3Facilities = dynamic(() =>
@@ -119,7 +116,7 @@ export function HomePageClient({ initialContent, initialVersion, latestResources
         ) : null}
       </main>
       <Home3Footer />
-      <CMSToolbar />
+      <CMSPageToolbar />
     </CMSProvider>
   );
 }

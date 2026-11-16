@@ -12,6 +12,9 @@ const DEFAULTS = {
   headingSuffix: "",
   subheading:
     "These injection molding services cover standard custom plastic parts, dedicated tooling, overmolding, and insert molding. Choose the route around the part material, geometry, functional requirements, assembly needs, and production plan.",
+  guidePrefix: "Teams that are still comparing routes can start with our ",
+  guideLink: "practical guide to injection molding",
+  guideSuffix: " to understand the process, material choices, and early project decisions.",
   services: [
     {
       title: "Plastic Injection Molding",
@@ -137,6 +140,13 @@ export function IMServices() {
               </motion.div>
             ))}
           </div>
+          <p className="service-section-copy mx-auto mt-10 max-w-[760px] text-center">
+            <EditableText path="services.guidePrefix" defaultValue={DEFAULTS.guidePrefix} />
+            <Link href="/blog/what-is-injection-molding-process" className="body-text-link body-text-link--dark font-semibold">
+              <EditableText path="services.guideLink" defaultValue={DEFAULTS.guideLink} />
+            </Link>
+            <EditableText path="services.guideSuffix" defaultValue={DEFAULTS.guideSuffix} />
+          </p>
         </div>
 
       </div>

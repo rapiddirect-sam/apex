@@ -31,7 +31,7 @@ export function Home3Testimonials() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#2B2826] py-16 sm:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-[#171615] py-16 sm:py-20 lg:py-24">
       <Image
         src="/images/home/apexbatch-global-network-map.avif"
         alt=""

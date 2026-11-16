@@ -11,7 +11,7 @@ import { SFCriticalFeatureReview } from "@/components/surface-finish/SFCriticalF
 import { SFFAQ } from "@/components/surface-finish/SFFAQ";
 import { SFCTA } from "@/components/surface-finish/SFCTA";
 import { CMSProvider } from "@/contexts/CMSContext";
-import { CMSToolbar } from "@/components/cms";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 
 interface SurfaceFinishPageClientProps {
   initialContent: Record<string, unknown> | null;
@@ -37,7 +37,7 @@ export function SurfaceFinishPageClient({ initialContent, initialVersion }: Surf
         <SFCTA />
       </main>
       <Home3Footer />
-      <CMSToolbar />
+      <CMSPageToolbar />
     </CMSProvider>
   );
 }

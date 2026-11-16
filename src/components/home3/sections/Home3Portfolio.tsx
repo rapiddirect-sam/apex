@@ -97,7 +97,7 @@ export function Home3Portfolio() {
             rgba(249,235,188,0.10),
             rgba(0,0,0,0) 65%
           ),
-          #000000
+          #171615
         `,
       }}
     >

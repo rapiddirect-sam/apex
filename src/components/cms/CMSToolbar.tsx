@@ -1,13 +1,11 @@
 "use client";
 
 import { Edit3, Save, X, Eye, Loader2 } from "lucide-react";
-import { useAuthOptional } from "@/contexts/AuthContext";
 import { useCMSOptional } from "@/contexts/CMSContext";
 
 export function CMSToolbar() {
-  const auth = useAuthOptional();
-  const isAdmin = auth?.isAdmin ?? false;
   const cms = useCMSOptional();
+  const isAdmin = cms?.isAdmin ?? false;
 
   // Don't render if not admin or no CMS context
   if (!isAdmin || !cms) return null;

@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import Link from "next/link";
 import { EditableText, EditableImage } from "@/components/cms";
 
@@ -139,6 +139,7 @@ function Metric({ index, delay }: { index: number; delay: number }) {
 
 export function Home3Facilities() {
   const workshopRailRef = useRef<HTMLDivElement>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const scrollWorkshops = (direction: "previous" | "next") => {
     const rail = workshopRailRef.current;
@@ -155,7 +156,7 @@ export function Home3Facilities() {
       className="relative overflow-hidden"
       style={{
         padding: "clamp(36px, 6vw, 52px) 0 clamp(72px, 16vw, 130px)",
-        background: "#34312F",
+        background: "#171615",
       }}
     >
       <div className="max-w-[1200px] mx-auto px-4 min-[320px]:px-6">
@@ -189,8 +190,9 @@ export function Home3Facilities() {
           </h2>
         </motion.div>
 
-        {/* Narrative and manufacturing metrics */}
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        {/* On tablets, keep the practical facility metrics next to the narrative.
+            The project video then receives a full-width row below them. */}
+        <div className="grid items-center gap-10 md:grid-cols-2 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:gap-16">
           {/* Left - Narrative Panel */}
           <div>
             {/* Description Panel - quiet, no heavy borders */}
@@ -207,8 +209,9 @@ export function Home3Facilities() {
             >
               <p
                 style={{
-                  fontSize: "22px",
+                  fontSize: "clamp(18px, 2vw, 20px)",
                   fontWeight: 700,
+                  lineHeight: 1.3,
                   color: "#EEC569",
                   marginBottom: "16px",
                 }}
@@ -279,21 +282,72 @@ export function Home3Facilities() {
             </motion.div>
           </div>
 
-          {/* Right - Manufacturing metrics */}
+          {/* Tablet-only metric column. Desktop metrics sit below the two-column layout. */}
+          <div className="hidden grid-cols-2 gap-3 md:grid lg:hidden">
+            {DEFAULTS.stats.map((_, index) => (
+              <Metric key={index} index={index} delay={index * 0.08} />
+            ))}
+          </div>
+
+          {/* Right - Video only loads its YouTube player after the visitor chooses to play. */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 gap-4"
+            className="relative aspect-video overflow-hidden rounded-xl border border-[#D09947]/30 bg-[#111] shadow-[0_18px_50px_rgba(0,0,0,0.2)] md:col-span-2 lg:col-span-1"
           >
-            {DEFAULTS.stats.map((_, index) => (
-              <Metric key={index} index={index} delay={index * 0.08} />
-            ))}
+            {isVideoPlaying ? (
+              <iframe
+                className="absolute inset-0 h-full w-full"
+                src="https://www.youtube-nocookie.com/embed/9vJZ_bi4mts?autoplay=1&rel=0"
+                title="From Raw Material to Finished Parts"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            ) : (
+              <button
+                type="button"
+                onClick={() => setIsVideoPlaying(true)}
+                aria-label="Play From Raw Material to Finished Parts video"
+                className="group absolute inset-0 block h-full w-full overflow-hidden text-left"
+              >
+                {/* A direct image avoids a Next image-optimizer request for this
+                    third-party thumbnail; the actual YouTube player is still lazy. */}
+                <img
+                  src="https://i.ytimg.com/vi/9vJZ_bi4mts/hqdefault.jpg"
+                  alt="Video preview: From Raw Material to Finished Parts"
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
+                <span className="absolute left-5 top-5 rounded-full border border-white/30 bg-black/35 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-[#F6D277] backdrop-blur-sm">
+                  ApexBatch project journey
+                </span>
+                <span className="absolute inset-0 flex items-center justify-center">
+                  <span className="flex h-16 w-16 items-center justify-center rounded-full border border-[#F6D277]/70 bg-[#D09947]/90 text-black shadow-lg transition-transform duration-200 group-hover:scale-110">
+                    <Play className="ml-1 h-7 w-7 fill-current" aria-hidden="true" />
+                  </span>
+                </span>
+                <span className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
+                  <span className="block text-xl font-bold text-white sm:text-2xl">From Raw Material to Finished Parts</span>
+                  <span className="mt-2 block max-w-xl text-sm leading-relaxed text-white/85 sm:text-[15px]">
+                    From fast quotes and engineering support to machining, inspection, and final delivery.
+                  </span>
+                </span>
+              </button>
+            )}
           </motion.div>
         </div>
 
+        {/* Manufacturing metrics */}
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:hidden lg:mt-10 lg:grid lg:grid-cols-4">
+          {DEFAULTS.stats.map((_, index) => (
+            <Metric key={index} index={index} delay={index * 0.08} />
+          ))}
+        </div>
+
         {/* Workshop rail: an at-a-glance view of the eight production shops. */}
-        <div className="relative" style={{ marginTop: "clamp(20px, 4vw, 32px)" }}>
+        <div className="relative" style={{ marginTop: "clamp(32px, 5vw, 48px)" }}>
           <div className="mb-4 flex justify-end">
             <div className="hidden gap-2 sm:flex">
               <button

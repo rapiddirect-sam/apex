@@ -14,7 +14,7 @@ import { PIMFAQ } from "@/components/plastic-injection-molding/PIMFAQ";
 import { IMMaterialsOptions } from "@/components/injection-molding/IMMaterialsOptions";
 import { IMCTA } from "@/components/injection-molding/IMCTA";
 import { CMSProvider } from "@/contexts/CMSContext";
-import { CMSToolbar } from "@/components/cms";
+import { CMSPageToolbar } from "@/components/cms/CMSPageToolbar";
 
 interface PIMPageClientProps {
   initialContent: Record<string, unknown> | null;
@@ -46,7 +46,7 @@ export function PIMPageClient({ initialContent, initialVersion }: PIMPageClientP
         <IMCTA content={PIM_FINAL_CTA} />
       </main>
       <Home3Footer />
-      <CMSToolbar />
+      <CMSPageToolbar />
     </CMSProvider>
   );
 }
