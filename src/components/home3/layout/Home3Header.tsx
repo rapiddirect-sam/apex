@@ -284,7 +284,7 @@ export function Home3Header() {
               rel="nofollow"
               className="cta-compact"
             >
-              Get Instant Quote
+              Get a Quote
             </Link>
           </div>
 
@@ -304,7 +304,7 @@ export function Home3Header() {
               rel="nofollow"
               className="cta-compact px-4 text-xs"
             >
-              Get Instant Quote
+              Get a Quote
             </Link>
           </div>
         </div>

@@ -155,7 +155,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
       <section style={{ background: "#FFFFFF", padding: "0 0 48px" }}>
         <style>{`
           .blog-featured-layout {
-            --blog-featured-row-height: clamp(400px, 30vw, 430px);
+            --blog-featured-row-height: clamp(430px, 32vw, 460px);
           }
           .blog-featured-card {
             height: var(--blog-featured-row-height);
@@ -172,7 +172,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
             height: var(--blog-featured-row-height);
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 20px;
           }
           .blog-popular-posts {
             box-sizing: border-box;
@@ -194,11 +194,13 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               width: 100%;
             }
             .blog-popular-posts {
-              height: auto;
+              height: auto !important;
+              min-height: 0;
+              flex: none !important;
               overflow: visible;
             }
             .blog-sidebar-cta {
-              margin-top: 14px;
+              margin-top: 20px;
             }
             .blog-featured-card-link {
               grid-template-columns: minmax(280px, 0.42fr) minmax(0, 0.58fr) !important;
@@ -404,18 +406,18 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
                   style={{
                     border: "1px solid #E8E8E8",
                     borderRadius: "12px",
-                    padding: "20px",
+                    padding: "16px 20px",
                   }}
                 >
-                  <h2 style={{ fontSize: "18px", fontWeight: 700, color: "#1E1E1E", marginBottom: "6px" }}>
+                  <h2 style={{ fontSize: "17px", fontWeight: 700, color: "#1E1E1E", marginBottom: "5px" }}>
                     Ready to Make Your Part?
                   </h2>
-                  <div style={{ width: "40px", height: "3px", background: "#D09947", borderRadius: "2px", marginBottom: "12px" }} />
-                  <p style={{ color: "#666", fontSize: "14px", lineHeight: 1.55, margin: "0 0 16px" }}>
+                  <div style={{ width: "40px", height: "3px", background: "#D09947", borderRadius: "2px", marginBottom: "10px" }} />
+                  <p style={{ color: "#666", fontSize: "13px", lineHeight: 1.5, margin: "0 0 12px" }}>
                     Upload your CAD and get a practical quote.
                   </p>
-                  <Link href="https://app.apexbatch.com/" rel="nofollow" className="cta-primary group">
-                    Get Instant Quote
+                  <Link href="https://app.apexbatch.com/" rel="nofollow" className="cta-primary group" style={{ padding: "0.75rem 1.25rem" }}>
+                    Request a Quote
                     <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
                   </Link>
                 </div>
