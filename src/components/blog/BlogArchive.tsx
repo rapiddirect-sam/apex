@@ -224,6 +224,12 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               height: 100% !important;
               margin-top: 0;
             }
+            .blog-sidebar-cta {
+              display: flex !important;
+              flex-direction: column;
+              justify-content: center;
+              padding: 28px 30px !important;
+            }
           }
           @media (max-width: 767px) {
             .blog-featured-card-link {

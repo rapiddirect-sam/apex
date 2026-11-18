@@ -3,7 +3,7 @@ import { getPageMetaWithDefaults } from "@/lib/pageMeta";
 import { getPageContent } from "@/lib/pageContent";
 import { SheetMetalBendingPageClient } from "./SheetMetalBendingPageClient";
 
-const FEATURE_IMAGE = "/sheet-metal/apexbatch-cnc-press-brake-operator-control.png";
+const FEATURE_IMAGE = "/sheet-metal/cnc-press-brake-operator-control-sheet-metal-bending.webp";
 const FEATURE_IMAGE_ALT = "Operator controlling an AMADA CNC press brake";
 
 export async function generateMetadata(): Promise<Metadata> {

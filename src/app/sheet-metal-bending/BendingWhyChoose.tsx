@@ -23,9 +23,9 @@ const BENEFITS = [
 ];
 
 const PRODUCTION_IMAGES = [
-  { src: "/sheet-metal/apexbatch-cnc-press-brake-tooling-setup.png", label: "Tooling setup", alt: "CNC press brake tooling setup" },
-  { src: "/sheet-metal/apexbatch-cnc-press-brake-operator-control.png", label: "Programmed press brake operation", alt: "Operator controlling an AMADA CNC press brake" },
-  { src: "/sheet-metal/apexbatch-sheet-metal-part-press-brake-forming.png", label: "Formed-part handling", alt: "Operator handling a formed sheet metal part at a press brake" },
+  { src: "/sheet-metal/cnc-press-brake-tooling-setup.webp", label: "Tooling setup", alt: "CNC press brake tooling setup" },
+  { src: "/sheet-metal/cnc-press-brake-operator-control-sheet-metal-bending.webp", label: "Programmed press brake operation", alt: "Operator controlling an AMADA CNC press brake" },
+  { src: "/sheet-metal/sheet-metal-part-press-brake-forming.webp", label: "Formed-part handling", alt: "Operator handling a formed sheet metal part at a press brake" },
 ];
 
 export function BendingWhyChoose() {
