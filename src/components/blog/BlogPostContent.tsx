@@ -42,6 +42,11 @@ export function BlogPostContent({
   categories,
 }: BlogPostContentProps) {
   const readTime = estimateReadTime(post.content);
+  const hasBeenUpdated = Boolean(
+    post.publishedAt && post.updatedAt.getTime() > post.publishedAt.getTime() + 60_000
+  );
+  const displayDate = hasBeenUpdated ? post.updatedAt : post.publishedAt;
+  const displayDateLabel = "Updated on";
   const { html: preparedContent, tocItems } = useMemo(
     () => prepareBlogContentHtml(post.content),
     [post.content]
@@ -257,7 +262,7 @@ export function BlogPostContent({
                 <div className="blog-post-date-reading" style={{ display: "flex", alignItems: "center", gap: "20px", color: "#D09947", fontSize: "14px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "6px", whiteSpace: "nowrap" }}>
                     <Calendar size={14} />
-                    {post.publishedAt?.toLocaleDateString("en-US", {
+                    {displayDateLabel} {displayDate?.toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",

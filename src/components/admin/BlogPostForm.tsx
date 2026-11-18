@@ -74,6 +74,9 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
     setSaving(true);
 
     try {
+      const publishImmediately =
+        publishMode === "now" &&
+        (!post || post.status !== "published" || isScheduledPost);
       const input: BlogPostInput = {
         title,
         slug,
@@ -84,7 +87,7 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
         publishedAt:
           publishMode === "schedule"
             ? new Date(scheduledAt).toISOString()
-            : publishMode === "now"
+            : publishImmediately
               ? null
               : undefined,
         categoryId: categoryId || null,

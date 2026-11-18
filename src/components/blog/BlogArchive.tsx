@@ -212,6 +212,19 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
               aspect-ratio: 4 / 3;
             }
           }
+          @media (min-width: 768px) and (max-width: 1023px) {
+            .blog-featured-sidebar {
+              display: grid !important;
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+              gap: 20px;
+              align-items: stretch;
+            }
+            .blog-popular-posts,
+            .blog-sidebar-cta {
+              height: 100% !important;
+              margin-top: 0;
+            }
+          }
           @media (max-width: 767px) {
             .blog-featured-card-link {
               grid-template-columns: minmax(0, 1fr) !important;
