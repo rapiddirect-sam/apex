@@ -24,6 +24,11 @@ export interface BlogPostInput {
   excerpt: string;
   featuredImage: string;
   status: "draft" | "published";
+  /**
+   * ISO timestamp for publication. A future value schedules a published post
+   * without requiring a separate scheduler or database status value.
+   */
+  publishedAt?: string | null;
   categoryId?: string | null;
   authorRef?: string | null;
   metaTitle?: string;

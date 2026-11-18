@@ -37,6 +37,8 @@ const DEFAULTS = {
       "Material limits, bend-radius guidance, tolerances, and design rules are reviewed against the drawing, material condition, tooling access, and required formed features.",
     cta: "Discuss Your Bending Requirements",
     ctaHref: "/contact",
+    relatedLinkText: "Explore Sheet Metal Bending Services",
+    relatedLinkHref: "/sheet-metal-bending",
     headers: ["Capability", "Available range", "Notes"],
     columnWidths: ["27%", "32%", "41%"],
     rows: [
@@ -101,7 +103,7 @@ function CapabilityTable({ capability, path }: { capability: Capability; path: s
   );
 }
 
-function FeatureCapability({ capability, path, reverse, hideDetails = false, hideCta = false, descriptionBelowImage = false }: { capability: Capability & { image: string; imageAlt: string; note?: string; cta?: string; ctaHref?: string }; path: string; reverse?: boolean; hideDetails?: boolean; hideCta?: boolean; descriptionBelowImage?: boolean }) {
+function FeatureCapability({ capability, path, reverse, hideDetails = false, hideCta = false, descriptionBelowImage = false }: { capability: Capability & { image: string; imageAlt: string; note?: string; cta?: string; ctaHref?: string; relatedLinkText?: string; relatedLinkHref?: string }; path: string; reverse?: boolean; hideDetails?: boolean; hideCta?: boolean; descriptionBelowImage?: boolean }) {
   const renderDetails = () => (
     <>
       {capability.reference ? (
@@ -147,6 +149,12 @@ function FeatureCapability({ capability, path, reverse, hideDetails = false, hid
           <p className={`service-section-copy section-reading-copy mt-4 max-w-none break-words lg:max-w-[580px] ${descriptionBelowImage ? "lg:hidden" : ""}`}>
             <EditableText path={`${path}.description`} defaultValue={capability.description} multiline />
           </p>
+          {descriptionBelowImage && capability.relatedLinkText && capability.relatedLinkHref ? (
+            <Link href={capability.relatedLinkHref} className="body-text-link body-text-link--dark mt-5 inline-flex items-center gap-2 text-sm lg:hidden">
+              <EditableText path={`${path}.relatedLinkText`} defaultValue={capability.relatedLinkText} />
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          ) : null}
           <div className="mt-6 hidden lg:block">
             {renderDetails()}
           </div>
@@ -156,9 +164,17 @@ function FeatureCapability({ capability, path, reverse, hideDetails = false, hid
             <StaticImage path={`${path}.image`} defaultSrc={capability.image} alt={capability.imageAlt} fill sizes="(max-width: 767px) 100vw, 50vw" className="object-cover" />
           </div>
           {descriptionBelowImage ? (
-            <p className="service-section-copy section-reading-copy mt-6 hidden max-w-none break-words lg:block">
-              <EditableText path={`${path}.description`} defaultValue={capability.description} multiline />
-            </p>
+            <div className="mt-6 hidden lg:block">
+              <p className="service-section-copy section-reading-copy max-w-none break-words">
+                <EditableText path={`${path}.description`} defaultValue={capability.description} multiline />
+              </p>
+              {capability.relatedLinkText && capability.relatedLinkHref ? (
+                <Link href={capability.relatedLinkHref} className="body-text-link body-text-link--dark mt-5 inline-flex items-center gap-2 text-sm">
+                  <EditableText path={`${path}.relatedLinkText`} defaultValue={capability.relatedLinkText} />
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              ) : null}
+            </div>
           ) : null}
         </div>
 

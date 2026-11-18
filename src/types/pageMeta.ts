@@ -86,6 +86,10 @@ export const DEFAULT_PAGE_META: Record<string, { title: string; description: str
     title: "Custom Sheet Metal Fabrication Services | Prototype to Production",
     description: "Custom sheet metal fabrication for prototypes and production parts, including laser cutting, CNC bending, punching, welding, finishing, and assembly. Upload CAD files for DFM feedback and a detailed quote.",
   },
+  "/sheet-metal-bending": {
+    title: "Custom Sheet Metal Bending Services | CNC Press Brake Forming",
+    description: "Custom sheet metal bending services for prototypes, low-volume orders, and repeat production. CNC press brake forming in steel, stainless steel, aluminum, copper, and brass.",
+  },
   "/surface-finish": {
     title: "Surface Finishing Services - ApexBatch Manufacturing",
     description: "Comprehensive surface finishing services including anodizing, powder coating, plating, painting, and polishing for all materials.",

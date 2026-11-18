@@ -7,7 +7,10 @@ const DEFAULTS = {
   description:
     "ApexBatch provides custom aluminum extrusions with CNC machining, drilling, tapping and surface finishing—ready for your assembly process. Send a drawing, 3D model, cross-section sketch or sample photo. We will review profile feasibility, material, machining, finishing and tolerance requirements.",
   heroImage:
+    "/images/services/aluminum-extrusion/custom-aluminum-extrusion-profiles-production-hero.avif",
+  heroImageRetiredSources: [
     "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1773805332557-1773805332557-yr8pyd5f.webp",
+  ],
   ctaSecondaryHref: "/contact",
   ctaPrimary: "Get an Instant Quote",
   ctaSecondary: "Talk to an Extrusion Specialist",

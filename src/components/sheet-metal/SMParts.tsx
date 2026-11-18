@@ -7,7 +7,7 @@ const DEFAULTS = {
   heading: "From Sheet Metal Prototyping to Repeat ",
   headingHighlight: "Production",
   description:
-    "Sheet metal prototyping helps validate fit, bend geometry, hardware installation, finish appearance, assembly, and critical dimensions before larger quantities are released. For eligible projects, our free prototype and sample support can help confirm these requirements before larger quantities are committed. Prototype sheet metal parts also support functional testing, design updates, supplier qualification, and a controlled move into low-volume or repeat production.",
+    "Sheet metal prototyping helps validate fit, bend geometry, hardware installation, finish appearance, assembly, and critical dimensions before larger quantities are released. For eligible batch fabrication projects, ApexBatch provides free prototype and sample support to confirm these requirements. Prototype sheet metal parts also support functional testing, design updates, supplier qualification, and a controlled move into low-volume or repeat production.",
   stages: [
     {
       stage: "Prototype",

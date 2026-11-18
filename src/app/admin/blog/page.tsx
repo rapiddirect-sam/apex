@@ -8,6 +8,10 @@ import { BlogPost } from "@/types/blog";
 import { getAllPosts, deletePost } from "@/lib/blog";
 import { Plus, Edit, Trash2, Eye, FileText } from "lucide-react";
 
+function isScheduled(post: BlogPost): boolean {
+  return post.status === "published" && !!post.publishedAt && post.publishedAt > new Date();
+}
+
 export default function AdminBlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -255,6 +259,15 @@ export default function AdminBlogPage() {
                     </div>
                   </td>
                   <td style={{ padding: "16px 20px" }}>
+                    {(() => {
+                      const scheduled = isScheduled(post);
+                      const label = scheduled ? "Scheduled" : post.status === "published" ? "Published" : "Draft";
+                      const colors = scheduled
+                        ? { background: "rgba(91, 131, 196, 0.14)", color: "#8fb3ec" }
+                        : post.status === "published"
+                          ? { background: "rgba(34, 197, 94, 0.1)", color: "#22c55e" }
+                          : { background: "rgba(234, 179, 8, 0.1)", color: "#eab308" };
+                      return (
                     <span
                       style={{
                         display: "inline-block",
@@ -262,22 +275,23 @@ export default function AdminBlogPage() {
                         borderRadius: "12px",
                         fontSize: "12px",
                         fontWeight: 500,
-                        background:
-                          post.status === "published"
-                            ? "rgba(34, 197, 94, 0.1)"
-                            : "rgba(234, 179, 8, 0.1)",
-                        color: post.status === "published" ? "#22c55e" : "#eab308",
+                        background: colors.background,
+                        color: colors.color,
                       }}
                     >
-                      {post.status === "published" ? "Published" : "Draft"}
+                      {label}
                     </span>
+                      );
+                    })()}
                   </td>
                   <td style={{ padding: "16px 20px", color: "#888", fontSize: "14px" }}>
-                    {post.createdAt.toLocaleDateString()}
+                    {isScheduled(post) && post.publishedAt
+                      ? `Scheduled: ${post.publishedAt.toLocaleString()}`
+                      : post.createdAt.toLocaleDateString()}
                   </td>
                   <td style={{ padding: "16px 20px" }}>
                     <div style={{ display: "flex", justifyContent: "flex-end", gap: "8px" }}>
-                      {post.status === "published" && (
+                      {post.status === "published" && !isScheduled(post) && (
                         <Link
                           href={`/blog/${post.slug}`}
                           target="_blank"

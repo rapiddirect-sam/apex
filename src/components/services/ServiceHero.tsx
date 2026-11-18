@@ -23,6 +23,8 @@ type ServiceHeroDefaults = {
   metrics?: ServiceHeroMetric[];
   metricsSingleLine?: boolean;
   heroImageIsEditable?: boolean;
+  heroImageRetiredSources?: readonly string[];
+  heroOverlay?: string;
 };
 
 const SHARED_DEFAULTS = {
@@ -74,6 +76,7 @@ export function ServiceHero({ defaults }: { defaults: ServiceHeroDefaults }) {
             fill
             priority
             sizes="100vw"
+            retiredSources={merged.heroImageRetiredSources}
             style={{ objectFit: "cover", objectPosition: "center" }}
           />
         )}
@@ -82,6 +85,7 @@ export function ServiceHero({ defaults }: { defaults: ServiceHeroDefaults }) {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
+            merged.heroOverlay ??
             "linear-gradient(92deg, rgba(8,8,8,0.72) 0%, rgba(8,8,8,0.58) 42%, rgba(8,8,8,0.35) 70%, rgba(8,8,8,0.55) 100%)",
         }}
       />

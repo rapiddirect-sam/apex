@@ -4,10 +4,9 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { EditableText, EditableImage } from "@/components/cms";
-import { getImageUrl } from "@/lib/utils";
 
 const DEFAULTS = {
-  backgroundImage: getImageUrl("quality/servicebg.png"),
+  backgroundImage: "/quality/apexbatch-quality-control-production-floor-hero.avif",
   titlePart1: "Precision ",
   titleHighlight: "Quality Assurance",
   titlePart2: " for Repeatable Production",
@@ -22,6 +21,11 @@ const DEFAULTS = {
   ctaSecondary: "Discuss Your Quality Requirements",
 };
 
+const RETIRED_BACKGROUND_IMAGES = [
+  "/quality/servicebg.png",
+  "https://apex-batch-images.s3.us-east-1.amazonaws.com/quality/servicebg.png",
+] as const;
+
 export function QualityHero() {
   return (
     <section className="relative bg-[#000000] pt-16 overflow-hidden">
@@ -32,13 +36,19 @@ export function QualityHero() {
           alt="Quality background"
           fill
           sizes="100vw"
+          priority
+          fetchPriority="high"
+          retiredSources={RETIRED_BACKGROUND_IMAGES}
           style={{ objectFit: "cover" }}
         />
       </div>
 
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "rgba(0, 0, 0, 0.5)" }}
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(0, 0, 0, 0.74) 0%, rgba(0, 0, 0, 0.62) 52%, rgba(0, 0, 0, 0.54) 100%)",
+        }}
       />
 
       <div className="relative flex min-h-[620px] flex-col justify-center px-6 md:min-h-[640px] md:items-center">

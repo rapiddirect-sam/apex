@@ -566,6 +566,13 @@ html.cms-edit-mode a:has([data-editable-text]) {
   line-height: 1.5rem;
 }
 
+/* Shared low-emphasis copy for a section's related-resource or further-reading link. */
+.section-tail-copy {
+  color: #c5c1bd !important;
+  font-size: 0.875rem !important;
+  line-height: 1.625 !important;
+}
+
 @media (min-width: 640px) {
   .section-note {
     padding-inline: 1.5rem;
@@ -702,9 +709,35 @@ a[href="/contact"][class*="border"][class*="uppercase"]:hover {
   max-width: 100%;
 }
 
+/* Shared reading measure for left-aligned copy directly below a section title.
+ * It preserves generous mobile line length while preventing full-width text on
+ * tablet and desktop layouts. */
+.section-intro-copy--left {
+  width: 100%;
+  max-width: 100%;
+}
+
 @media (min-width: 768px) and (max-width: 1023px) {
   .section-reading-copy {
     max-width: 50rem;
+  }
+
+  .section-intro-copy--left {
+    max-width: min(85%, 48rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-intro-copy--left {
+    max-width: min(78%, 56rem);
+  }
+}
+
+/* Preserve the established compact measure when this intro returns to the
+ * right-side column of the bending precision layout on wide screens. */
+@media (min-width: 1280px) {
+  .precision-intro-copy {
+    max-width: 32rem;
   }
 }
 

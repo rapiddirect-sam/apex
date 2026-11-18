@@ -9,7 +9,7 @@ const DEFAULTS = {
   headingPrefix: "Manufacturing Resources for ",
   headingHighlight: "Scalable Production",
   description:
-    "Customers can access CNC machining, sheet metal fabrication, injection molding and supporting processes across our self-owned facilities and qualified manufacturing network. Resources are selected according to process fit, production capacity, inspection requirements and delivery priorities.",
+    "Customers can access CNC machining, sheet metal fabrication, injection molding and supporting processes across our self-owned facilities and qualified manufacturing network. Resources are selected based on process fit, capacity, inspection requirements and delivery priorities.",
   workshops: [
     {
       title: "CNC Milling Workshop",

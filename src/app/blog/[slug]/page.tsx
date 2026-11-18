@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Home3Header } from "@/components/home3/layout/Home3Header";
 import { Home3Footer } from "@/components/home3/layout/Home3Footer";
 import { BlogPostContent } from "@/components/blog/BlogPostContent";
-import { getPostBySlug, getPublishedPosts } from "@/lib/blog";
+import { getPostBySlug, getPublishedPosts, isPostPubliclyAvailable } from "@/lib/blog";
 import { getAllCategories } from "@/lib/categories";
 import { getAuthorById } from "@/lib/authors";
 import { ArticleStructuredData } from "@/components/seo/ArticleStructuredData";
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 
-  if (!post || post.status !== "published") {
+  if (!post || !isPostPubliclyAvailable(post)) {
     return {
       title: "Post Not Found",
     };
@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     getAllCategories(),
   ]);
 
-  if (!post || post.status !== "published") {
+  if (!post || !isPostPubliclyAvailable(post)) {
     notFound();
   }
 

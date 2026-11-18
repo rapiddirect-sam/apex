@@ -17,7 +17,7 @@ const DEFAULTS = {
     {
       name: "Powder Coating",
       materials: "Steel, aluminum and suitable sheet-metal parts",
-      options: "RAL and Pantone color systems, with selectable gloss and texture.",
+      options: "RAL and Pantone color systems, with selectable gloss and texture. Commonly used for custom-color enclosures, panels, and protective covers.",
       performance: "Typically 60–100 μm coating thickness, Class 0 adhesion and salt-spray performance above 500 h where specified.",
       requirements: "Color, gloss, texture, masking and coating clearance.",
       image: "/images/surface-finishing/protective-coatings/surface-finishing-powder-coating.webp",
@@ -25,7 +25,7 @@ const DEFAULTS = {
     {
       name: "Anodizing",
       materials: "Aluminum",
-      options: "Clear, black and selected anodized colors. RAL matching is generally better suited to powder coating.",
+      options: "Clear, black and selected anodized colors. Commonly used for aluminum housings, brackets, panels, and protective covers. RAL matching is generally better suited to powder coating.",
       performance: "Typically 5–25 μm film thickness; hard-anodized systems can exceed HV 300. Salt-spray performance is specification-dependent.",
       requirements: "Alloy, color, fit-critical features, masking and sample approval.",
       image: "/images/surface-finishing/aluminum-protection/surface-finishing-type-ii-anodizing.webp",
@@ -33,7 +33,7 @@ const DEFAULTS = {
     {
       name: "Brushing & Polishing",
       materials: "Stainless steel and aluminum",
-      options: "Straight grain, non-directional brushing or mirror polish.",
+      options: "Straight grain, non-directional brushing or mirror polish. Commonly used for visible stainless steel or aluminum panels and decorative enclosures.",
       performance: "Typical surface roughness ranges from Ra 0.4–1.6 μm, depending on the requested texture and starting surface.",
       requirements: "Grain direction, visible surfaces, approved sample and packaging.",
       image: "/images/surface-finishing/base-preparation/surface-finishing-brushing.webp",
@@ -41,7 +41,7 @@ const DEFAULTS = {
     {
       name: "Electropolishing",
       materials: "Suitable stainless steel",
-      options: "Bright or matte appearance, depending on the starting surface and process route.",
+      options: "Bright or matte appearance, depending on the starting surface and process route. Commonly used for food, laboratory, and medical-adjacent stainless components.",
       performance: "Reduces microscopic surface peaks; the final corrosion result depends on material grade and starting surface condition.",
       requirements: "Material, starting surface condition and acceptance requirement.",
       image: "/images/surface-finishing/base-preparation/surface-finishing-electropolishing.webp",
@@ -49,7 +49,7 @@ const DEFAULTS = {
     {
       name: "E-Coating",
       materials: "Suitable steel and metal assemblies",
-      options: "Black and gray are common options.",
+      options: "Black and gray are common options. Commonly used for steel brackets, frames, and recessed formed parts.",
       performance: "Typically 15–25 μm coating thickness and salt-spray performance above 240 h where specified.",
       requirements: "Pretreatment, coating system, test method and coating coverage requirements.",
       image: "/images/surface-finishing/plating-treatments/surface-finishing-electrophoresis.webp",
@@ -57,7 +57,7 @@ const DEFAULTS = {
     {
       name: "Plating",
       materials: "Suitable steel, copper alloys and project-specific metals",
-      options: "White zinc, blue zinc, black zinc, color zinc and nickel finishes.",
+      options: "White zinc, blue zinc, black zinc, color zinc and nickel finishes. Commonly used for hardware, conductive surfaces, and corrosion-protected components.",
       performance: "Typical salt-spray references exceed 72 h for white zinc and 96 h for blue zinc, where specified.",
       requirements: "Base material, coating type, thickness, corrosion target and post-treatment requirements.",
       image: "/images/surface-finishing/plating-treatments/electroplating-surface-finishing-service.webp",
@@ -65,7 +65,7 @@ const DEFAULTS = {
     {
       name: "Passivation",
       materials: "Suitable stainless steel",
-      options: "Natural metal appearance.",
+      options: "Natural metal appearance. Commonly used for stainless steel parts needing improved corrosion resistance.",
       performance: "Improves the density and corrosion performance of the stainless-steel passive layer.",
       requirements: "Stainless grade, surface condition, cleaning route, acceptance standard and documentation.",
       image: "/images/surface-finishing/aluminum-protection/surface-finishing-stainless-steel-passivation.webp",
@@ -73,7 +73,7 @@ const DEFAULTS = {
     {
       name: "Laser Marking",
       materials: "Suitable metals",
-      options: "Natural contrast or black marking, depending on the base material and process.",
+      options: "Natural contrast or black marking, depending on the base material and process. Commonly used for serial numbers, traceability marks, and permanent logos.",
       performance: "Permanent marking with a typical depth range of 0.01–0.5 mm where applicable.",
       requirements: "Mark location, artwork, contrast, depth and appearance.",
       image: "/images/surface-finishing/decoration-marking/surface-finishing-engraving-marking.webp",
@@ -93,7 +93,7 @@ export function SMSurfaceFinishes() {
             <EditableText path="finishes.heading" defaultValue={DEFAULTS.heading} />
             <span className="service-title-accent"><EditableText path="finishes.headingHighlight" defaultValue={DEFAULTS.headingHighlight} /></span>
           </h2>
-          <p className="service-section-copy section-reading-copy mb-[72px] max-w-[700px]">
+          <p className="service-section-copy section-intro-copy--left mb-[72px]">
             <EditableText path="finishes.subheading" defaultValue={DEFAULTS.subheading} multiline />
           </p>
         </motion.div>
@@ -123,7 +123,7 @@ export function SMSurfaceFinishes() {
 
                 <div className="border-t border-white/10 pt-4" style={{ marginBottom: "20px" }}>
                   <p style={{ fontSize: "12px", fontWeight: 700, color: "#EEC569", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                    Colors / finish options
+                    Finish options & applications
                   </p>
                   <p style={{ fontSize: "14px", lineHeight: 1.6, color: "#C5C6C9" }}>
                     <EditableText path={`finishes.items.${index}.options`} defaultValue={finish.options} multiline />

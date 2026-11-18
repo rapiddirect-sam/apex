@@ -17,7 +17,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Can you support sheet metal prototypes and production orders?",
-    answer: "Yes. ApexBatch supports prototypes, low-volume orders, and repeat production. Sample support can help validate material, fit, bend geometry, finish, hardware, and assembly before larger quantities are released.",
+    answer: "Yes. ApexBatch supports prototype builds, low-volume batch fabrication, and repeat production programs. For repeat batch metal production, sample support can help validate material, fit, bend geometry, finish, hardware, and assembly before larger quantities are released.",
   },
   {
     question: "What materials can you fabricate?",

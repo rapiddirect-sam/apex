@@ -53,6 +53,7 @@ export async function getPublishedPosts(): Promise<BlogPost[]> {
     .from(TABLE_NAME)
     .select("*")
     .eq("status", "published")
+    .lte("published_at", new Date().toISOString())
     .order("published_at", { ascending: false });
 
   if (error) {
@@ -61,6 +62,11 @@ export async function getPublishedPosts(): Promise<BlogPost[]> {
   }
 
   return (data || []).map(rowToPost);
+}
+
+/** A scheduled post is stored as published with a future publication timestamp. */
+export function isPostPubliclyAvailable(post: BlogPost, now = new Date()): boolean {
+  return post.status === "published" && !!post.publishedAt && post.publishedAt <= now;
 }
 
 export async function getPostById(id: string): Promise<BlogPost | null> {
@@ -132,7 +138,10 @@ export async function createPost(
     author_ref: input.authorRef || null,
     created_at: now,
     updated_at: now,
-    published_at: input.status === "published" ? now : null,
+    published_at:
+      input.status === "published"
+        ? input.publishedAt || now
+        : null,
     author_id: authorId,
     author_email: authorEmail,
     meta_title: input.metaTitle || null,
@@ -173,7 +182,12 @@ export async function updatePost(id: string, input: Partial<BlogPostInput>): Pro
   if (input.metaTitle !== undefined) updateData.meta_title = input.metaTitle || null;
   if (input.metaDescription !== undefined) updateData.meta_description = input.metaDescription || null;
 
-  // If publishing for the first time
+  if (input.publishedAt !== undefined) {
+    // `null` is an explicit "publish now" instruction from the admin form.
+    updateData.published_at = input.publishedAt || new Date().toISOString();
+  }
+
+  // If publishing for the first time without a selected schedule.
   if (input.status === "published") {
     const { data: existing } = await supabase
       .from(TABLE_NAME)
@@ -181,7 +195,7 @@ export async function updatePost(id: string, input: Partial<BlogPostInput>): Pro
       .eq("id", id)
       .single();
 
-    if (existing && !existing.published_at) {
+    if (existing && !existing.published_at && input.publishedAt === undefined) {
       updateData.published_at = new Date().toISOString();
     }
   }

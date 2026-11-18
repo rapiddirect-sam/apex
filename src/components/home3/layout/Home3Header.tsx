@@ -40,7 +40,10 @@ const navItems: NavItem[] = [
       {
         heading: "Sheet Metal",
         href: "/sheet-metal-fabrication",
-        links: [{ href: "/laser-cutting", label: "Laser Cutting" }],
+        links: [
+          { href: "/laser-cutting", label: "Laser Cutting" },
+          { href: "/sheet-metal-bending", label: "Sheet Metal Bending" },
+        ],
       },
       {
         heading: "Molding Services",

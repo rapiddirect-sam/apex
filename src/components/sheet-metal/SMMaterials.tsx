@@ -20,8 +20,9 @@ const DEFAULTS = {
       grades: [
         "5052-H32", "5052-O", "5754", "6061", "1060", "1050",
       ],
-      applications: "Lightweight enclosures, brackets, panels, covers",
-      considerations: "Confirm temper, grain direction, bend radius, surface finish",
+      applications:
+        "Lightweight enclosures, brackets, panels, and protective covers. Al 5052 is a common choice for formed protective covers where bendability, corrosion resistance, and a clean finished appearance matter.",
+      considerations: "Confirm temper, grain direction, bend radius, and surface finish.",
       image: "/images/materials/cnc-metals/Aluminum%20Alloy%201.webp",
     },
     {
@@ -29,8 +30,8 @@ const DEFAULTS = {
       grades: [
         "304", "316", "430",
       ],
-      applications: "Corrosion-resistant panels, housings, visible parts",
-      considerations: "Confirm grade, bend geometry, weld appearance, finish requirement",
+      applications: "Corrosion-resistant panels, housings, and visible parts.",
+      considerations: "Confirm grade, bend geometry, weld appearance, and finish requirement.",
       image: "/images/materials/cnc-metals/Stainless%20Steel%20Series%201.webp",
     },
     {
@@ -38,8 +39,8 @@ const DEFAULTS = {
       grades: [
         "SPCC", "SGCC", "SECC", "Q235",
       ],
-      applications: "Cabinets, guards, brackets, structural panels",
-      considerations: "Confirm material condition, flatness, corrosion protection, coating route",
+      applications: "Cabinets, guards, brackets, and structural panels.",
+      considerations: "Confirm material condition, flatness, corrosion protection, and coating route.",
       image: "/images/materials/cnc-metals/Steel%201.webp",
     },
     {
@@ -47,8 +48,8 @@ const DEFAULTS = {
       grades: [
         "C11000", "C2600", "Project-specific grades",
       ],
-      applications: "Conductive parts, electrical components, decorative features",
-      considerations: "Confirm scratch protection, bend geometry, joining method, final surface condition",
+      applications: "Conductive parts, electrical components, and decorative features.",
+      considerations: "Confirm scratch protection, bend geometry, joining method, and final surface condition.",
       image: "/images/materials/cnc-metals/Copper%20Alloys%201.webp",
     },
   ],

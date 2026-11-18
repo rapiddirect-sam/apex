@@ -23,7 +23,13 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
   const [content, setContent] = useState(post?.content || "");
   const [excerpt, setExcerpt] = useState(post?.excerpt || "");
   const [featuredImage, setFeaturedImage] = useState(post?.featuredImage || "");
-  const [status, setStatus] = useState<"draft" | "published">(post?.status || "draft");
+  const isScheduledPost = Boolean(post?.publishedAt && post.publishedAt > new Date());
+  const [publishMode, setPublishMode] = useState<"draft" | "now" | "schedule">(
+    post?.status === "published" ? (isScheduledPost ? "schedule" : "now") : "draft"
+  );
+  const [scheduledAt, setScheduledAt] = useState(
+    isScheduledPost && post?.publishedAt ? toDateTimeLocal(post.publishedAt) : ""
+  );
   const [categoryId, setCategoryId] = useState(post?.categoryId || "");
   const [authorRef, setAuthorRef] = useState(post?.authorRef || "");
   const [categories, setCategories] = useState<Category[]>([]);
@@ -35,6 +41,11 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
 
   const { user } = useAuth();
   const router = useRouter();
+
+  function toDateTimeLocal(value: Date): string {
+    const offset = value.getTimezoneOffset();
+    return new Date(value.getTime() - offset * 60_000).toISOString().slice(0, 16);
+  }
 
   useEffect(() => {
     getAllCategories().then(setCategories);
@@ -52,6 +63,14 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
 
     if (!user) return;
 
+    if (publishMode === "schedule") {
+      const scheduledDate = new Date(scheduledAt);
+      if (!scheduledAt || Number.isNaN(scheduledDate.getTime()) || scheduledDate <= new Date()) {
+        alert("Choose a future publication date and time.");
+        return;
+      }
+    }
+
     setSaving(true);
 
     try {
@@ -61,7 +80,13 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
         content,
         excerpt,
         featuredImage,
-        status,
+        status: publishMode === "draft" ? "draft" : "published",
+        publishedAt:
+          publishMode === "schedule"
+            ? new Date(scheduledAt).toISOString()
+            : publishMode === "now"
+              ? null
+              : undefined,
         categoryId: categoryId || null,
         authorRef: authorRef || null,
         metaTitle: metaTitle || undefined,
@@ -148,7 +173,7 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
         </div>
 
         <div style={{ display: "flex", gap: "12px" }}>
-          {isEditing && post?.status === "published" && (
+          {isEditing && post?.status === "published" && post.publishedAt && post.publishedAt <= new Date() && (
             <Link
               href={`/blog/${post.slug}`}
               target="_blank"
@@ -283,16 +308,16 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
               border: "1px solid #333",
             }}
           >
-            <label style={labelStyle}>Status</label>
-            <div style={{ display: "flex", gap: "12px" }}>
+            <label style={labelStyle}>Publication</label>
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
               <button
                 type="button"
-                onClick={() => setStatus("draft")}
+                onClick={() => setPublishMode("draft")}
                 style={{
                   flex: 1,
                   padding: "10px",
-                  background: status === "draft" ? "#D09947" : "#1a1a1a",
-                  color: status === "draft" ? "#000" : "#C5C6C9",
+                  background: publishMode === "draft" ? "#D09947" : "#1a1a1a",
+                  color: publishMode === "draft" ? "#000" : "#C5C6C9",
                   border: "1px solid #444",
                   borderRadius: "8px",
                   cursor: "pointer",
@@ -304,12 +329,12 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
               </button>
               <button
                 type="button"
-                onClick={() => setStatus("published")}
+                onClick={() => setPublishMode("now")}
                 style={{
                   flex: 1,
                   padding: "10px",
-                  background: status === "published" ? "#22c55e" : "#1a1a1a",
-                  color: status === "published" ? "#000" : "#C5C6C9",
+                  background: publishMode === "now" ? "#22c55e" : "#1a1a1a",
+                  color: publishMode === "now" ? "#000" : "#C5C6C9",
                   border: "1px solid #444",
                   borderRadius: "8px",
                   cursor: "pointer",
@@ -317,9 +342,41 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
                   fontWeight: 500,
                 }}
               >
-                Published
+                Publish now
+              </button>
+              <button
+                type="button"
+                onClick={() => setPublishMode("schedule")}
+                style={{
+                  flex: 1,
+                  padding: "10px",
+                  background: publishMode === "schedule" ? "#5b83c4" : "#1a1a1a",
+                  color: publishMode === "schedule" ? "#fff" : "#C5C6C9",
+                  border: "1px solid #444",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  fontWeight: 500,
+                }}
+              >
+                Schedule
               </button>
             </div>
+            {publishMode === "schedule" && (
+              <div style={{ marginTop: "14px" }}>
+                <label style={{ ...labelStyle, fontSize: "13px" }}>Publish date and time</label>
+                <input
+                  type="datetime-local"
+                  value={scheduledAt}
+                  onChange={(e) => setScheduledAt(e.target.value)}
+                  required
+                  style={{ ...inputStyle, fontSize: "14px", padding: "10px 12px" }}
+                />
+                <p style={{ color: "#888", fontSize: "12px", lineHeight: 1.5, marginTop: "8px" }}>
+                  Uses your browser&apos;s local time. The post remains private until this time.
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Category */}
