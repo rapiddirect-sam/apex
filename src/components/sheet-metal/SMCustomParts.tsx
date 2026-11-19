@@ -37,6 +37,29 @@ const DEFAULTS = {
   ],
 };
 
+const FINISHED_PART_EXAMPLES = [
+  {
+    src: "/sheet-metal/custom-sheet-metal-electronics-enclosure-chassis.webp",
+    alt: "Custom sheet metal electronics enclosure chassis with formed flanges and cutouts",
+  },
+  {
+    src: "/sheet-metal/precision-sheet-metal-bracket-with-pem-hardware.webp",
+    alt: "Precision sheet metal bracket with formed tabs, cutouts, and PEM hardware",
+  },
+  {
+    src: "/sheet-metal/custom-formed-sheet-metal-clip-components.webp",
+    alt: "Custom formed sheet metal clip components",
+  },
+  {
+    src: "/sheet-metal/progressive-stamped-sheet-metal-retainer-strip.webp",
+    alt: "Progressive stamped sheet metal retainer strip",
+  },
+  {
+    src: "/sheet-metal/formed-sheet-metal-duct-transition-component.webp",
+    alt: "Formed sheet metal duct transition component",
+  },
+];
+
 export function SMCustomParts() {
   return (
     <section className="relative overflow-hidden bg-[#34312F] py-20 sm:py-24 lg:py-28">
@@ -100,6 +123,26 @@ export function SMCustomParts() {
               </div>
             </motion.article>
           ))}
+        </div>
+
+        <div className="mt-10 border-t border-white/10 pt-10">
+          <h3 className="sr-only">Finished sheet metal part examples</h3>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+            {FINISHED_PART_EXAMPLES.map((example) => (
+              <figure
+                key={example.src}
+                className="group relative aspect-[4/3] overflow-hidden border border-white/10 bg-[#1A1918]"
+              >
+                <StaticImage
+                  defaultSrc={example.src}
+                  alt={example.alt}
+                  fill
+                  sizes="(min-width: 1024px) 216px, (min-width: 768px) 30vw, 45vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </figure>
+            ))}
+          </div>
         </div>
       </div>
     </section>

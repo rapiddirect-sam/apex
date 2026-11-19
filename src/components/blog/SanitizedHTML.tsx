@@ -1,59 +1,13 @@
-"use client";
-
-import DOMPurify from "dompurify";
-import { useEffect, useState } from "react";
-
 interface SanitizedHTMLProps {
   html: string;
   className?: string;
 }
 
 export function SanitizedHTML({ html, className }: SanitizedHTMLProps) {
-  const [sanitizedHTML, setSanitizedHTML] = useState("");
-
-  useEffect(() => {
-    // Configure DOMPurify to allow safe tags only
-    const clean = DOMPurify.sanitize(html, {
-      ALLOWED_TAGS: [
-        "h1", "h2", "h3", "h4", "h5", "h6",
-        "p", "br", "hr",
-        "ul", "ol", "li",
-        "strong", "em", "b", "i", "u", "s",
-        "a", "img",
-        "blockquote", "pre", "code",
-        "table", "caption", "thead", "tbody", "tr", "th", "td",
-        "div", "span",
-        "details", "summary",
-      ],
-      ALLOWED_ATTR: [
-        "href", "src", "alt", "title", "class", "id",
-        "target", "rel", "width", "height",
-        "open", "colspan", "rowspan",
-      ],
-      ALLOW_DATA_ATTR: false,
-      ADD_ATTR: ["target"], // Allow target attribute for links
-      FORBID_TAGS: ["script", "style", "iframe", "form", "input", "button"],
-      FORBID_ATTR: ["onerror", "onload", "onclick", "onmouseover"],
-    });
-    const container = document.createElement("div");
-    container.innerHTML = clean;
-    container.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((link) => {
-      const href = link.getAttribute("href")?.replace(/\/+$/, "") ?? "";
-      const isContactLink = href === "/contact" || /^https?:\/\/(?:www\.)?apexbatch\.com\/contact$/i.test(href);
-
-      if (isContactLink) {
-        const relTokens = new Set((link.getAttribute("rel") ?? "").split(/\s+/).filter(Boolean));
-        relTokens.add("nofollow");
-        link.setAttribute("rel", Array.from(relTokens).join(" "));
-      }
-    });
-    setSanitizedHTML(container.innerHTML);
-  }, [html]);
-
   return (
     <article
       className={className}
-      dangerouslySetInnerHTML={{ __html: sanitizedHTML }}
+      dangerouslySetInnerHTML={{ __html: html }}
     />
   );
 }

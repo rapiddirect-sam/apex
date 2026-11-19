@@ -8,6 +8,8 @@ import { getAllCategories } from "@/lib/categories";
 import { getAuthorById } from "@/lib/authors";
 import { ArticleStructuredData } from "@/components/seo/ArticleStructuredData";
 import { BlogFaqStructuredData } from "@/components/seo/BlogFaqStructuredData";
+import { prepareBlogContentHtml } from "@/lib/blogContentEnhance";
+import { sanitizeBlogHtml } from "@/lib/sanitizeBlogHtml";
 
 // A post can be published after this route has first been visited as a draft.
 // Keep a cached 404 short-lived; the admin save flow also invalidates it immediately.
@@ -87,6 +89,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   // Fetch author if post has an author reference
   const author = post.authorRef ? await getAuthorById(post.authorRef) : null;
+  const { html: preparedContent, tocItems } = prepareBlogContentHtml(post.content);
+  const contentHtml = sanitizeBlogHtml(preparedContent);
 
   return (
     <>
@@ -100,6 +104,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           relatedPosts={relatedPosts}
           popularPosts={popularPosts}
           categories={categories}
+          contentHtml={contentHtml}
+          tocItems={tocItems}
         />
       </div>
       <Home3Footer />

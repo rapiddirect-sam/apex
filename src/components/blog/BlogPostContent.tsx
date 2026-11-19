@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BlogPost, Category, Author } from "@/types/blog";
 import { SanitizedHTML } from "./SanitizedHTML";
 import {
-  prepareBlogContentHtml,
   scrollToBlogHash,
   resolveBlogHashTarget,
   initBlogTableScrollBars,
+  type BlogTocItem,
 } from "@/lib/blogContentEnhance";
 import {
   Calendar,
@@ -32,6 +32,8 @@ interface BlogPostContentProps {
   relatedPosts: BlogPost[];
   popularPosts: BlogPost[];
   categories: Category[];
+  contentHtml: string;
+  tocItems: BlogTocItem[];
 }
 
 export function BlogPostContent({
@@ -40,6 +42,8 @@ export function BlogPostContent({
   relatedPosts,
   popularPosts,
   categories,
+  contentHtml,
+  tocItems,
 }: BlogPostContentProps) {
   const readTime = estimateReadTime(post.content);
   const hasBeenUpdated = Boolean(
@@ -47,11 +51,6 @@ export function BlogPostContent({
   );
   const displayDate = hasBeenUpdated ? post.updatedAt : post.publishedAt;
   const displayDateLabel = "Updated on";
-  const { html: preparedContent, tocItems } = useMemo(
-    () => prepareBlogContentHtml(post.content),
-    [post.content]
-  );
-
   useEffect(() => {
     if (window.location.hash) {
       scrollToBlogHash(window.location.hash, "auto");
@@ -105,7 +104,7 @@ export function BlogPostContent({
       document.removeEventListener("click", onHashClick);
       observer?.disconnect();
     };
-  }, [preparedContent]);
+  }, [contentHtml]);
 
   const getCategoryName = (categoryId: string | null) => {
     if (!categoryId) return null;
@@ -502,7 +501,7 @@ export function BlogPostContent({
 
           {/* Center: Blog Content */}
           <div style={{ minWidth: 0 }}>
-            <SanitizedHTML html={preparedContent} className="blog-content" />
+            <SanitizedHTML html={contentHtml} className="blog-content" />
 
             <style>{`
               .blog-content {
