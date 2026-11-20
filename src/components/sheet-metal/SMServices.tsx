@@ -33,7 +33,14 @@ export function SMServices() {
               </span>
             </h2>
             <p className="service-section-copy section-reading-copy mt-6 max-w-none lg:max-w-[540px]">
-              <EditableText path="services.description" defaultValue={DEFAULTS.description} multiline />
+              <EditableText
+                path="services.description"
+                defaultValue={DEFAULTS.description}
+                multiline
+                linkText="Sheet metal"
+                linkHref="/blog/what-is-sheet-metal"
+                linkClassName="body-text-link body-text-link--dark"
+              />
             </p>
             <p className="service-section-copy section-reading-copy mt-5 max-w-none lg:max-w-[540px]">
               <EditableText path="services.applications" defaultValue={DEFAULTS.applications} multiline />

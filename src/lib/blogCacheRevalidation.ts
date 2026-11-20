@@ -7,6 +7,17 @@ interface RevalidateBlogRoutesOptions {
   user: User;
 }
 
+/** Create a fresh, server-verifiable auth header for an admin mutation. */
+export async function getAdminRequestHeaders(user: User): Promise<Record<string, string>> {
+  const idToken = await user.getIdToken(true);
+  setAuthSessionCookie(idToken);
+
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${idToken}`,
+  };
+}
+
 /**
  * Refresh public blog routes immediately after a client-side admin save.
  * The Firebase ID token is refreshed here instead of relying on a cookie that
@@ -17,8 +28,7 @@ export async function revalidateBlogRoutes({
   previousSlug,
   user,
 }: RevalidateBlogRoutesOptions): Promise<void> {
-  const idToken = await user.getIdToken(true);
-  setAuthSessionCookie(idToken);
+  const headers = await getAdminRequestHeaders(user);
 
   let message = "Public blog cache refresh failed.";
 
@@ -27,10 +37,7 @@ export async function revalidateBlogRoutes({
   for (let attempt = 0; attempt < 2; attempt += 1) {
     const response = await fetch("/api/admin/blog/revalidate", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${idToken}`,
-      },
+      headers,
       body: JSON.stringify({ slug, previousSlug }),
     });
 

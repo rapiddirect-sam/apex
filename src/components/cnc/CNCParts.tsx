@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { EditableText, EditableImage } from "@/components/cms";
+import { StaticImage } from "@/components/ui/StaticImage";
 
 const DEFAULTS = {
   heading: "CNC Parts ",
@@ -28,6 +29,29 @@ const DEFAULTS = {
     },
   ],
 };
+
+const FINISHED_PART_EXAMPLES = [
+  {
+    src: "/cnc-machining/precision-cnc-machined-electronics-housing.webp",
+    alt: "Precision CNC machined electronics housing with multi-face features",
+  },
+  {
+    src: "/cnc-machining/custom-cnc-turned-machined-shaft-assembly.webp",
+    alt: "Custom CNC turned and machined shaft assembly",
+  },
+  {
+    src: "/cnc-machining/cnc-machined-metal-impeller.webp",
+    alt: "CNC machined metal impeller with curved blades",
+  },
+  {
+    src: "/cnc-machining/complex-cnc-machined-aluminum-bracket.webp",
+    alt: "Complex CNC machined aluminum bracket with sculpted geometry",
+  },
+  {
+    src: "/cnc-machining/large-diameter-cnc-machined-aluminum-ring.webp",
+    alt: "Large-diameter CNC machined aluminum ring component",
+  },
+];
 
 export function CNCParts() {
   return (
@@ -118,6 +142,34 @@ export function CNCParts() {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-10 border-t border-white/10 pt-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#EEC569]">
+            More Examples of Precision CNC Machined Parts
+          </p>
+          <div className="mt-3 grid grid-cols-2 gap-4 md:grid-cols-6 lg:grid-cols-5">
+            {FINISHED_PART_EXAMPLES.map((example, index) => (
+              <figure
+                key={example.src}
+                className={`group relative aspect-[4/3] overflow-hidden border border-white/10 bg-[#1A1918] md:col-span-2 ${
+                  index === 3 ? "md:col-start-2" : ""
+                } ${
+                  index === 4
+                    ? "last:col-span-2 last:w-[calc((100%-1rem)/2)] last:justify-self-center md:last:col-start-4 md:last:w-auto md:last:justify-self-stretch"
+                    : ""
+                } lg:col-span-1 lg:last:col-auto lg:last:w-auto`}
+              >
+                <StaticImage
+                  defaultSrc={example.src}
+                  alt={example.alt}
+                  fill
+                  sizes="(min-width: 1024px) 216px, (min-width: 768px) 30vw, 45vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </figure>
+            ))}
+          </div>
         </div>
       </div>
     </section>

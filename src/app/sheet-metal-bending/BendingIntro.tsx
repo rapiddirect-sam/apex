@@ -44,6 +44,9 @@ export function BendingIntro() {
               path="bendingIntro.paragraphOne"
               defaultValue={DEFAULTS.paragraphOne}
               multiline
+              linkText="sheet metal"
+              linkHref="/blog/what-is-sheet-metal"
+              linkClassName="body-text-link body-text-link--dark"
             />
           </p>
           <p className="service-section-copy section-reading-copy mt-5 max-w-none lg:max-w-[540px]">
