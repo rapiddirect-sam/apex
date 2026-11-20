@@ -24,7 +24,7 @@ export function Home3Q4ProjectSupport() {
             aria-hidden="true"
             className="pointer-events-none absolute bottom-0 left-[10%] h-px w-2/3 bg-gradient-to-r from-transparent via-[#EEC569]/60 to-transparent"
           />
-          <div className="relative grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
+          <div className="relative grid gap-10 md:grid-cols-[1.05fr_0.95fr] md:items-center md:gap-10 lg:gap-14">
             <div>
               <p className="inline-flex rounded-full border border-[#EEC569]/55 bg-[#0A0A0A]/45 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#F1DB9A]">
                 <EditableText path="q4ProjectSupport.eyebrow" defaultValue="Q4 PROJECT SUPPORT · OCT–DEC 2026" />

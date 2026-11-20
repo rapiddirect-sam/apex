@@ -13,6 +13,10 @@ import { sanitizeBlogHtml } from "@/lib/sanitizeBlogHtml";
 
 // A post can be published after this route has first been visited as a draft.
 // Keep a cached 404 short-lived; the admin save flow also invalidates it immediately.
+// Newly published articles are generated on demand, and their server-side HTML
+// sanitization requires the Node.js runtime rather than an edge-compatible one.
+export const runtime = "nodejs";
+export const dynamicParams = true;
 export const revalidate = 60;
 
 interface BlogPostPageProps {

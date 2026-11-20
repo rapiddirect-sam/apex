@@ -24,6 +24,7 @@ const DEFAULTS = {
 const RETIRED_BACKGROUND_IMAGES = [
   "/quality/servicebg.png",
   "https://apex-batch-images.s3.us-east-1.amazonaws.com/quality/servicebg.png",
+  "https://apex-batch-images.s3.us-east-1.amazonaws.com/cms/1771880922310-1771880922310-qh3qyilk.webp",
 ] as const;
 
 export function QualityHero() {

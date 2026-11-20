@@ -126,12 +126,20 @@ export function SMCustomParts() {
         </div>
 
         <div className="mt-10 border-t border-white/10 pt-10">
-          <h3 className="sr-only">Finished sheet metal part examples</h3>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
-            {FINISHED_PART_EXAMPLES.map((example) => (
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#EEC569]">
+            More Examples of Finished Sheet Metal Parts
+          </p>
+          <div className="mt-3 grid grid-cols-2 gap-4 md:grid-cols-6 lg:grid-cols-5">
+            {FINISHED_PART_EXAMPLES.map((example, index) => (
               <figure
                 key={example.src}
-                className="group relative aspect-[4/3] overflow-hidden border border-white/10 bg-[#1A1918]"
+                className={`group relative aspect-[4/3] overflow-hidden border border-white/10 bg-[#1A1918] md:col-span-2 ${
+                  index === 3 ? "md:col-start-2" : ""
+                } ${
+                  index === 4
+                    ? "last:col-span-2 last:w-[calc((100%-1rem)/2)] last:justify-self-center md:last:col-start-4 md:last:w-auto md:last:justify-self-stretch"
+                    : ""
+                } lg:col-span-1 lg:last:col-auto lg:last:w-auto`}
               >
                 <StaticImage
                   defaultSrc={example.src}
