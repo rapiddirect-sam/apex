@@ -1,5 +1,4 @@
 import { supabase, isSupabaseConfigured } from "./supabase";
-import { unstable_cache } from "next/cache";
 import { BlogPost, BlogPostInput } from "@/types/blog";
 
 const TABLE_NAME = "blog_posts";
@@ -45,11 +44,6 @@ export async function getAllPosts(): Promise<BlogPost[]> {
 }
 
 export async function getPublishedPosts(): Promise<BlogPost[]> {
-  const rows = await getCachedPublishedPostRows();
-  return rows.map(rowToPost);
-}
-
-async function fetchPublishedPostRows(): Promise<Record<string, unknown>[]> {
   if (!isSupabaseConfigured || !supabase) {
     console.warn("Supabase is not configured");
     return [];
@@ -67,16 +61,8 @@ async function fetchPublishedPostRows(): Promise<Record<string, unknown>[]> {
     return [];
   }
 
-  return (data || []) as Record<string, unknown>[];
+  return (data || []).map(rowToPost);
 }
-
-// Blog pages are statically generated, so make the data dependency explicit.
-// Admin saves invalidate this tag before their corresponding paths regenerate.
-const getCachedPublishedPostRows = unstable_cache(
-  fetchPublishedPostRows,
-  ["blog-published-posts"],
-  { tags: ["blog-posts"], revalidate: 3600 }
-);
 
 /** A scheduled post is stored as published with a future publication timestamp. */
 export function isPostPubliclyAvailable(post: BlogPost, now = new Date()): boolean {
@@ -113,22 +99,6 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     return null;
   }
 
-  const getCachedPostRow = unstable_cache(
-    () => fetchPostBySlugRow(slug),
-    ["blog-post", slug],
-    { tags: [`blog-post:${slug}`], revalidate: 3600 }
-  );
-
-  const row = await getCachedPostRow();
-  return row ? rowToPost(row) : null;
-}
-
-async function fetchPostBySlugRow(slug: string): Promise<Record<string, unknown> | null> {
-  if (!isSupabaseConfigured || !supabase) {
-    console.warn("Supabase is not configured");
-    return null;
-  }
-
   const { data, error } = await supabase
     .from(TABLE_NAME)
     .select("*")
@@ -144,14 +114,19 @@ async function fetchPostBySlugRow(slug: string): Promise<Record<string, unknown>
     return null;
   }
 
-  return data ? (data as Record<string, unknown>) : null;
+  return data ? rowToPost(data) : null;
+}
+
+export interface SavedBlogPost {
+  id: string;
+  updatedAt: string;
 }
 
 export async function createPost(
   input: BlogPostInput,
   authorId: string,
   authorEmail: string
-): Promise<string> {
+): Promise<SavedBlogPost> {
   if (!isSupabaseConfigured || !supabase) {
     throw new Error("Supabase is not configured");
   }
@@ -181,7 +156,7 @@ export async function createPost(
   const { data, error } = await supabase
     .from(TABLE_NAME)
     .insert(insertData)
-    .select("id")
+    .select("id, updated_at")
     .single();
 
   if (error) {
@@ -189,10 +164,13 @@ export async function createPost(
     throw error;
   }
 
-  return data.id;
+  return {
+    id: data.id as string,
+    updatedAt: new Date(data.updated_at as string).toISOString(),
+  };
 }
 
-export async function updatePost(id: string, input: Partial<BlogPostInput>): Promise<void> {
+export async function updatePost(id: string, input: Partial<BlogPostInput>): Promise<string> {
   if (!isSupabaseConfigured || !supabase) {
     throw new Error("Supabase is not configured");
   }
@@ -230,15 +208,21 @@ export async function updatePost(id: string, input: Partial<BlogPostInput>): Pro
     }
   }
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from(TABLE_NAME)
     .update(updateData)
-    .eq("id", id);
+    .eq("id", id)
+    .select("updated_at")
+    .single();
 
   if (error) {
     console.error("Error updating post:", error);
     throw error;
   }
+
+  // Normalize the value read back from Supabase to exactly the ISO format
+  // rendered by the public page's revision meta tag.
+  return new Date(data.updated_at as string).toISOString();
 }
 
 export async function deletePost(id: string): Promise<void> {

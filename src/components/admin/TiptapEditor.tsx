@@ -1,6 +1,6 @@
 "use client";
 
-import { useEditor, EditorContent, useEditorState } from "@tiptap/react";
+import { useEditor, EditorContent } from "@tiptap/react";
 import { Node, mergeAttributes, type Editor } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
@@ -313,6 +313,9 @@ export function TiptapEditor({
   const [imageDescription, setImageDescription] = useState("");
   const [imageAlt, setImageAlt] = useState("");
   const imageInputRef = useRef<HTMLInputElement>(null);
+  // TipTap owns selection outside React. This lightweight counter tells the
+  // toolbar to read the live editor selection whenever the caret moves.
+  const [, refreshToolbar] = useState(0);
 
   // The form saves its React state, while TipTap owns a separate document.
   // Always serialize the current document when it is parsed or mode-switched
@@ -321,6 +324,7 @@ export function TiptapEditor({
     const html = restoreRawBlocks(currentEditor.getHTML());
     onChange(html);
     setHtmlContent(html);
+    refreshToolbar((version) => version + 1);
   }, [onChange]);
 
   const editor = useEditor({
@@ -348,50 +352,13 @@ export function TiptapEditor({
     immediatelyRender: false,
     onCreate: ({ editor }) => syncEditorContent(editor),
     onUpdate: ({ editor }) => syncEditorContent(editor),
+    onSelectionUpdate: () => refreshToolbar((version) => version + 1),
     editorProps: {
       attributes: {
         class: "tiptap-editor-content",
       },
     },
   });
-
-  // TipTap does not re-render React components for every transaction by
-  // default. Subscribe only to toolbar-relevant state so the active format
-  // indicator follows the cursor without re-rendering the full editor.
-  const toolbarState = useEditorState({
-    editor,
-    selector: ({ editor: currentEditor }) => {
-      if (!currentEditor) return null;
-
-      return {
-        bold: currentEditor.isActive("bold"),
-        italic: currentEditor.isActive("italic"),
-        strike: currentEditor.isActive("strike"),
-        code: currentEditor.isActive("code"),
-        heading1: currentEditor.isActive("heading", { level: 1 }),
-        heading2: currentEditor.isActive("heading", { level: 2 }),
-        heading3: currentEditor.isActive("heading", { level: 3 }),
-        bulletList: currentEditor.isActive("bulletList"),
-        orderedList: currentEditor.isActive("orderedList"),
-        blockquote: currentEditor.isActive("blockquote"),
-        codeBlock: currentEditor.isActive("codeBlock"),
-      };
-    },
-  });
-
-  const activeToolbarState = toolbarState ?? {
-    bold: false,
-    italic: false,
-    strike: false,
-    code: false,
-    heading1: false,
-    heading2: false,
-    heading3: false,
-    bulletList: false,
-    orderedList: false,
-    blockquote: false,
-    codeBlock: false,
-  };
 
   const closeImageModal = useCallback(() => {
     setShowImageModal(false);
@@ -484,6 +451,23 @@ export function TiptapEditor({
   if (!editor) {
     return null;
   }
+
+  // Read the current editor selection during the render forced above. This is
+  // more reliable than relying on TipTap's optional React selector bridge,
+  // which can stay stale in long, custom-node-heavy documents.
+  const activeToolbarState = {
+    bold: editor.isActive("bold"),
+    italic: editor.isActive("italic"),
+    strike: editor.isActive("strike"),
+    code: editor.isActive("code"),
+    heading1: editor.isActive("heading", { level: 1 }),
+    heading2: editor.isActive("heading", { level: 2 }),
+    heading3: editor.isActive("heading", { level: 3 }),
+    bulletList: editor.isActive("bulletList"),
+    orderedList: editor.isActive("orderedList"),
+    blockquote: editor.isActive("blockquote"),
+    codeBlock: editor.isActive("codeBlock"),
+  };
 
   const ToolbarButton = ({
     onClick,

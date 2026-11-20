@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { BlogPostForm } from "@/components/admin/BlogPostForm";
 import { BlogPost } from "@/types/blog";
-import { getPostById } from "@/lib/blog";
+import { getAdminBlogPostAction } from "@/app/admin/blog/actions";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface EditBlogPostPageProps {
   params: Promise<{ id: string }>;
@@ -16,11 +17,13 @@ export default function EditBlogPostPage({ params }: EditBlogPostPageProps) {
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const { user } = useAuth();
 
   useEffect(() => {
     const loadPost = async () => {
       try {
-        const data = await getPostById(id);
+        if (!user) return;
+        const data = await getAdminBlogPostAction(id, await user.getIdToken(true));
         if (!data) {
           router.push("/admin/blog");
           return;
@@ -35,7 +38,7 @@ export default function EditBlogPostPage({ params }: EditBlogPostPageProps) {
     };
 
     loadPost();
-  }, [id, router]);
+  }, [id, router, user]);
 
   if (loading) {
     return (

@@ -17,7 +17,9 @@ import { sanitizeBlogHtml } from "@/lib/sanitizeBlogHtml";
 // sanitization requires the Node.js runtime rather than an edge-compatible one.
 export const runtime = "nodejs";
 export const dynamicParams = true;
-export const revalidate = 60;
+// Explicit cache invalidation normally makes edits available on the next
+// request. Thirty seconds is the fallback if an on-demand signal is delayed.
+export const revalidate = 30;
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -58,6 +60,11 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       publishedTime: post.publishedAt?.toISOString(),
       modifiedTime: post.updatedAt.toISOString(),
       images: post.featuredImage ? [post.featuredImage] : [],
+    },
+    // A private operational marker used by the editor to confirm that the
+    // publicly served HTML matches the most recently saved article revision.
+    other: {
+      "apex-content-revision": post.updatedAt.toISOString(),
     },
   };
 }

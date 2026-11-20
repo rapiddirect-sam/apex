@@ -7,7 +7,7 @@ import { getAllCategories } from "@/lib/categories";
 import { getPageMetaWithDefaults } from "@/lib/pageMeta";
 
 // Scheduled posts become visible without a manual cache purge.
-export const revalidate = 60;
+export const revalidate = 30;
 
 export async function generateMetadata(): Promise<Metadata> {
   const meta = await getPageMetaWithDefaults("/blog");

@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { BlogPost } from "@/types/blog";
-import { getAllPosts, deletePost } from "@/lib/blog";
-import { revalidateBlogRoutes } from "@/lib/blogCacheRevalidation";
+import { deleteBlogPostAction, getAdminBlogPostsAction } from "@/app/admin/blog/actions";
 import { useAuth } from "@/contexts/AuthContext";
 import { Plus, Edit, Trash2, Eye, FileText } from "lucide-react";
 
@@ -20,22 +19,23 @@ export default function AdminBlogPage() {
   const [deleting, setDeleting] = useState<string | null>(null);
   const { user } = useAuth();
 
-  useEffect(() => {
-    loadPosts();
-  }, []);
-
-  const loadPosts = async () => {
+  const loadPosts = useCallback(async () => {
     try {
-      const data = await getAllPosts();
+      if (!user) return;
+      const data = await getAdminBlogPostsAction(await user.getIdToken(true));
       setPosts(data);
     } catch (error) {
       console.error("Error loading posts:", error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
-  const handleDelete = async (id: string, title: string, slug: string) => {
+  useEffect(() => {
+    if (user) loadPosts();
+  }, [loadPosts, user]);
+
+  const handleDelete = async (id: string, title: string) => {
     if (!confirm(`Are you sure you want to delete "${title}"? This action cannot be undone.`)) {
       return;
     }
@@ -47,8 +47,7 @@ export default function AdminBlogPage() {
         throw new Error("Your admin session has expired. Please sign in again.");
       }
 
-      await deletePost(id);
-      await revalidateBlogRoutes({ slug, user });
+      await deleteBlogPostAction(id, await user.getIdToken(true));
 
       setPosts((currentPosts) => currentPosts.filter((p) => p.id !== id));
     } catch (error) {
@@ -328,7 +327,7 @@ export default function AdminBlogPage() {
                         <Edit size={16} />
                       </Link>
                       <button
-                        onClick={() => handleDelete(post.id, post.title, post.slug)}
+                        onClick={() => handleDelete(post.id, post.title)}
                         disabled={deleting === post.id}
                         style={{
                           display: "flex",
