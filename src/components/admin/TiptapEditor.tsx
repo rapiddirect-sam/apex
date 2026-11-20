@@ -233,7 +233,7 @@ const DetailsContentNode = Node.create({
     return ["div", mergeAttributes(HTMLAttributes, { class: "details-content" }), 0];
   },
 });
-import { useState, useCallback, useRef } from "react";
+import { forwardRef, useState, useCallback, useImperativeHandle, useRef } from "react";
 import {
   Bold,
   Italic,
@@ -262,6 +262,15 @@ interface TiptapEditorProps {
   placeholder?: string;
   /** Blog post (or author) URL slug — used as cms/{slug}/ folder on S3 */
   postSlug?: string;
+}
+
+/**
+ * Exposes the editor-owned document to the form at save time. React state is
+ * intentionally not the source of truth here: a toolbar transaction and a
+ * Save click can occur within the same browser task.
+ */
+export interface TiptapEditorHandle {
+  getCurrentHtml: () => string;
 }
 
 // Restore raw table/CTA HTML from encoded placeholder divs in getHTML() output
@@ -299,14 +308,15 @@ function restoreRawBlocks(html: string): string {
   return restoreRawCallouts(restoreRawCtas(restoreRawTables(html)));
 }
 
-export function TiptapEditor({
+export const TiptapEditor = forwardRef<TiptapEditorHandle, TiptapEditorProps>(function TiptapEditor({
   content,
   onChange,
   placeholder = "Write your content...",
   postSlug = "",
-}: TiptapEditorProps) {
+}, ref) {
   const [showHtml, setShowHtml] = useState(false);
   const [htmlContent, setHtmlContent] = useState(content);
+  const htmlContentRef = useRef(content);
   const [imageUploading, setImageUploading] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [pendingImageFile, setPendingImageFile] = useState<File | null>(null);
@@ -322,6 +332,7 @@ export function TiptapEditor({
   // so an atom such as RawCallout cannot exist only in the visual preview.
   const syncEditorContent = useCallback((currentEditor: Editor) => {
     const html = restoreRawBlocks(currentEditor.getHTML());
+    htmlContentRef.current = html;
     onChange(html);
     setHtmlContent(html);
     refreshToolbar((version) => version + 1);
@@ -365,6 +376,16 @@ export function TiptapEditor({
       },
     },
   });
+
+  useImperativeHandle(ref, () => ({
+    getCurrentHtml: () => {
+      // In HTML mode, the textarea is the newest authoritative value. In
+      // visual mode, serialize TipTap immediately rather than waiting for an
+      // onTransaction callback or a React state update.
+      if (showHtml) return htmlContentRef.current;
+      return editor ? restoreRawBlocks(editor.getHTML()) : htmlContentRef.current;
+    },
+  }), [editor, showHtml]);
 
   const closeImageModal = useCallback(() => {
     setShowImageModal(false);
@@ -460,6 +481,7 @@ export function TiptapEditor({
   }, [editor, syncEditorContent]);
 
   const handleHtmlChange = (html: string) => {
+    htmlContentRef.current = html;
     setHtmlContent(html);
     onChange(html);
   };
@@ -1118,4 +1140,6 @@ export function TiptapEditor({
       )}
     </div>
   );
-}
+});
+
+TiptapEditor.displayName = "TiptapEditor";

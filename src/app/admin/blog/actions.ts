@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { createPost, deletePost, getAllPosts, getPostById, updatePost } from "@/lib/blog";
 import { isUserAdmin } from "@/lib/admin";
 import { verifyIdToken } from "@/lib/firebaseAdmin";
@@ -54,13 +54,17 @@ async function requireAdmin(idToken: string): Promise<AdminIdentity> {
   return user;
 }
 
-/**
- * Rebuilds every public route that can expose a post. Article queries are
- * deliberately not wrapped in a second data cache: the ISR route cache is
- * the only public cache layer, so an invalidated route always reads the
- * current database row while regenerating.
- */
+/** Rebuild every public route that can expose a post after expiring its data. */
 function refreshPublicBlogRoutes(slug: string, previousSlug?: string) {
+  // Invalidate the exact data entries before asking ISR routes to regenerate.
+  // Without this, a rebuilt static article can still receive an older cached
+  // Supabase response until the next deployment clears every cache.
+  updateTag("blog-posts");
+  updateTag(`blog-post:${slug}`);
+  if (previousSlug && previousSlug !== slug) {
+    updateTag(`blog-post:${previousSlug}`);
+  }
+
   revalidatePath("/");
   revalidatePath("/blog");
   revalidatePath("/sitemap.xml");

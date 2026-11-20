@@ -18,8 +18,8 @@ import { getBlogContentRevision } from "@/lib/blogContentRevision";
 // sanitization requires the Node.js runtime rather than an edge-compatible one.
 export const runtime = "nodejs";
 export const dynamicParams = true;
-// Explicit cache invalidation normally makes edits available on the next
-// request. Thirty seconds is the fallback if an on-demand signal is delayed.
+// Explicit tag and route invalidation after an admin save normally makes an
+// edit available on the next request. This is the fallback refresh window.
 export const revalidate = 30;
 
 interface BlogPostPageProps {

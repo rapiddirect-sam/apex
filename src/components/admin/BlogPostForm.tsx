@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { TiptapEditor } from "./TiptapEditor";
+import { TiptapEditor, type TiptapEditorHandle } from "./TiptapEditor";
 import { ImageUpload } from "./ImageUpload";
 import { BlogPost, BlogPostInput, Category, Author } from "@/types/blog";
 import { generateSlug } from "@/lib/blog";
@@ -26,6 +26,7 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
   // the latest editor HTML outside React's asynchronous state queue so the
   // submitted article always contains the exact visible editor content.
   const latestContentRef = useRef(post?.content || "");
+  const editorRef = useRef<TiptapEditorHandle>(null);
   const [excerpt, setExcerpt] = useState(post?.excerpt || "");
   const [featuredImage, setFeaturedImage] = useState(post?.featuredImage || "");
   const isScheduledPost = Boolean(post?.publishedAt && post.publishedAt > new Date());
@@ -129,13 +130,19 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
     setSaving(true);
 
     try {
+      // Read the editor itself at the point of submission. This guarantees
+      // that text, heading, image, table, and HTML-mode changes are saved
+      // even if React has not yet committed the latest onChange state.
+      const currentContent = editorRef.current?.getCurrentHtml() ?? latestContentRef.current;
+      latestContentRef.current = currentContent;
+      setContent(currentContent);
       const publishImmediately =
         publishMode === "now" &&
         (!post || post.status !== "published" || isScheduledPost);
       const input: BlogPostInput = {
         title,
         slug,
-        content: latestContentRef.current,
+        content: currentContent,
         excerpt,
         featuredImage,
         status: publishMode === "draft" ? "draft" : "published",
@@ -357,6 +364,7 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
           <div>
             <label style={labelStyle}>Content</label>
             <TiptapEditor
+              ref={editorRef}
               content={content}
               onChange={handleContentChange}
               postSlug={slug}
