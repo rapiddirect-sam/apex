@@ -120,6 +120,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
 export interface SavedBlogPost {
   id: string;
   updatedAt: string;
+  content: string;
 }
 
 export async function createPost(
@@ -156,7 +157,7 @@ export async function createPost(
   const { data, error } = await supabase
     .from(TABLE_NAME)
     .insert(insertData)
-    .select("id, updated_at")
+    .select("id, updated_at, content")
     .single();
 
   if (error) {
@@ -167,10 +168,11 @@ export async function createPost(
   return {
     id: data.id as string,
     updatedAt: new Date(data.updated_at as string).toISOString(),
+    content: data.content as string,
   };
 }
 
-export async function updatePost(id: string, input: Partial<BlogPostInput>): Promise<string> {
+export async function updatePost(id: string, input: Partial<BlogPostInput>): Promise<SavedBlogPost> {
   if (!isSupabaseConfigured || !supabase) {
     throw new Error("Supabase is not configured");
   }
@@ -212,7 +214,7 @@ export async function updatePost(id: string, input: Partial<BlogPostInput>): Pro
     .from(TABLE_NAME)
     .update(updateData)
     .eq("id", id)
-    .select("updated_at")
+    .select("id, updated_at, content")
     .single();
 
   if (error) {
@@ -220,9 +222,14 @@ export async function updatePost(id: string, input: Partial<BlogPostInput>): Pro
     throw error;
   }
 
-  // Normalize the value read back from Supabase to exactly the ISO format
-  // rendered by the public page's revision meta tag.
-  return new Date(data.updated_at as string).toISOString();
+  // Return the row that the database actually stored. This prevents the
+  // editor from treating a client-side draft as saved until Supabase confirms
+  // the exact persisted body.
+  return {
+    id: data.id as string,
+    updatedAt: new Date(data.updated_at as string).toISOString(),
+    content: data.content as string,
+  };
 }
 
 export async function deletePost(id: string): Promise<void> {

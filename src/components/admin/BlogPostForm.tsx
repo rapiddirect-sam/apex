@@ -6,7 +6,7 @@ import { TiptapEditor } from "./TiptapEditor";
 import { ImageUpload } from "./ImageUpload";
 import { BlogPost, BlogPostInput, Category, Author } from "@/types/blog";
 import { generateSlug } from "@/lib/blog";
-import { refreshBlogPostAction, saveBlogPostAction } from "@/app/admin/blog/actions";
+import { saveBlogPostAction } from "@/app/admin/blog/actions";
 import { getAllCategories } from "@/lib/categories";
 import { getAllAuthors } from "@/lib/authors";
 import { useAuth } from "@/contexts/AuthContext";
@@ -42,20 +42,23 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
   const [metaTitle, setMetaTitle] = useState(post?.metaTitle || "");
   const [metaDescription, setMetaDescription] = useState(post?.metaDescription || "");
   const [saving, setSaving] = useState(false);
-  const [refreshingPublicPage, setRefreshingPublicPage] = useState(false);
-  const [publicRefreshError, setPublicRefreshError] = useState<string | null>(null);
-  const [pendingPublicRevision, setPendingPublicRevision] = useState<string | null>(null);
+  const [hasUnsavedContent, setHasUnsavedContent] = useState(false);
   const [autoSlug, setAutoSlug] = useState(!isEditing);
 
   const { user } = useAuth();
   const router = useRouter();
 
   const handleContentChange = useCallback((nextContent: string) => {
+    if (nextContent === latestContentRef.current) return;
     latestContentRef.current = nextContent;
     setContent(nextContent);
+    setHasUnsavedContent(true);
   }, []);
 
-  const isPublicRevisionVisible = async (expectedRevision: string): Promise<boolean> => {
+  const isPublicRevisionVisible = async (
+    expectedRevision: string,
+    expectedContentRevision: string
+  ): Promise<boolean> => {
     for (let attempt = 0; attempt < 4; attempt += 1) {
       const response = await fetch(
         `/blog/${encodeURIComponent(slug)}`,
@@ -66,7 +69,16 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
       const publicRevision = document
         .querySelector('meta[name="apex-content-revision"]')
         ?.getAttribute("content");
-      if (response.ok && publicRevision === expectedRevision) return true;
+      const publicContentRevision = document
+        .querySelector('meta[name="apex-content-signature"]')
+        ?.getAttribute("content");
+      if (
+        response.ok &&
+        publicRevision === expectedRevision &&
+        publicContentRevision === expectedContentRevision
+      ) {
+        return true;
+      }
 
       if (attempt < 3) {
         await new Promise((resolve) => window.setTimeout(resolve, 750));
@@ -76,37 +88,13 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
     return false;
   };
 
-  const confirmPublicRevision = async (revision: string, shouldBePublic: boolean) => {
+  const confirmPublicRevision = async (
+    revision: string,
+    contentRevision: string,
+    shouldBePublic: boolean
+  ) => {
     if (!shouldBePublic) return true;
-    return isPublicRevisionVisible(revision);
-  };
-
-  const retryPublicRefresh = async () => {
-    if (!user || !isEditing) return;
-
-    setRefreshingPublicPage(true);
-    setPublicRefreshError(null);
-    try {
-      const idToken = await user.getIdToken(true);
-      await refreshBlogPostAction({
-        slug,
-        previousSlug: post?.slug,
-        idToken,
-      });
-      if (!pendingPublicRevision || await confirmPublicRevision(pendingPublicRevision, true)) {
-        router.push("/admin/blog");
-        return;
-      }
-
-      setPublicRefreshError(
-        "Your article is saved. The public page is still updating; this normally completes within 30 seconds. Retry public refresh checks again without changing the article."
-      );
-    } catch (error) {
-      console.error("Error refreshing public blog cache:", error);
-      setPublicRefreshError("The article is saved, but the public cache refresh did not complete. Please try again.");
-    } finally {
-      setRefreshingPublicPage(false);
-    }
+    return isPublicRevisionVisible(revision, contentRevision);
   };
 
   function toDateTimeLocal(value: Date): string {
@@ -139,10 +127,6 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
     }
 
     setSaving(true);
-    setPublicRefreshError(null);
-    setPendingPublicRevision(null);
-    let postSaved = false;
-    let savedRevision: string | null = null;
 
     try {
       const publishImmediately =
@@ -173,30 +157,26 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
         previousSlug: post?.slug,
         idToken: await user.getIdToken(true),
       });
-      postSaved = true;
-      savedRevision = result.revision;
+      const savedRevision = {
+        revision: result.revision,
+        contentRevision: result.contentRevision,
+      };
+      setHasUnsavedContent(false);
       const shouldBePublic = input.status === "published" &&
         (!input.publishedAt || new Date(input.publishedAt) <= new Date());
 
-      if (!(await confirmPublicRevision(savedRevision, shouldBePublic))) {
-        setPendingPublicRevision(savedRevision);
-        setPublicRefreshError(
-          "Your article is saved. The public page is still updating; this normally completes within 30 seconds. Retry public refresh checks again without changing the article."
-        );
-        return;
+      if (!(await confirmPublicRevision(
+        savedRevision.revision,
+        savedRevision.contentRevision,
+        shouldBePublic
+      ))) {
+        console.warn("Article saved, but the public page has not yet served its latest revision.");
       }
 
       router.push("/admin/blog");
     } catch (error) {
       console.error("Error saving post:", error);
-      if (postSaved) {
-        setPendingPublicRevision(savedRevision);
-        setPublicRefreshError(
-          "Your article is saved, but the public cache refresh did not complete. Retry public refresh checks again without changing the article."
-        );
-      } else {
-        alert("Failed to save post. Please try again.");
-      }
+      alert("Failed to save post. Please try again.");
     } finally {
       setSaving(false);
     }
@@ -300,43 +280,10 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
         </div>
       </div>
 
-      {publicRefreshError && (
-        <div
-          role="alert"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "16px",
-            marginBottom: "24px",
-            padding: "12px 16px",
-            background: "#3a3020",
-            border: "1px solid #70572b",
-            borderRadius: "8px",
-            color: "#F2D28B",
-            fontSize: "14px",
-          }}
-        >
-          <span>{publicRefreshError}</span>
-          <button
-            type="button"
-            onClick={retryPublicRefresh}
-            disabled={refreshingPublicPage}
-            style={{
-              flexShrink: 0,
-              padding: "8px 12px",
-              background: refreshingPublicPage ? "#666" : "#D09947",
-              border: "none",
-              borderRadius: "6px",
-              color: "#000",
-              cursor: refreshingPublicPage ? "not-allowed" : "pointer",
-              fontSize: "13px",
-              fontWeight: 600,
-            }}
-          >
-            {refreshingPublicPage ? "Refreshing..." : "Retry public refresh"}
-          </button>
-        </div>
+      {hasUnsavedContent && (
+        <p style={{ color: "#F2D28B", fontSize: "13px", margin: "-8px 0 16px" }}>
+          You have unsaved content changes.
+        </p>
       )}
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 350px", gap: "32px" }}>

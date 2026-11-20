@@ -351,7 +351,13 @@ export function TiptapEditor({
     content,
     immediatelyRender: false,
     onCreate: ({ editor }) => syncEditorContent(editor),
-    onUpdate: ({ editor }) => syncEditorContent(editor),
+    // Cover every document mutation, including formatted text, links, images,
+    // tables, pasted HTML, undo/redo, and custom raw nodes. Relying only on
+    // individual toolbar callbacks can leave the form holding an older HTML
+    // snapshot when Save is clicked immediately after an edit.
+    onTransaction: ({ editor, transaction }) => {
+      if (transaction.docChanged) syncEditorContent(editor);
+    },
     onSelectionUpdate: () => refreshToolbar((version) => version + 1),
     editorProps: {
       attributes: {
@@ -442,6 +448,16 @@ export function TiptapEditor({
       editor.chain().focus().setLink({ href: url }).run();
     }
   }, [editor]);
+
+  // Formatting commands normally emit TipTap's update event, but heading
+  // level changes are important structural edits. Serialize them explicitly
+  // as well so a Save click immediately after H1/H2/H3 always receives the
+  // transformed tag rather than the prior document snapshot.
+  const toggleHeading = useCallback((level: 1 | 2 | 3) => {
+    if (!editor) return;
+    editor.chain().focus().toggleHeading({ level }).run();
+    syncEditorContent(editor);
+  }, [editor, syncEditorContent]);
 
   const handleHtmlChange = (html: string) => {
     setHtmlContent(html);
@@ -553,21 +569,21 @@ export function TiptapEditor({
         <div style={{ width: "1px", height: "24px", background: "#444", margin: "0 8px" }} />
 
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+          onClick={() => toggleHeading(1)}
           isActive={activeToolbarState.heading1}
           title="Heading 1"
         >
           <Heading1 size={18} />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+          onClick={() => toggleHeading(2)}
           isActive={activeToolbarState.heading2}
           title="Heading 2"
         >
           <Heading2 size={18} />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+          onClick={() => toggleHeading(3)}
           isActive={activeToolbarState.heading3}
           title="Heading 3"
         >

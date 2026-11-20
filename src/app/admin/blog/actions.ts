@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createPost, deletePost, getAllPosts, getPostById, updatePost } from "@/lib/blog";
 import { isUserAdmin } from "@/lib/admin";
 import { verifyIdToken } from "@/lib/firebaseAdmin";
+import { getBlogContentRevision } from "@/lib/blogContentRevision";
 import type { BlogPost, BlogPostInput } from "@/types/blog";
 
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -16,12 +17,6 @@ interface AdminIdentity {
 interface SaveBlogPostPayload {
   postId?: string;
   input: BlogPostInput;
-  previousSlug?: string;
-  idToken: string;
-}
-
-interface RefreshBlogPostPayload {
-  slug: string;
   previousSlug?: string;
   idToken: string;
 }
@@ -80,6 +75,7 @@ function refreshPublicBlogRoutes(slug: string, previousSlug?: string) {
 export async function saveBlogPostAction(payload: SaveBlogPostPayload): Promise<{
   id: string;
   revision: string;
+  contentRevision: string;
 }> {
   const { postId, input, previousSlug, idToken } = payload;
   const admin = await requireAdmin(idToken);
@@ -88,29 +84,19 @@ export async function saveBlogPostAction(payload: SaveBlogPostPayload): Promise<
     throw new Error("Invalid blog post data");
   }
 
-  let id: string;
-  let revision: string;
+  let savedPost;
   if (!postId) {
-    const savedPost = await createPost(input, admin.uid, admin.email);
-    id = savedPost.id;
-    revision = savedPost.updatedAt;
+    savedPost = await createPost(input, admin.uid, admin.email);
   } else {
-    revision = await updatePost(postId, input);
-    id = postId;
+    savedPost = await updatePost(postId, input);
   }
 
   refreshPublicBlogRoutes(input.slug, previousSlug);
-  return { id, revision };
-}
-
-export async function refreshBlogPostAction(payload: RefreshBlogPostPayload): Promise<void> {
-  const { slug, previousSlug, idToken } = payload;
-  await requireAdmin(idToken);
-  if (!isValidSlug(slug) || (previousSlug !== undefined && !isValidSlug(previousSlug))) {
-    throw new Error("Invalid blog slug");
-  }
-
-  refreshPublicBlogRoutes(slug, previousSlug);
+  return {
+    id: savedPost.id,
+    revision: savedPost.updatedAt,
+    contentRevision: getBlogContentRevision(savedPost.content),
+  };
 }
 
 export async function getAdminBlogPostsAction(idToken: string): Promise<BlogPost[]> {
