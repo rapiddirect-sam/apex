@@ -6,6 +6,8 @@ import Image from "next/image";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { BlogPost } from "@/types/blog";
 import { getAllPosts, deletePost } from "@/lib/blog";
+import { revalidateBlogRoutes } from "@/lib/blogCacheRevalidation";
+import { useAuth } from "@/contexts/AuthContext";
 import { Plus, Edit, Trash2, Eye, FileText } from "lucide-react";
 
 function isScheduled(post: BlogPost): boolean {
@@ -16,6 +18,7 @@ export default function AdminBlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const { user } = useAuth();
 
   useEffect(() => {
     loadPosts();
@@ -40,16 +43,12 @@ export default function AdminBlogPage() {
     setDeleting(id);
 
     try {
-      await deletePost(id);
-      const revalidation = await fetch("/api/admin/blog/revalidate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug }),
-      });
-
-      if (!revalidation.ok) {
-        console.warn("Blog post deleted, but page cache revalidation failed.");
+      if (!user) {
+        throw new Error("Your admin session has expired. Please sign in again.");
       }
+
+      await deletePost(id);
+      await revalidateBlogRoutes({ slug, user });
 
       setPosts((currentPosts) => currentPosts.filter((p) => p.id !== id));
     } catch (error) {

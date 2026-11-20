@@ -6,6 +6,7 @@ import { TiptapEditor } from "./TiptapEditor";
 import { ImageUpload } from "./ImageUpload";
 import { BlogPost, BlogPostInput, Category, Author } from "@/types/blog";
 import { createPost, updatePost, generateSlug } from "@/lib/blog";
+import { revalidateBlogRoutes } from "@/lib/blogCacheRevalidation";
 import { getAllCategories } from "@/lib/categories";
 import { getAllAuthors } from "@/lib/authors";
 import { useAuth } from "@/contexts/AuthContext";
@@ -104,15 +105,7 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
 
       // A slug may previously have been visited while its post was a draft.
       // Clear that cached 404 and refresh the archive after every save or publish.
-      const revalidation = await fetch("/api/admin/blog/revalidate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug, previousSlug: post?.slug }),
-      });
-
-      if (!revalidation.ok) {
-        console.warn("Blog post saved, but page cache revalidation failed.");
-      }
+      await revalidateBlogRoutes({ slug, previousSlug: post?.slug, user });
 
       router.push("/admin/blog");
     } catch (error) {

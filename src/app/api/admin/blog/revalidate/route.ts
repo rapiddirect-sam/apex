@@ -8,11 +8,23 @@ function isValidSlug(value: unknown): value is string {
   return typeof value === "string" && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
 }
 
-async function getAdminEmail(): Promise<string | null> {
-  const sessionCookie = (await cookies()).get("auth-session");
-  if (!sessionCookie?.value) return null;
+function getBearerToken(request: NextRequest): string | null {
+  const authorization = request.headers.get("authorization");
+  if (!authorization?.startsWith("Bearer ")) return null;
 
-  const token = await verifyIdToken(sessionCookie.value);
+  const token = authorization.slice("Bearer ".length).trim();
+  return token || null;
+}
+
+async function getAdminEmail(request: NextRequest): Promise<string | null> {
+  // Admin saves provide a freshly refreshed ID token. Keep the cookie fallback
+  // for existing clients and same-origin requests that do not send a header.
+  const suppliedToken = getBearerToken(request);
+  const sessionCookie = suppliedToken ? null : (await cookies()).get("auth-session");
+  const tokenValue = suppliedToken || sessionCookie?.value;
+  if (!tokenValue) return null;
+
+  const token = await verifyIdToken(tokenValue);
   if (!token?.email || !(await isUserAdmin(token.email))) return null;
 
   return token.email;
@@ -21,7 +33,7 @@ async function getAdminEmail(): Promise<string | null> {
 /** Clears cached blog archive, article, and author routes after an admin saves a post. */
 export async function POST(request: NextRequest) {
   try {
-    if (!(await getAdminEmail())) {
+    if (!(await getAdminEmail(request))) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -33,6 +45,7 @@ export async function POST(request: NextRequest) {
     revalidatePath("/blog");
     revalidatePath("/sitemap.xml");
     revalidatePath("/blog/author/[slug]", "page");
+    revalidatePath("/blog/[slug]", "page");
     revalidatePath(`/blog/${slug}`);
     if (previousSlug && previousSlug !== slug) {
       revalidatePath(`/blog/${previousSlug}`);
