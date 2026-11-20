@@ -5,6 +5,7 @@ import { createPost, deletePost, getAllPosts, getPostById, updatePost } from "@/
 import { isUserAdmin } from "@/lib/admin";
 import { verifyIdToken } from "@/lib/firebaseAdmin";
 import { getBlogContentRevision } from "@/lib/blogContentRevision";
+import { getRuntimeDeploymentMarker } from "@/lib/runtimeDeployment";
 import type { BlogPost, BlogPostInput } from "@/types/blog";
 
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -75,6 +76,7 @@ export async function saveBlogPostAction(payload: SaveBlogPostPayload): Promise<
   id: string;
   revision: string;
   contentRevision: string;
+  deployment: string;
 }> {
   const { postId, input, previousSlug, idToken } = payload;
   const admin = await requireAdmin(idToken);
@@ -95,6 +97,7 @@ export async function saveBlogPostAction(payload: SaveBlogPostPayload): Promise<
     id: savedPost.id,
     revision: savedPost.updatedAt,
     contentRevision: getBlogContentRevision(savedPost.content),
+    deployment: getRuntimeDeploymentMarker(),
   };
 }
 

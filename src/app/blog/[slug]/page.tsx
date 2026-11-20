@@ -11,6 +11,7 @@ import { BlogFaqStructuredData } from "@/components/seo/BlogFaqStructuredData";
 import { prepareBlogContentHtml } from "@/lib/blogContentEnhance";
 import { sanitizeBlogHtml } from "@/lib/sanitizeBlogHtml";
 import { getBlogContentRevision } from "@/lib/blogContentRevision";
+import { getRuntimeDeploymentMarker } from "@/lib/runtimeDeployment";
 
 // A post can be published after this route has first been visited as a draft.
 // Keep a cached 404 short-lived; the admin save flow also invalidates it immediately.
@@ -67,6 +68,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     other: {
       "apex-content-revision": post.updatedAt.toISOString(),
       "apex-content-signature": getBlogContentRevision(post.content),
+      "apex-deployment": getRuntimeDeploymentMarker(),
     },
   };
 }

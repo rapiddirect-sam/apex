@@ -18,6 +18,22 @@ interface BlogPostFormProps {
   isEditing?: boolean;
 }
 
+interface PublicRevisionCheck {
+  matches: boolean;
+  revision: string | null;
+  contentRevision: string | null;
+  deployment: string | null;
+  cacheStatus: string | null;
+  requestId: string | null;
+}
+
+interface PublicSyncIssue {
+  expectedRevision: string;
+  expectedContentRevision: string;
+  expectedDeployment: string;
+  observed: PublicRevisionCheck;
+}
+
 export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
   const [title, setTitle] = useState(post?.title || "");
   const [slug, setSlug] = useState(post?.slug || "");
@@ -43,6 +59,7 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
   const [metaTitle, setMetaTitle] = useState(post?.metaTitle || "");
   const [metaDescription, setMetaDescription] = useState(post?.metaDescription || "");
   const [saving, setSaving] = useState(false);
+  const [publicSyncIssue, setPublicSyncIssue] = useState<PublicSyncIssue | null>(null);
   const [hasUnsavedContent, setHasUnsavedContent] = useState(false);
   const [autoSlug, setAutoSlug] = useState(!isEditing);
 
@@ -59,7 +76,16 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
   const isPublicRevisionVisible = async (
     expectedRevision: string,
     expectedContentRevision: string
-  ): Promise<boolean> => {
+  ): Promise<PublicRevisionCheck> => {
+    let latestCheck: PublicRevisionCheck = {
+      matches: false,
+      revision: null,
+      contentRevision: null,
+      deployment: null,
+      cacheStatus: null,
+      requestId: null,
+    };
+
     for (let attempt = 0; attempt < 4; attempt += 1) {
       const response = await fetch(
         `/blog/${encodeURIComponent(slug)}`,
@@ -73,12 +99,23 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
       const publicContentRevision = document
         .querySelector('meta[name="apex-content-signature"]')
         ?.getAttribute("content");
+      latestCheck = {
+        matches:
+          response.ok &&
+          publicRevision === expectedRevision &&
+          publicContentRevision === expectedContentRevision,
+        revision: publicRevision || null,
+        contentRevision: publicContentRevision || null,
+        deployment: document
+          .querySelector('meta[name="apex-deployment"]')
+          ?.getAttribute("content") || null,
+        cacheStatus: response.headers.get("x-vercel-cache"),
+        requestId: response.headers.get("x-vercel-id"),
+      };
       if (
-        response.ok &&
-        publicRevision === expectedRevision &&
-        publicContentRevision === expectedContentRevision
+        latestCheck.matches
       ) {
-        return true;
+        return latestCheck;
       }
 
       if (attempt < 3) {
@@ -86,15 +123,24 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
       }
     }
 
-    return false;
+    return latestCheck;
   };
 
   const confirmPublicRevision = async (
     revision: string,
     contentRevision: string,
     shouldBePublic: boolean
-  ) => {
-    if (!shouldBePublic) return true;
+  ): Promise<PublicRevisionCheck> => {
+    if (!shouldBePublic) {
+      return {
+        matches: true,
+        revision: null,
+        contentRevision: null,
+        deployment: null,
+        cacheStatus: null,
+        requestId: null,
+      };
+    }
     return isPublicRevisionVisible(revision, contentRevision);
   };
 
@@ -128,6 +174,7 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
     }
 
     setSaving(true);
+    setPublicSyncIssue(null);
 
     try {
       // Read the editor itself at the point of submission. This guarantees
@@ -167,17 +214,25 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
       const savedRevision = {
         revision: result.revision,
         contentRevision: result.contentRevision,
+        deployment: result.deployment,
       };
       setHasUnsavedContent(false);
       const shouldBePublic = input.status === "published" &&
         (!input.publishedAt || new Date(input.publishedAt) <= new Date());
 
-      if (!(await confirmPublicRevision(
+      const publicCheck = await confirmPublicRevision(
         savedRevision.revision,
         savedRevision.contentRevision,
         shouldBePublic
-      ))) {
-        console.warn("Article saved, but the public page has not yet served its latest revision.");
+      );
+      if (!publicCheck.matches) {
+        setPublicSyncIssue({
+          expectedRevision: savedRevision.revision,
+          expectedContentRevision: savedRevision.contentRevision,
+          expectedDeployment: savedRevision.deployment,
+          observed: publicCheck,
+        });
+        return;
       }
 
       router.push("/admin/blog");
@@ -210,6 +265,29 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
+      {publicSyncIssue && (
+        <div
+          role="alert"
+          style={{
+            marginBottom: "24px",
+            padding: "16px 18px",
+            border: "1px solid #B87B2F",
+            borderRadius: "8px",
+            background: "#3A2E1B",
+            color: "#FFE2A6",
+            fontSize: "14px",
+            lineHeight: 1.6,
+          }}
+        >
+          <strong>The article was saved, but the public HTML did not match this saved revision.</strong>
+          <br />
+          Saved: {publicSyncIssue.expectedRevision} · Public: {publicSyncIssue.observed.revision || "not found"}
+          <br />
+          Save deployment: {publicSyncIssue.expectedDeployment} · Public deployment: {publicSyncIssue.observed.deployment || "not found"}
+          <br />
+          Cache: {publicSyncIssue.observed.cacheStatus || "not reported"} · Request: {publicSyncIssue.observed.requestId || "not reported"}
+        </div>
+      )}
       {/* Header */}
       <div
         style={{
