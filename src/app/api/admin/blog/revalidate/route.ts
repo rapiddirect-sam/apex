@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { isUserAdmin } from "@/lib/admin";
 import { verifyIdToken } from "@/lib/firebaseAdmin";
 
@@ -40,6 +40,12 @@ export async function POST(request: NextRequest) {
     const { slug, previousSlug } = await request.json();
     if (!isValidSlug(slug) || (previousSlug !== undefined && !isValidSlug(previousSlug))) {
       return NextResponse.json({ error: "Invalid blog slug" }, { status: 400 });
+    }
+
+    revalidateTag("blog-posts", { expire: 0 });
+    revalidateTag(`blog-post:${slug}`, { expire: 0 });
+    if (previousSlug && previousSlug !== slug) {
+      revalidateTag(`blog-post:${previousSlug}`, { expire: 0 });
     }
 
     revalidatePath("/blog");

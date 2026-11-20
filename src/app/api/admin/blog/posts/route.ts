@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { createPost, updatePost } from "@/lib/blog";
 import { isUserAdmin } from "@/lib/admin";
 import { verifyIdToken } from "@/lib/firebaseAdmin";
@@ -52,6 +52,14 @@ async function getAdminUser(request: NextRequest): Promise<{ email: string; uid:
 }
 
 function invalidateBlogRoutes(slug: string, previousSlug?: string) {
+  // Expire the explicit Supabase query caches before route regeneration.
+  // This prevents an invalidated static page from rebuilding with old data.
+  revalidateTag("blog-posts", { expire: 0 });
+  revalidateTag(`blog-post:${slug}`, { expire: 0 });
+  if (previousSlug && previousSlug !== slug) {
+    revalidateTag(`blog-post:${previousSlug}`, { expire: 0 });
+  }
+
   revalidatePath("/blog");
   revalidatePath("/sitemap.xml");
   revalidatePath("/blog/author/[slug]", "page");

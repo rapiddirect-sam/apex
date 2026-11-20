@@ -1,6 +1,6 @@
 "use client";
 
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, useEditorState } from "@tiptap/react";
 import { Node, mergeAttributes, type Editor } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
@@ -355,6 +355,44 @@ export function TiptapEditor({
     },
   });
 
+  // TipTap does not re-render React components for every transaction by
+  // default. Subscribe only to toolbar-relevant state so the active format
+  // indicator follows the cursor without re-rendering the full editor.
+  const toolbarState = useEditorState({
+    editor,
+    selector: ({ editor: currentEditor }) => {
+      if (!currentEditor) return null;
+
+      return {
+        bold: currentEditor.isActive("bold"),
+        italic: currentEditor.isActive("italic"),
+        strike: currentEditor.isActive("strike"),
+        code: currentEditor.isActive("code"),
+        heading1: currentEditor.isActive("heading", { level: 1 }),
+        heading2: currentEditor.isActive("heading", { level: 2 }),
+        heading3: currentEditor.isActive("heading", { level: 3 }),
+        bulletList: currentEditor.isActive("bulletList"),
+        orderedList: currentEditor.isActive("orderedList"),
+        blockquote: currentEditor.isActive("blockquote"),
+        codeBlock: currentEditor.isActive("codeBlock"),
+      };
+    },
+  });
+
+  const activeToolbarState = toolbarState ?? {
+    bold: false,
+    italic: false,
+    strike: false,
+    code: false,
+    heading1: false,
+    heading2: false,
+    heading3: false,
+    bulletList: false,
+    orderedList: false,
+    blockquote: false,
+    codeBlock: false,
+  };
+
   const closeImageModal = useCallback(() => {
     setShowImageModal(false);
     setPendingImageFile(null);
@@ -501,28 +539,28 @@ export function TiptapEditor({
       >
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleBold().run()}
-          isActive={editor.isActive("bold")}
+          isActive={activeToolbarState.bold}
           title="Bold"
         >
           <Bold size={18} />
         </ToolbarButton>
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleItalic().run()}
-          isActive={editor.isActive("italic")}
+          isActive={activeToolbarState.italic}
           title="Italic"
         >
           <Italic size={18} />
         </ToolbarButton>
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleStrike().run()}
-          isActive={editor.isActive("strike")}
+          isActive={activeToolbarState.strike}
           title="Strikethrough"
         >
           <Strikethrough size={18} />
         </ToolbarButton>
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleCode().run()}
-          isActive={editor.isActive("code")}
+          isActive={activeToolbarState.code}
           title="Inline Code"
         >
           <Code size={18} />
@@ -532,21 +570,21 @@ export function TiptapEditor({
 
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-          isActive={editor.isActive("heading", { level: 1 })}
+          isActive={activeToolbarState.heading1}
           title="Heading 1"
         >
           <Heading1 size={18} />
         </ToolbarButton>
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-          isActive={editor.isActive("heading", { level: 2 })}
+          isActive={activeToolbarState.heading2}
           title="Heading 2"
         >
           <Heading2 size={18} />
         </ToolbarButton>
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-          isActive={editor.isActive("heading", { level: 3 })}
+          isActive={activeToolbarState.heading3}
           title="Heading 3"
         >
           <Heading3 size={18} />
@@ -556,28 +594,28 @@ export function TiptapEditor({
 
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleBulletList().run()}
-          isActive={editor.isActive("bulletList")}
+          isActive={activeToolbarState.bulletList}
           title="Bullet List"
         >
           <List size={18} />
         </ToolbarButton>
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
-          isActive={editor.isActive("orderedList")}
+          isActive={activeToolbarState.orderedList}
           title="Ordered List"
         >
           <ListOrdered size={18} />
         </ToolbarButton>
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
-          isActive={editor.isActive("blockquote")}
+          isActive={activeToolbarState.blockquote}
           title="Blockquote"
         >
           <Quote size={18} />
         </ToolbarButton>
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-          isActive={editor.isActive("codeBlock")}
+          isActive={activeToolbarState.codeBlock}
           title="Code Block"
         >
           <Code2 size={18} />

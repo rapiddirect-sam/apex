@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ["framer-motion", "lucide-react"],
+    // Keep static pages fast, but avoid a five-minute browser router copy
+    // after an editor has saved an updated blog post.
+    staleTimes: {
+      static: 30,
+      dynamic: 0,
+    },
   },
   async redirects() {
     return [

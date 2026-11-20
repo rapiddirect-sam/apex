@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { TiptapEditor } from "./TiptapEditor";
 import { ImageUpload } from "./ImageUpload";
@@ -22,6 +22,10 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
   const [title, setTitle] = useState(post?.title || "");
   const [slug, setSlug] = useState(post?.slug || "");
   const [content, setContent] = useState(post?.content || "");
+  // Tiptap changes can arrive in the same browser task as a Save click. Keep
+  // the latest editor HTML outside React's asynchronous state queue so the
+  // submitted article always contains the exact visible editor content.
+  const latestContentRef = useRef(post?.content || "");
   const [excerpt, setExcerpt] = useState(post?.excerpt || "");
   const [featuredImage, setFeaturedImage] = useState(post?.featuredImage || "");
   const isScheduledPost = Boolean(post?.publishedAt && post.publishedAt > new Date());
@@ -42,6 +46,11 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
 
   const { user } = useAuth();
   const router = useRouter();
+
+  const handleContentChange = useCallback((nextContent: string) => {
+    latestContentRef.current = nextContent;
+    setContent(nextContent);
+  }, []);
 
   function toDateTimeLocal(value: Date): string {
     const offset = value.getTimezoneOffset();
@@ -81,7 +90,7 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
       const input: BlogPostInput = {
         title,
         slug,
-        content,
+        content: latestContentRef.current,
         excerpt,
         featuredImage,
         status: publishMode === "draft" ? "draft" : "published",
@@ -291,7 +300,7 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
             <label style={labelStyle}>Content</label>
             <TiptapEditor
               content={content}
-              onChange={setContent}
+              onChange={handleContentChange}
               postSlug={slug}
               placeholder="Write your blog post content..."
             />
