@@ -18,8 +18,8 @@ import { getBlogContentRevision } from "@/lib/blogContentRevision";
 // sanitization requires the Node.js runtime rather than an edge-compatible one.
 export const runtime = "nodejs";
 export const dynamicParams = true;
-// Explicit tag and route invalidation after an admin save normally makes an
-// edit available on the next request. This is the fallback refresh window.
+// Published articles remain ISR/static pages. The admin save flow invalidates
+// their exact route; this is only the fallback interval if a refresh is missed.
 export const revalidate = 30;
 
 interface BlogPostPageProps {

@@ -110,18 +110,10 @@ export async function getPostById(id: string): Promise<BlogPost | null> {
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
-  if (!isSupabaseConfigured || !supabase) {
-    console.warn("Supabase is not configured");
-    return null;
-  }
-
-  const getCachedPostRow = unstable_cache(
-    () => fetchPostBySlugRow(slug),
-    ["blog-post", slug],
-    { tags: [`blog-post:${slug}`], revalidate: 3600 }
-  );
-
-  const row = await getCachedPostRow();
+  // A published article must always reflect the latest saved CMS record.
+  // The detail route deliberately calls Supabase directly rather than adding
+  // another data-cache layer beneath its server-rendered HTML.
+  const row = await fetchPostBySlugRow(slug);
   return row ? rowToPost(row) : null;
 }
 

@@ -56,14 +56,9 @@ async function requireAdmin(idToken: string): Promise<AdminIdentity> {
 
 /** Rebuild every public route that can expose a post after expiring its data. */
 function refreshPublicBlogRoutes(slug: string, previousSlug?: string) {
-  // Invalidate the exact data entries before asking ISR routes to regenerate.
-  // Without this, a rebuilt static article can still receive an older cached
-  // Supabase response until the next deployment clears every cache.
+  // The archive, author pages, sitemap, and homepage still use the published
+  // posts cache. Article detail pages read their individual record directly.
   updateTag("blog-posts");
-  updateTag(`blog-post:${slug}`);
-  if (previousSlug && previousSlug !== slug) {
-    updateTag(`blog-post:${previousSlug}`);
-  }
 
   revalidatePath("/");
   revalidatePath("/blog");
