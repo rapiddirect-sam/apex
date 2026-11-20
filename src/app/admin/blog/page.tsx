@@ -47,7 +47,19 @@ export default function AdminBlogPage() {
         throw new Error("Your admin session has expired. Please sign in again.");
       }
 
-      await deleteBlogPostAction(id, await user.getIdToken(true));
+      const idToken = await user.getIdToken(true);
+      const deleted = await deleteBlogPostAction(id, idToken);
+      const refreshResponse = await fetch("/api/admin/blog/revalidate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`,
+        },
+        body: JSON.stringify({ slug: deleted.slug }),
+      });
+      if (!refreshResponse.ok) {
+        throw new Error("Post deleted, but public refresh failed.");
+      }
 
       setPosts((currentPosts) => currentPosts.filter((p) => p.id !== id));
     } catch (error) {

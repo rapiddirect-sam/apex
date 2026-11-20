@@ -1,6 +1,5 @@
 "use server";
 
-import { revalidatePath, updateTag } from "next/cache";
 import { createPost, deletePost, getAllPosts, getPostById, updatePost } from "@/lib/blog";
 import { isUserAdmin } from "@/lib/admin";
 import { verifyIdToken } from "@/lib/firebaseAdmin";
@@ -55,23 +54,6 @@ async function requireAdmin(idToken: string): Promise<AdminIdentity> {
   return user;
 }
 
-/** Rebuild every public route that can expose a post after expiring its data. */
-function refreshPublicBlogRoutes(slug: string, previousSlug?: string) {
-  // The archive, author pages, sitemap, and homepage still use the published
-  // posts cache. Article detail pages read their individual record directly.
-  updateTag("blog-posts");
-
-  revalidatePath("/");
-  revalidatePath("/blog");
-  revalidatePath("/sitemap.xml");
-  revalidatePath("/blog/author/[slug]", "page");
-  revalidatePath("/blog/[slug]", "page");
-  revalidatePath(`/blog/${slug}`);
-  if (previousSlug && previousSlug !== slug) {
-    revalidatePath(`/blog/${previousSlug}`);
-  }
-}
-
 export async function saveBlogPostAction(payload: SaveBlogPostPayload): Promise<{
   id: string;
   revision: string;
@@ -92,7 +74,6 @@ export async function saveBlogPostAction(payload: SaveBlogPostPayload): Promise<
     savedPost = await updatePost(postId, input);
   }
 
-  refreshPublicBlogRoutes(input.slug, previousSlug);
   return {
     id: savedPost.id,
     revision: savedPost.updatedAt,
@@ -111,11 +92,11 @@ export async function getAdminBlogPostAction(id: string, idToken: string): Promi
   return getPostById(id);
 }
 
-export async function deleteBlogPostAction(id: string, idToken: string): Promise<void> {
+export async function deleteBlogPostAction(id: string, idToken: string): Promise<{ slug: string }> {
   await requireAdmin(idToken);
   const post = await getPostById(id);
   if (!post) throw new Error("Post not found");
 
   await deletePost(id);
-  refreshPublicBlogRoutes(post.slug);
+  return { slug: post.slug };
 }

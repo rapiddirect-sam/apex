@@ -27,13 +27,6 @@ interface PublicRevisionCheck {
   requestId: string | null;
 }
 
-interface PublicSyncIssue {
-  expectedRevision: string;
-  expectedContentRevision: string;
-  expectedDeployment: string;
-  observed: PublicRevisionCheck;
-}
-
 export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
   const [title, setTitle] = useState(post?.title || "");
   const [slug, setSlug] = useState(post?.slug || "");
@@ -59,7 +52,6 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
   const [metaTitle, setMetaTitle] = useState(post?.metaTitle || "");
   const [metaDescription, setMetaDescription] = useState(post?.metaDescription || "");
   const [saving, setSaving] = useState(false);
-  const [publicSyncIssue, setPublicSyncIssue] = useState<PublicSyncIssue | null>(null);
   const [hasUnsavedContent, setHasUnsavedContent] = useState(false);
   const [autoSlug, setAutoSlug] = useState(!isEditing);
 
@@ -174,8 +166,6 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
     }
 
     setSaving(true);
-    setPublicSyncIssue(null);
-
     try {
       // Read the editor itself at the point of submission. This guarantees
       // that text, heading, image, table, and HTML-mode changes are saved
@@ -205,12 +195,27 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
         metaDescription: metaDescription || undefined,
       };
 
+      const idToken = await user.getIdToken(true);
       const result = await saveBlogPostAction({
         postId: isEditing ? post?.id : undefined,
         input,
         previousSlug: post?.slug,
-        idToken: await user.getIdToken(true),
+        idToken,
       });
+
+      const refreshResponse = await fetch("/api/admin/blog/revalidate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`,
+        },
+        body: JSON.stringify({ slug, previousSlug: post?.slug }),
+      });
+      if (!refreshResponse.ok) {
+        const body = (await refreshResponse.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(body?.error || "Article saved, but public refresh failed.");
+      }
+
       const savedRevision = {
         revision: result.revision,
         contentRevision: result.contentRevision,
@@ -226,13 +231,10 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
         shouldBePublic
       );
       if (!publicCheck.matches) {
-        setPublicSyncIssue({
-          expectedRevision: savedRevision.revision,
-          expectedContentRevision: savedRevision.contentRevision,
-          expectedDeployment: savedRevision.deployment,
-          observed: publicCheck,
+        console.warn("Article saved, but its public HTML has not regenerated yet.", {
+          savedRevision,
+          publicCheck,
         });
-        return;
       }
 
       router.push("/admin/blog");
@@ -265,29 +267,6 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      {publicSyncIssue && (
-        <div
-          role="alert"
-          style={{
-            marginBottom: "24px",
-            padding: "16px 18px",
-            border: "1px solid #B87B2F",
-            borderRadius: "8px",
-            background: "#3A2E1B",
-            color: "#FFE2A6",
-            fontSize: "14px",
-            lineHeight: 1.6,
-          }}
-        >
-          <strong>The article was saved, but the public HTML did not match this saved revision.</strong>
-          <br />
-          Saved: {publicSyncIssue.expectedRevision} · Public: {publicSyncIssue.observed.revision || "not found"}
-          <br />
-          Save deployment: {publicSyncIssue.expectedDeployment} · Public deployment: {publicSyncIssue.observed.deployment || "not found"}
-          <br />
-          Cache: {publicSyncIssue.observed.cacheStatus || "not reported"} · Request: {publicSyncIssue.observed.requestId || "not reported"}
-        </div>
-      )}
       {/* Header */}
       <div
         style={{
