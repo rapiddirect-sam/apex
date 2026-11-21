@@ -6,7 +6,8 @@ import { TiptapEditor, type TiptapEditorHandle } from "./TiptapEditor";
 import { ImageUpload } from "./ImageUpload";
 import { BlogPost, BlogPostInput, Category, Author } from "@/types/blog";
 import { generateSlug } from "@/lib/blog";
-import { saveBlogPostAction } from "@/app/admin/blog/actions";
+import { createBlogPostFromClient, updateBlogPostFromClient } from "@/lib/blogClient";
+import { setAuthSessionCookie } from "@/lib/authSessionCookie";
 import { getAllCategories } from "@/lib/categories";
 import { getAllAuthors } from "@/lib/authors";
 import { useAuth } from "@/contexts/AuthContext";
@@ -115,13 +116,30 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
         metaDescription: metaDescription || undefined,
       };
 
+      if (isEditing && post) {
+        await updateBlogPostFromClient(post.id, input);
+      } else {
+        await createBlogPostFromClient(input, user.uid, user.email || "");
+      }
+
+      // Preserve the Nov. 11 public-refresh boundary: refresh the token in
+      // the first-party cookie, then call the independent revalidation route
+      // only after Supabase has confirmed the write.
       const idToken = await user.getIdToken(true);
-      await saveBlogPostAction({
-        postId: isEditing ? post?.id : undefined,
-        input,
-        previousSlug: post?.slug,
-        idToken,
+      setAuthSessionCookie(idToken);
+      const refreshResponse = await fetch("/api/admin/blog/revalidate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug, previousSlug: post?.slug }),
       });
+
+      if (!refreshResponse.ok) {
+        // The database write has already completed. Preserve the original
+        // save behaviour and keep the editor usable if a transient refresh
+        // request fails; the failure remains visible to administrators in
+        // the browser console for diagnosis.
+        console.warn("Blog post saved, but public cache revalidation failed.");
+      }
 
       setHasUnsavedContent(false);
       router.push("/admin/blog");

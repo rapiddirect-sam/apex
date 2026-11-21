@@ -1,0 +1,67 @@
+import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import { revalidatePath, revalidateTag } from "next/cache";
+import { isUserAdmin } from "@/lib/admin";
+import { verifyIdToken } from "@/lib/firebaseAdmin";
+import { BLOG_POSTS_CACHE_TAG, getBlogPostCacheTag } from "@/lib/blog";
+
+export const runtime = "nodejs";
+
+const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+function isValidSlug(value: unknown): value is string {
+  return typeof value === "string" && SLUG_PATTERN.test(value);
+}
+
+async function getAdminEmail(): Promise<string | null> {
+  const sessionCookie = (await cookies()).get("auth-session");
+  if (!sessionCookie?.value) return null;
+
+  const token = await verifyIdToken(sessionCookie.value);
+  if (!token?.email || !(await isUserAdmin(token.email))) return null;
+
+  return token.email;
+}
+
+/**
+ * The intentionally separate public-cache refresh boundary used by the blog
+ * before the Nov. 20 save-flow changes. It runs only after Supabase confirms
+ * the editor's write.
+ */
+export async function POST(request: NextRequest) {
+  try {
+    if (!(await getAdminEmail())) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { slug, previousSlug } = await request.json();
+    if (!isValidSlug(slug) || (previousSlug !== undefined && !isValidSlug(previousSlug))) {
+      return NextResponse.json({ error: "Invalid blog slug" }, { status: 400 });
+    }
+
+    revalidateTag(BLOG_POSTS_CACHE_TAG, "default");
+    revalidateTag(getBlogPostCacheTag(slug), "default");
+    if (previousSlug && previousSlug !== slug) {
+      revalidateTag(getBlogPostCacheTag(previousSlug), "default");
+    }
+    revalidatePath("/");
+    revalidatePath("/blog");
+    revalidatePath("/sitemap.xml");
+    revalidatePath("/blog/author/[slug]", "page");
+    revalidatePath(`/blog/${slug}`);
+    if (previousSlug && previousSlug !== slug) {
+      revalidatePath(`/blog/${previousSlug}`);
+    }
+
+    return NextResponse.json(
+      { revalidated: true, slug },
+      { headers: { "Cache-Control": "no-store" } }
+    );
+  } catch (error) {
+    console.error("Blog cache revalidation failed:", error);
+    return NextResponse.json(
+      { error: "Failed to revalidate blog pages" },
+      { status: 500, headers: { "Cache-Control": "no-store" } }
+    );
+  }
+}

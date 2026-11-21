@@ -7,6 +7,7 @@ import { AdminLayout } from "@/components/admin/AdminLayout";
 import { BlogPost } from "@/types/blog";
 import { deleteBlogPostAction, getAdminBlogPostsAction } from "@/app/admin/blog/actions";
 import { useAuth } from "@/contexts/AuthContext";
+import { setAuthSessionCookie } from "@/lib/authSessionCookie";
 import { Plus, Edit, Trash2, Eye, FileText } from "lucide-react";
 
 function isScheduled(post: BlogPost): boolean {
@@ -48,7 +49,17 @@ export default function AdminBlogPage() {
       }
 
       const idToken = await user.getIdToken(true);
-      await deleteBlogPostAction(id, idToken);
+      const { slug } = await deleteBlogPostAction(id, idToken);
+      setAuthSessionCookie(idToken);
+
+      const refreshResponse = await fetch("/api/admin/blog/revalidate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug }),
+      });
+      if (!refreshResponse.ok) {
+        console.warn("Blog post deleted, but public cache revalidation failed.");
+      }
 
       setPosts((currentPosts) => currentPosts.filter((p) => p.id !== id));
     } catch (error) {
