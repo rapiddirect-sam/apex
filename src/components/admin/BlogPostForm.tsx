@@ -7,7 +7,6 @@ import { ImageUpload } from "./ImageUpload";
 import { BlogPost, BlogPostInput, Category, Author } from "@/types/blog";
 import { generateSlug } from "@/lib/blog";
 import { createBlogPostFromClient, updateBlogPostFromClient } from "@/lib/blogClient";
-import { checkBlogRenderAction } from "@/app/admin/blog/renderCheckAction";
 import { setAuthSessionCookie } from "@/lib/authSessionCookie";
 import { getAllCategories } from "@/lib/categories";
 import { getAllAuthors } from "@/lib/authors";
@@ -127,19 +126,10 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
         throw new Error("The saved content does not match the editor content.");
       }
 
-      const idToken = await user.getIdToken(true);
-      const renderCheck = await checkBlogRenderAction(slug, idToken);
-      if (renderCheck.updatedAt !== savedRevision.updatedAt) {
-        throw new Error("The server renderer did not read the saved article revision.");
-      }
-      if (publishMode === "now" && !renderCheck.isPublic) {
-        throw new Error("The saved article is not publicly available to the server renderer.");
-      }
-
       // Preserve the Nov. 11 public-refresh boundary: refresh the token in
       // the first-party cookie, then call the independent revalidation route
-      // only after Supabase has confirmed the write and server rendering has
-      // successfully processed that exact revision.
+      // only after Supabase has confirmed the write.
+      const idToken = await user.getIdToken(true);
       setAuthSessionCookie(idToken);
       const refreshResponse = await fetch("/api/admin/blog/revalidate", {
         method: "POST",
