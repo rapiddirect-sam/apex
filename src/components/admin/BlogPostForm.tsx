@@ -7,7 +7,7 @@ import { ImageUpload } from "./ImageUpload";
 import { BlogPost, BlogPostInput, Category, Author } from "@/types/blog";
 import { generateSlug } from "@/lib/blog";
 import { createBlogPostFromClient, updateBlogPostFromClient } from "@/lib/blogClient";
-import { checkBlogRenderAction } from "@/app/admin/blog/actions";
+import { checkBlogRenderAction } from "@/app/admin/blog/renderCheckAction";
 import { setAuthSessionCookie } from "@/lib/authSessionCookie";
 import { getAllCategories } from "@/lib/categories";
 import { getAllAuthors } from "@/lib/authors";
