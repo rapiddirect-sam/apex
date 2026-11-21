@@ -3,6 +3,11 @@ import { unstable_cache } from "next/cache";
 import { BlogPost, BlogPostInput } from "@/types/blog";
 
 const TABLE_NAME = "blog_posts";
+export const BLOG_POSTS_CACHE_TAG = "blog-posts";
+
+export function getBlogPostCacheTag(slug: string): string {
+  return `blog-post:${slug}`;
+}
 
 function rowToPost(row: Record<string, unknown>): BlogPost {
   return {
@@ -77,7 +82,7 @@ async function fetchPublishedPostRows(): Promise<Record<string, unknown>[]> {
 const getCachedPublishedPostRows = unstable_cache(
   fetchPublishedPostRows,
   ["blog-published-posts"],
-  { tags: ["blog-posts"], revalidate: 3600 }
+  { tags: [BLOG_POSTS_CACHE_TAG], revalidate: 3600 }
 );
 
 /** A scheduled post is stored as published with a future publication timestamp. */
@@ -110,10 +115,14 @@ export async function getPostById(id: string): Promise<BlogPost | null> {
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
-  // A published article must always reflect the latest saved CMS record.
-  // The detail route deliberately calls Supabase directly rather than adding
-  // another data-cache layer beneath its server-rendered HTML.
-  const row = await fetchPostBySlugRow(slug);
+  const row = await unstable_cache(
+    () => fetchPostBySlugRow(slug),
+    ["blog-post-by-slug", slug],
+    {
+      tags: [BLOG_POSTS_CACHE_TAG, getBlogPostCacheTag(slug)],
+      revalidate: 3600,
+    }
+  )();
   return row ? rowToPost(row) : null;
 }
 

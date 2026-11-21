@@ -1,10 +1,17 @@
 "use server";
 
-import { createPost, deletePost, getAllPosts, getPostById, updatePost } from "@/lib/blog";
+import {
+  BLOG_POSTS_CACHE_TAG,
+  createPost,
+  deletePost,
+  getAllPosts,
+  getBlogPostCacheTag,
+  getPostById,
+  updatePost,
+} from "@/lib/blog";
 import { isUserAdmin } from "@/lib/admin";
 import { verifyIdToken } from "@/lib/firebaseAdmin";
-import { getBlogContentRevision } from "@/lib/blogContentRevision";
-import { getRuntimeDeploymentMarker } from "@/lib/runtimeDeployment";
+import { revalidatePath, updateTag } from "next/cache";
 import type { BlogPost, BlogPostInput } from "@/types/blog";
 
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -56,9 +63,6 @@ async function requireAdmin(idToken: string): Promise<AdminIdentity> {
 
 export async function saveBlogPostAction(payload: SaveBlogPostPayload): Promise<{
   id: string;
-  revision: string;
-  contentRevision: string;
-  deployment: string;
 }> {
   const { postId, input, previousSlug, idToken } = payload;
   const admin = await requireAdmin(idToken);
@@ -74,11 +78,10 @@ export async function saveBlogPostAction(payload: SaveBlogPostPayload): Promise<
     savedPost = await updatePost(postId, input);
   }
 
+  invalidateBlogCache(input.slug, previousSlug);
+
   return {
     id: savedPost.id,
-    revision: savedPost.updatedAt,
-    contentRevision: getBlogContentRevision(savedPost.content),
-    deployment: getRuntimeDeploymentMarker(),
   };
 }
 
@@ -92,11 +95,32 @@ export async function getAdminBlogPostAction(id: string, idToken: string): Promi
   return getPostById(id);
 }
 
-export async function deleteBlogPostAction(id: string, idToken: string): Promise<{ slug: string }> {
+export async function deleteBlogPostAction(id: string, idToken: string): Promise<void> {
   await requireAdmin(idToken);
   const post = await getPostById(id);
   if (!post) throw new Error("Post not found");
 
   await deletePost(id);
-  return { slug: post.slug };
+  invalidateBlogCache(post.slug);
+}
+
+function invalidateBlogCache(slug: string, previousSlug?: string): void {
+  // updateTag is intentionally used from this Server Action rather than a
+  // client-triggered route handler: the next public request must wait for the
+  // latest article record instead of receiving stale-while-revalidate content.
+  updateTag(BLOG_POSTS_CACHE_TAG);
+  updateTag(getBlogPostCacheTag(slug));
+  if (previousSlug && previousSlug !== slug) {
+    updateTag(getBlogPostCacheTag(previousSlug));
+  }
+
+  revalidatePath("/");
+  revalidatePath("/blog");
+  revalidatePath("/sitemap.xml");
+  revalidatePath("/blog/author/[slug]", "page");
+  revalidatePath("/blog/[slug]", "page");
+  revalidatePath(`/blog/${slug}`);
+  if (previousSlug && previousSlug !== slug) {
+    revalidatePath(`/blog/${previousSlug}`);
+  }
 }

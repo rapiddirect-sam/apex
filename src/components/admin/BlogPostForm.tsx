@@ -18,15 +18,6 @@ interface BlogPostFormProps {
   isEditing?: boolean;
 }
 
-interface PublicRevisionCheck {
-  matches: boolean;
-  revision: string | null;
-  contentRevision: string | null;
-  deployment: string | null;
-  cacheStatus: string | null;
-  requestId: string | null;
-}
-
 export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
   const [title, setTitle] = useState(post?.title || "");
   const [slug, setSlug] = useState(post?.slug || "");
@@ -64,77 +55,6 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
     setContent(nextContent);
     setHasUnsavedContent(true);
   }, []);
-
-  const isPublicRevisionVisible = async (
-    expectedRevision: string,
-    expectedContentRevision: string
-  ): Promise<PublicRevisionCheck> => {
-    let latestCheck: PublicRevisionCheck = {
-      matches: false,
-      revision: null,
-      contentRevision: null,
-      deployment: null,
-      cacheStatus: null,
-      requestId: null,
-    };
-
-    for (let attempt = 0; attempt < 4; attempt += 1) {
-      const response = await fetch(
-        `/blog/${encodeURIComponent(slug)}`,
-        { cache: "no-store", headers: { "Cache-Control": "no-cache" } }
-      );
-      const html = await response.text();
-      const document = new DOMParser().parseFromString(html, "text/html");
-      const publicRevision = document
-        .querySelector('meta[name="apex-content-revision"]')
-        ?.getAttribute("content");
-      const publicContentRevision = document
-        .querySelector('meta[name="apex-content-signature"]')
-        ?.getAttribute("content");
-      latestCheck = {
-        matches:
-          response.ok &&
-          publicRevision === expectedRevision &&
-          publicContentRevision === expectedContentRevision,
-        revision: publicRevision || null,
-        contentRevision: publicContentRevision || null,
-        deployment: document
-          .querySelector('meta[name="apex-deployment"]')
-          ?.getAttribute("content") || null,
-        cacheStatus: response.headers.get("x-vercel-cache"),
-        requestId: response.headers.get("x-vercel-id"),
-      };
-      if (
-        latestCheck.matches
-      ) {
-        return latestCheck;
-      }
-
-      if (attempt < 3) {
-        await new Promise((resolve) => window.setTimeout(resolve, 750));
-      }
-    }
-
-    return latestCheck;
-  };
-
-  const confirmPublicRevision = async (
-    revision: string,
-    contentRevision: string,
-    shouldBePublic: boolean
-  ): Promise<PublicRevisionCheck> => {
-    if (!shouldBePublic) {
-      return {
-        matches: true,
-        revision: null,
-        contentRevision: null,
-        deployment: null,
-        cacheStatus: null,
-        requestId: null,
-      };
-    }
-    return isPublicRevisionVisible(revision, contentRevision);
-  };
 
   function toDateTimeLocal(value: Date): string {
     const offset = value.getTimezoneOffset();
@@ -196,47 +116,14 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
       };
 
       const idToken = await user.getIdToken(true);
-      const result = await saveBlogPostAction({
+      await saveBlogPostAction({
         postId: isEditing ? post?.id : undefined,
         input,
         previousSlug: post?.slug,
         idToken,
       });
 
-      const refreshResponse = await fetch("/api/admin/blog/revalidate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${idToken}`,
-        },
-        body: JSON.stringify({ slug, previousSlug: post?.slug }),
-      });
-      if (!refreshResponse.ok) {
-        const body = (await refreshResponse.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(body?.error || "Article saved, but public refresh failed.");
-      }
-
-      const savedRevision = {
-        revision: result.revision,
-        contentRevision: result.contentRevision,
-        deployment: result.deployment,
-      };
       setHasUnsavedContent(false);
-      const shouldBePublic = input.status === "published" &&
-        (!input.publishedAt || new Date(input.publishedAt) <= new Date());
-
-      const publicCheck = await confirmPublicRevision(
-        savedRevision.revision,
-        savedRevision.contentRevision,
-        shouldBePublic
-      );
-      if (!publicCheck.matches) {
-        console.warn("Article saved, but its public HTML has not regenerated yet.", {
-          savedRevision,
-          publicCheck,
-        });
-      }
-
       router.push("/admin/blog");
     } catch (error) {
       console.error("Error saving post:", error);

@@ -48,18 +48,7 @@ export default function AdminBlogPage() {
       }
 
       const idToken = await user.getIdToken(true);
-      const deleted = await deleteBlogPostAction(id, idToken);
-      const refreshResponse = await fetch("/api/admin/blog/revalidate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${idToken}`,
-        },
-        body: JSON.stringify({ slug: deleted.slug }),
-      });
-      if (!refreshResponse.ok) {
-        throw new Error("Post deleted, but public refresh failed.");
-      }
+      await deleteBlogPostAction(id, idToken);
 
       setPosts((currentPosts) => currentPosts.filter((p) => p.id !== id));
     } catch (error) {
