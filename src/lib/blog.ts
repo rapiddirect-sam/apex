@@ -115,14 +115,11 @@ export async function getPostById(id: string): Promise<BlogPost | null> {
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
-  const row = await unstable_cache(
-    () => fetchPostBySlugRow(slug),
-    ["blog-post-by-slug", slug],
-    {
-      tags: [BLOG_POSTS_CACHE_TAG, getBlogPostCacheTag(slug)],
-      revalidate: 3600,
-    }
-  )();
+  // Keep the individual article lookup compatible with ISR route rendering.
+  // The route itself is invalidated after an admin save; caching the archive
+  // separately still gives list, sitemap, and related-post queries a tagged
+  // dependency without wrapping the public detail render a second time.
+  const row = await fetchPostBySlugRow(slug);
   return row ? rowToPost(row) : null;
 }
 
