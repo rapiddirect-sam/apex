@@ -1,13 +1,7 @@
 import { supabase, isSupabaseConfigured } from "./supabase";
-import { unstable_cache } from "next/cache";
-import { BlogPost, BlogPostInput } from "@/types/blog";
+import { BlogPost } from "@/types/blog";
 
 const TABLE_NAME = "blog_posts";
-export const BLOG_POSTS_CACHE_TAG = "blog-posts";
-
-export function getBlogPostCacheTag(slug: string): string {
-  return `blog-post:${slug}`;
-}
 
 function rowToPost(row: Record<string, unknown>): BlogPost {
   return {
@@ -50,7 +44,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
 }
 
 export async function getPublishedPosts(): Promise<BlogPost[]> {
-  const rows = await getCachedPublishedPostRows();
+  const rows = await fetchPublishedPostRows();
   return rows.map(rowToPost);
 }
 
@@ -74,16 +68,6 @@ async function fetchPublishedPostRows(): Promise<Record<string, unknown>[]> {
 
   return (data || []) as Record<string, unknown>[];
 }
-
-// These are the explicit data dependencies of the static blog archive,
-// author pages, sitemap, and article pages. Admin saves invalidate these
-// tags before their routes regenerate, so a fresh static page cannot rebuild
-// from an older Supabase response.
-const getCachedPublishedPostRows = unstable_cache(
-  fetchPublishedPostRows,
-  ["blog-published-posts"],
-  { tags: [BLOG_POSTS_CACHE_TAG], revalidate: 3600 }
-);
 
 /** A scheduled post is stored as published with a future publication timestamp. */
 export function isPostPubliclyAvailable(post: BlogPost, now = new Date()): boolean {
@@ -115,16 +99,7 @@ export async function getPostById(id: string): Promise<BlogPost | null> {
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
-  // The save action invalidates this exact tag. Keeping the data dependency
-  // explicit ensures the affected ISR article cannot keep rebuilding from a
-  // stale row after a successful editor save.
-  const getCachedPostRow = unstable_cache(
-    () => fetchPostBySlugRow(slug),
-    ["blog-post", slug],
-    { tags: [getBlogPostCacheTag(slug)], revalidate: 3600 }
-  );
-
-  const row = await getCachedPostRow();
+  const row = await fetchPostBySlugRow(slug);
   return row ? rowToPost(row) : null;
 }
 
@@ -150,121 +125,6 @@ async function fetchPostBySlugRow(slug: string): Promise<Record<string, unknown>
   }
 
   return data ? (data as Record<string, unknown>) : null;
-}
-
-export interface SavedBlogPost {
-  id: string;
-  updatedAt: string;
-  content: string;
-}
-
-export async function createPost(
-  input: BlogPostInput,
-  authorId: string,
-  authorEmail: string
-): Promise<SavedBlogPost> {
-  if (!isSupabaseConfigured || !supabase) {
-    throw new Error("Supabase is not configured");
-  }
-
-  const now = new Date().toISOString();
-  const insertData = {
-    title: input.title,
-    slug: input.slug,
-    content: input.content,
-    excerpt: input.excerpt,
-    featured_image: input.featuredImage,
-    status: input.status,
-    category_id: input.categoryId || null,
-    author_ref: input.authorRef || null,
-    created_at: now,
-    updated_at: now,
-    published_at:
-      input.status === "published"
-        ? input.publishedAt || now
-        : null,
-    author_id: authorId,
-    author_email: authorEmail,
-    meta_title: input.metaTitle || null,
-    meta_description: input.metaDescription || null,
-  };
-
-  const { data, error } = await supabase
-    .from(TABLE_NAME)
-    .insert(insertData)
-    .select("id, updated_at, content")
-    .single();
-
-  if (error) {
-    console.error("Error creating post:", error);
-    throw error;
-  }
-
-  return {
-    id: data.id as string,
-    updatedAt: new Date(data.updated_at as string).toISOString(),
-    content: data.content as string,
-  };
-}
-
-export async function updatePost(id: string, input: Partial<BlogPostInput>): Promise<SavedBlogPost> {
-  if (!isSupabaseConfigured || !supabase) {
-    throw new Error("Supabase is not configured");
-  }
-
-  const updateData: Record<string, unknown> = {
-    updated_at: new Date().toISOString(),
-  };
-
-  if (input.title !== undefined) updateData.title = input.title;
-  if (input.slug !== undefined) updateData.slug = input.slug;
-  if (input.content !== undefined) updateData.content = input.content;
-  if (input.excerpt !== undefined) updateData.excerpt = input.excerpt;
-  if (input.featuredImage !== undefined) updateData.featured_image = input.featuredImage;
-  if (input.status !== undefined) updateData.status = input.status;
-  if (input.categoryId !== undefined) updateData.category_id = input.categoryId || null;
-  if (input.authorRef !== undefined) updateData.author_ref = input.authorRef || null;
-  if (input.metaTitle !== undefined) updateData.meta_title = input.metaTitle || null;
-  if (input.metaDescription !== undefined) updateData.meta_description = input.metaDescription || null;
-
-  if (input.publishedAt !== undefined) {
-    // `null` is an explicit "publish now" instruction from the admin form.
-    updateData.published_at = input.publishedAt || new Date().toISOString();
-  }
-
-  // If publishing for the first time without a selected schedule.
-  if (input.status === "published") {
-    const { data: existing } = await supabase
-      .from(TABLE_NAME)
-      .select("published_at")
-      .eq("id", id)
-      .single();
-
-    if (existing && !existing.published_at && input.publishedAt === undefined) {
-      updateData.published_at = new Date().toISOString();
-    }
-  }
-
-  const { data, error } = await supabase
-    .from(TABLE_NAME)
-    .update(updateData)
-    .eq("id", id)
-    .select("id, updated_at, content")
-    .single();
-
-  if (error) {
-    console.error("Error updating post:", error);
-    throw error;
-  }
-
-  // Return the row that the database actually stored. This prevents the
-  // editor from treating a client-side draft as saved until Supabase confirms
-  // the exact persisted body.
-  return {
-    id: data.id as string,
-    updatedAt: new Date(data.updated_at as string).toISOString(),
-    content: data.content as string,
-  };
 }
 
 export async function deletePost(id: string): Promise<void> {

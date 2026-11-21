@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { isUserAdmin } from "@/lib/admin";
 import { verifyIdToken } from "@/lib/firebaseAdmin";
-import { BLOG_POSTS_CACHE_TAG, getBlogPostCacheTag } from "@/lib/blog";
 
 export const runtime = "nodejs";
 
@@ -39,11 +38,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid blog slug" }, { status: 400 });
     }
 
-    revalidateTag(BLOG_POSTS_CACHE_TAG, "default");
-    revalidateTag(getBlogPostCacheTag(slug), "default");
-    if (previousSlug && previousSlug !== slug) {
-      revalidateTag(getBlogPostCacheTag(previousSlug), "default");
-    }
     revalidatePath("/");
     revalidatePath("/blog");
     revalidatePath("/sitemap.xml");
