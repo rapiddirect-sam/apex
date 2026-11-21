@@ -69,6 +69,10 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       "apex-content-revision": post.updatedAt.toISOString(),
       "apex-content-signature": getBlogContentRevision(post.content),
       "apex-deployment": getRuntimeDeploymentMarker(),
+      // Diagnostic-only: changes whenever this ISR page is rendered. It lets
+      // us distinguish a route that never regenerated from one that rendered
+      // again but was given an older data record.
+      "apex-rendered-at": new Date().toISOString(),
     },
   };
 }
