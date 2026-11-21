@@ -17,16 +17,22 @@ function isScheduled(post: BlogPost): boolean {
 export default function AdminBlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
   const { user } = useAuth();
 
   const loadPosts = useCallback(async () => {
     try {
       if (!user) return;
+      setLoading(true);
+      setLoadError(null);
       const data = await getAdminBlogPostsAction(await user.getIdToken(true));
       setPosts(data);
     } catch (error) {
       console.error("Error loading posts:", error);
+      setLoadError(
+        error instanceof Error ? error.message : "Unable to load blog posts."
+      );
     } finally {
       setLoading(false);
     }
@@ -118,6 +124,39 @@ export default function AdminBlogPage() {
           }}
         >
           Loading posts...
+        </div>
+      ) : loadError ? (
+        <div
+          style={{
+            padding: "48px",
+            textAlign: "center",
+            background: "#1a1a1a",
+            borderRadius: "12px",
+            border: "1px solid #7f4d0f",
+          }}
+        >
+          <FileText size={44} style={{ color: "#D09947", margin: "0 auto 16px" }} />
+          <h3 style={{ color: "#fff", fontSize: "18px", marginBottom: "8px" }}>
+            Posts could not be loaded
+          </h3>
+          <p style={{ color: "#C5C6C9", margin: "0 auto 20px", maxWidth: "560px" }}>
+            Your articles have not been removed. {loadError}
+          </p>
+          <button
+            type="button"
+            onClick={loadPosts}
+            style={{
+              padding: "10px 18px",
+              background: "#D09947",
+              color: "#000",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+              fontWeight: 600,
+            }}
+          >
+            Retry loading posts
+          </button>
         </div>
       ) : posts.length === 0 ? (
         <div

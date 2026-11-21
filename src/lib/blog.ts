@@ -26,8 +26,7 @@ function rowToPost(row: Record<string, unknown>): BlogPost {
 
 export async function getAllPosts(): Promise<BlogPost[]> {
   if (!isSupabaseConfigured || !supabase) {
-    console.warn("Supabase is not configured");
-    return [];
+    throw new Error("Blog storage is not configured");
   }
 
   const { data, error } = await supabase
@@ -37,7 +36,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
 
   if (error) {
     console.error("Error fetching all posts:", error);
-    return [];
+    throw new Error(`Unable to load blog posts: ${error.message}`);
   }
 
   return (data || []).map(rowToPost);
