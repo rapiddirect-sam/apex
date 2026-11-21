@@ -13,26 +13,14 @@ import { sanitizeBlogHtml } from "@/lib/sanitizeBlogHtml";
 import { getBlogContentRevision } from "@/lib/blogContentRevision";
 import { getRuntimeDeploymentMarker } from "@/lib/runtimeDeployment";
 
-// A post can be published after this route has first been visited as a draft.
-// Keep a cached 404 short-lived; the admin save flow also invalidates it immediately.
-// Newly published articles are generated on demand, and their server-side HTML
-// sanitization requires the Node.js runtime rather than an edge-compatible one.
+// Each article is rendered from the current Supabase record on request. This
+// keeps editor saves visible without depending on a background ISR rebuild,
+// while still delivering complete server-rendered HTML to visitors and bots.
 export const runtime = "nodejs";
-export const dynamicParams = true;
-// Published articles remain ISR/static pages. The admin save flow invalidates
-// their exact route; this is only the fallback interval if a refresh is missed.
-export const revalidate = 30;
+export const dynamic = "force-dynamic";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
-}
-
-// Generate static paths for all published posts
-export async function generateStaticParams() {
-  const posts = await getPublishedPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
 }
 
 // Generate metadata for SEO
