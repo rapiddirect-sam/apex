@@ -5,6 +5,11 @@ import type { BlogPostInput } from "@/types/blog";
 
 const TABLE_NAME = "blog_posts";
 
+export interface SavedBlogRevision {
+  updatedAt: string;
+  content: string;
+}
+
 /**
  * Browser-side blog mutations intentionally mirror the proven Nov. 11
  * publishing boundary: persist the article first, then ask the dedicated
@@ -14,37 +19,45 @@ export async function createBlogPostFromClient(
   input: BlogPostInput,
   authorId: string,
   authorEmail: string
-): Promise<void> {
+): Promise<SavedBlogRevision> {
   if (!isSupabaseConfigured || !supabase) {
     throw new Error("Supabase is not configured");
   }
 
   const now = new Date().toISOString();
-  const { error } = await supabase.from(TABLE_NAME).insert({
-    title: input.title,
-    slug: input.slug,
-    content: input.content,
-    excerpt: input.excerpt,
-    featured_image: input.featuredImage,
-    status: input.status,
-    category_id: input.categoryId || null,
-    author_ref: input.authorRef || null,
-    created_at: now,
-    updated_at: now,
-    published_at: input.status === "published" ? input.publishedAt || now : null,
-    author_id: authorId,
-    author_email: authorEmail,
-    meta_title: input.metaTitle || null,
-    meta_description: input.metaDescription || null,
-  });
+  const { data, error } = await supabase
+    .from(TABLE_NAME)
+    .insert({
+      title: input.title,
+      slug: input.slug,
+      content: input.content,
+      excerpt: input.excerpt,
+      featured_image: input.featuredImage,
+      status: input.status,
+      category_id: input.categoryId || null,
+      author_ref: input.authorRef || null,
+      created_at: now,
+      updated_at: now,
+      published_at: input.status === "published" ? input.publishedAt || now : null,
+      author_id: authorId,
+      author_email: authorEmail,
+      meta_title: input.metaTitle || null,
+      meta_description: input.metaDescription || null,
+    })
+    .select("updated_at, content")
+    .single();
 
   if (error) throw error;
+  return {
+    updatedAt: new Date(data.updated_at as string).toISOString(),
+    content: data.content as string,
+  };
 }
 
 export async function updateBlogPostFromClient(
   id: string,
   input: Partial<BlogPostInput>
-): Promise<void> {
+): Promise<SavedBlogRevision> {
   if (!isSupabaseConfigured || !supabase) {
     throw new Error("Supabase is not configured");
   }
@@ -81,6 +94,15 @@ export async function updateBlogPostFromClient(
     }
   }
 
-  const { error } = await supabase.from(TABLE_NAME).update(updateData).eq("id", id);
+  const { data, error } = await supabase
+    .from(TABLE_NAME)
+    .update(updateData)
+    .eq("id", id)
+    .select("updated_at, content")
+    .single();
   if (error) throw error;
+  return {
+    updatedAt: new Date(data.updated_at as string).toISOString(),
+    content: data.content as string,
+  };
 }

@@ -7,6 +7,7 @@ import { ImageUpload } from "./ImageUpload";
 import { BlogPost, BlogPostInput, Category, Author } from "@/types/blog";
 import { generateSlug } from "@/lib/blog";
 import { createBlogPostFromClient, updateBlogPostFromClient } from "@/lib/blogClient";
+import { checkBlogRenderAction } from "@/app/admin/blog/actions";
 import { setAuthSessionCookie } from "@/lib/authSessionCookie";
 import { getAllCategories } from "@/lib/categories";
 import { getAllAuthors } from "@/lib/authors";
@@ -87,6 +88,7 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
     }
 
     setSaving(true);
+    let persisted = false;
     try {
       // Read the editor itself at the point of submission. This guarantees
       // that text, heading, image, table, and HTML-mode changes are saved
@@ -116,16 +118,28 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
         metaDescription: metaDescription || undefined,
       };
 
-      if (isEditing && post) {
-        await updateBlogPostFromClient(post.id, input);
-      } else {
-        await createBlogPostFromClient(input, user.uid, user.email || "");
+      const savedRevision = isEditing && post
+        ? await updateBlogPostFromClient(post.id, input)
+        : await createBlogPostFromClient(input, user.uid, user.email || "");
+      persisted = true;
+
+      if (savedRevision.content !== currentContent) {
+        throw new Error("The saved content does not match the editor content.");
+      }
+
+      const idToken = await user.getIdToken(true);
+      const renderCheck = await checkBlogRenderAction(slug, idToken);
+      if (renderCheck.updatedAt !== savedRevision.updatedAt) {
+        throw new Error("The server renderer did not read the saved article revision.");
+      }
+      if (publishMode === "now" && !renderCheck.isPublic) {
+        throw new Error("The saved article is not publicly available to the server renderer.");
       }
 
       // Preserve the Nov. 11 public-refresh boundary: refresh the token in
       // the first-party cookie, then call the independent revalidation route
-      // only after Supabase has confirmed the write.
-      const idToken = await user.getIdToken(true);
+      // only after Supabase has confirmed the write and server rendering has
+      // successfully processed that exact revision.
       setAuthSessionCookie(idToken);
       const refreshResponse = await fetch("/api/admin/blog/revalidate", {
         method: "POST",
@@ -134,18 +148,20 @@ export function BlogPostForm({ post, isEditing = false }: BlogPostFormProps) {
       });
 
       if (!refreshResponse.ok) {
-        // The database write has already completed. Preserve the original
-        // save behaviour and keep the editor usable if a transient refresh
-        // request fails; the failure remains visible to administrators in
-        // the browser console for diagnosis.
-        console.warn("Blog post saved, but public cache revalidation failed.");
+        const result = (await refreshResponse.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(result?.error || `Public refresh failed (${refreshResponse.status}).`);
       }
 
       setHasUnsavedContent(false);
       router.push("/admin/blog");
     } catch (error) {
       console.error("Error saving post:", error);
-      alert("Failed to save post. Please try again.");
+      const message = error instanceof Error ? error.message : "Unknown error";
+      alert(
+        persisted
+          ? `Article saved, but verification or public refresh failed: ${message}`
+          : `Failed to save post: ${message}`
+      );
     } finally {
       setSaving(false);
     }

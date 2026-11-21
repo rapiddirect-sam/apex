@@ -38,10 +38,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid blog slug" }, { status: 400 });
     }
 
-    revalidatePath("/");
     revalidatePath("/blog");
     revalidatePath("/sitemap.xml");
-    revalidatePath("/blog/author/[slug]", "page");
     revalidatePath(`/blog/${slug}`);
     if (previousSlug && previousSlug !== slug) {
       revalidatePath(`/blog/${previousSlug}`);
