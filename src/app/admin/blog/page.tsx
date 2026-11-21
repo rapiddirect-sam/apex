@@ -26,8 +26,13 @@ export default function AdminBlogPage() {
       if (!user) return;
       setLoading(true);
       setLoadError(null);
-      const data = await getAdminBlogPostsAction(await user.getIdToken(true));
-      setPosts(data);
+      const result = await getAdminBlogPostsAction(await user.getIdToken(true));
+      if (!result.ok) {
+        setPosts([]);
+        setLoadError(result.message);
+        return;
+      }
+      setPosts(result.posts);
     } catch (error) {
       console.error("Error loading posts:", error);
       setLoadError(
