@@ -17,7 +17,7 @@ const DEFAULTS = {
     {
       name: "Powder Coating",
       materials: "Steel, aluminum and suitable sheet-metal parts",
-      options: "RAL and Pantone color systems, with selectable gloss and texture. Commonly used for custom-color enclosures, panels, and protective covers.",
+      options: "RAL and Pantone color systems, with selectable gloss and texture. Suitable for custom-color sheet metal enclosures, panels, protective covers, and outdoor-adjacent equipment covers.",
       performance: "Typically 60–100 μm coating thickness, Class 0 adhesion and salt-spray performance above 500 h where specified.",
       requirements: "Color, gloss, texture, masking and coating clearance.",
       image: "/images/surface-finishing/protective-coatings/surface-finishing-powder-coating.webp",
@@ -49,7 +49,7 @@ const DEFAULTS = {
     {
       name: "E-Coating",
       materials: "Suitable steel and metal assemblies",
-      options: "Black and gray are common options. Commonly used for steel brackets, frames, and recessed formed parts.",
+      options: "Black and gray are common options. Useful for fabricated steel brackets, frames, and parts with recesses or complex formed geometry.",
       performance: "Typically 15–25 μm coating thickness and salt-spray performance above 240 h where specified.",
       requirements: "Pretreatment, coating system, test method and coating coverage requirements.",
       image: "/images/surface-finishing/plating-treatments/surface-finishing-electrophoresis.webp",
@@ -57,7 +57,7 @@ const DEFAULTS = {
     {
       name: "Plating",
       materials: "Suitable steel, copper alloys and project-specific metals",
-      options: "White zinc, blue zinc, black zinc, color zinc and nickel finishes. Commonly used for hardware, conductive surfaces, and corrosion-protected components.",
+      options: "White zinc, blue zinc, black zinc, color zinc and nickel finishes. Commonly used for hardware, conductive contact surfaces, and corrosion-protected metal components.",
       performance: "Typical salt-spray references exceed 72 h for white zinc and 96 h for blue zinc, where specified.",
       requirements: "Base material, coating type, thickness, corrosion target and post-treatment requirements.",
       image: "/images/surface-finishing/plating-treatments/electroplating-surface-finishing-service.webp",
@@ -127,6 +127,18 @@ export function SMSurfaceFinishes() {
                   </p>
                   <p style={{ fontSize: "14px", lineHeight: 1.6, color: "#C5C6C9" }}>
                     <EditableText path={`finishes.items.${index}.options`} defaultValue={finish.options} multiline />
+                    {finish.name === "Powder Coating" && (
+                      <>
+                        {" "}See our{" "}
+                        <Link
+                          href="/blog/can-you-powder-coat-aluminum"
+                          className="body-text-link body-text-link--dark"
+                        >
+                          powder-coated aluminum design guide
+                        </Link>{" "}
+                        for outdoor exposure and assembly.
+                      </>
+                    )}
                   </p>
                 </div>
 
@@ -155,7 +167,7 @@ export function SMSurfaceFinishes() {
           <p><EditableText path="finishes.scopeNote" defaultValue={DEFAULTS.scopeNote} multiline /></p>
         </div>
         <div className="mt-6 flex justify-center">
-          <Link href="/surface-finish" className="body-text-link body-text-link--dark inline-flex items-center gap-2 text-sm">
+          <Link href="/surface-finishing" className="body-text-link body-text-link--dark inline-flex items-center gap-2 text-sm">
             Explore Surface Finishing Services
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>

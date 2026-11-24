@@ -6,7 +6,8 @@ import Link from "next/link";
 import { EditableText, EditableImage } from "@/components/cms";
 
 const DEFAULTS = {
-  backgroundImage: "/quality/apexbatch-cnc-machining-workshop-with-operators.webp",
+  backgroundImage:
+    "/images/services/aluminum-extrusion/custom-aluminum-extrusion-profiles-production.avif",
   heading: "Ready to Review Your ",
   headingHighlight: "Extrusion Design?",
   headingSuffix: "",

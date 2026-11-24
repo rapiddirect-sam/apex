@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import Link from "next/link";
@@ -139,7 +139,6 @@ function Metric({ index, delay }: { index: number; delay: number }) {
 
 export function Home3Facilities() {
   const workshopRailRef = useRef<HTMLDivElement>(null);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const scrollWorkshops = (direction: "previous" | "next") => {
     const rail = workshopRailRef.current;
@@ -281,53 +280,45 @@ export function Home3Facilities() {
             </motion.div>
           </div>
 
-          {/* Right - Video only loads its YouTube player after the visitor chooses to play. */}
+          {/* Right - Open YouTube in its full player so Google verification never
+              interrupts the on-page experience. */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="relative aspect-[16/10] overflow-hidden rounded-xl border border-[#D09947]/30 bg-[#111] shadow-[0_18px_50px_rgba(0,0,0,0.2)] sm:aspect-video"
           >
-            {isVideoPlaying ? (
-              <iframe
-                className="absolute inset-0 h-full w-full"
-                src="https://www.youtube-nocookie.com/embed/9vJZ_bi4mts?autoplay=1&rel=0"
-                title="From Raw Material to Finished Parts"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
+            <a
+              href="https://www.youtube.com/watch?v=9vJZ_bi4mts"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Watch From Raw Material to Finished Parts on YouTube"
+              className="group absolute inset-0 block h-full w-full overflow-hidden text-left"
+            >
+              {/* A direct image avoids a Next image-optimizer request and the
+                  linked player avoids YouTube's embedded sign-in challenge. */}
+              <img
+                src="https://i.ytimg.com/vi/9vJZ_bi4mts/hqdefault.jpg"
+                alt="Video preview: From Raw Material to Finished Parts"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               />
-            ) : (
-              <button
-                type="button"
-                onClick={() => setIsVideoPlaying(true)}
-                aria-label="Play From Raw Material to Finished Parts video"
-                className="group absolute inset-0 block h-full w-full overflow-hidden text-left"
-              >
-                {/* A direct image avoids a Next image-optimizer request for this
-                    third-party thumbnail; the actual YouTube player is still lazy. */}
-                <img
-                  src="https://i.ytimg.com/vi/9vJZ_bi4mts/hqdefault.jpg"
-                  alt="Video preview: From Raw Material to Finished Parts"
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
-                <span className="absolute left-4 top-3 rounded-full border border-white/30 bg-black/35 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#F6D277] backdrop-blur-sm sm:left-5 sm:top-5 sm:px-3 sm:py-1.5 sm:text-xs sm:tracking-[0.12em]">
-                  ApexBatch project journey
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
+              <span className="absolute left-4 top-3 rounded-full border border-white/30 bg-black/35 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#F6D277] backdrop-blur-sm sm:left-5 sm:top-5 sm:px-3 sm:py-1.5 sm:text-xs sm:tracking-[0.12em]">
+                ApexBatch project journey
+              </span>
+              <span className="absolute inset-0 flex items-center justify-center">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full border border-[#F6D277]/70 bg-[#D09947]/90 text-black shadow-lg transition-transform duration-200 group-hover:scale-110 sm:h-16 sm:w-16">
+                  <Play className="ml-1 h-6 w-6 fill-current sm:h-7 sm:w-7" aria-hidden="true" />
                 </span>
-                <span className="absolute inset-0 flex items-center justify-center">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full border border-[#F6D277]/70 bg-[#D09947]/90 text-black shadow-lg transition-transform duration-200 group-hover:scale-110 sm:h-16 sm:w-16">
-                    <Play className="ml-1 h-6 w-6 fill-current sm:h-7 sm:w-7" aria-hidden="true" />
-                  </span>
+              </span>
+              <span className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+                <span className="block text-lg font-bold leading-tight text-white sm:text-2xl">From Raw Material to Finished Parts</span>
+                <span className="mt-1.5 block max-w-xl line-clamp-2 text-[13px] leading-5 text-white/85 sm:mt-2 sm:line-clamp-none sm:text-[15px] sm:leading-relaxed">
+                  From fast quotes and engineering support to machining, inspection, and final delivery.
                 </span>
-                <span className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
-                  <span className="block text-lg font-bold leading-tight text-white sm:text-2xl">From Raw Material to Finished Parts</span>
-                  <span className="mt-1.5 block max-w-xl line-clamp-2 text-[13px] leading-5 text-white/85 sm:mt-2 sm:line-clamp-none sm:text-[15px] sm:leading-relaxed">
-                    From fast quotes and engineering support to machining, inspection, and final delivery.
-                  </span>
-                </span>
-              </button>
-            )}
+              </span>
+            </a>
           </motion.div>
         </div>
 

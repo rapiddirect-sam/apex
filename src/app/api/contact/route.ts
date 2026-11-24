@@ -166,7 +166,7 @@ export async function POST(request: NextRequest) {
     // Send email to ApexBatch team
     const { data, error } = await resend.emails.send({
       from: "ApexBatch Quotes <quotes@apexbatch.com>",
-      to: ["info@apexbatch.com"], // Your receiving email
+      to: ["info@apexbatch.com", "fehling.p@apexbatch.com"],
       replyTo: email,
       subject: `New Quote Request: ${businessNeeds}${companyName ? ` - ${companyName}` : ` from ${firstName}`}`,
       attachments: attachments.length > 0 ? attachments.map(att => ({

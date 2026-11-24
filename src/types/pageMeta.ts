@@ -90,9 +90,9 @@ export const DEFAULT_PAGE_META: Record<string, { title: string; description: str
     title: "Custom Sheet Metal Bending Services | CNC Press Brake Forming",
     description: "Custom sheet metal bending services for prototypes, low-volume orders, and repeat production. CNC press brake forming in steel, stainless steel, aluminum, copper, and brass.",
   },
-  "/surface-finish": {
-    title: "Surface Finishing Services - ApexBatch Manufacturing",
-    description: "Comprehensive surface finishing services including anodizing, powder coating, plating, painting, and polishing for all materials.",
+  "/surface-finishing": {
+    title: "Surface Finishing Services for Custom Parts | ApexBatch",
+    description: "Custom surface finishing services for production parts. Compare surface treatments, processes and finishing options for corrosion, wear, appearance and function.",
   },
   "/materials": {
     title: "Manufacturing Materials for CNC, Molding & Sheet Metal | ApexBatch",

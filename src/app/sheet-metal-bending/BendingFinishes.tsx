@@ -185,6 +185,18 @@ export function BendingFinishes() {
                     defaultValue={finish.confirm}
                     multiline
                   />
+                  {finish.name === "Powder Coating" && (
+                    <>
+                      {" "}Learn more from our{" "}
+                      <Link
+                        href="/blog/can-you-powder-coat-aluminum"
+                        className="body-text-link body-text-link--dark"
+                      >
+                        powder-coated aluminum design guide
+                      </Link>
+                      .
+                    </>
+                  )}
                 </Detail>
               </div>
             </motion.div>

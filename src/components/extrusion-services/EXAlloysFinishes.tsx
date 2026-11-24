@@ -252,6 +252,18 @@ export function EXAlloysFinishes() {
                     multiline
                   />
                 </p>
+                {finish.name === "Powder Coating" && (
+                  <p className="service-support-copy mt-4 border-t border-white/10 pt-4">
+                    See{" "}
+                    <Link
+                      href="/blog/can-you-powder-coat-aluminum"
+                      className="body-text-link body-text-link--dark"
+                    >
+                      specification guidance
+                    </Link>{" "}
+                    for outdoor exposure and assembly.
+                  </p>
+                )}
               </div>
             </motion.article>
           ))}
