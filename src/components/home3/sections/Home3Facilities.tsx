@@ -289,23 +289,23 @@ export function Home3Facilities() {
             className="relative aspect-[16/10] overflow-hidden rounded-xl border border-[#D09947]/30 bg-[#111] shadow-[0_18px_50px_rgba(0,0,0,0.2)] sm:aspect-video"
           >
             <a
-              href="https://www.youtube.com/watch?v=9vJZ_bi4mts"
+              href="https://youtu.be/0b34E5Uz3EI?si=2UHFGrbgbvYeShze"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Watch From Raw Material to Finished Parts on YouTube"
+              aria-label="Watch the ApexBatch manufacturing overview video"
               className="group absolute inset-0 block h-full w-full overflow-hidden text-left"
             >
               {/* A direct image avoids a Next image-optimizer request and the
                   linked player avoids YouTube's embedded sign-in challenge. */}
               <img
-                src="https://i.ytimg.com/vi/9vJZ_bi4mts/hqdefault.jpg"
-                alt="Video preview: From Raw Material to Finished Parts"
+                src="/images/home/apexbatch-cnc-milling-in-process-machining.webp"
+                alt="CNC milling in progress at the ApexBatch manufacturing facility"
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/10" />
               <span className="absolute left-4 top-3 rounded-full border border-white/30 bg-black/35 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#F6D277] backdrop-blur-sm sm:left-5 sm:top-5 sm:px-3 sm:py-1.5 sm:text-xs sm:tracking-[0.12em]">
-                ApexBatch project journey
+                ApexBatch manufacturing overview
               </span>
               <span className="absolute inset-0 flex items-center justify-center">
                 <span className="flex h-14 w-14 items-center justify-center rounded-full border border-[#F6D277]/70 bg-[#D09947]/90 text-black shadow-lg transition-transform duration-200 group-hover:scale-110 sm:h-16 sm:w-16">
@@ -313,9 +313,9 @@ export function Home3Facilities() {
                 </span>
               </span>
               <span className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
-                <span className="block text-lg font-bold leading-tight text-white sm:text-2xl">From Raw Material to Finished Parts</span>
+                <span className="block text-lg font-bold leading-tight text-white sm:text-2xl">From Factory Floor to Finished Parts</span>
                 <span className="mt-1.5 block max-w-xl line-clamp-2 text-[13px] leading-5 text-white/85 sm:mt-2 sm:line-clamp-none sm:text-[15px] sm:leading-relaxed">
-                  From fast quotes and engineering support to machining, inspection, and final delivery.
+                  Explore our facilities, manufacturing services, and the custom parts we deliver.
                 </span>
               </span>
             </a>

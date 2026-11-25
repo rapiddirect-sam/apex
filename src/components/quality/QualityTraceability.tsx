@@ -72,7 +72,7 @@ export function QualityTraceability() {
           <p className="body-copy mt-5">
             <EditableText
               path="traceability.intro"
-              defaultValue="Our quality management system supports 100% traceability across the material, production, inspection and shipment records defined for each controlled production program."
+              defaultValue="For each controlled production program, our unified digital system permanently retains project requirements and material, production, inspection, and shipment records—supporting 100% traceability for repeat orders, quality reviews, and engineering changes."
               multiline
             />
           </p>

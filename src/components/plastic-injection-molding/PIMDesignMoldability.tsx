@@ -43,6 +43,12 @@ const DEFAULTS = {
       "Down to ±0.05 mm for agreed critical features",
       "Influenced by resin shrinkage, geometry, tooling, and inspection method.",
     ],
+    [
+      "Maximum Molded Part Size",
+      "Confirm early for large structural parts",
+      "An 800-ton injection molding press supports larger structural components that require higher clamping force.",
+      "Maximum molded part size: 1000 × 800 × 500 mm.",
+    ],
   ],
   note:
     "Critical dimensions should be assigned where they affect fit, sealing, movement, or assembly—not across every feature.",

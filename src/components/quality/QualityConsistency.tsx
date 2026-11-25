@@ -16,8 +16,8 @@ const CONTROLS = [
   {
     title: "PDCA and Corrective Action",
     subtitle: "Closed-loop control of deviations and process performance",
-    image: "/quality/apexbatch-quality-engineer-reviewing-corrective-action-process.avif",
-    alt: "ApexBatch quality engineers reviewing the corrective action process",
+    image: "/quality/apexbatch-handheld-spectrometer-alloy-inspection.avif",
+    alt: "ApexBatch quality engineer using a handheld spectrometer to verify alloy composition of machined parts",
     items: ["Nonconforming parts are recorded, identified and isolated.", "Root causes and corrective actions are managed through the PDCA cycle.", "Effectiveness is verified before closure and application to repeat production.", "Key quality indicators are reviewed monthly to identify trends and improve process stability."],
   },
   {

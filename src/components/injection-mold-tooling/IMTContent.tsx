@@ -107,8 +107,8 @@ const DEFAULTS = {
   steelTestingPrefix: "Where tensile performance is part of the requirement, ",
   steelTestingMiddle: " is a common reference for tensile testing of plastics. Where impact performance matters, ",
   steelTestingSuffix: " may be relevant. Test methods, sample preparation, conditioning, and acceptance limits should be agreed for the actual material and application.",
-  moldStructureHeading: "Mold Structure: Core, Cavity, Runners, Cooling, and ",
-  moldStructureHighlight: "Ejection",
+  moldStructureHeading: "Mold Structure and Runner ",
+  moldStructureHighlight: "Systems",
   coreCavity: {
     title: "Core and Cavity",
     paragraphs: [
@@ -122,6 +122,17 @@ const DEFAULTS = {
       "Cooling channels remove heat from the tool after injection. Cooling design affects cycle time, warpage, shrinkage, dimensional stability, and surface consistency.",
       "Parts with thick-to-thin wall transitions, long flow paths, high cosmetic requirements, or tight dimensional features require early cooling review. Uneven cooling can increase distortion, sink risk, and variation between cycles.",
     ],
+  },
+  moldTypes: {
+    title: "Two-Plate and Three-Plate Mold Structures",
+    twoPlate: {
+      label: "Two-Plate Mold",
+      description: "Two-plate molds are the most common mold structure, with the mold opening at a main parting line. They are often used with direct gates, edge gates, and many cold-runner layouts.",
+    },
+    threePlate: {
+      label: "Three-Plate Mold",
+      description: "Three-plate molds add a separate runner plate, allowing the runner and gate to separate automatically from the molded parts during mold opening. They can support pin gates and gate locations away from the main parting line, but add tooling complexity, travel, maintenance, and cost.",
+    },
   },
   runners: {
     title: "Cold Runners, Hot Runners, and Gates",
@@ -439,6 +450,27 @@ export function IMTContent() {
               return <article key={system.title} className="border border-white/10 bg-[#1A1918] p-6 sm:p-7"><h3 className="flex items-center gap-3 text-xl font-semibold text-white sm:text-2xl"><Icon className="h-5 w-5 shrink-0 text-[#EEC569]" aria-hidden="true" /><EditableText path={`tooling.${index === 0 ? "coreCavity" : "cooling"}.title`} defaultValue={system.title} /></h3><div className="mt-5 space-y-4 text-[15px] leading-relaxed text-[#D8D4CF]">{system.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraph}><EditableText path={`tooling.${index === 0 ? "coreCavity" : "cooling"}.paragraphs.${paragraphIndex}`} defaultValue={paragraph} multiline /></p>)}</div></article>;
             })}
           </div>
+          <article className="mt-5 border border-white/10 bg-[#1A1918] p-6 sm:p-7">
+            <h3 className="flex items-center gap-3 text-xl font-semibold text-white sm:text-2xl">
+              <Box className="h-5 w-5 shrink-0 text-[#EEC569]" aria-hidden="true" />
+              <EditableText path="tooling.moldTypes.title" defaultValue={DEFAULTS.moldTypes.title} />
+            </h3>
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {[
+                DEFAULTS.moldTypes.twoPlate,
+                DEFAULTS.moldTypes.threePlate,
+              ].map((moldType, index) => (
+                <div key={moldType.label} className="border border-white/10 bg-black/20 p-5">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]">
+                    <EditableText path={`tooling.moldTypes.${index === 0 ? "twoPlate" : "threePlate"}.label`} defaultValue={moldType.label} />
+                  </p>
+                  <p className="mt-3 text-[15px] leading-relaxed text-[#E5E1DC]">
+                    <EditableText path={`tooling.moldTypes.${index === 0 ? "twoPlate" : "threePlate"}.description`} defaultValue={moldType.description} multiline />
+                  </p>
+                </div>
+              ))}
+            </div>
+          </article>
           <article className="mt-5 border border-white/10 bg-[#1A1918] p-6 sm:p-7"><h3 className="flex items-center gap-3 text-xl font-semibold text-white sm:text-2xl"><GitFork className="h-5 w-5 shrink-0 text-[#EEC569]" aria-hidden="true" /><EditableText path="tooling.runners.title" defaultValue={DEFAULTS.runners.title} /></h3><p className="mt-5 max-w-4xl text-[15px] leading-relaxed text-[#D8D4CF]"><EditableText path="tooling.runners.description" defaultValue={DEFAULTS.runners.description} multiline /></p><div className="mt-6 grid gap-4 md:grid-cols-2"><div className="border border-white/10 bg-black/20 p-5"><p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]">Cold runner</p><p className="mt-3 text-[15px] leading-relaxed text-[#E5E1DC]"><EditableText path="tooling.runners.coldRunner" defaultValue={DEFAULTS.runners.coldRunner} multiline /></p></div><div className="border border-white/10 bg-black/20 p-5"><p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]">Hot runner</p><p className="mt-3 text-[15px] leading-relaxed text-[#E5E1DC]"><EditableText path="tooling.runners.hotRunner" defaultValue={DEFAULTS.runners.hotRunner} multiline /></p></div></div><p className="mt-7 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]">Common gate directions</p><div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{DEFAULTS.runners.gates.map(([title, description], index) => <div key={title} className="border border-white/10 px-4 py-4"><p className="text-sm font-semibold text-white"><EditableText path={`tooling.runners.gates.${index}.title`} defaultValue={title} /></p><p className="mt-2 text-sm leading-relaxed text-[#C5C1BD]"><EditableText path={`tooling.runners.gates.${index}.description`} defaultValue={description} multiline /></p></div>)}</div><p className="mt-6 border-t border-white/10 pt-6 text-[15px] leading-relaxed text-[#D8D4CF]"><EditableText path="tooling.runners.note" defaultValue={DEFAULTS.runners.note} multiline /></p></article>
           <article className="mt-5 border border-white/10 bg-[#1A1918] p-6 sm:p-7"><h3 className="text-xl font-semibold text-white sm:text-2xl">Venting and Ejection</h3><div className="mt-6 grid gap-6 md:grid-cols-2"><div><p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]"><Wind className="h-4 w-4" aria-hidden="true" /><EditableText path="tooling.venting.title" defaultValue={DEFAULTS.venting.title} /></p><p className="mt-3 text-[15px] leading-relaxed text-[#D8D4CF]"><EditableText path="tooling.venting.description" defaultValue={DEFAULTS.venting.description} multiline /></p></div><div className="border-t border-white/10 pt-6 md:border-l md:border-t-0 md:pl-6 md:pt-0"><p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#EEC569]"><ArrowUpFromLine className="h-4 w-4" aria-hidden="true" /><EditableText path="tooling.ejection.title" defaultValue={DEFAULTS.ejection.title} /></p><p className="mt-3 text-[15px] leading-relaxed text-[#D8D4CF]"><EditableText path="tooling.ejection.description" defaultValue={DEFAULTS.ejection.description} multiline /></p></div></div></article>
         </div>

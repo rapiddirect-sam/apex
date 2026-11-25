@@ -26,7 +26,7 @@ const DEFAULTS = {
   images: [
     { src: "/injection-molding/apexbatch-plastic-injection-molding-production-line.avif", alt: "ApexBatch plastic injection molding production line" },
     { src: "/injection-molding/apexbatch-custom-injection-molding-manufacturing-facilities.avif", alt: "ApexBatch custom injection molding manufacturing facilities" },
-    { src: "/injection-molding/apexbatch-injection-molded-part-height-gauge-inspection.webp", alt: "Height-gauge inspection of an injection molded part" },
+    { src: "/injection-molding/apexbatch-precision-component-height-gauge-inspection.webp", alt: "Height-gauge inspection of a precision component against an approved drawing" },
   ],
   stats: [
     { value: "98%", label: "On-time Delivery" },
