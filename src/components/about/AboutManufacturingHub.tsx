@@ -163,7 +163,7 @@ function WorkshopCard({
                   <EditableImage
                     path={view.path}
                     defaultSrc={view.src}
-                    alt=""
+                    alt={view.alt}
                     fill
                     sizes="56px"
                     className="object-cover"

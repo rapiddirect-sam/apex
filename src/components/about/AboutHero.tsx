@@ -43,7 +43,7 @@ export function AboutHero() {
         <EditableImage
           path="hero.backgroundImage"
           defaultSrc={DEFAULTS.backgroundImage}
-          alt=""
+          alt="ApexBatch CNC machining production floor with an operator"
           style={{
             width: "100%",
             height: "100%",

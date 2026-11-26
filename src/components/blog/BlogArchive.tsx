@@ -78,7 +78,7 @@ export function BlogArchive({ posts, categories }: BlogArchiveProps) {
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
           <Image
             src={getImageUrl("home/3-our-services-cnc-machining.webp")}
-            alt=""
+            alt="ApexBatch CNC machining workshop"
             fill
             sizes="100vw"
             style={{ objectFit: "cover" }}
