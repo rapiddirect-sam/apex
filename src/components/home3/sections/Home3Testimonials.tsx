@@ -34,10 +34,11 @@ export function Home3Testimonials() {
     <section className="relative overflow-hidden bg-[#171615] py-16 sm:py-20 lg:py-24">
       <Image
         src="/images/home/apexbatch-global-network-map.avif"
-        alt="ApexBatch global manufacturing network map"
+        alt=""
         fill
         sizes="100vw"
         className="pointer-events-none object-cover opacity-[0.38] brightness-[1.7] invert"
+        aria-hidden="true"
       />
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         <motion.div
