@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
+import { useState } from "react";
 import { EditableImage, EditableText } from "@/components/cms";
 
 const DEFAULTS = {
@@ -42,6 +43,7 @@ const DEFAULTS = {
 };
 
 export function CNCSupplier() {
+  const [isCncVideoPlaying, setIsCncVideoPlaying] = useState(false);
   return (
     <section
       className="relative overflow-hidden"
@@ -119,38 +121,51 @@ export function CNCSupplier() {
         </div>
 
         <div className="mt-12 grid grid-cols-1 items-stretch gap-6 lg:mt-16 lg:grid-cols-[minmax(0,1.25fr)_minmax(360px,0.75fr)] lg:gap-8">
-          <motion.a
-            href="https://www.youtube.com/watch?v=9vJZ_bi4mts"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Watch CNC Machining: From Material to Finished Parts on YouTube"
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="group relative aspect-video overflow-hidden rounded-xl border border-[#D09947]/30 bg-[#111] shadow-[0_18px_50px_rgba(0,0,0,0.35)]"
+            className="relative aspect-video overflow-hidden rounded-xl border border-[#D09947]/30 bg-[#111] shadow-[0_18px_50px_rgba(0,0,0,0.35)]"
           >
-            <img
-              src="https://i.ytimg.com/vi/9vJZ_bi4mts/hqdefault.jpg"
-              alt="Video preview: CNC machining from material to finished parts"
-              loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/10" />
-            <span className="absolute left-4 top-3 rounded-full border border-white/30 bg-black/35 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#F6D277] backdrop-blur-sm sm:left-5 sm:top-5 sm:px-3 sm:py-1.5 sm:text-xs sm:tracking-[0.12em]">
-              CNC machining process
-            </span>
-            <span className="absolute inset-0 flex items-center justify-center">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full border border-[#F6D277]/70 bg-[#D09947]/90 text-black shadow-lg transition-transform duration-200 group-hover:scale-110 sm:h-16 sm:w-16">
-                <Play className="ml-1 h-6 w-6 fill-current sm:h-7 sm:w-7" aria-hidden="true" />
-              </span>
-            </span>
-            <span className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
-              <span className="block text-lg font-bold leading-tight text-white sm:text-2xl">CNC Machining: From Material to Finished Parts</span>
-              <span className="mt-1.5 block max-w-xl text-[13px] leading-5 text-white/85 sm:mt-2 sm:text-[15px] sm:leading-relaxed">
-                From material preparation and machine setup to machining, inspection, and final delivery.
-              </span>
-            </span>
-          </motion.a>
+            {isCncVideoPlaying ? (
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/9vJZ_bi4mts?autoplay=1&rel=0&modestbranding=1"
+                title="CNC Machining: From Material to Finished Parts"
+                className="absolute inset-0 h-full w-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            ) : (
+              <button
+                type="button"
+                onClick={() => setIsCncVideoPlaying(true)}
+                aria-label="Watch CNC Machining: From Material to Finished Parts"
+                className="group absolute inset-0 block h-full w-full overflow-hidden text-left"
+              >
+                <img
+                  src="https://i.ytimg.com/vi/9vJZ_bi4mts/hqdefault.jpg"
+                  alt="Video preview: CNC machining from material to finished parts"
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/10" />
+                <span className="absolute left-4 top-3 rounded-full border border-white/30 bg-black/35 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#F6D277] backdrop-blur-sm sm:left-5 sm:top-5 sm:px-3 sm:py-1.5 sm:text-xs sm:tracking-[0.12em]">
+                  CNC machining process
+                </span>
+                <span className="absolute inset-0 flex items-center justify-center">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full border border-[#F6D277]/70 bg-[#D09947]/90 text-black shadow-lg transition-transform duration-200 group-hover:scale-110 sm:h-16 sm:w-16">
+                    <Play className="ml-1 h-6 w-6 fill-current sm:h-7 sm:w-7" aria-hidden="true" />
+                  </span>
+                </span>
+                <span className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+                  <span className="block text-lg font-bold leading-tight text-white sm:text-2xl">CNC Machining: From Material to Finished Parts</span>
+                  <span className="mt-1.5 block max-w-xl text-[13px] leading-5 text-white/85 sm:mt-2 sm:text-[15px] sm:leading-relaxed">
+                    From material preparation and machine setup to machining, inspection, and final delivery.
+                  </span>
+                </span>
+              </button>
+            )}
+          </motion.div>
 
           <div className="grid grid-cols-2 gap-4">
             {DEFAULTS.stats.map((stat, index) => (
