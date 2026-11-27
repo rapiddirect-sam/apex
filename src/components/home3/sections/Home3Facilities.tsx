@@ -280,8 +280,8 @@ export function Home3Facilities() {
             </motion.div>
           </div>
 
-          {/* Right - Open YouTube in its full player so Google verification never
-              interrupts the on-page experience. */}
+          {/* Right - Open YouTube in its full player so verification does not
+              interrupt the on-page experience. */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -313,7 +313,7 @@ export function Home3Facilities() {
                 </span>
               </span>
               <span className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
-                <span className="block text-lg font-bold leading-tight text-white sm:text-2xl">From Factory Floor to Finished Parts</span>
+                <span className="block text-lg font-bold leading-tight text-white sm:text-2xl">Multiple Manufacturing Processes. One Partner.</span>
                 <span className="mt-1.5 block max-w-xl line-clamp-2 text-[13px] leading-5 text-white/85 sm:mt-2 sm:line-clamp-none sm:text-[15px] sm:leading-relaxed">
                   Explore our facilities, manufacturing services, and the custom parts we deliver.
                 </span>

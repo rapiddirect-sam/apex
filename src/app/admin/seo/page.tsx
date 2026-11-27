@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { AdminLayout } from "@/components/admin/AdminLayout";
-import { getAllPageMeta, upsertPageMeta } from "@/lib/pageMeta";
-import { PageMeta, DEFAULT_PAGE_META } from "@/types/pageMeta";
+import { getAllPageMeta } from "@/lib/pageMeta";
+import { DEFAULT_PAGE_META } from "@/types/pageMeta";
 import { Save, RefreshCw } from "lucide-react";
 
 interface PageMetaForm {
@@ -75,11 +75,16 @@ export default function SEOSettingsPage() {
     );
 
     try {
-      await upsertPageMeta({
-        pageSlug: form.pageSlug,
-        metaTitle: form.metaTitle,
-        metaDescription: form.metaDescription,
+      const response = await fetch("/api/admin/page-meta", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          pageSlug: form.pageSlug,
+          metaTitle: form.metaTitle,
+          metaDescription: form.metaDescription,
+        }),
       });
+      if (!response.ok) throw new Error("Failed to save page metadata");
 
       setForms((prev) =>
         prev.map((f, i) => (i === index ? { ...f, isSaving: false, isDirty: false } : f))
@@ -98,13 +103,18 @@ export default function SEOSettingsPage() {
     try {
       const dirtyForms = forms.filter((f) => f.isDirty);
       await Promise.all(
-        dirtyForms.map((form) =>
-          upsertPageMeta({
+        dirtyForms.map(async (form) => {
+          const response = await fetch("/api/admin/page-meta", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
             pageSlug: form.pageSlug,
             metaTitle: form.metaTitle,
             metaDescription: form.metaDescription,
-          })
-        )
+            }),
+          });
+          if (!response.ok) throw new Error("Failed to save page metadata");
+        })
       );
 
       setForms((prev) => prev.map((f) => ({ ...f, isDirty: false })));
@@ -118,7 +128,6 @@ export default function SEOSettingsPage() {
   };
 
   const resetToDefault = (index: number) => {
-    const form = forms[index];
     setForms((prev) =>
       prev.map((f, i) =>
         i === index

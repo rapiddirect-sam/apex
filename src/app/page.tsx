@@ -10,6 +10,7 @@ import {
   HOME_HERO_RETIRED_SOURCES,
 } from "@/lib/heroImageDefaults";
 import { resolveHeroImageSource } from "@/lib/heroImageSource";
+import { VideoStructuredData } from "@/components/seo/VideoStructuredData";
 import { HomePageClient } from "./HomePageClient";
 
 // Refresh the homepage resource cards regularly as new published articles become available.
@@ -17,11 +18,32 @@ export const revalidate = 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   const meta = await getPageMetaWithDefaults("/");
+  const shareImage = "/quality/apexbatch-cnc-machining-workshop-with-operators.webp";
+
   return {
     title: meta.title,
     description: meta.description,
     alternates: {
       canonical: "/",
+    },
+    openGraph: {
+      type: "website",
+      url: "/",
+      title: meta.title,
+      description: meta.description,
+      siteName: "ApexBatch",
+      images: [
+        {
+          url: shareImage,
+          alt: "ApexBatch CNC machining workshop with operators",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: meta.title,
+      description: meta.description,
+      images: [shareImage],
     },
   };
 }
@@ -62,6 +84,14 @@ export default async function Home() {
 
   return (
     <>
+      <VideoStructuredData
+        pagePath="/"
+        videoId="0b34E5Uz3EI"
+        name="Multiple Manufacturing Processes. One Partner: ApexBatch"
+        description="Explore ApexBatch facilities, manufacturing services, and the custom parts we deliver."
+        thumbnailUrl="https://apexbatch.com/images/home/apexbatch-cnc-milling-in-process-machining.webp"
+        uploadDate="2026-11-07"
+      />
       <link
         rel="preload"
         as="image"

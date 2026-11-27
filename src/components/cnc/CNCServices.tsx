@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { EditableText, EditableImage } from "@/components/cms";
 
@@ -127,23 +128,16 @@ export function CNCServices() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="https://app.apexbatch.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block mt-6 border transition-colors duration-200 hover:bg-[#E8C97A] hover:text-[#1A1A1A]"
-                  style={{
-                    padding: "12px 22px",
-                    background: "transparent",
-                    borderColor: "#E8C97A",
-                    color: "#E8C97A",
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    textDecoration: "none",
-                  }}
+                <Link
+                  href={index === 0 ? "/cnc-milling" : "/cnc-turning"}
+                  className="body-text-link body-text-link--dark mt-6 inline-flex items-center gap-2 text-sm"
                 >
-                  Start Your Project
-                </a>
+                  Explore More
+                  <ArrowRight
+                    aria-hidden="true"
+                    className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                  />
+                </Link>
               </div>
             </motion.div>
           ))}

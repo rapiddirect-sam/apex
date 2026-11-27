@@ -15,8 +15,8 @@ export interface PageMetaInput {
 // Default meta values for each page
 export const DEFAULT_PAGE_META: Record<string, { title: string; description: string }> = {
   "/": {
-    title: "Precision Batch Manufacturing & Automation | ApexBatch",
-    description: "ApexBatch delivers precision batch manufacturing—from CNC machining and sheet metal fabrication to molding, finishing, assembly and inspection—for pilot builds and repeat production.",
+    title: "Precision Manufacturing for Prototypes & Production | ApexBatch",
+    description: "ApexBatch provides precision CNC machining, sheet metal fabrication, molding, finishing and inspection for prototypes, pilot builds, low-volume runs and repeat production.",
   },
   "/about": {
     title: "About ApexBatch | Production Engineering & Scalable Manufacturing",
